@@ -8,6 +8,8 @@
 
 Utility functions for creating Minecraft Bedrock Add-Ons.
 
+Documentation: https://mcaddon.readthedocs.io/
+
 ## Installation
 
 Install the module with pip:
