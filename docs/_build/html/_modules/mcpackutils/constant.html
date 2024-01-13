@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>mcpackutils.constant &mdash; mcpackutils 0.0.1 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=92fd9be5" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=19f00094" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../../_static/documentation_options.js?v=d45e8c67"></script>
+        <script src="../../_static/doctools.js?v=888ff710"></script>
+        <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            mcpackutils
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <!-- Local TOC -->
+              <div class="local-toc"></div>
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">mcpackutils</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">mcpackutils.constant</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for mcpackutils.constant</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">enum</span> <span class="kn">import</span> <span class="n">Enum</span>
+
+<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;ModuleType&#39;</span><span class="p">,</span><span class="s1">&#39;Category&#39;</span><span class="p">,</span> <span class="s1">&#39;RenderMethod&#39;</span><span class="p">,</span><span class="s1">&#39;EventTarget&#39;</span><span class="p">,</span> <span class="s1">&#39;UseAnimation&#39;</span><span class="p">,</span> <span class="s1">&#39;RecipeTag&#39;</span><span class="p">,</span><span class="s1">&#39;Color&#39;</span><span class="p">]</span>
+
+<div class="viewcode-block" id="ModuleType">
+<a class="viewcode-back" href="../../mcpackutils.html#mcpackutils.constant.ModuleType">[docs]</a>
+<span class="k">class</span> <span class="nc">ModuleType</span><span class="p">(</span><span class="n">Enum</span><span class="p">):</span>
+    <span class="n">RESOURCES</span><span class="o">=</span><span class="s1">&#39;resources&#39;</span>
+    <span class="n">DATA</span><span class="o">=</span><span class="s1">&#39;data&#39;</span>
+    <span class="n">CLIENT_DATA</span><span class="o">=</span><span class="s1">&#39;client_data&#39;</span>
+    <span class="n">INTERFACE</span><span class="o">=</span><span class="s1">&#39;interface&#39;</span>
+    <span class="n">WORLD_TEMPLATE</span><span class="o">=</span><span class="s1">&#39;world_template&#39;</span></div>
+
+
+<div class="viewcode-block" id="Category">
+<a class="viewcode-back" href="../../mcpackutils.html#mcpackutils.constant.Category">[docs]</a>
+<span class="k">class</span> <span class="nc">Category</span><span class="p">(</span><span class="n">Enum</span><span class="p">):</span> <span class="c1"># https://github.com/legopitstop/JSON-Schemas/blob/6381dc2087908b4956985530b78ef2c03999863e/schemas/bedrock/common.json#L357-L367</span>
+    <span class="n">COMMANDS</span><span class="o">=</span><span class="s1">&#39;commands&#39;</span>
+    <span class="n">CONSTRUCTION</span><span class="o">=</span><span class="s1">&#39;construction&#39;</span>
+    <span class="n">EQUIPMENT</span><span class="o">=</span><span class="s1">&#39;equipment&#39;</span>
+    <span class="n">ITEMS</span><span class="o">=</span><span class="s1">&#39;items&#39;</span>
+    <span class="n">NATURE</span><span class="o">=</span><span class="s1">&#39;nature&#39;</span>
+    <span class="n">NONE</span><span class="o">=</span><span class="s1">&#39;none&#39;</span></div>
+
+
+<div class="viewcode-block" id="RenderMethod">
+<a class="viewcode-back" href="../../mcpackutils.html#mcpackutils.constant.RenderMethod">[docs]</a>
+<span class="k">class</span> <span class="nc">RenderMethod</span><span class="p">(</span><span class="n">Enum</span><span class="p">):</span> <span class="c1"># https://github.com/legopitstop/JSON-Schemas/blob/6381dc2087908b4956985530b78ef2c03999863e/schemas/bedrock/behavior/block.json#L33-L36</span>
+    <span class="n">OPAQUE</span><span class="o">=</span><span class="s1">&#39;opaque&#39;</span>
+    <span class="n">DOUBLE_SIDED</span><span class="o">=</span><span class="s1">&#39;double_sided&#39;</span>
+    <span class="n">BLEND</span><span class="o">=</span><span class="s1">&#39;blend&#39;</span>
+    <span class="n">ALPHA_TEST</span><span class="o">=</span><span class="s1">&#39;alpha_test&#39;</span></div>
+
+
+<div class="viewcode-block" id="EventTarget">
+<a class="viewcode-back" href="../../mcpackutils.html#mcpackutils.constant.EventTarget">[docs]</a>
+<span class="k">class</span> <span class="nc">EventTarget</span><span class="p">(</span><span class="n">Enum</span><span class="p">):</span> <span class="c1"># https://github.com/legopitstop/JSON-Schemas/blob/6381dc2087908b4956985530b78ef2c03999863e/schemas/bedrock/common.json#L373-L382</span>
+    <span class="n">SELF</span><span class="o">=</span><span class="s1">&#39;self&#39;</span>
+    <span class="n">HOLDER</span><span class="o">=</span><span class="s1">&#39;holder&#39;</span>
+    <span class="n">BABY</span><span class="o">=</span><span class="s1">&#39;baby&#39;</span>
+    <span class="n">OTHER</span><span class="o">=</span><span class="s1">&#39;other&#39;</span>
+    <span class="n">PLAYER</span><span class="o">=</span><span class="s1">&#39;player&#39;</span>
+    <span class="n">TARGET</span><span class="o">=</span><span class="s1">&#39;target&#39;</span>
+    <span class="n">PARENT</span><span class="o">=</span><span class="s1">&#39;parent&#39;</span>
+    <span class="n">BLOCK</span><span class="o">=</span><span class="s1">&#39;block&#39;</span>
+    <span class="n">DAMAGER</span><span class="o">=</span><span class="s1">&#39;damager&#39;</span>
+    <span class="n">ITEM</span><span class="o">=</span><span class="s1">&#39;item&#39;</span></div>
+
+
+<div class="viewcode-block" id="UseAnimation">
+<a class="viewcode-back" href="../../mcpackutils.html#mcpackutils.constant.UseAnimation">[docs]</a>
+<span class="k">class</span> <span class="nc">UseAnimation</span><span class="p">(</span><span class="n">Enum</span><span class="p">):</span> <span class="c1"># https://github.com/legopitstop/JSON-Schemas/blob/6381dc2087908b4956985530b78ef2c03999863e/schemas/bedrock/common.json#L420-L422</span>
+    <span class="n">EAT</span><span class="o">=</span><span class="s1">&#39;eat&#39;</span>
+    <span class="n">DRINK</span><span class="o">=</span><span class="s1">&#39;drink&#39;</span>
+    <span class="n">CAMERA</span><span class="o">=</span><span class="s1">&#39;camera&#39;</span></div>
+
+
+<div class="viewcode-block" id="RecipeTag">
+<a class="viewcode-back" href="../../mcpackutils.html#mcpackutils.constant.RecipeTag">[docs]</a>
+<span class="k">class</span> <span class="nc">RecipeTag</span><span class="p">(</span><span class="n">Enum</span><span class="p">):</span> <span class="c1"># https://github.com/legopitstop/JSON-Schemas/blob/6381dc2087908b4956985530b78ef2c03999863e/schemas/bedrock/common.json#L429-L436</span>
+    <span class="n">FURNACE</span><span class="o">=</span><span class="s1">&#39;furnace&#39;</span>
+    <span class="n">SMOKER</span><span class="o">=</span><span class="s1">&#39;smoker&#39;</span>
+    <span class="n">CAMPFIRE</span><span class="o">=</span><span class="s1">&#39;campfire&#39;</span>
+    <span class="n">SOUL_CAMPFIRE</span><span class="o">=</span><span class="s1">&#39;soul_campfire&#39;</span>
+    <span class="n">CRAFTING_TABLE</span><span class="o">=</span><span class="s1">&#39;crafting_table&#39;</span>
+    <span class="n">BREWING_STAND</span><span class="o">=</span><span class="s1">&#39;brewing_stand&#39;</span>
+    <span class="n">STONECUTTER</span><span class="o">=</span><span class="s1">&#39;stonecutter&#39;</span>
+    <span class="n">SMITHING_TABLE</span><span class="o">=</span><span class="s1">&#39;smithing_table&#39;</span></div>
+
+
+<span class="k">class</span> <span class="nc">BlockFace</span><span class="p">(</span><span class="n">Enum</span><span class="p">):</span> <span class="c1"># https://github.com/legopitstop/JSON-Schemas/blob/6381dc2087908b4956985530b78ef2c03999863e/schemas/bedrock/behavior/block.json#L48-L55</span>
+    <span class="n">UP</span><span class="o">=</span><span class="s1">&#39;up&#39;</span>
+    <span class="n">DOWN</span><span class="o">=</span><span class="s1">&#39;down&#39;</span>
+    <span class="n">NORTH</span><span class="o">=</span><span class="s1">&#39;north&#39;</span>
+    <span class="n">SOUTH</span><span class="o">=</span><span class="s1">&#39;south&#39;</span>
+    <span class="n">EAST</span><span class="o">=</span><span class="s1">&#39;east&#39;</span>
+    <span class="n">WEST</span><span class="o">=</span><span class="s1">&#39;west&#39;</span>
+    <span class="n">SIDE</span><span class="o">=</span><span class="s1">&#39;side&#39;</span>
+    <span class="n">ALL</span><span class="o">=</span><span class="s1">&#39;all&#39;</span>
+
+<div class="viewcode-block" id="Color">
+<a class="viewcode-back" href="../../mcpackutils.html#mcpackutils.constant.Color">[docs]</a>
+<span class="k">class</span> <span class="nc">Color</span><span class="p">(</span><span class="n">Enum</span><span class="p">):</span>
+    <span class="n">WHITE</span><span class="o">=</span><span class="s1">&#39;white&#39;</span>
+    <span class="n">LIGHT_GRAY</span><span class="o">=</span><span class="s1">&#39;light_gray&#39;</span>
+    <span class="n">GRAY</span><span class="o">=</span><span class="s1">&#39;gray&#39;</span>
+    <span class="n">BLACK</span><span class="o">=</span><span class="s1">&#39;black&#39;</span>
+    <span class="n">BROWN</span><span class="o">=</span><span class="s1">&#39;brown&#39;</span>
+    <span class="n">RED</span><span class="o">=</span><span class="s1">&#39;red&#39;</span>
+    <span class="n">ORANGE</span><span class="o">=</span><span class="s1">&#39;orange&#39;</span>
+    <span class="n">YELLOW</span><span class="o">=</span><span class="s1">&#39;yellow&#39;</span>
+    <span class="n">LIME</span><span class="o">=</span><span class="s1">&#39;lime&#39;</span>
+    <span class="n">GREEN</span><span class="o">=</span><span class="s1">&#39;green&#39;</span>
+    <span class="n">CYAN</span><span class="o">=</span><span class="s1">&#39;cyan&#39;</span>
+    <span class="n">LIGHT_BLUE</span><span class="o">=</span><span class="s1">&#39;light_blue&#39;</span>
+    <span class="n">BLUE</span><span class="o">=</span><span class="s1">&#39;blue&#39;</span>
+    <span class="n">PURPLE</span><span class="o">=</span><span class="s1">&#39;purple&#39;</span>
+    <span class="n">MAGENTA</span><span class="o">=</span><span class="s1">&#39;magenta&#39;</span>
+    <span class="n">PINK</span><span class="o">=</span><span class="s1">&#39;pink&#39;</span></div>
+
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Legopitstop.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

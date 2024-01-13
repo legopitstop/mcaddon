@@ -1,0 +1,1500 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>mcaddon &mdash; mcpackutils 0.0.1 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=92fd9be5" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=19f00094" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="_static/jquery.js?v=5d32c60e"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="_static/documentation_options.js?v=d45e8c67"></script>
+        <script src="_static/doctools.js?v=888ff710"></script>
+        <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="mcaddon package" href="mcaddon.html" />
+    <link rel="prev" title="Welcome to mcpackutils’s documentation!" href="index.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            mcpackutils
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">mcaddon</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="mcaddon.html">mcaddon package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="setup.html">setup module</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">mcpackutils</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">mcaddon</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/modules.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="mcaddon">
+<h1>mcaddon<a class="headerlink" href="#mcaddon" title="Link to this heading"></a></h1>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="mcaddon.html">mcaddon package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="mcaddon.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mcaddon.html#module-mcaddon.addon">mcaddon.addon module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mcaddon.html#module-mcaddon.animation">mcaddon.animation module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mcaddon.html#module-mcaddon.biome">mcaddon.biome module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mcaddon.html#module-mcaddon.block">mcaddon.block module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="mcaddon.html#mcaddon.block.ActiveState"><code class="docutils literal notranslate"><span class="pre">ActiveState</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.block.ActiveState.id"><code class="docutils literal notranslate"><span class="pre">ActiveState.id</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="mcaddon.html#mcaddon.block.AgeBitState"><code class="docutils literal notranslate"><span class="pre">AgeBitState</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.block.AgeBitState.id"><code class="docutils literal notranslate"><span class="pre">AgeBitState.id</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="mcaddon.html#mcaddon.block.AgeState"><code class="docutils literal notranslate"><span class="pre">AgeState</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.block.AgeState.id"><code class="docutils literal notranslate"><span class="pre">AgeState.id</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="mcaddon.html#mcaddon.block.AllowUnderwaterBitState"><code class="docutils literal notranslate"><span class="pre">AllowUnderwaterBitState</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.block.AllowUnderwaterBitState.id"><code class="docutils literal notranslate"><span class="pre">AllowUnderwaterBitState.id</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="mcaddon.html#mcaddon.block.AttachedBitState"><code class="docutils literal notranslate"><span class="pre">AttachedBitState</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.block.AttachedBitState.id"><code class="docutils literal notranslate"><span class="pre">AttachedBitState.id</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="mcaddon.html#mcaddon.block.AttachmentState"><code class="docutils literal notranslate"><span class="pre">AttachmentState</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.block.AttachmentState.id"><code class="docutils literal notranslate"><span class="pre">AttachmentState.id</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="mcaddon.html#mcaddon.block.BambooLeafSizeState"><code class="docutils literal notranslate"><span class="pre">BambooLeafSizeState</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.block.BambooLeafSizeState.id"><code class="docutils literal notranslate"><span class="pre">BambooLeafSizeState.id</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="mcaddon.html#mcaddon.block.BambooStalkThicknessState"><code class="docutils literal notranslate"><span class="pre">BambooStalkThicknessState</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.block.BambooStalkThicknessState.id"><code class="docutils literal notranslate"><span class="pre">BambooStalkThicknessState.id</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="mcaddon.html#mcaddon.block.BigDripleafTiltState"><code class="docutils literal notranslate"><span class="pre">BigDripleafTiltState</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.block.BigDripleafTiltState.id"><code class="docutils literal notranslate"><span class="pre">BigDripleafTiltState.id</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="mcaddon.html#mcaddon.block.BiteCounterState"><code class="docutils literal notranslate"><span class="pre">BiteCounterState</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.block.BiteCounterState.id"><code class="docutils literal notranslate"><span class="pre">BiteCounterState.id</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="mcaddon.html#mcaddon.block.Block"><code class="docutils literal notranslate"><span class="pre">Block</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.block.Block.add_component"><code class="docutils literal notranslate"><span class="pre">Block.add_component()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.block.Block.add_event"><code class="docutils literal notranslate"><span class="pre">Block.add_event()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.block.Block.add_permutation"><code class="docutils literal notranslate"><span class="pre">Block.add_permutation()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.block.Block.add_state"><code class="docutils literal notranslate"><span class="pre">Block.add_state()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.block.Block.add_trait"><code class="docutils literal notranslate"><span class="pre">Block.add_trait()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.block.Block.clear_components"><code class="docutils literal notranslate"><span class="pre">Block.clear_components()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.block.Block.clear_events"><code class="docutils literal notranslate"><span class="pre">Block.clear_events()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.block.Block.clear_permutation"><code class="docutils literal notranslate"><span class="pre">Block.clear_permutation()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.block.Block.clear_state"><code class="docutils literal notranslate"><span class="pre">Block.clear_state()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.block.Block.clear_trait"><code class="docutils literal notranslate"><span class="pre">Block.clear_trait()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.block.Block.components"><code class="docutils literal notranslate"><span class="pre">Block.components</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.block.Block.events"><code class="docutils literal notranslate"><span class="pre">Block.events</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.block.Block.format_version"><code class="docutils literal notranslate"><span class="pre">Block.format_version</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.block.Block.from_dict"><code class="docutils literal notranslate"><span class="pre">Block.from_dict()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.block.Block.get_component"><code class="docutils literal notranslate"><span class="pre">Block.get_component()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.block.Block.get_event"><code class="docutils literal notranslate"><span class="pre">Block.get_event()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.block.Block.get_permutation"><code class="docutils literal notranslate"><span class="pre">Block.get_permutation()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.block.Block.get_state"><code class="docutils literal notranslate"><span class="pre">Block.get_state()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.block.Block.get_trait"><code class="docutils literal notranslate"><span class="pre">Block.get_trait()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.block.Block.id"><code class="docutils literal notranslate"><span class="pre">Block.id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.block.Block.identifier"><code class="docutils literal notranslate"><span class="pre">Block.identifier</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.block.Block.menu_category"><code class="docutils literal notranslate"><span class="pre">Block.menu_category</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.block.Block.permutation"><code class="docutils literal notranslate"><span class="pre">Block.permutation</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.block.Block.remove_component"><code class="docutils literal notranslate"><span class="pre">Block.remove_component()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.block.Block.remove_event"><code class="docutils literal notranslate"><span class="pre">Block.remove_event()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.block.Block.remove_permutation"><code class="docutils literal notranslate"><span class="pre">Block.remove_permutation()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.block.Block.remove_state"><code class="docutils literal notranslate"><span class="pre">Block.remove_state()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.block.Block.remove_trait"><code class="docutils literal notranslate"><span class="pre">Block.remove_trait()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.block.Block.states"><code class="docutils literal notranslate"><span class="pre">Block.states</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.block.Block.type"><code class="docutils literal notranslate"><span class="pre">Block.type</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="mcaddon.html#mcaddon.block.BlockComponent"><code class="docutils literal notranslate"><span class="pre">BlockComponent</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.block.BlockComponent.from_dict"><code class="docutils literal notranslate"><span class="pre">BlockComponent.from_dict()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="mcaddon.html#mcaddon.block.BlockDescriptor"><code class="docutils literal notranslate"><span class="pre">BlockDescriptor</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.block.BlockDescriptor.name"><code class="docutils literal notranslate"><span class="pre">BlockDescriptor.name</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.block.BlockDescriptor.states"><code class="docutils literal notranslate"><span class="pre">BlockDescriptor.states</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.block.BlockDescriptor.tags"><code class="docutils literal notranslate"><span class="pre">BlockDescriptor.tags</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="mcaddon.html#mcaddon.block.BlockFaceState"><code class="docutils literal notranslate"><span class="pre">BlockFaceState</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.block.BlockFaceState.id"><code class="docutils literal notranslate"><span class="pre">BlockFaceState.id</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="mcaddon.html#mcaddon.block.BlockPermutation"><code class="docutils literal notranslate"><span class="pre">BlockPermutation</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.block.BlockPermutation.add_component"><code class="docutils literal notranslate"><span class="pre">BlockPermutation.add_component()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.block.BlockPermutation.clear_components"><code class="docutils literal notranslate"><span class="pre">BlockPermutation.clear_components()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.block.BlockPermutation.components"><code class="docutils literal notranslate"><span class="pre">BlockPermutation.components</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.block.BlockPermutation.condition"><code class="docutils literal notranslate"><span class="pre">BlockPermutation.condition</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.block.BlockPermutation.get_component"><code class="docutils literal notranslate"><span class="pre">BlockPermutation.get_component()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.block.BlockPermutation.remove_component"><code class="docutils literal notranslate"><span class="pre">BlockPermutation.remove_component()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="mcaddon.html#mcaddon.block.BlockState"><code class="docutils literal notranslate"><span class="pre">BlockState</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.block.BlockState.from_dict"><code class="docutils literal notranslate"><span class="pre">BlockState.from_dict()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.block.BlockState.id"><code class="docutils literal notranslate"><span class="pre">BlockState.id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.block.BlockState.values"><code class="docutils literal notranslate"><span class="pre">BlockState.values</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="mcaddon.html#mcaddon.block.BlockTags"><code class="docutils literal notranslate"><span class="pre">BlockTags</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.block.BlockTags.id"><code class="docutils literal notranslate"><span class="pre">BlockTags.id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.block.BlockTags.tags"><code class="docutils literal notranslate"><span class="pre">BlockTags.tags</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="mcaddon.html#mcaddon.block.BlockTrait"><code class="docutils literal notranslate"><span class="pre">BlockTrait</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.block.BlockTrait.enabled_states"><code class="docutils literal notranslate"><span class="pre">BlockTrait.enabled_states</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.block.BlockTrait.from_dict"><code class="docutils literal notranslate"><span class="pre">BlockTrait.from_dict()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.block.BlockTrait.id"><code class="docutils literal notranslate"><span class="pre">BlockTrait.id</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="mcaddon.html#mcaddon.block.BoneVisabilityComponent"><code class="docutils literal notranslate"><span class="pre">BoneVisabilityComponent</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.block.BoneVisabilityComponent.bones"><code class="docutils literal notranslate"><span class="pre">BoneVisabilityComponent.bones</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.block.BoneVisabilityComponent.id"><code class="docutils literal notranslate"><span class="pre">BoneVisabilityComponent.id</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="mcaddon.html#mcaddon.block.BooksStoredState"><code class="docutils literal notranslate"><span class="pre">BooksStoredState</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.block.BooksStoredState.id"><code class="docutils literal notranslate"><span class="pre">BooksStoredState.id</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="mcaddon.html#mcaddon.block.BooleanState"><code class="docutils literal notranslate"><span class="pre">BooleanState</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="mcaddon.html#mcaddon.block.Box"><code class="docutils literal notranslate"><span class="pre">Box</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.block.Box.cube"><code class="docutils literal notranslate"><span class="pre">Box.cube()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.block.Box.none"><code class="docutils literal notranslate"><span class="pre">Box.none()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.block.Box.origin"><code class="docutils literal notranslate"><span class="pre">Box.origin</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.block.Box.size"><code class="docutils literal notranslate"><span class="pre">Box.size</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="mcaddon.html#mcaddon.block.BreathabilityComponent"><code class="docutils literal notranslate"><span class="pre">BreathabilityComponent</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.block.BreathabilityComponent.id"><code class="docutils literal notranslate"><span class="pre">BreathabilityComponent.id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.block.BreathabilityComponent.value"><code class="docutils literal notranslate"><span class="pre">BreathabilityComponent.value</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="mcaddon.html#mcaddon.block.BrewingStandSlotABitState"><code class="docutils literal notranslate"><span class="pre">BrewingStandSlotABitState</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.block.BrewingStandSlotABitState.id"><code class="docutils literal notranslate"><span class="pre">BrewingStandSlotABitState.id</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="mcaddon.html#mcaddon.block.BrewingStandSlotBBitState"><code class="docutils literal notranslate"><span class="pre">BrewingStandSlotBBitState</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.block.BrewingStandSlotBBitState.id"><code class="docutils literal notranslate"><span class="pre">BrewingStandSlotBBitState.id</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="mcaddon.html#mcaddon.block.BrewingStandSlotCBitState"><code class="docutils literal notranslate"><span class="pre">BrewingStandSlotCBitState</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.block.BrewingStandSlotCBitState.id"><code class="docutils literal notranslate"><span class="pre">BrewingStandSlotCBitState.id</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="mcaddon.html#mcaddon.block.BrushedProgressState"><code class="docutils literal notranslate"><span class="pre">BrushedProgressState</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.block.BrushedProgressState.id"><code class="docutils literal notranslate"><span class="pre">BrushedProgressState.id</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="mcaddon.html#mcaddon.block.BushBlock"><code class="docutils literal notranslate"><span class="pre">BushBlock</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.block.BushBlock.type"><code class="docutils literal notranslate"><span class="pre">BushBlock.type</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="mcaddon.html#mcaddon.block.ButtonBlock"><code class="docutils literal notranslate"><span class="pre">ButtonBlock</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.block.ButtonBlock.type"><code class="docutils literal notranslate"><span class="pre">ButtonBlock.type</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="mcaddon.html#mcaddon.block.ButtonPressedBitState"><code class="docutils literal notranslate"><span class="pre">ButtonPressedBitState</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.block.ButtonPressedBitState.id"><code class="docutils literal notranslate"><span class="pre">ButtonPressedBitState.id</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="mcaddon.html#mcaddon.block.CakeBlock"><code class="docutils literal notranslate"><span class="pre">CakeBlock</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.block.CakeBlock.add_candle_cake"><code class="docutils literal notranslate"><span class="pre">CakeBlock.add_candle_cake()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.block.CakeBlock.clear_candle_cakes"><code class="docutils literal notranslate"><span class="pre">CakeBlock.clear_candle_cakes()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.block.CakeBlock.get_candle_cake"><code class="docutils literal notranslate"><span class="pre">CakeBlock.get_candle_cake()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.block.CakeBlock.remove_candle_cake"><code class="docutils literal notranslate"><span class="pre">CakeBlock.remove_candle_cake()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.block.CakeBlock.type"><code class="docutils literal notranslate"><span class="pre">CakeBlock.type</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="mcaddon.html#mcaddon.block.CandleCakeBlock"><code class="docutils literal notranslate"><span class="pre">CandleCakeBlock</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.block.CandleCakeBlock.type"><code class="docutils literal notranslate"><span class="pre">CandleCakeBlock.type</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="mcaddon.html#mcaddon.block.CandlesState"><code class="docutils literal notranslate"><span class="pre">CandlesState</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.block.CandlesState.id"><code class="docutils literal notranslate"><span class="pre">CandlesState.id</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="mcaddon.html#mcaddon.block.CardinalDirectionState"><code class="docutils literal notranslate"><span class="pre">CardinalDirectionState</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.block.CardinalDirectionState.id"><code class="docutils literal notranslate"><span class="pre">CardinalDirectionState.id</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="mcaddon.html#mcaddon.block.CauldronBlock"><code class="docutils literal notranslate"><span class="pre">CauldronBlock</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.block.CauldronBlock.type"><code class="docutils literal notranslate"><span class="pre">CauldronBlock.type</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="mcaddon.html#mcaddon.block.CauldronLevelBlock"><code class="docutils literal notranslate"><span class="pre">CauldronLevelBlock</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.block.CauldronLevelBlock.type"><code class="docutils literal notranslate"><span class="pre">CauldronLevelBlock.type</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="mcaddon.html#mcaddon.block.CauldronLiquidState"><code class="docutils literal notranslate"><span class="pre">CauldronLiquidState</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.block.CauldronLiquidState.id"><code class="docutils literal notranslate"><span class="pre">CauldronLiquidState.id</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="mcaddon.html#mcaddon.block.ChemistryTableTypeState"><code class="docutils literal notranslate"><span class="pre">ChemistryTableTypeState</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.block.ChemistryTableTypeState.id"><code class="docutils literal notranslate"><span class="pre">ChemistryTableTypeState.id</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="mcaddon.html#mcaddon.block.ChiselTypeState"><code class="docutils literal notranslate"><span class="pre">ChiselTypeState</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.block.ChiselTypeState.id"><code class="docutils literal notranslate"><span class="pre">ChiselTypeState.id</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="mcaddon.html#mcaddon.block.ClusterCountState"><code class="docutils literal notranslate"><span class="pre">ClusterCountState</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.block.ClusterCountState.id"><code class="docutils literal notranslate"><span class="pre">ClusterCountState.id</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="mcaddon.html#mcaddon.block.CollisionBoxComponent"><code class="docutils literal notranslate"><span class="pre">CollisionBoxComponent</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.block.CollisionBoxComponent.id"><code class="docutils literal notranslate"><span class="pre">CollisionBoxComponent.id</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="mcaddon.html#mcaddon.block.ColorBitState"><code class="docutils literal notranslate"><span class="pre">ColorBitState</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.block.ColorBitState.id"><code class="docutils literal notranslate"><span class="pre">ColorBitState.id</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="mcaddon.html#mcaddon.block.ColorState"><code class="docutils literal notranslate"><span class="pre">ColorState</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.block.ColorState.id"><code class="docutils literal notranslate"><span class="pre">ColorState.id</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="mcaddon.html#mcaddon.block.ConditionalBitState"><code class="docutils literal notranslate"><span class="pre">ConditionalBitState</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.block.ConditionalBitState.id"><code class="docutils literal notranslate"><span class="pre">ConditionalBitState.id</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="mcaddon.html#mcaddon.block.CoralColorState"><code class="docutils literal notranslate"><span class="pre">CoralColorState</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.block.CoralColorState.id"><code class="docutils literal notranslate"><span class="pre">CoralColorState.id</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="mcaddon.html#mcaddon.block.CoralDirectionState"><code class="docutils literal notranslate"><span class="pre">CoralDirectionState</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.block.CoralDirectionState.id"><code class="docutils literal notranslate"><span class="pre">CoralDirectionState.id</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="mcaddon.html#mcaddon.block.CoralHangTypeBitState"><code class="docutils literal notranslate"><span class="pre">CoralHangTypeBitState</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.block.CoralHangTypeBitState.id"><code class="docutils literal notranslate"><span class="pre">CoralHangTypeBitState.id</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="mcaddon.html#mcaddon.block.CoveredBitState"><code class="docutils literal notranslate"><span class="pre">CoveredBitState</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.block.CoveredBitState.id"><code class="docutils literal notranslate"><span class="pre">CoveredBitState.id</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="mcaddon.html#mcaddon.block.CrackedState"><code class="docutils literal notranslate"><span class="pre">CrackedState</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.block.CrackedState.id"><code class="docutils literal notranslate"><span class="pre">CrackedState.id</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="mcaddon.html#mcaddon.block.CraftingState"><code class="docutils literal notranslate"><span class="pre">CraftingState</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.block.CraftingState.id"><code class="docutils literal notranslate"><span class="pre">CraftingState.id</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="mcaddon.html#mcaddon.block.CraftingTableComponent"><code class="docutils literal notranslate"><span class="pre">CraftingTableComponent</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.block.CraftingTableComponent.crafting_tags"><code class="docutils literal notranslate"><span class="pre">CraftingTableComponent.crafting_tags</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.block.CraftingTableComponent.id"><code class="docutils literal notranslate"><span class="pre">CraftingTableComponent.id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.block.CraftingTableComponent.table_name"><code class="docutils literal notranslate"><span class="pre">CraftingTableComponent.table_name</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="mcaddon.html#mcaddon.block.CropBlock"><code class="docutils literal notranslate"><span class="pre">CropBlock</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.block.CropBlock.type"><code class="docutils literal notranslate"><span class="pre">CropBlock.type</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="mcaddon.html#mcaddon.block.DamageState"><code class="docutils literal notranslate"><span class="pre">DamageState</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.block.DamageState.id"><code class="docutils literal notranslate"><span class="pre">DamageState.id</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="mcaddon.html#mcaddon.block.DeadBitState"><code class="docutils literal notranslate"><span class="pre">DeadBitState</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.block.DeadBitState.id"><code class="docutils literal notranslate"><span class="pre">DeadBitState.id</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="mcaddon.html#mcaddon.block.DestructibleByExplosionComponent"><code class="docutils literal notranslate"><span class="pre">DestructibleByExplosionComponent</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.block.DestructibleByExplosionComponent.explosion_resistance"><code class="docutils literal notranslate"><span class="pre">DestructibleByExplosionComponent.explosion_resistance</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.block.DestructibleByExplosionComponent.id"><code class="docutils literal notranslate"><span class="pre">DestructibleByExplosionComponent.id</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="mcaddon.html#mcaddon.block.DestructibleByMiningComponent"><code class="docutils literal notranslate"><span class="pre">DestructibleByMiningComponent</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.block.DestructibleByMiningComponent.id"><code class="docutils literal notranslate"><span class="pre">DestructibleByMiningComponent.id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.block.DestructibleByMiningComponent.seconds_to_destory"><code class="docutils literal notranslate"><span class="pre">DestructibleByMiningComponent.seconds_to_destory</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="mcaddon.html#mcaddon.block.DirectionState"><code class="docutils literal notranslate"><span class="pre">DirectionState</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.block.DirectionState.id"><code class="docutils literal notranslate"><span class="pre">DirectionState.id</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="mcaddon.html#mcaddon.block.DirtTypeState"><code class="docutils literal notranslate"><span class="pre">DirtTypeState</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.block.DirtTypeState.id"><code class="docutils literal notranslate"><span class="pre">DirtTypeState.id</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="mcaddon.html#mcaddon.block.DisarmedBitState"><code class="docutils literal notranslate"><span class="pre">DisarmedBitState</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.block.DisarmedBitState.id"><code class="docutils literal notranslate"><span class="pre">DisarmedBitState.id</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="mcaddon.html#mcaddon.block.DisplayNameComponent"><code class="docutils literal notranslate"><span class="pre">DisplayNameComponent</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.block.DisplayNameComponent.id"><code class="docutils literal notranslate"><span class="pre">DisplayNameComponent.id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.block.DisplayNameComponent.value"><code class="docutils literal notranslate"><span class="pre">DisplayNameComponent.value</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="mcaddon.html#mcaddon.block.DoorBlock"><code class="docutils literal notranslate"><span class="pre">DoorBlock</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.block.DoorBlock.type"><code class="docutils literal notranslate"><span class="pre">DoorBlock.type</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="mcaddon.html#mcaddon.block.DoorHingeBitState"><code class="docutils literal notranslate"><span class="pre">DoorHingeBitState</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.block.DoorHingeBitState.id"><code class="docutils literal notranslate"><span class="pre">DoorHingeBitState.id</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="mcaddon.html#mcaddon.block.DoublePlantTypeState"><code class="docutils literal notranslate"><span class="pre">DoublePlantTypeState</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.block.DoublePlantTypeState.id"><code class="docutils literal notranslate"><span class="pre">DoublePlantTypeState.id</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="mcaddon.html#mcaddon.block.DragDownState"><code class="docutils literal notranslate"><span class="pre">DragDownState</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.block.DragDownState.id"><code class="docutils literal notranslate"><span class="pre">DragDownState.id</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="mcaddon.html#mcaddon.block.DripstoneThicknessState"><code class="docutils literal notranslate"><span class="pre">DripstoneThicknessState</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.block.DripstoneThicknessState.id"><code class="docutils literal notranslate"><span class="pre">DripstoneThicknessState.id</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="mcaddon.html#mcaddon.block.EndPortalEyeBitState"><code class="docutils literal notranslate"><span class="pre">EndPortalEyeBitState</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.block.EndPortalEyeBitState.id"><code class="docutils literal notranslate"><span class="pre">EndPortalEyeBitState.id</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="mcaddon.html#mcaddon.block.ExplodeBitState"><code class="docutils literal notranslate"><span class="pre">ExplodeBitState</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.block.ExplodeBitState.id"><code class="docutils literal notranslate"><span class="pre">ExplodeBitState.id</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="mcaddon.html#mcaddon.block.FacingDirectionState"><code class="docutils literal notranslate"><span class="pre">FacingDirectionState</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.block.FacingDirectionState.id"><code class="docutils literal notranslate"><span class="pre">FacingDirectionState.id</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="mcaddon.html#mcaddon.block.FenceBlock"><code class="docutils literal notranslate"><span class="pre">FenceBlock</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.block.FenceBlock.type"><code class="docutils literal notranslate"><span class="pre">FenceBlock.type</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="mcaddon.html#mcaddon.block.FenceGateBlock"><code class="docutils literal notranslate"><span class="pre">FenceGateBlock</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.block.FenceGateBlock.type"><code class="docutils literal notranslate"><span class="pre">FenceGateBlock.type</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="mcaddon.html#mcaddon.block.FillLevelState"><code class="docutils literal notranslate"><span class="pre">FillLevelState</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.block.FillLevelState.id"><code class="docutils literal notranslate"><span class="pre">FillLevelState.id</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="mcaddon.html#mcaddon.block.Filter"><code class="docutils literal notranslate"><span class="pre">Filter</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.block.Filter.allowed_faces"><code class="docutils literal notranslate"><span class="pre">Filter.allowed_faces</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.block.Filter.block_filter"><code class="docutils literal notranslate"><span class="pre">Filter.block_filter</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="mcaddon.html#mcaddon.block.FlammableComponent"><code class="docutils literal notranslate"><span class="pre">FlammableComponent</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.block.FlammableComponent.catch_chance_modifier"><code class="docutils literal notranslate"><span class="pre">FlammableComponent.catch_chance_modifier</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.block.FlammableComponent.destroy_chance_modifier"><code class="docutils literal notranslate"><span class="pre">FlammableComponent.destroy_chance_modifier</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.block.FlammableComponent.id"><code class="docutils literal notranslate"><span class="pre">FlammableComponent.id</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="mcaddon.html#mcaddon.block.FlowerTypeState"><code class="docutils literal notranslate"><span class="pre">FlowerTypeState</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.block.FlowerTypeState.id"><code class="docutils literal notranslate"><span class="pre">FlowerTypeState.id</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="mcaddon.html#mcaddon.block.FrictionComponent"><code class="docutils literal notranslate"><span class="pre">FrictionComponent</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.block.FrictionComponent.id"><code class="docutils literal notranslate"><span class="pre">FrictionComponent.id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.block.FrictionComponent.value"><code class="docutils literal notranslate"><span class="pre">FrictionComponent.value</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="mcaddon.html#mcaddon.block.GeometryComponent"><code class="docutils literal notranslate"><span class="pre">GeometryComponent</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.block.GeometryComponent.id"><code class="docutils literal notranslate"><span class="pre">GeometryComponent.id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.block.GeometryComponent.value"><code class="docutils literal notranslate"><span class="pre">GeometryComponent.value</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="mcaddon.html#mcaddon.block.GlassPane"><code class="docutils literal notranslate"><span class="pre">GlassPane</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.block.GlassPane.type"><code class="docutils literal notranslate"><span class="pre">GlassPane.type</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="mcaddon.html#mcaddon.block.GroundSignDirectionState"><code class="docutils literal notranslate"><span class="pre">GroundSignDirectionState</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.block.GroundSignDirectionState.id"><code class="docutils literal notranslate"><span class="pre">GroundSignDirectionState.id</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="mcaddon.html#mcaddon.block.GrowthState"><code class="docutils literal notranslate"><span class="pre">GrowthState</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.block.GrowthState.id"><code class="docutils literal notranslate"><span class="pre">GrowthState.id</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="mcaddon.html#mcaddon.block.HangingState"><code class="docutils literal notranslate"><span class="pre">HangingState</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.block.HangingState.id"><code class="docutils literal notranslate"><span class="pre">HangingState.id</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="mcaddon.html#mcaddon.block.HeadPieceBitState"><code class="docutils literal notranslate"><span class="pre">HeadPieceBitState</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.block.HeadPieceBitState.id"><code class="docutils literal notranslate"><span class="pre">HeadPieceBitState.id</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="mcaddon.html#mcaddon.block.HeightState"><code class="docutils literal notranslate"><span class="pre">HeightState</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.block.HeightState.id"><code class="docutils literal notranslate"><span class="pre">HeightState.id</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="mcaddon.html#mcaddon.block.HugeMushroomBitsState"><code class="docutils literal notranslate"><span class="pre">HugeMushroomBitsState</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.block.HugeMushroomBitsState.id"><code class="docutils literal notranslate"><span class="pre">HugeMushroomBitsState.id</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="mcaddon.html#mcaddon.block.InWallBitState"><code class="docutils literal notranslate"><span class="pre">InWallBitState</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.block.InWallBitState.id"><code class="docutils literal notranslate"><span class="pre">InWallBitState.id</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="mcaddon.html#mcaddon.block.InfiniburnBitState"><code class="docutils literal notranslate"><span class="pre">InfiniburnBitState</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.block.InfiniburnBitState.id"><code class="docutils literal notranslate"><span class="pre">InfiniburnBitState.id</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="mcaddon.html#mcaddon.block.IntegerState"><code class="docutils literal notranslate"><span class="pre">IntegerState</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="mcaddon.html#mcaddon.block.ItemFrameMapBitState"><code class="docutils literal notranslate"><span class="pre">ItemFrameMapBitState</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.block.ItemFrameMapBitState.id"><code class="docutils literal notranslate"><span class="pre">ItemFrameMapBitState.id</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="mcaddon.html#mcaddon.block.ItemFramePhotoBitState"><code class="docutils literal notranslate"><span class="pre">ItemFramePhotoBitState</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.block.ItemFramePhotoBitState.id"><code class="docutils literal notranslate"><span class="pre">ItemFramePhotoBitState.id</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="mcaddon.html#mcaddon.block.LanternBlock"><code class="docutils literal notranslate"><span class="pre">LanternBlock</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.block.LanternBlock.type"><code class="docutils literal notranslate"><span class="pre">LanternBlock.type</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="mcaddon.html#mcaddon.block.LightDampeningComponent"><code class="docutils literal notranslate"><span class="pre">LightDampeningComponent</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.block.LightDampeningComponent.id"><code class="docutils literal notranslate"><span class="pre">LightDampeningComponent.id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.block.LightDampeningComponent.value"><code class="docutils literal notranslate"><span class="pre">LightDampeningComponent.value</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="mcaddon.html#mcaddon.block.LightEmissionComponent"><code class="docutils literal notranslate"><span class="pre">LightEmissionComponent</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.block.LightEmissionComponent.id"><code class="docutils literal notranslate"><span class="pre">LightEmissionComponent.id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.block.LightEmissionComponent.value"><code class="docutils literal notranslate"><span class="pre">LightEmissionComponent.value</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="mcaddon.html#mcaddon.block.LiquidDepthState"><code class="docutils literal notranslate"><span class="pre">LiquidDepthState</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.block.LiquidDepthState.id"><code class="docutils literal notranslate"><span class="pre">LiquidDepthState.id</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="mcaddon.html#mcaddon.block.LootComponent"><code class="docutils literal notranslate"><span class="pre">LootComponent</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.block.LootComponent.id"><code class="docutils literal notranslate"><span class="pre">LootComponent.id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.block.LootComponent.value"><code class="docutils literal notranslate"><span class="pre">LootComponent.value</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="mcaddon.html#mcaddon.block.MapColorComponent"><code class="docutils literal notranslate"><span class="pre">MapColorComponent</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.block.MapColorComponent.id"><code class="docutils literal notranslate"><span class="pre">MapColorComponent.id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.block.MapColorComponent.value"><code class="docutils literal notranslate"><span class="pre">MapColorComponent.value</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="mcaddon.html#mcaddon.block.Material"><code class="docutils literal notranslate"><span class="pre">Material</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.block.Material.ambient_occlusion"><code class="docutils literal notranslate"><span class="pre">Material.ambient_occlusion</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.block.Material.face_dimming"><code class="docutils literal notranslate"><span class="pre">Material.face_dimming</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.block.Material.render_method"><code class="docutils literal notranslate"><span class="pre">Material.render_method</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.block.Material.texture"><code class="docutils literal notranslate"><span class="pre">Material.texture</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="mcaddon.html#mcaddon.block.MaterialInstancesComponent"><code class="docutils literal notranslate"><span class="pre">MaterialInstancesComponent</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.block.MaterialInstancesComponent.add_material"><code class="docutils literal notranslate"><span class="pre">MaterialInstancesComponent.add_material()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.block.MaterialInstancesComponent.get_material"><code class="docutils literal notranslate"><span class="pre">MaterialInstancesComponent.get_material()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.block.MaterialInstancesComponent.id"><code class="docutils literal notranslate"><span class="pre">MaterialInstancesComponent.id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.block.MaterialInstancesComponent.materials"><code class="docutils literal notranslate"><span class="pre">MaterialInstancesComponent.materials</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.block.MaterialInstancesComponent.remove_material"><code class="docutils literal notranslate"><span class="pre">MaterialInstancesComponent.remove_material()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="mcaddon.html#mcaddon.block.MoisturizedAmountState"><code class="docutils literal notranslate"><span class="pre">MoisturizedAmountState</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.block.MoisturizedAmountState.id"><code class="docutils literal notranslate"><span class="pre">MoisturizedAmountState.id</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="mcaddon.html#mcaddon.block.MonsterEggStoneTypeState"><code class="docutils literal notranslate"><span class="pre">MonsterEggStoneTypeState</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.block.MonsterEggStoneTypeState.id"><code class="docutils literal notranslate"><span class="pre">MonsterEggStoneTypeState.id</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="mcaddon.html#mcaddon.block.NewLeafTypeState"><code class="docutils literal notranslate"><span class="pre">NewLeafTypeState</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.block.NewLeafTypeState.id"><code class="docutils literal notranslate"><span class="pre">NewLeafTypeState.id</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="mcaddon.html#mcaddon.block.NewLogTypeState"><code class="docutils literal notranslate"><span class="pre">NewLogTypeState</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.block.NewLogTypeState.id"><code class="docutils literal notranslate"><span class="pre">NewLogTypeState.id</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="mcaddon.html#mcaddon.block.NoDropBitState"><code class="docutils literal notranslate"><span class="pre">NoDropBitState</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.block.NoDropBitState.id"><code class="docutils literal notranslate"><span class="pre">NoDropBitState.id</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="mcaddon.html#mcaddon.block.OccupiedBitState"><code class="docutils literal notranslate"><span class="pre">OccupiedBitState</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.block.OccupiedBitState.id"><code class="docutils literal notranslate"><span class="pre">OccupiedBitState.id</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="mcaddon.html#mcaddon.block.OldLeafTypeState"><code class="docutils literal notranslate"><span class="pre">OldLeafTypeState</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.block.OldLeafTypeState.id"><code class="docutils literal notranslate"><span class="pre">OldLeafTypeState.id</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="mcaddon.html#mcaddon.block.OldLogTypeState"><code class="docutils literal notranslate"><span class="pre">OldLogTypeState</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.block.OldLogTypeState.id"><code class="docutils literal notranslate"><span class="pre">OldLogTypeState.id</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="mcaddon.html#mcaddon.block.OnFallOnComponent"><code class="docutils literal notranslate"><span class="pre">OnFallOnComponent</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.block.OnFallOnComponent.id"><code class="docutils literal notranslate"><span class="pre">OnFallOnComponent.id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.block.OnFallOnComponent.min_fall_distance"><code class="docutils literal notranslate"><span class="pre">OnFallOnComponent.min_fall_distance</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="mcaddon.html#mcaddon.block.OnInteractComponent"><code class="docutils literal notranslate"><span class="pre">OnInteractComponent</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.block.OnInteractComponent.id"><code class="docutils literal notranslate"><span class="pre">OnInteractComponent.id</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="mcaddon.html#mcaddon.block.OnPlacedComponent"><code class="docutils literal notranslate"><span class="pre">OnPlacedComponent</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.block.OnPlacedComponent.id"><code class="docutils literal notranslate"><span class="pre">OnPlacedComponent.id</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="mcaddon.html#mcaddon.block.OnPlayerDestroyedComponent"><code class="docutils literal notranslate"><span class="pre">OnPlayerDestroyedComponent</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.block.OnPlayerDestroyedComponent.id"><code class="docutils literal notranslate"><span class="pre">OnPlayerDestroyedComponent.id</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="mcaddon.html#mcaddon.block.OnPlayerPlacingComponent"><code class="docutils literal notranslate"><span class="pre">OnPlayerPlacingComponent</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.block.OnPlayerPlacingComponent.id"><code class="docutils literal notranslate"><span class="pre">OnPlayerPlacingComponent.id</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="mcaddon.html#mcaddon.block.OnStepOffComponent"><code class="docutils literal notranslate"><span class="pre">OnStepOffComponent</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.block.OnStepOffComponent.id"><code class="docutils literal notranslate"><span class="pre">OnStepOffComponent.id</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="mcaddon.html#mcaddon.block.OnStepOnComponent"><code class="docutils literal notranslate"><span class="pre">OnStepOnComponent</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.block.OnStepOnComponent.id"><code class="docutils literal notranslate"><span class="pre">OnStepOnComponent.id</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="mcaddon.html#mcaddon.block.OpenBitState"><code class="docutils literal notranslate"><span class="pre">OpenBitState</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.block.OpenBitState.id"><code class="docutils literal notranslate"><span class="pre">OpenBitState.id</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="mcaddon.html#mcaddon.block.OrientationState"><code class="docutils literal notranslate"><span class="pre">OrientationState</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.block.OrientationState.id"><code class="docutils literal notranslate"><span class="pre">OrientationState.id</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="mcaddon.html#mcaddon.block.OutputLitBitState"><code class="docutils literal notranslate"><span class="pre">OutputLitBitState</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.block.OutputLitBitState.id"><code class="docutils literal notranslate"><span class="pre">OutputLitBitState.id</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="mcaddon.html#mcaddon.block.OutputSubtractBitState"><code class="docutils literal notranslate"><span class="pre">OutputSubtractBitState</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.block.OutputSubtractBitState.id"><code class="docutils literal notranslate"><span class="pre">OutputSubtractBitState.id</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="mcaddon.html#mcaddon.block.PersistentBitState"><code class="docutils literal notranslate"><span class="pre">PersistentBitState</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.block.PersistentBitState.id"><code class="docutils literal notranslate"><span class="pre">PersistentBitState.id</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="mcaddon.html#mcaddon.block.PlacementDirectionTrait"><code class="docutils literal notranslate"><span class="pre">PlacementDirectionTrait</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.block.PlacementDirectionTrait.all"><code class="docutils literal notranslate"><span class="pre">PlacementDirectionTrait.all()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.block.PlacementDirectionTrait.cardinal"><code class="docutils literal notranslate"><span class="pre">PlacementDirectionTrait.cardinal()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.block.PlacementDirectionTrait.facing"><code class="docutils literal notranslate"><span class="pre">PlacementDirectionTrait.facing()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.block.PlacementDirectionTrait.from_dict"><code class="docutils literal notranslate"><span class="pre">PlacementDirectionTrait.from_dict()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.block.PlacementDirectionTrait.id"><code class="docutils literal notranslate"><span class="pre">PlacementDirectionTrait.id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.block.PlacementDirectionTrait.y_rotation_offset"><code class="docutils literal notranslate"><span class="pre">PlacementDirectionTrait.y_rotation_offset</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="mcaddon.html#mcaddon.block.PlacementFilterComponent"><code class="docutils literal notranslate"><span class="pre">PlacementFilterComponent</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.block.PlacementFilterComponent.conditions"><code class="docutils literal notranslate"><span class="pre">PlacementFilterComponent.conditions</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.block.PlacementFilterComponent.id"><code class="docutils literal notranslate"><span class="pre">PlacementFilterComponent.id</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="mcaddon.html#mcaddon.block.PlacementPositionTrait"><code class="docutils literal notranslate"><span class="pre">PlacementPositionTrait</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.block.PlacementPositionTrait.all"><code class="docutils literal notranslate"><span class="pre">PlacementPositionTrait.all()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.block.PlacementPositionTrait.block_face"><code class="docutils literal notranslate"><span class="pre">PlacementPositionTrait.block_face()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.block.PlacementPositionTrait.id"><code class="docutils literal notranslate"><span class="pre">PlacementPositionTrait.id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.block.PlacementPositionTrait.vertical_half"><code class="docutils literal notranslate"><span class="pre">PlacementPositionTrait.vertical_half()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="mcaddon.html#mcaddon.block.PortalAxisState"><code class="docutils literal notranslate"><span class="pre">PortalAxisState</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.block.PortalAxisState.id"><code class="docutils literal notranslate"><span class="pre">PortalAxisState.id</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="mcaddon.html#mcaddon.block.PoweredBitState"><code class="docutils literal notranslate"><span class="pre">PoweredBitState</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.block.PoweredBitState.id"><code class="docutils literal notranslate"><span class="pre">PoweredBitState.id</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="mcaddon.html#mcaddon.block.PressurePlateBlock"><code class="docutils literal notranslate"><span class="pre">PressurePlateBlock</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.block.PressurePlateBlock.type"><code class="docutils literal notranslate"><span class="pre">PressurePlateBlock.type</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="mcaddon.html#mcaddon.block.QueuedTickingComponent"><code class="docutils literal notranslate"><span class="pre">QueuedTickingComponent</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.block.QueuedTickingComponent.id"><code class="docutils literal notranslate"><span class="pre">QueuedTickingComponent.id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.block.QueuedTickingComponent.interval_range"><code class="docutils literal notranslate"><span class="pre">QueuedTickingComponent.interval_range</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.block.QueuedTickingComponent.looping"><code class="docutils literal notranslate"><span class="pre">QueuedTickingComponent.looping</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.block.QueuedTickingComponent.on_tick"><code class="docutils literal notranslate"><span class="pre">QueuedTickingComponent.on_tick</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="mcaddon.html#mcaddon.block.RailDataBitState"><code class="docutils literal notranslate"><span class="pre">RailDataBitState</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.block.RailDataBitState.id"><code class="docutils literal notranslate"><span class="pre">RailDataBitState.id</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="mcaddon.html#mcaddon.block.RailDirectionState"><code class="docutils literal notranslate"><span class="pre">RailDirectionState</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.block.RailDirectionState.id"><code class="docutils literal notranslate"><span class="pre">RailDirectionState.id</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="mcaddon.html#mcaddon.block.RandomTickingComponent"><code class="docutils literal notranslate"><span class="pre">RandomTickingComponent</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.block.RandomTickingComponent.id"><code class="docutils literal notranslate"><span class="pre">RandomTickingComponent.id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.block.RandomTickingComponent.on_tick"><code class="docutils literal notranslate"><span class="pre">RandomTickingComponent.on_tick</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="mcaddon.html#mcaddon.block.RedstoneSignalState"><code class="docutils literal notranslate"><span class="pre">RedstoneSignalState</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.block.RedstoneSignalState.id"><code class="docutils literal notranslate"><span class="pre">RedstoneSignalState.id</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="mcaddon.html#mcaddon.block.RepeaterDelayState"><code class="docutils literal notranslate"><span class="pre">RepeaterDelayState</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.block.RepeaterDelayState.id"><code class="docutils literal notranslate"><span class="pre">RepeaterDelayState.id</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="mcaddon.html#mcaddon.block.SandStoneTypeState"><code class="docutils literal notranslate"><span class="pre">SandStoneTypeState</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.block.SandStoneTypeState.id"><code class="docutils literal notranslate"><span class="pre">SandStoneTypeState.id</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="mcaddon.html#mcaddon.block.SandTypeState"><code class="docutils literal notranslate"><span class="pre">SandTypeState</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.block.SandTypeState.id"><code class="docutils literal notranslate"><span class="pre">SandTypeState.id</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="mcaddon.html#mcaddon.block.SaplingBlock"><code class="docutils literal notranslate"><span class="pre">SaplingBlock</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.block.SaplingBlock.type"><code class="docutils literal notranslate"><span class="pre">SaplingBlock.type</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="mcaddon.html#mcaddon.block.SaplingTypeState"><code class="docutils literal notranslate"><span class="pre">SaplingTypeState</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.block.SaplingTypeState.id"><code class="docutils literal notranslate"><span class="pre">SaplingTypeState.id</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="mcaddon.html#mcaddon.block.SculkSensorPhaseState"><code class="docutils literal notranslate"><span class="pre">SculkSensorPhaseState</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.block.SculkSensorPhaseState.id"><code class="docutils literal notranslate"><span class="pre">SculkSensorPhaseState.id</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="mcaddon.html#mcaddon.block.SeaGrassTypeState"><code class="docutils literal notranslate"><span class="pre">SeaGrassTypeState</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.block.SeaGrassTypeState.id"><code class="docutils literal notranslate"><span class="pre">SeaGrassTypeState.id</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="mcaddon.html#mcaddon.block.SelectionBoxComponent"><code class="docutils literal notranslate"><span class="pre">SelectionBoxComponent</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.block.SelectionBoxComponent.id"><code class="docutils literal notranslate"><span class="pre">SelectionBoxComponent.id</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="mcaddon.html#mcaddon.block.SlabBlock"><code class="docutils literal notranslate"><span class="pre">SlabBlock</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.block.SlabBlock.type"><code class="docutils literal notranslate"><span class="pre">SlabBlock.type</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="mcaddon.html#mcaddon.block.SpongeTypeState"><code class="docutils literal notranslate"><span class="pre">SpongeTypeState</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.block.SpongeTypeState.id"><code class="docutils literal notranslate"><span class="pre">SpongeTypeState.id</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="mcaddon.html#mcaddon.block.StabilityCheckState"><code class="docutils literal notranslate"><span class="pre">StabilityCheckState</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.block.StabilityCheckState.id"><code class="docutils literal notranslate"><span class="pre">StabilityCheckState.id</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="mcaddon.html#mcaddon.block.StabilityState"><code class="docutils literal notranslate"><span class="pre">StabilityState</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.block.StabilityState.id"><code class="docutils literal notranslate"><span class="pre">StabilityState.id</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="mcaddon.html#mcaddon.block.StairsBlock"><code class="docutils literal notranslate"><span class="pre">StairsBlock</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.block.StairsBlock.type"><code class="docutils literal notranslate"><span class="pre">StairsBlock.type</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="mcaddon.html#mcaddon.block.StoneBrickTypeState"><code class="docutils literal notranslate"><span class="pre">StoneBrickTypeState</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.block.StoneBrickTypeState.id"><code class="docutils literal notranslate"><span class="pre">StoneBrickTypeState.id</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="mcaddon.html#mcaddon.block.StoneSlabType2State"><code class="docutils literal notranslate"><span class="pre">StoneSlabType2State</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.block.StoneSlabType2State.id"><code class="docutils literal notranslate"><span class="pre">StoneSlabType2State.id</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="mcaddon.html#mcaddon.block.StoneSlabType3State"><code class="docutils literal notranslate"><span class="pre">StoneSlabType3State</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.block.StoneSlabType3State.id"><code class="docutils literal notranslate"><span class="pre">StoneSlabType3State.id</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="mcaddon.html#mcaddon.block.StoneSlabType4State"><code class="docutils literal notranslate"><span class="pre">StoneSlabType4State</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.block.StoneSlabType4State.id"><code class="docutils literal notranslate"><span class="pre">StoneSlabType4State.id</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="mcaddon.html#mcaddon.block.StoneSlabTypeState"><code class="docutils literal notranslate"><span class="pre">StoneSlabTypeState</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.block.StoneSlabTypeState.id"><code class="docutils literal notranslate"><span class="pre">StoneSlabTypeState.id</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="mcaddon.html#mcaddon.block.StoneTypeState"><code class="docutils literal notranslate"><span class="pre">StoneTypeState</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.block.StoneTypeState.id"><code class="docutils literal notranslate"><span class="pre">StoneTypeState.id</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="mcaddon.html#mcaddon.block.StrippedBitState"><code class="docutils literal notranslate"><span class="pre">StrippedBitState</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.block.StrippedBitState.id"><code class="docutils literal notranslate"><span class="pre">StrippedBitState.id</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="mcaddon.html#mcaddon.block.StructureBlockTypeState"><code class="docutils literal notranslate"><span class="pre">StructureBlockTypeState</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.block.StructureBlockTypeState.id"><code class="docutils literal notranslate"><span class="pre">StructureBlockTypeState.id</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="mcaddon.html#mcaddon.block.StructureVoidTypeState"><code class="docutils literal notranslate"><span class="pre">StructureVoidTypeState</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.block.StructureVoidTypeState.id"><code class="docutils literal notranslate"><span class="pre">StructureVoidTypeState.id</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="mcaddon.html#mcaddon.block.SuspendedBitState"><code class="docutils literal notranslate"><span class="pre">SuspendedBitState</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.block.SuspendedBitState.id"><code class="docutils literal notranslate"><span class="pre">SuspendedBitState.id</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="mcaddon.html#mcaddon.block.TallGrassTypeState"><code class="docutils literal notranslate"><span class="pre">TallGrassTypeState</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.block.TallGrassTypeState.id"><code class="docutils literal notranslate"><span class="pre">TallGrassTypeState.id</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="mcaddon.html#mcaddon.block.ToggleBitState"><code class="docutils literal notranslate"><span class="pre">ToggleBitState</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.block.ToggleBitState.id"><code class="docutils literal notranslate"><span class="pre">ToggleBitState.id</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="mcaddon.html#mcaddon.block.TopSlotBitState"><code class="docutils literal notranslate"><span class="pre">TopSlotBitState</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.block.TopSlotBitState.id"><code class="docutils literal notranslate"><span class="pre">TopSlotBitState.id</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="mcaddon.html#mcaddon.block.TorchBlock"><code class="docutils literal notranslate"><span class="pre">TorchBlock</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.block.TorchBlock.type"><code class="docutils literal notranslate"><span class="pre">TorchBlock.type</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="mcaddon.html#mcaddon.block.TorchFacingDirectionState"><code class="docutils literal notranslate"><span class="pre">TorchFacingDirectionState</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.block.TorchFacingDirectionState.id"><code class="docutils literal notranslate"><span class="pre">TorchFacingDirectionState.id</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="mcaddon.html#mcaddon.block.TransformationComponent"><code class="docutils literal notranslate"><span class="pre">TransformationComponent</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.block.TransformationComponent.id"><code class="docutils literal notranslate"><span class="pre">TransformationComponent.id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.block.TransformationComponent.rotation"><code class="docutils literal notranslate"><span class="pre">TransformationComponent.rotation</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.block.TransformationComponent.scale"><code class="docutils literal notranslate"><span class="pre">TransformationComponent.scale</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.block.TransformationComponent.translation"><code class="docutils literal notranslate"><span class="pre">TransformationComponent.translation</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="mcaddon.html#mcaddon.block.TrapdoorBlock"><code class="docutils literal notranslate"><span class="pre">TrapdoorBlock</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.block.TrapdoorBlock.type"><code class="docutils literal notranslate"><span class="pre">TrapdoorBlock.type</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="mcaddon.html#mcaddon.block.TriggedBitState"><code class="docutils literal notranslate"><span class="pre">TriggedBitState</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.block.TriggedBitState.id"><code class="docutils literal notranslate"><span class="pre">TriggedBitState.id</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="mcaddon.html#mcaddon.block.TurtleEggCountState"><code class="docutils literal notranslate"><span class="pre">TurtleEggCountState</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.block.TurtleEggCountState.id"><code class="docutils literal notranslate"><span class="pre">TurtleEggCountState.id</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="mcaddon.html#mcaddon.block.UnitCubeComponent"><code class="docutils literal notranslate"><span class="pre">UnitCubeComponent</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.block.UnitCubeComponent.id"><code class="docutils literal notranslate"><span class="pre">UnitCubeComponent.id</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="mcaddon.html#mcaddon.block.UpdateBitState"><code class="docutils literal notranslate"><span class="pre">UpdateBitState</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.block.UpdateBitState.id"><code class="docutils literal notranslate"><span class="pre">UpdateBitState.id</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="mcaddon.html#mcaddon.block.UpperBlockBitState"><code class="docutils literal notranslate"><span class="pre">UpperBlockBitState</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.block.UpperBlockBitState.id"><code class="docutils literal notranslate"><span class="pre">UpperBlockBitState.id</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="mcaddon.html#mcaddon.block.UpsideDownBitState"><code class="docutils literal notranslate"><span class="pre">UpsideDownBitState</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.block.UpsideDownBitState.id"><code class="docutils literal notranslate"><span class="pre">UpsideDownBitState.id</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="mcaddon.html#mcaddon.block.VerticalHalfState"><code class="docutils literal notranslate"><span class="pre">VerticalHalfState</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.block.VerticalHalfState.id"><code class="docutils literal notranslate"><span class="pre">VerticalHalfState.id</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="mcaddon.html#mcaddon.block.VineDirectionBitsState"><code class="docutils literal notranslate"><span class="pre">VineDirectionBitsState</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.block.VineDirectionBitsState.id"><code class="docutils literal notranslate"><span class="pre">VineDirectionBitsState.id</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="mcaddon.html#mcaddon.block.WallBlock"><code class="docutils literal notranslate"><span class="pre">WallBlock</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.block.WallBlock.type"><code class="docutils literal notranslate"><span class="pre">WallBlock.type</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="mcaddon.html#mcaddon.block.WallBlockTypeState"><code class="docutils literal notranslate"><span class="pre">WallBlockTypeState</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.block.WallBlockTypeState.id"><code class="docutils literal notranslate"><span class="pre">WallBlockTypeState.id</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="mcaddon.html#mcaddon.block.WallConnectionTypEastState"><code class="docutils literal notranslate"><span class="pre">WallConnectionTypEastState</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.block.WallConnectionTypEastState.id"><code class="docutils literal notranslate"><span class="pre">WallConnectionTypEastState.id</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="mcaddon.html#mcaddon.block.WallConnectionTypeNorthState"><code class="docutils literal notranslate"><span class="pre">WallConnectionTypeNorthState</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.block.WallConnectionTypeNorthState.id"><code class="docutils literal notranslate"><span class="pre">WallConnectionTypeNorthState.id</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="mcaddon.html#mcaddon.block.WallConnectionTypeSouthState"><code class="docutils literal notranslate"><span class="pre">WallConnectionTypeSouthState</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.block.WallConnectionTypeSouthState.id"><code class="docutils literal notranslate"><span class="pre">WallConnectionTypeSouthState.id</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="mcaddon.html#mcaddon.block.WallConnectionTypeWestState"><code class="docutils literal notranslate"><span class="pre">WallConnectionTypeWestState</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.block.WallConnectionTypeWestState.id"><code class="docutils literal notranslate"><span class="pre">WallConnectionTypeWestState.id</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="mcaddon.html#mcaddon.block.WallPostBitState"><code class="docutils literal notranslate"><span class="pre">WallPostBitState</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.block.WallPostBitState.id"><code class="docutils literal notranslate"><span class="pre">WallPostBitState.id</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="mcaddon.html#mcaddon.block.WeirdoDirectionState"><code class="docutils literal notranslate"><span class="pre">WeirdoDirectionState</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.block.WeirdoDirectionState.id"><code class="docutils literal notranslate"><span class="pre">WeirdoDirectionState.id</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="mcaddon.html#mcaddon.block.WoodTypeState"><code class="docutils literal notranslate"><span class="pre">WoodTypeState</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.block.WoodTypeState.id"><code class="docutils literal notranslate"><span class="pre">WoodTypeState.id</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="mcaddon.html#mcaddon.block.component"><code class="docutils literal notranslate"><span class="pre">component()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="mcaddon.html#mcaddon.block.state"><code class="docutils literal notranslate"><span class="pre">state()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="mcaddon.html#mcaddon.block.trait"><code class="docutils literal notranslate"><span class="pre">trait()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="mcaddon.html#module-mcaddon.constant">mcaddon.constant module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="mcaddon.html#mcaddon.constant.Category"><code class="docutils literal notranslate"><span class="pre">Category</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.constant.Category.COMMANDS"><code class="docutils literal notranslate"><span class="pre">Category.COMMANDS</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.constant.Category.CONSTRUCTION"><code class="docutils literal notranslate"><span class="pre">Category.CONSTRUCTION</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.constant.Category.EQUIPMENT"><code class="docutils literal notranslate"><span class="pre">Category.EQUIPMENT</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.constant.Category.ITEMS"><code class="docutils literal notranslate"><span class="pre">Category.ITEMS</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.constant.Category.NATURE"><code class="docutils literal notranslate"><span class="pre">Category.NATURE</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.constant.Category.NONE"><code class="docutils literal notranslate"><span class="pre">Category.NONE</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="mcaddon.html#mcaddon.constant.Color"><code class="docutils literal notranslate"><span class="pre">Color</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.constant.Color.BLACK"><code class="docutils literal notranslate"><span class="pre">Color.BLACK</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.constant.Color.BLUE"><code class="docutils literal notranslate"><span class="pre">Color.BLUE</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.constant.Color.BROWN"><code class="docutils literal notranslate"><span class="pre">Color.BROWN</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.constant.Color.CYAN"><code class="docutils literal notranslate"><span class="pre">Color.CYAN</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.constant.Color.GRAY"><code class="docutils literal notranslate"><span class="pre">Color.GRAY</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.constant.Color.GREEN"><code class="docutils literal notranslate"><span class="pre">Color.GREEN</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.constant.Color.LIGHT_BLUE"><code class="docutils literal notranslate"><span class="pre">Color.LIGHT_BLUE</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.constant.Color.LIGHT_GRAY"><code class="docutils literal notranslate"><span class="pre">Color.LIGHT_GRAY</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.constant.Color.LIME"><code class="docutils literal notranslate"><span class="pre">Color.LIME</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.constant.Color.MAGENTA"><code class="docutils literal notranslate"><span class="pre">Color.MAGENTA</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.constant.Color.ORANGE"><code class="docutils literal notranslate"><span class="pre">Color.ORANGE</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.constant.Color.PINK"><code class="docutils literal notranslate"><span class="pre">Color.PINK</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.constant.Color.PURPLE"><code class="docutils literal notranslate"><span class="pre">Color.PURPLE</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.constant.Color.RED"><code class="docutils literal notranslate"><span class="pre">Color.RED</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.constant.Color.WHITE"><code class="docutils literal notranslate"><span class="pre">Color.WHITE</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.constant.Color.YELLOW"><code class="docutils literal notranslate"><span class="pre">Color.YELLOW</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="mcaddon.html#mcaddon.constant.EventTarget"><code class="docutils literal notranslate"><span class="pre">EventTarget</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.constant.EventTarget.BABY"><code class="docutils literal notranslate"><span class="pre">EventTarget.BABY</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.constant.EventTarget.BLOCK"><code class="docutils literal notranslate"><span class="pre">EventTarget.BLOCK</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.constant.EventTarget.DAMAGER"><code class="docutils literal notranslate"><span class="pre">EventTarget.DAMAGER</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.constant.EventTarget.HOLDER"><code class="docutils literal notranslate"><span class="pre">EventTarget.HOLDER</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.constant.EventTarget.ITEM"><code class="docutils literal notranslate"><span class="pre">EventTarget.ITEM</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.constant.EventTarget.OTHER"><code class="docutils literal notranslate"><span class="pre">EventTarget.OTHER</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.constant.EventTarget.PARENT"><code class="docutils literal notranslate"><span class="pre">EventTarget.PARENT</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.constant.EventTarget.PLAYER"><code class="docutils literal notranslate"><span class="pre">EventTarget.PLAYER</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.constant.EventTarget.SELF"><code class="docutils literal notranslate"><span class="pre">EventTarget.SELF</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.constant.EventTarget.TARGET"><code class="docutils literal notranslate"><span class="pre">EventTarget.TARGET</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="mcaddon.html#mcaddon.constant.ModuleType"><code class="docutils literal notranslate"><span class="pre">ModuleType</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.constant.ModuleType.CLIENT_DATA"><code class="docutils literal notranslate"><span class="pre">ModuleType.CLIENT_DATA</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.constant.ModuleType.DATA"><code class="docutils literal notranslate"><span class="pre">ModuleType.DATA</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.constant.ModuleType.INTERFACE"><code class="docutils literal notranslate"><span class="pre">ModuleType.INTERFACE</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.constant.ModuleType.RESOURCES"><code class="docutils literal notranslate"><span class="pre">ModuleType.RESOURCES</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.constant.ModuleType.WORLD_TEMPLATE"><code class="docutils literal notranslate"><span class="pre">ModuleType.WORLD_TEMPLATE</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="mcaddon.html#mcaddon.constant.RecipeTag"><code class="docutils literal notranslate"><span class="pre">RecipeTag</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.constant.RecipeTag.BREWING_STAND"><code class="docutils literal notranslate"><span class="pre">RecipeTag.BREWING_STAND</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.constant.RecipeTag.CAMPFIRE"><code class="docutils literal notranslate"><span class="pre">RecipeTag.CAMPFIRE</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.constant.RecipeTag.CRAFTING_TABLE"><code class="docutils literal notranslate"><span class="pre">RecipeTag.CRAFTING_TABLE</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.constant.RecipeTag.FURNACE"><code class="docutils literal notranslate"><span class="pre">RecipeTag.FURNACE</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.constant.RecipeTag.SMITHING_TABLE"><code class="docutils literal notranslate"><span class="pre">RecipeTag.SMITHING_TABLE</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.constant.RecipeTag.SMOKER"><code class="docutils literal notranslate"><span class="pre">RecipeTag.SMOKER</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.constant.RecipeTag.SOUL_CAMPFIRE"><code class="docutils literal notranslate"><span class="pre">RecipeTag.SOUL_CAMPFIRE</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.constant.RecipeTag.STONECUTTER"><code class="docutils literal notranslate"><span class="pre">RecipeTag.STONECUTTER</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="mcaddon.html#mcaddon.constant.RenderMethod"><code class="docutils literal notranslate"><span class="pre">RenderMethod</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.constant.RenderMethod.ALPHA_TEST"><code class="docutils literal notranslate"><span class="pre">RenderMethod.ALPHA_TEST</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.constant.RenderMethod.BLEND"><code class="docutils literal notranslate"><span class="pre">RenderMethod.BLEND</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.constant.RenderMethod.DOUBLE_SIDED"><code class="docutils literal notranslate"><span class="pre">RenderMethod.DOUBLE_SIDED</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.constant.RenderMethod.OPAQUE"><code class="docutils literal notranslate"><span class="pre">RenderMethod.OPAQUE</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="mcaddon.html#mcaddon.constant.UseAnimation"><code class="docutils literal notranslate"><span class="pre">UseAnimation</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.constant.UseAnimation.CAMERA"><code class="docutils literal notranslate"><span class="pre">UseAnimation.CAMERA</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.constant.UseAnimation.DRINK"><code class="docutils literal notranslate"><span class="pre">UseAnimation.DRINK</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.constant.UseAnimation.EAT"><code class="docutils literal notranslate"><span class="pre">UseAnimation.EAT</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="mcaddon.html#module-mcaddon.entity">mcaddon.entity module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="mcaddon.html#mcaddon.entity.Entity"><code class="docutils literal notranslate"><span class="pre">Entity</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.entity.Entity.format_version"><code class="docutils literal notranslate"><span class="pre">Entity.format_version</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.entity.Entity.id"><code class="docutils literal notranslate"><span class="pre">Entity.id</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="mcaddon.html#mcaddon.entity.EntityComponent"><code class="docutils literal notranslate"><span class="pre">EntityComponent</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.entity.EntityComponent.from_dict"><code class="docutils literal notranslate"><span class="pre">EntityComponent.from_dict()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="mcaddon.html#mcaddon.entity.component"><code class="docutils literal notranslate"><span class="pre">component()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="mcaddon.html#module-mcaddon.event">mcaddon.event module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="mcaddon.html#mcaddon.event.AddMobEffect"><code class="docutils literal notranslate"><span class="pre">AddMobEffect</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.event.AddMobEffect.amplifier"><code class="docutils literal notranslate"><span class="pre">AddMobEffect.amplifier</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.event.AddMobEffect.duration"><code class="docutils literal notranslate"><span class="pre">AddMobEffect.duration</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.event.AddMobEffect.effect"><code class="docutils literal notranslate"><span class="pre">AddMobEffect.effect</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.event.AddMobEffect.id"><code class="docutils literal notranslate"><span class="pre">AddMobEffect.id</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="mcaddon.html#mcaddon.event.Damage"><code class="docutils literal notranslate"><span class="pre">Damage</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.event.Damage.amount"><code class="docutils literal notranslate"><span class="pre">Damage.amount</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.event.Damage.id"><code class="docutils literal notranslate"><span class="pre">Damage.id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.event.Damage.mob_amount"><code class="docutils literal notranslate"><span class="pre">Damage.mob_amount</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.event.Damage.type"><code class="docutils literal notranslate"><span class="pre">Damage.type</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="mcaddon.html#mcaddon.event.DecrementBlockState"><code class="docutils literal notranslate"><span class="pre">DecrementBlockState</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="mcaddon.html#mcaddon.event.DecrementStack"><code class="docutils literal notranslate"><span class="pre">DecrementStack</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.event.DecrementStack.id"><code class="docutils literal notranslate"><span class="pre">DecrementStack.id</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="mcaddon.html#mcaddon.event.Die"><code class="docutils literal notranslate"><span class="pre">Die</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.event.Die.id"><code class="docutils literal notranslate"><span class="pre">Die.id</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="mcaddon.html#mcaddon.event.Event"><code class="docutils literal notranslate"><span class="pre">Event</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.event.Event.from_dict"><code class="docutils literal notranslate"><span class="pre">Event.from_dict()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.event.Event.target"><code class="docutils literal notranslate"><span class="pre">Event.target</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="mcaddon.html#mcaddon.event.IncrementBlockState"><code class="docutils literal notranslate"><span class="pre">IncrementBlockState</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="mcaddon.html#mcaddon.event.PlayEffect"><code class="docutils literal notranslate"><span class="pre">PlayEffect</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.event.PlayEffect.data"><code class="docutils literal notranslate"><span class="pre">PlayEffect.data</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.event.PlayEffect.effect"><code class="docutils literal notranslate"><span class="pre">PlayEffect.effect</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.event.PlayEffect.id"><code class="docutils literal notranslate"><span class="pre">PlayEffect.id</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="mcaddon.html#mcaddon.event.PlaySound"><code class="docutils literal notranslate"><span class="pre">PlaySound</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.event.PlaySound.id"><code class="docutils literal notranslate"><span class="pre">PlaySound.id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.event.PlaySound.sound"><code class="docutils literal notranslate"><span class="pre">PlaySound.sound</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="mcaddon.html#mcaddon.event.Randomize"><code class="docutils literal notranslate"><span class="pre">Randomize</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.event.Randomize.id"><code class="docutils literal notranslate"><span class="pre">Randomize.id</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="mcaddon.html#mcaddon.event.RemoveMobEffect"><code class="docutils literal notranslate"><span class="pre">RemoveMobEffect</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.event.RemoveMobEffect.effect"><code class="docutils literal notranslate"><span class="pre">RemoveMobEffect.effect</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.event.RemoveMobEffect.id"><code class="docutils literal notranslate"><span class="pre">RemoveMobEffect.id</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="mcaddon.html#mcaddon.event.RunCommand"><code class="docutils literal notranslate"><span class="pre">RunCommand</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.event.RunCommand.command"><code class="docutils literal notranslate"><span class="pre">RunCommand.command</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.event.RunCommand.id"><code class="docutils literal notranslate"><span class="pre">RunCommand.id</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="mcaddon.html#mcaddon.event.Sequence"><code class="docutils literal notranslate"><span class="pre">Sequence</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.event.Sequence.add_event"><code class="docutils literal notranslate"><span class="pre">Sequence.add_event()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.event.Sequence.clear_events"><code class="docutils literal notranslate"><span class="pre">Sequence.clear_events()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.event.Sequence.event_exists"><code class="docutils literal notranslate"><span class="pre">Sequence.event_exists()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.event.Sequence.events"><code class="docutils literal notranslate"><span class="pre">Sequence.events</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.event.Sequence.get_condition"><code class="docutils literal notranslate"><span class="pre">Sequence.get_condition()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.event.Sequence.get_event"><code class="docutils literal notranslate"><span class="pre">Sequence.get_event()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.event.Sequence.id"><code class="docutils literal notranslate"><span class="pre">Sequence.id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.event.Sequence.remove_condition"><code class="docutils literal notranslate"><span class="pre">Sequence.remove_condition()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.event.Sequence.remove_event"><code class="docutils literal notranslate"><span class="pre">Sequence.remove_event()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.event.Sequence.set_condition"><code class="docutils literal notranslate"><span class="pre">Sequence.set_condition()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="mcaddon.html#mcaddon.event.SetBlock"><code class="docutils literal notranslate"><span class="pre">SetBlock</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.event.SetBlock.block_type"><code class="docutils literal notranslate"><span class="pre">SetBlock.block_type</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.event.SetBlock.id"><code class="docutils literal notranslate"><span class="pre">SetBlock.id</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="mcaddon.html#mcaddon.event.SetBlockAtPos"><code class="docutils literal notranslate"><span class="pre">SetBlockAtPos</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.event.SetBlockAtPos.block_offset"><code class="docutils literal notranslate"><span class="pre">SetBlockAtPos.block_offset</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.event.SetBlockAtPos.block_type"><code class="docutils literal notranslate"><span class="pre">SetBlockAtPos.block_type</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.event.SetBlockAtPos.id"><code class="docutils literal notranslate"><span class="pre">SetBlockAtPos.id</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="mcaddon.html#mcaddon.event.SetBlockState"><code class="docutils literal notranslate"><span class="pre">SetBlockState</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.event.SetBlockState.id"><code class="docutils literal notranslate"><span class="pre">SetBlockState.id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.event.SetBlockState.states"><code class="docutils literal notranslate"><span class="pre">SetBlockState.states</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="mcaddon.html#mcaddon.event.SpawnLoot"><code class="docutils literal notranslate"><span class="pre">SpawnLoot</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.event.SpawnLoot.id"><code class="docutils literal notranslate"><span class="pre">SpawnLoot.id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.event.SpawnLoot.table"><code class="docutils literal notranslate"><span class="pre">SpawnLoot.table</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="mcaddon.html#mcaddon.event.Swing"><code class="docutils literal notranslate"><span class="pre">Swing</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.event.Swing.id"><code class="docutils literal notranslate"><span class="pre">Swing.id</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="mcaddon.html#mcaddon.event.SwitchBlockState"><code class="docutils literal notranslate"><span class="pre">SwitchBlockState</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="mcaddon.html#mcaddon.event.Teleport"><code class="docutils literal notranslate"><span class="pre">Teleport</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.event.Teleport.avoid_water"><code class="docutils literal notranslate"><span class="pre">Teleport.avoid_water</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.event.Teleport.destination"><code class="docutils literal notranslate"><span class="pre">Teleport.destination</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.event.Teleport.id"><code class="docutils literal notranslate"><span class="pre">Teleport.id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.event.Teleport.land_on_block"><code class="docutils literal notranslate"><span class="pre">Teleport.land_on_block</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.event.Teleport.max_range"><code class="docutils literal notranslate"><span class="pre">Teleport.max_range</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="mcaddon.html#mcaddon.event.TransformiIem"><code class="docutils literal notranslate"><span class="pre">TransformiIem</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.event.TransformiIem.id"><code class="docutils literal notranslate"><span class="pre">TransformiIem.id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.event.TransformiIem.transform"><code class="docutils literal notranslate"><span class="pre">TransformiIem.transform</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="mcaddon.html#mcaddon.event.Trigger"><code class="docutils literal notranslate"><span class="pre">Trigger</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.event.Trigger.condition"><code class="docutils literal notranslate"><span class="pre">Trigger.condition</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.event.Trigger.event"><code class="docutils literal notranslate"><span class="pre">Trigger.event</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.event.Trigger.id"><code class="docutils literal notranslate"><span class="pre">Trigger.id</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="mcaddon.html#mcaddon.event.event"><code class="docutils literal notranslate"><span class="pre">event()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="mcaddon.html#module-mcaddon.feature">mcaddon.feature module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mcaddon.html#module-mcaddon.fog">mcaddon.fog module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mcaddon.html#module-mcaddon.item">mcaddon.item module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="mcaddon.html#mcaddon.item.AllowOffHandComponent"><code class="docutils literal notranslate"><span class="pre">AllowOffHandComponent</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.item.AllowOffHandComponent.id"><code class="docutils literal notranslate"><span class="pre">AllowOffHandComponent.id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.item.AllowOffHandComponent.value"><code class="docutils literal notranslate"><span class="pre">AllowOffHandComponent.value</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="mcaddon.html#mcaddon.item.AppleItem"><code class="docutils literal notranslate"><span class="pre">AppleItem</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="mcaddon.html#mcaddon.item.BlockPlacerComponent"><code class="docutils literal notranslate"><span class="pre">BlockPlacerComponent</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.item.BlockPlacerComponent.block"><code class="docutils literal notranslate"><span class="pre">BlockPlacerComponent.block</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.item.BlockPlacerComponent.id"><code class="docutils literal notranslate"><span class="pre">BlockPlacerComponent.id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.item.BlockPlacerComponent.use_on"><code class="docutils literal notranslate"><span class="pre">BlockPlacerComponent.use_on</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="mcaddon.html#mcaddon.item.CanDestroyInCreativeComponent"><code class="docutils literal notranslate"><span class="pre">CanDestroyInCreativeComponent</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.item.CanDestroyInCreativeComponent.id"><code class="docutils literal notranslate"><span class="pre">CanDestroyInCreativeComponent.id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.item.CanDestroyInCreativeComponent.value"><code class="docutils literal notranslate"><span class="pre">CanDestroyInCreativeComponent.value</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="mcaddon.html#mcaddon.item.CooldownComponent"><code class="docutils literal notranslate"><span class="pre">CooldownComponent</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.item.CooldownComponent.category"><code class="docutils literal notranslate"><span class="pre">CooldownComponent.category</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.item.CooldownComponent.duration"><code class="docutils literal notranslate"><span class="pre">CooldownComponent.duration</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.item.CooldownComponent.id"><code class="docutils literal notranslate"><span class="pre">CooldownComponent.id</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="mcaddon.html#mcaddon.item.DamageComponent"><code class="docutils literal notranslate"><span class="pre">DamageComponent</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.item.DamageComponent.id"><code class="docutils literal notranslate"><span class="pre">DamageComponent.id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.item.DamageComponent.value"><code class="docutils literal notranslate"><span class="pre">DamageComponent.value</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="mcaddon.html#mcaddon.item.DisplayNameComponent"><code class="docutils literal notranslate"><span class="pre">DisplayNameComponent</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.item.DisplayNameComponent.id"><code class="docutils literal notranslate"><span class="pre">DisplayNameComponent.id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.item.DisplayNameComponent.value"><code class="docutils literal notranslate"><span class="pre">DisplayNameComponent.value</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="mcaddon.html#mcaddon.item.DurabilityComponent"><code class="docutils literal notranslate"><span class="pre">DurabilityComponent</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.item.DurabilityComponent.damage_chance"><code class="docutils literal notranslate"><span class="pre">DurabilityComponent.damage_chance</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.item.DurabilityComponent.id"><code class="docutils literal notranslate"><span class="pre">DurabilityComponent.id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.item.DurabilityComponent.max_durability"><code class="docutils literal notranslate"><span class="pre">DurabilityComponent.max_durability</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="mcaddon.html#mcaddon.item.EnchantableComponent"><code class="docutils literal notranslate"><span class="pre">EnchantableComponent</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.item.EnchantableComponent.id"><code class="docutils literal notranslate"><span class="pre">EnchantableComponent.id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.item.EnchantableComponent.slot"><code class="docutils literal notranslate"><span class="pre">EnchantableComponent.slot</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.item.EnchantableComponent.value"><code class="docutils literal notranslate"><span class="pre">EnchantableComponent.value</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="mcaddon.html#mcaddon.item.EntityPlacerComponent"><code class="docutils literal notranslate"><span class="pre">EntityPlacerComponent</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.item.EntityPlacerComponent.dispense_on"><code class="docutils literal notranslate"><span class="pre">EntityPlacerComponent.dispense_on</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.item.EntityPlacerComponent.entity"><code class="docutils literal notranslate"><span class="pre">EntityPlacerComponent.entity</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.item.EntityPlacerComponent.id"><code class="docutils literal notranslate"><span class="pre">EntityPlacerComponent.id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.item.EntityPlacerComponent.use_on"><code class="docutils literal notranslate"><span class="pre">EntityPlacerComponent.use_on</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="mcaddon.html#mcaddon.item.FoodComponent"><code class="docutils literal notranslate"><span class="pre">FoodComponent</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.item.FoodComponent.can_always_eat"><code class="docutils literal notranslate"><span class="pre">FoodComponent.can_always_eat</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.item.FoodComponent.id"><code class="docutils literal notranslate"><span class="pre">FoodComponent.id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.item.FoodComponent.nutrition"><code class="docutils literal notranslate"><span class="pre">FoodComponent.nutrition</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.item.FoodComponent.saturation_modifier"><code class="docutils literal notranslate"><span class="pre">FoodComponent.saturation_modifier</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.item.FoodComponent.using_converts_to"><code class="docutils literal notranslate"><span class="pre">FoodComponent.using_converts_to</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="mcaddon.html#mcaddon.item.FuelComponent"><code class="docutils literal notranslate"><span class="pre">FuelComponent</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.item.FuelComponent.duration"><code class="docutils literal notranslate"><span class="pre">FuelComponent.duration</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.item.FuelComponent.id"><code class="docutils literal notranslate"><span class="pre">FuelComponent.id</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="mcaddon.html#mcaddon.item.GlintComponent"><code class="docutils literal notranslate"><span class="pre">GlintComponent</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.item.GlintComponent.id"><code class="docutils literal notranslate"><span class="pre">GlintComponent.id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.item.GlintComponent.value"><code class="docutils literal notranslate"><span class="pre">GlintComponent.value</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="mcaddon.html#mcaddon.item.HandEquippedComponent"><code class="docutils literal notranslate"><span class="pre">HandEquippedComponent</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.item.HandEquippedComponent.id"><code class="docutils literal notranslate"><span class="pre">HandEquippedComponent.id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.item.HandEquippedComponent.value"><code class="docutils literal notranslate"><span class="pre">HandEquippedComponent.value</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="mcaddon.html#mcaddon.item.HoverTextColorComponent"><code class="docutils literal notranslate"><span class="pre">HoverTextColorComponent</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.item.HoverTextColorComponent.id"><code class="docutils literal notranslate"><span class="pre">HoverTextColorComponent.id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.item.HoverTextColorComponent.value"><code class="docutils literal notranslate"><span class="pre">HoverTextColorComponent.value</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="mcaddon.html#mcaddon.item.IconComponent"><code class="docutils literal notranslate"><span class="pre">IconComponent</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.item.IconComponent.id"><code class="docutils literal notranslate"><span class="pre">IconComponent.id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.item.IconComponent.texture"><code class="docutils literal notranslate"><span class="pre">IconComponent.texture</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="mcaddon.html#mcaddon.item.InteractButtonComponent"><code class="docutils literal notranslate"><span class="pre">InteractButtonComponent</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.item.InteractButtonComponent.id"><code class="docutils literal notranslate"><span class="pre">InteractButtonComponent.id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.item.InteractButtonComponent.value"><code class="docutils literal notranslate"><span class="pre">InteractButtonComponent.value</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="mcaddon.html#mcaddon.item.Item"><code class="docutils literal notranslate"><span class="pre">Item</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.item.Item.add_component"><code class="docutils literal notranslate"><span class="pre">Item.add_component()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.item.Item.add_event"><code class="docutils literal notranslate"><span class="pre">Item.add_event()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.item.Item.clear_components"><code class="docutils literal notranslate"><span class="pre">Item.clear_components()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.item.Item.clear_events"><code class="docutils literal notranslate"><span class="pre">Item.clear_events()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.item.Item.components"><code class="docutils literal notranslate"><span class="pre">Item.components</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.item.Item.events"><code class="docutils literal notranslate"><span class="pre">Item.events</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.item.Item.format_version"><code class="docutils literal notranslate"><span class="pre">Item.format_version</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.item.Item.from_dict"><code class="docutils literal notranslate"><span class="pre">Item.from_dict()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.item.Item.get_component"><code class="docutils literal notranslate"><span class="pre">Item.get_component()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.item.Item.get_event"><code class="docutils literal notranslate"><span class="pre">Item.get_event()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.item.Item.id"><code class="docutils literal notranslate"><span class="pre">Item.id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.item.Item.identifier"><code class="docutils literal notranslate"><span class="pre">Item.identifier</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.item.Item.menu_category"><code class="docutils literal notranslate"><span class="pre">Item.menu_category</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.item.Item.remove_component"><code class="docutils literal notranslate"><span class="pre">Item.remove_component()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.item.Item.remove_event"><code class="docutils literal notranslate"><span class="pre">Item.remove_event()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="mcaddon.html#mcaddon.item.ItemComponent"><code class="docutils literal notranslate"><span class="pre">ItemComponent</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.item.ItemComponent.from_dict"><code class="docutils literal notranslate"><span class="pre">ItemComponent.from_dict()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.item.ItemComponent.json"><code class="docutils literal notranslate"><span class="pre">ItemComponent.json()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="mcaddon.html#mcaddon.item.ItemStorageComponent"><code class="docutils literal notranslate"><span class="pre">ItemStorageComponent</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.item.ItemStorageComponent.capacity"><code class="docutils literal notranslate"><span class="pre">ItemStorageComponent.capacity</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.item.ItemStorageComponent.id"><code class="docutils literal notranslate"><span class="pre">ItemStorageComponent.id</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="mcaddon.html#mcaddon.item.LiquidClippedComponent"><code class="docutils literal notranslate"><span class="pre">LiquidClippedComponent</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.item.LiquidClippedComponent.id"><code class="docutils literal notranslate"><span class="pre">LiquidClippedComponent.id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.item.LiquidClippedComponent.value"><code class="docutils literal notranslate"><span class="pre">LiquidClippedComponent.value</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="mcaddon.html#mcaddon.item.MaxStackSizeComponent"><code class="docutils literal notranslate"><span class="pre">MaxStackSizeComponent</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.item.MaxStackSizeComponent.id"><code class="docutils literal notranslate"><span class="pre">MaxStackSizeComponent.id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.item.MaxStackSizeComponent.value"><code class="docutils literal notranslate"><span class="pre">MaxStackSizeComponent.value</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="mcaddon.html#mcaddon.item.ProjectileComponent"><code class="docutils literal notranslate"><span class="pre">ProjectileComponent</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.item.ProjectileComponent.id"><code class="docutils literal notranslate"><span class="pre">ProjectileComponent.id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.item.ProjectileComponent.minimum_critical_power"><code class="docutils literal notranslate"><span class="pre">ProjectileComponent.minimum_critical_power</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.item.ProjectileComponent.projectile_entity"><code class="docutils literal notranslate"><span class="pre">ProjectileComponent.projectile_entity</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="mcaddon.html#mcaddon.item.RecordComponent"><code class="docutils literal notranslate"><span class="pre">RecordComponent</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.item.RecordComponent.comparator_signal"><code class="docutils literal notranslate"><span class="pre">RecordComponent.comparator_signal</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.item.RecordComponent.duration"><code class="docutils literal notranslate"><span class="pre">RecordComponent.duration</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.item.RecordComponent.id"><code class="docutils literal notranslate"><span class="pre">RecordComponent.id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.item.RecordComponent.sound_event"><code class="docutils literal notranslate"><span class="pre">RecordComponent.sound_event</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="mcaddon.html#mcaddon.item.RepairItem"><code class="docutils literal notranslate"><span class="pre">RepairItem</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="mcaddon.html#mcaddon.item.RepairableComponent"><code class="docutils literal notranslate"><span class="pre">RepairableComponent</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.item.RepairableComponent.id"><code class="docutils literal notranslate"><span class="pre">RepairableComponent.id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.item.RepairableComponent.repair_items"><code class="docutils literal notranslate"><span class="pre">RepairableComponent.repair_items</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="mcaddon.html#mcaddon.item.ShooterComponent"><code class="docutils literal notranslate"><span class="pre">ShooterComponent</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.item.ShooterComponent.ammunition"><code class="docutils literal notranslate"><span class="pre">ShooterComponent.ammunition</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.item.ShooterComponent.charge_on_draw"><code class="docutils literal notranslate"><span class="pre">ShooterComponent.charge_on_draw</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.item.ShooterComponent.id"><code class="docutils literal notranslate"><span class="pre">ShooterComponent.id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.item.ShooterComponent.max_draw_duration"><code class="docutils literal notranslate"><span class="pre">ShooterComponent.max_draw_duration</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.item.ShooterComponent.scale_power_by_draw_duration"><code class="docutils literal notranslate"><span class="pre">ShooterComponent.scale_power_by_draw_duration</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="mcaddon.html#mcaddon.item.ShouldDespawnComponent"><code class="docutils literal notranslate"><span class="pre">ShouldDespawnComponent</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.item.ShouldDespawnComponent.id"><code class="docutils literal notranslate"><span class="pre">ShouldDespawnComponent.id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.item.ShouldDespawnComponent.value"><code class="docutils literal notranslate"><span class="pre">ShouldDespawnComponent.value</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="mcaddon.html#mcaddon.item.StackedByDataComponent"><code class="docutils literal notranslate"><span class="pre">StackedByDataComponent</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.item.StackedByDataComponent.id"><code class="docutils literal notranslate"><span class="pre">StackedByDataComponent.id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.item.StackedByDataComponent.value"><code class="docutils literal notranslate"><span class="pre">StackedByDataComponent.value</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="mcaddon.html#mcaddon.item.TagsComponent"><code class="docutils literal notranslate"><span class="pre">TagsComponent</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.item.TagsComponent.id"><code class="docutils literal notranslate"><span class="pre">TagsComponent.id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.item.TagsComponent.tags"><code class="docutils literal notranslate"><span class="pre">TagsComponent.tags</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="mcaddon.html#mcaddon.item.ThrowableComponent"><code class="docutils literal notranslate"><span class="pre">ThrowableComponent</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.item.ThrowableComponent.do_swing_animation"><code class="docutils literal notranslate"><span class="pre">ThrowableComponent.do_swing_animation</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.item.ThrowableComponent.id"><code class="docutils literal notranslate"><span class="pre">ThrowableComponent.id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.item.ThrowableComponent.launch_power_scale"><code class="docutils literal notranslate"><span class="pre">ThrowableComponent.launch_power_scale</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.item.ThrowableComponent.max_draw_duration"><code class="docutils literal notranslate"><span class="pre">ThrowableComponent.max_draw_duration</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.item.ThrowableComponent.max_launch_power"><code class="docutils literal notranslate"><span class="pre">ThrowableComponent.max_launch_power</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.item.ThrowableComponent.min_draw_duration"><code class="docutils literal notranslate"><span class="pre">ThrowableComponent.min_draw_duration</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.item.ThrowableComponent.scale_power_by_draw_duration"><code class="docutils literal notranslate"><span class="pre">ThrowableComponent.scale_power_by_draw_duration</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="mcaddon.html#mcaddon.item.UseAnimationComponent"><code class="docutils literal notranslate"><span class="pre">UseAnimationComponent</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.item.UseAnimationComponent.id"><code class="docutils literal notranslate"><span class="pre">UseAnimationComponent.id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.item.UseAnimationComponent.value"><code class="docutils literal notranslate"><span class="pre">UseAnimationComponent.value</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="mcaddon.html#mcaddon.item.UseModifiersComponent"><code class="docutils literal notranslate"><span class="pre">UseModifiersComponent</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.item.UseModifiersComponent.id"><code class="docutils literal notranslate"><span class="pre">UseModifiersComponent.id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.item.UseModifiersComponent.movement_modifier"><code class="docutils literal notranslate"><span class="pre">UseModifiersComponent.movement_modifier</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.item.UseModifiersComponent.use_duration"><code class="docutils literal notranslate"><span class="pre">UseModifiersComponent.use_duration</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="mcaddon.html#mcaddon.item.WearableComponent"><code class="docutils literal notranslate"><span class="pre">WearableComponent</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.item.WearableComponent.destroy_speeds"><code class="docutils literal notranslate"><span class="pre">WearableComponent.destroy_speeds</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.item.WearableComponent.id"><code class="docutils literal notranslate"><span class="pre">WearableComponent.id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.item.WearableComponent.use_efficiency"><code class="docutils literal notranslate"><span class="pre">WearableComponent.use_efficiency</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="mcaddon.html#mcaddon.item.component"><code class="docutils literal notranslate"><span class="pre">component()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="mcaddon.html#module-mcaddon.loot">mcaddon.loot module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="mcaddon.html#mcaddon.loot.LootTable"><code class="docutils literal notranslate"><span class="pre">LootTable</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="mcaddon.html#module-mcaddon.manifest">mcaddon.manifest module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="mcaddon.html#mcaddon.manifest.Dependency"><code class="docutils literal notranslate"><span class="pre">Dependency</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.manifest.Dependency.uuid"><code class="docutils literal notranslate"><span class="pre">Dependency.uuid</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.manifest.Dependency.version"><code class="docutils literal notranslate"><span class="pre">Dependency.version</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="mcaddon.html#mcaddon.manifest.Header"><code class="docutils literal notranslate"><span class="pre">Header</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.manifest.Header.allow_random_seed"><code class="docutils literal notranslate"><span class="pre">Header.allow_random_seed</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.manifest.Header.base_game_version"><code class="docutils literal notranslate"><span class="pre">Header.base_game_version</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.manifest.Header.description"><code class="docutils literal notranslate"><span class="pre">Header.description</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.manifest.Header.description_key"><code class="docutils literal notranslate"><span class="pre">Header.description_key</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.manifest.Header.lock_template_options"><code class="docutils literal notranslate"><span class="pre">Header.lock_template_options</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.manifest.Header.min_engine_version"><code class="docutils literal notranslate"><span class="pre">Header.min_engine_version</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.manifest.Header.name"><code class="docutils literal notranslate"><span class="pre">Header.name</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.manifest.Header.name_key"><code class="docutils literal notranslate"><span class="pre">Header.name_key</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.manifest.Header.uuid"><code class="docutils literal notranslate"><span class="pre">Header.uuid</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.manifest.Header.version"><code class="docutils literal notranslate"><span class="pre">Header.version</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="mcaddon.html#mcaddon.manifest.Manifest"><code class="docutils literal notranslate"><span class="pre">Manifest</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.manifest.Manifest.add_dependency"><code class="docutils literal notranslate"><span class="pre">Manifest.add_dependency()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.manifest.Manifest.add_module"><code class="docutils literal notranslate"><span class="pre">Manifest.add_module()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.manifest.Manifest.behavior"><code class="docutils literal notranslate"><span class="pre">Manifest.behavior()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.manifest.Manifest.clear_dependencies"><code class="docutils literal notranslate"><span class="pre">Manifest.clear_dependencies()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.manifest.Manifest.clear_modules"><code class="docutils literal notranslate"><span class="pre">Manifest.clear_modules()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.manifest.Manifest.dependencies"><code class="docutils literal notranslate"><span class="pre">Manifest.dependencies</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.manifest.Manifest.format_version"><code class="docutils literal notranslate"><span class="pre">Manifest.format_version</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.manifest.Manifest.get_dependency"><code class="docutils literal notranslate"><span class="pre">Manifest.get_dependency()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.manifest.Manifest.get_module"><code class="docutils literal notranslate"><span class="pre">Manifest.get_module()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.manifest.Manifest.header"><code class="docutils literal notranslate"><span class="pre">Manifest.header</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.manifest.Manifest.metadata"><code class="docutils literal notranslate"><span class="pre">Manifest.metadata</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.manifest.Manifest.modules"><code class="docutils literal notranslate"><span class="pre">Manifest.modules</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.manifest.Manifest.remove_dependency"><code class="docutils literal notranslate"><span class="pre">Manifest.remove_dependency()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.manifest.Manifest.remove_module"><code class="docutils literal notranslate"><span class="pre">Manifest.remove_module()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.manifest.Manifest.resource"><code class="docutils literal notranslate"><span class="pre">Manifest.resource()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.manifest.Manifest.world_template"><code class="docutils literal notranslate"><span class="pre">Manifest.world_template()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="mcaddon.html#mcaddon.manifest.Metadata"><code class="docutils literal notranslate"><span class="pre">Metadata</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.manifest.Metadata.add_author"><code class="docutils literal notranslate"><span class="pre">Metadata.add_author()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.manifest.Metadata.authors"><code class="docutils literal notranslate"><span class="pre">Metadata.authors</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.manifest.Metadata.clear_authors"><code class="docutils literal notranslate"><span class="pre">Metadata.clear_authors()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.manifest.Metadata.get_author"><code class="docutils literal notranslate"><span class="pre">Metadata.get_author()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.manifest.Metadata.license"><code class="docutils literal notranslate"><span class="pre">Metadata.license</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.manifest.Metadata.remove_author"><code class="docutils literal notranslate"><span class="pre">Metadata.remove_author()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.manifest.Metadata.url"><code class="docutils literal notranslate"><span class="pre">Metadata.url</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="mcaddon.html#mcaddon.manifest.Module"><code class="docutils literal notranslate"><span class="pre">Module</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.manifest.Module.description"><code class="docutils literal notranslate"><span class="pre">Module.description</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.manifest.Module.type"><code class="docutils literal notranslate"><span class="pre">Module.type</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.manifest.Module.uuid"><code class="docutils literal notranslate"><span class="pre">Module.uuid</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.manifest.Module.version"><code class="docutils literal notranslate"><span class="pre">Module.version</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="mcaddon.html#module-mcaddon.pack">mcaddon.pack module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="mcaddon.html#mcaddon.pack.Addon"><code class="docutils literal notranslate"><span class="pre">Addon</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.pack.Addon.add_block"><code class="docutils literal notranslate"><span class="pre">Addon.add_block()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.pack.Addon.add_item"><code class="docutils literal notranslate"><span class="pre">Addon.add_item()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.pack.Addon.behaviors"><code class="docutils literal notranslate"><span class="pre">Addon.behaviors</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.pack.Addon.clear_blocks"><code class="docutils literal notranslate"><span class="pre">Addon.clear_blocks()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.pack.Addon.clear_items"><code class="docutils literal notranslate"><span class="pre">Addon.clear_items()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.pack.Addon.remove_block"><code class="docutils literal notranslate"><span class="pre">Addon.remove_block()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.pack.Addon.remove_item"><code class="docutils literal notranslate"><span class="pre">Addon.remove_item()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.pack.Addon.resources"><code class="docutils literal notranslate"><span class="pre">Addon.resources</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.pack.Addon.save"><code class="docutils literal notranslate"><span class="pre">Addon.save()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.pack.Addon.save_folder"><code class="docutils literal notranslate"><span class="pre">Addon.save_folder()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.pack.Addon.save_zipfile"><code class="docutils literal notranslate"><span class="pre">Addon.save_zipfile()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="mcaddon.html#mcaddon.pack.BehaviorPack"><code class="docutils literal notranslate"><span class="pre">BehaviorPack</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.pack.BehaviorPack.save_folder"><code class="docutils literal notranslate"><span class="pre">BehaviorPack.save_folder()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.pack.BehaviorPack.writezip"><code class="docutils literal notranslate"><span class="pre">BehaviorPack.writezip()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="mcaddon.html#mcaddon.pack.Pack"><code class="docutils literal notranslate"><span class="pre">Pack</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="mcaddon.html#mcaddon.pack.ResourcePack"><code class="docutils literal notranslate"><span class="pre">ResourcePack</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.pack.ResourcePack.save_folder"><code class="docutils literal notranslate"><span class="pre">ResourcePack.save_folder()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.pack.ResourcePack.writezip"><code class="docutils literal notranslate"><span class="pre">ResourcePack.writezip()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="mcaddon.html#module-mcaddon.particle">mcaddon.particle module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mcaddon.html#module-mcaddon.recipe">mcaddon.recipe module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mcaddon.html#module-mcaddon.texture_set">mcaddon.texture_set module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mcaddon.html#module-mcaddon.util">mcaddon.util module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="mcaddon.html#mcaddon.util.Identifier"><code class="docutils literal notranslate"><span class="pre">Identifier</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.util.Identifier.DEFAULT_NAMESPACE"><code class="docutils literal notranslate"><span class="pre">Identifier.DEFAULT_NAMESPACE</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.util.Identifier.SEPERATOR"><code class="docutils literal notranslate"><span class="pre">Identifier.SEPERATOR</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.util.Identifier.copy"><code class="docutils literal notranslate"><span class="pre">Identifier.copy()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.util.Identifier.copy_with_namespace"><code class="docutils literal notranslate"><span class="pre">Identifier.copy_with_namespace()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.util.Identifier.copy_with_path"><code class="docutils literal notranslate"><span class="pre">Identifier.copy_with_path()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.util.Identifier.is_namespace_valid"><code class="docutils literal notranslate"><span class="pre">Identifier.is_namespace_valid()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.util.Identifier.is_path_valid"><code class="docutils literal notranslate"><span class="pre">Identifier.is_path_valid()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.util.Identifier.namespace"><code class="docutils literal notranslate"><span class="pre">Identifier.namespace</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.util.Identifier.parse"><code class="docutils literal notranslate"><span class="pre">Identifier.parse()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.util.Identifier.path"><code class="docutils literal notranslate"><span class="pre">Identifier.path</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.util.Identifier.replace"><code class="docutils literal notranslate"><span class="pre">Identifier.replace()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.util.Identifier.split"><code class="docutils literal notranslate"><span class="pre">Identifier.split()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="mcaddon.html#mcaddon.util.MenuCategory"><code class="docutils literal notranslate"><span class="pre">MenuCategory</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.util.MenuCategory.category"><code class="docutils literal notranslate"><span class="pre">MenuCategory.category</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.util.MenuCategory.from_dict"><code class="docutils literal notranslate"><span class="pre">MenuCategory.from_dict()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.util.MenuCategory.group"><code class="docutils literal notranslate"><span class="pre">MenuCategory.group</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.util.MenuCategory.is_hidden_in_commands"><code class="docutils literal notranslate"><span class="pre">MenuCategory.is_hidden_in_commands</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="mcaddon.html#mcaddon.util.Molang"><code class="docutils literal notranslate"><span class="pre">Molang</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.util.Molang.abs"><code class="docutils literal notranslate"><span class="pre">Molang.abs()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.util.Molang.acos"><code class="docutils literal notranslate"><span class="pre">Molang.acos()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.util.Molang.add"><code class="docutils literal notranslate"><span class="pre">Molang.add()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.util.Molang.and_"><code class="docutils literal notranslate"><span class="pre">Molang.and_()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.util.Molang.append"><code class="docutils literal notranslate"><span class="pre">Molang.append()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.util.Molang.asin"><code class="docutils literal notranslate"><span class="pre">Molang.asin()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.util.Molang.atan"><code class="docutils literal notranslate"><span class="pre">Molang.atan()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.util.Molang.atan2"><code class="docutils literal notranslate"><span class="pre">Molang.atan2()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.util.Molang.block_state"><code class="docutils literal notranslate"><span class="pre">Molang.block_state()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.util.Molang.cell"><code class="docutils literal notranslate"><span class="pre">Molang.cell()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.util.Molang.clamp"><code class="docutils literal notranslate"><span class="pre">Molang.clamp()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.util.Molang.context"><code class="docutils literal notranslate"><span class="pre">Molang.context()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.util.Molang.cos"><code class="docutils literal notranslate"><span class="pre">Molang.cos()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.util.Molang.die_roll"><code class="docutils literal notranslate"><span class="pre">Molang.die_roll()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.util.Molang.die_roll_integer"><code class="docutils literal notranslate"><span class="pre">Molang.die_roll_integer()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.util.Molang.div"><code class="docutils literal notranslate"><span class="pre">Molang.div()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.util.Molang.exp"><code class="docutils literal notranslate"><span class="pre">Molang.exp()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.util.Molang.floor"><code class="docutils literal notranslate"><span class="pre">Molang.floor()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.util.Molang.geometry"><code class="docutils literal notranslate"><span class="pre">Molang.geometry()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.util.Molang.gt"><code class="docutils literal notranslate"><span class="pre">Molang.gt()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.util.Molang.gteq"><code class="docutils literal notranslate"><span class="pre">Molang.gteq()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.util.Molang.has_block_state"><code class="docutils literal notranslate"><span class="pre">Molang.has_block_state()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.util.Molang.hermite_blend"><code class="docutils literal notranslate"><span class="pre">Molang.hermite_blend()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.util.Molang.lerp"><code class="docutils literal notranslate"><span class="pre">Molang.lerp()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.util.Molang.lerprotate"><code class="docutils literal notranslate"><span class="pre">Molang.lerprotate()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.util.Molang.ln"><code class="docutils literal notranslate"><span class="pre">Molang.ln()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.util.Molang.lt"><code class="docutils literal notranslate"><span class="pre">Molang.lt()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.util.Molang.lteq"><code class="docutils literal notranslate"><span class="pre">Molang.lteq()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.util.Molang.material"><code class="docutils literal notranslate"><span class="pre">Molang.material()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.util.Molang.max"><code class="docutils literal notranslate"><span class="pre">Molang.max()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.util.Molang.min"><code class="docutils literal notranslate"><span class="pre">Molang.min()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.util.Molang.min_angle"><code class="docutils literal notranslate"><span class="pre">Molang.min_angle()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.util.Molang.mod"><code class="docutils literal notranslate"><span class="pre">Molang.mod()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.util.Molang.mul"><code class="docutils literal notranslate"><span class="pre">Molang.mul()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.util.Molang.not_"><code class="docutils literal notranslate"><span class="pre">Molang.not_()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.util.Molang.or_"><code class="docutils literal notranslate"><span class="pre">Molang.or_()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.util.Molang.paren"><code class="docutils literal notranslate"><span class="pre">Molang.paren()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.util.Molang.parse"><code class="docutils literal notranslate"><span class="pre">Molang.parse()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.util.Molang.pi"><code class="docutils literal notranslate"><span class="pre">Molang.pi()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.util.Molang.pow"><code class="docutils literal notranslate"><span class="pre">Molang.pow()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.util.Molang.prepend"><code class="docutils literal notranslate"><span class="pre">Molang.prepend()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.util.Molang.query"><code class="docutils literal notranslate"><span class="pre">Molang.query()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.util.Molang.random"><code class="docutils literal notranslate"><span class="pre">Molang.random()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.util.Molang.random_integer"><code class="docutils literal notranslate"><span class="pre">Molang.random_integer()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.util.Molang.round"><code class="docutils literal notranslate"><span class="pre">Molang.round()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.util.Molang.sin"><code class="docutils literal notranslate"><span class="pre">Molang.sin()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.util.Molang.sqrt"><code class="docutils literal notranslate"><span class="pre">Molang.sqrt()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.util.Molang.string"><code class="docutils literal notranslate"><span class="pre">Molang.string</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.util.Molang.sub"><code class="docutils literal notranslate"><span class="pre">Molang.sub()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.util.Molang.temp"><code class="docutils literal notranslate"><span class="pre">Molang.temp()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.util.Molang.texture"><code class="docutils literal notranslate"><span class="pre">Molang.texture()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.util.Molang.trunc"><code class="docutils literal notranslate"><span class="pre">Molang.trunc()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.util.Molang.variable"><code class="docutils literal notranslate"><span class="pre">Molang.variable()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="mcaddon.html#mcaddon.util.Saveable"><code class="docutils literal notranslate"><span class="pre">Saveable</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.util.Saveable.from_dict"><code class="docutils literal notranslate"><span class="pre">Saveable.from_dict()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.util.Saveable.json"><code class="docutils literal notranslate"><span class="pre">Saveable.json()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcaddon.html#mcaddon.util.Saveable.save"><code class="docutils literal notranslate"><span class="pre">Saveable.save()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="mcaddon.html#module-mcaddon.volume">mcaddon.volume module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mcaddon.html#module-mcaddon">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="setup.html">setup module</a></li>
+</ul>
+</div>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="index.html" class="btn btn-neutral float-left" title="Welcome to mcpackutils’s documentation!" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="mcaddon.html" class="btn btn-neutral float-right" title="mcaddon package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Legopitstop.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

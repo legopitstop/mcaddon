@@ -1,0 +1,21 @@
+mcpackutils.entity package
+==========================
+
+Submodules
+----------
+
+mcpackutils.entity.component module
+-----------------------------------
+
+.. automodule:: mcpackutils.entity.component
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Module contents
+---------------
+
+.. automodule:: mcpackutils.entity
+   :members:
+   :undoc-members:
+   :show-inheritance:

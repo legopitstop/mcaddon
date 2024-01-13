@@ -1,0 +1,21 @@
+mcpackutils.item package
+========================
+
+Submodules
+----------
+
+mcpackutils.item.component module
+---------------------------------
+
+.. automodule:: mcpackutils.item.component
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Module contents
+---------------
+
+.. automodule:: mcpackutils.item
+   :members:
+   :undoc-members:
+   :show-inheritance:

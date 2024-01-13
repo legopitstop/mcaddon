@@ -1,0 +1,31 @@
+Metadata-Version: 2.1
+Name: mclang
+Version: 1.0.0
+Summary: Read and write to .lang files.
+Home-page: https://github.com/legopitstop/mclang
+Author: Legopitstop
+Author-email: officiallegopitstop@gmail.com
+License: MIT
+Keywords: Minecraft: Bedrock Edition,lang,language,translate
+Classifier: Development Status :: 5 - Production/Stable
+Classifier: Intended Audience :: Developers
+Classifier: Topic :: Software Development :: Build Tools
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: Microsoft :: Windows
+Classifier: Programming Language :: Python :: 3.9
+Requires-Python: >=3.6
+Description-Content-Type: text/markdown
+
+# mclang
+Create or open Minecraft: Bedrock Edition `.lang` files.
+
+## Install
+```
+pip install mclang
+```
+
+## Features
+- Read and write to `.lang` files.
+- add translation support to your Python application.
+
+See the docs for more information.

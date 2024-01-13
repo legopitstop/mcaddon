@@ -1,0 +1,1069 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>mcpackutils.item package &mdash; mcpackutils 0.0.1 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=92fd9be5" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=19f00094" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="_static/jquery.js?v=5d32c60e"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="_static/documentation_options.js?v=d45e8c67"></script>
+        <script src="_static/doctools.js?v=888ff710"></script>
+        <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="mcpackutils" href="modules.html" />
+    <link rel="prev" title="mcpackutils.entity package" href="mcpackutils.entity.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            mcpackutils
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="mcpackutils.block.html">mcpackutils.block package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mcpackutils.entity.html">mcpackutils.entity package</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">mcpackutils.item package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-mcpackutils.item.component">mcpackutils.item.component module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#mcpackutils.item.component.AllowOffHandComponent"><code class="docutils literal notranslate"><span class="pre">AllowOffHandComponent</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#mcpackutils.item.component.AllowOffHandComponent.id"><code class="docutils literal notranslate"><span class="pre">AllowOffHandComponent.id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#mcpackutils.item.component.AllowOffHandComponent.value"><code class="docutils literal notranslate"><span class="pre">AllowOffHandComponent.value</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#mcpackutils.item.component.BlockPlacerComponent"><code class="docutils literal notranslate"><span class="pre">BlockPlacerComponent</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#mcpackutils.item.component.BlockPlacerComponent.block"><code class="docutils literal notranslate"><span class="pre">BlockPlacerComponent.block</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#mcpackutils.item.component.BlockPlacerComponent.id"><code class="docutils literal notranslate"><span class="pre">BlockPlacerComponent.id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#mcpackutils.item.component.BlockPlacerComponent.use_on"><code class="docutils literal notranslate"><span class="pre">BlockPlacerComponent.use_on</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#mcpackutils.item.component.CanDestroyInCreativeComponent"><code class="docutils literal notranslate"><span class="pre">CanDestroyInCreativeComponent</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#mcpackutils.item.component.CanDestroyInCreativeComponent.id"><code class="docutils literal notranslate"><span class="pre">CanDestroyInCreativeComponent.id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#mcpackutils.item.component.CanDestroyInCreativeComponent.value"><code class="docutils literal notranslate"><span class="pre">CanDestroyInCreativeComponent.value</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#mcpackutils.item.component.CooldownComponent"><code class="docutils literal notranslate"><span class="pre">CooldownComponent</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#mcpackutils.item.component.CooldownComponent.category"><code class="docutils literal notranslate"><span class="pre">CooldownComponent.category</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#mcpackutils.item.component.CooldownComponent.duration"><code class="docutils literal notranslate"><span class="pre">CooldownComponent.duration</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#mcpackutils.item.component.CooldownComponent.id"><code class="docutils literal notranslate"><span class="pre">CooldownComponent.id</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#mcpackutils.item.component.DamageComponent"><code class="docutils literal notranslate"><span class="pre">DamageComponent</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#mcpackutils.item.component.DamageComponent.id"><code class="docutils literal notranslate"><span class="pre">DamageComponent.id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#mcpackutils.item.component.DamageComponent.value"><code class="docutils literal notranslate"><span class="pre">DamageComponent.value</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#mcpackutils.item.component.DisplayNameComponent"><code class="docutils literal notranslate"><span class="pre">DisplayNameComponent</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#mcpackutils.item.component.DisplayNameComponent.id"><code class="docutils literal notranslate"><span class="pre">DisplayNameComponent.id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#mcpackutils.item.component.DisplayNameComponent.value"><code class="docutils literal notranslate"><span class="pre">DisplayNameComponent.value</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#mcpackutils.item.component.DurabilityComponent"><code class="docutils literal notranslate"><span class="pre">DurabilityComponent</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#mcpackutils.item.component.DurabilityComponent.damage_chance"><code class="docutils literal notranslate"><span class="pre">DurabilityComponent.damage_chance</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#mcpackutils.item.component.DurabilityComponent.id"><code class="docutils literal notranslate"><span class="pre">DurabilityComponent.id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#mcpackutils.item.component.DurabilityComponent.max_durability"><code class="docutils literal notranslate"><span class="pre">DurabilityComponent.max_durability</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#mcpackutils.item.component.EnchantableComponent"><code class="docutils literal notranslate"><span class="pre">EnchantableComponent</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#mcpackutils.item.component.EnchantableComponent.id"><code class="docutils literal notranslate"><span class="pre">EnchantableComponent.id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#mcpackutils.item.component.EnchantableComponent.slot"><code class="docutils literal notranslate"><span class="pre">EnchantableComponent.slot</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#mcpackutils.item.component.EnchantableComponent.value"><code class="docutils literal notranslate"><span class="pre">EnchantableComponent.value</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#mcpackutils.item.component.EntityPlacerComponent"><code class="docutils literal notranslate"><span class="pre">EntityPlacerComponent</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#mcpackutils.item.component.EntityPlacerComponent.dispense_on"><code class="docutils literal notranslate"><span class="pre">EntityPlacerComponent.dispense_on</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#mcpackutils.item.component.EntityPlacerComponent.entity"><code class="docutils literal notranslate"><span class="pre">EntityPlacerComponent.entity</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#mcpackutils.item.component.EntityPlacerComponent.id"><code class="docutils literal notranslate"><span class="pre">EntityPlacerComponent.id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#mcpackutils.item.component.EntityPlacerComponent.use_on"><code class="docutils literal notranslate"><span class="pre">EntityPlacerComponent.use_on</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#mcpackutils.item.component.FoodComponent"><code class="docutils literal notranslate"><span class="pre">FoodComponent</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#mcpackutils.item.component.FoodComponent.can_always_eat"><code class="docutils literal notranslate"><span class="pre">FoodComponent.can_always_eat</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#mcpackutils.item.component.FoodComponent.id"><code class="docutils literal notranslate"><span class="pre">FoodComponent.id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#mcpackutils.item.component.FoodComponent.nutrition"><code class="docutils literal notranslate"><span class="pre">FoodComponent.nutrition</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#mcpackutils.item.component.FoodComponent.saturation_modifier"><code class="docutils literal notranslate"><span class="pre">FoodComponent.saturation_modifier</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#mcpackutils.item.component.FoodComponent.using_converts_to"><code class="docutils literal notranslate"><span class="pre">FoodComponent.using_converts_to</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#mcpackutils.item.component.FuelComponent"><code class="docutils literal notranslate"><span class="pre">FuelComponent</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#mcpackutils.item.component.FuelComponent.duration"><code class="docutils literal notranslate"><span class="pre">FuelComponent.duration</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#mcpackutils.item.component.FuelComponent.id"><code class="docutils literal notranslate"><span class="pre">FuelComponent.id</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#mcpackutils.item.component.GlintComponent"><code class="docutils literal notranslate"><span class="pre">GlintComponent</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#mcpackutils.item.component.GlintComponent.id"><code class="docutils literal notranslate"><span class="pre">GlintComponent.id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#mcpackutils.item.component.GlintComponent.value"><code class="docutils literal notranslate"><span class="pre">GlintComponent.value</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#mcpackutils.item.component.HandEquippedComponent"><code class="docutils literal notranslate"><span class="pre">HandEquippedComponent</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#mcpackutils.item.component.HandEquippedComponent.id"><code class="docutils literal notranslate"><span class="pre">HandEquippedComponent.id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#mcpackutils.item.component.HandEquippedComponent.value"><code class="docutils literal notranslate"><span class="pre">HandEquippedComponent.value</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#mcpackutils.item.component.HoverTextColorComponent"><code class="docutils literal notranslate"><span class="pre">HoverTextColorComponent</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#mcpackutils.item.component.HoverTextColorComponent.id"><code class="docutils literal notranslate"><span class="pre">HoverTextColorComponent.id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#mcpackutils.item.component.HoverTextColorComponent.value"><code class="docutils literal notranslate"><span class="pre">HoverTextColorComponent.value</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#mcpackutils.item.component.IconComponent"><code class="docutils literal notranslate"><span class="pre">IconComponent</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#mcpackutils.item.component.IconComponent.id"><code class="docutils literal notranslate"><span class="pre">IconComponent.id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#mcpackutils.item.component.IconComponent.texture"><code class="docutils literal notranslate"><span class="pre">IconComponent.texture</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#mcpackutils.item.component.InteractButtonComponent"><code class="docutils literal notranslate"><span class="pre">InteractButtonComponent</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#mcpackutils.item.component.InteractButtonComponent.id"><code class="docutils literal notranslate"><span class="pre">InteractButtonComponent.id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#mcpackutils.item.component.InteractButtonComponent.value"><code class="docutils literal notranslate"><span class="pre">InteractButtonComponent.value</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#mcpackutils.item.component.ItemComponent"><code class="docutils literal notranslate"><span class="pre">ItemComponent</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#mcpackutils.item.component.ItemComponent.from_dict"><code class="docutils literal notranslate"><span class="pre">ItemComponent.from_dict()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#mcpackutils.item.component.ItemComponent.json"><code class="docutils literal notranslate"><span class="pre">ItemComponent.json()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#mcpackutils.item.component.ItemStorageComponent"><code class="docutils literal notranslate"><span class="pre">ItemStorageComponent</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#mcpackutils.item.component.ItemStorageComponent.capacity"><code class="docutils literal notranslate"><span class="pre">ItemStorageComponent.capacity</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#mcpackutils.item.component.ItemStorageComponent.id"><code class="docutils literal notranslate"><span class="pre">ItemStorageComponent.id</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#mcpackutils.item.component.LiquidClippedComponent"><code class="docutils literal notranslate"><span class="pre">LiquidClippedComponent</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#mcpackutils.item.component.LiquidClippedComponent.id"><code class="docutils literal notranslate"><span class="pre">LiquidClippedComponent.id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#mcpackutils.item.component.LiquidClippedComponent.value"><code class="docutils literal notranslate"><span class="pre">LiquidClippedComponent.value</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#mcpackutils.item.component.MaxStackSizeComponent"><code class="docutils literal notranslate"><span class="pre">MaxStackSizeComponent</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#mcpackutils.item.component.MaxStackSizeComponent.id"><code class="docutils literal notranslate"><span class="pre">MaxStackSizeComponent.id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#mcpackutils.item.component.MaxStackSizeComponent.value"><code class="docutils literal notranslate"><span class="pre">MaxStackSizeComponent.value</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#mcpackutils.item.component.ProjectileComponent"><code class="docutils literal notranslate"><span class="pre">ProjectileComponent</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#mcpackutils.item.component.ProjectileComponent.id"><code class="docutils literal notranslate"><span class="pre">ProjectileComponent.id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#mcpackutils.item.component.ProjectileComponent.minimum_critical_power"><code class="docutils literal notranslate"><span class="pre">ProjectileComponent.minimum_critical_power</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#mcpackutils.item.component.ProjectileComponent.projectile_entity"><code class="docutils literal notranslate"><span class="pre">ProjectileComponent.projectile_entity</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#mcpackutils.item.component.RecordComponent"><code class="docutils literal notranslate"><span class="pre">RecordComponent</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#mcpackutils.item.component.RecordComponent.comparator_signal"><code class="docutils literal notranslate"><span class="pre">RecordComponent.comparator_signal</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#mcpackutils.item.component.RecordComponent.duration"><code class="docutils literal notranslate"><span class="pre">RecordComponent.duration</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#mcpackutils.item.component.RecordComponent.id"><code class="docutils literal notranslate"><span class="pre">RecordComponent.id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#mcpackutils.item.component.RecordComponent.sound_event"><code class="docutils literal notranslate"><span class="pre">RecordComponent.sound_event</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#mcpackutils.item.component.RepairItem"><code class="docutils literal notranslate"><span class="pre">RepairItem</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#mcpackutils.item.component.RepairableComponent"><code class="docutils literal notranslate"><span class="pre">RepairableComponent</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#mcpackutils.item.component.RepairableComponent.id"><code class="docutils literal notranslate"><span class="pre">RepairableComponent.id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#mcpackutils.item.component.RepairableComponent.repair_items"><code class="docutils literal notranslate"><span class="pre">RepairableComponent.repair_items</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#mcpackutils.item.component.ShooterComponent"><code class="docutils literal notranslate"><span class="pre">ShooterComponent</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#mcpackutils.item.component.ShooterComponent.ammunition"><code class="docutils literal notranslate"><span class="pre">ShooterComponent.ammunition</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#mcpackutils.item.component.ShooterComponent.charge_on_draw"><code class="docutils literal notranslate"><span class="pre">ShooterComponent.charge_on_draw</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#mcpackutils.item.component.ShooterComponent.id"><code class="docutils literal notranslate"><span class="pre">ShooterComponent.id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#mcpackutils.item.component.ShooterComponent.max_draw_duration"><code class="docutils literal notranslate"><span class="pre">ShooterComponent.max_draw_duration</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#mcpackutils.item.component.ShooterComponent.scale_power_by_draw_duration"><code class="docutils literal notranslate"><span class="pre">ShooterComponent.scale_power_by_draw_duration</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#mcpackutils.item.component.ShouldDespawnComponent"><code class="docutils literal notranslate"><span class="pre">ShouldDespawnComponent</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#mcpackutils.item.component.ShouldDespawnComponent.id"><code class="docutils literal notranslate"><span class="pre">ShouldDespawnComponent.id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#mcpackutils.item.component.ShouldDespawnComponent.value"><code class="docutils literal notranslate"><span class="pre">ShouldDespawnComponent.value</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#mcpackutils.item.component.StackedByDataComponent"><code class="docutils literal notranslate"><span class="pre">StackedByDataComponent</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#mcpackutils.item.component.StackedByDataComponent.id"><code class="docutils literal notranslate"><span class="pre">StackedByDataComponent.id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#mcpackutils.item.component.StackedByDataComponent.value"><code class="docutils literal notranslate"><span class="pre">StackedByDataComponent.value</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#mcpackutils.item.component.TagsComponent"><code class="docutils literal notranslate"><span class="pre">TagsComponent</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#mcpackutils.item.component.TagsComponent.id"><code class="docutils literal notranslate"><span class="pre">TagsComponent.id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#mcpackutils.item.component.TagsComponent.tags"><code class="docutils literal notranslate"><span class="pre">TagsComponent.tags</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#mcpackutils.item.component.ThrowableComponent"><code class="docutils literal notranslate"><span class="pre">ThrowableComponent</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#mcpackutils.item.component.ThrowableComponent.do_swing_animation"><code class="docutils literal notranslate"><span class="pre">ThrowableComponent.do_swing_animation</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#mcpackutils.item.component.ThrowableComponent.id"><code class="docutils literal notranslate"><span class="pre">ThrowableComponent.id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#mcpackutils.item.component.ThrowableComponent.launch_power_scale"><code class="docutils literal notranslate"><span class="pre">ThrowableComponent.launch_power_scale</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#mcpackutils.item.component.ThrowableComponent.max_draw_duration"><code class="docutils literal notranslate"><span class="pre">ThrowableComponent.max_draw_duration</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#mcpackutils.item.component.ThrowableComponent.max_launch_power"><code class="docutils literal notranslate"><span class="pre">ThrowableComponent.max_launch_power</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#mcpackutils.item.component.ThrowableComponent.min_draw_duration"><code class="docutils literal notranslate"><span class="pre">ThrowableComponent.min_draw_duration</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#mcpackutils.item.component.ThrowableComponent.scale_power_by_draw_duration"><code class="docutils literal notranslate"><span class="pre">ThrowableComponent.scale_power_by_draw_duration</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#mcpackutils.item.component.UseAnimationComponent"><code class="docutils literal notranslate"><span class="pre">UseAnimationComponent</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#mcpackutils.item.component.UseAnimationComponent.id"><code class="docutils literal notranslate"><span class="pre">UseAnimationComponent.id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#mcpackutils.item.component.UseAnimationComponent.value"><code class="docutils literal notranslate"><span class="pre">UseAnimationComponent.value</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#mcpackutils.item.component.UseModifiersComponent"><code class="docutils literal notranslate"><span class="pre">UseModifiersComponent</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#mcpackutils.item.component.UseModifiersComponent.id"><code class="docutils literal notranslate"><span class="pre">UseModifiersComponent.id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#mcpackutils.item.component.UseModifiersComponent.movement_modifier"><code class="docutils literal notranslate"><span class="pre">UseModifiersComponent.movement_modifier</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#mcpackutils.item.component.UseModifiersComponent.use_duration"><code class="docutils literal notranslate"><span class="pre">UseModifiersComponent.use_duration</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#mcpackutils.item.component.WearableComponent"><code class="docutils literal notranslate"><span class="pre">WearableComponent</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#mcpackutils.item.component.WearableComponent.destroy_speeds"><code class="docutils literal notranslate"><span class="pre">WearableComponent.destroy_speeds</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#mcpackutils.item.component.WearableComponent.id"><code class="docutils literal notranslate"><span class="pre">WearableComponent.id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#mcpackutils.item.component.WearableComponent.use_efficiency"><code class="docutils literal notranslate"><span class="pre">WearableComponent.use_efficiency</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#mcpackutils.item.component.component"><code class="docutils literal notranslate"><span class="pre">component()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#module-mcpackutils.item">Module contents</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#mcpackutils.item.AppleItem"><code class="docutils literal notranslate"><span class="pre">AppleItem</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#mcpackutils.item.Item"><code class="docutils literal notranslate"><span class="pre">Item</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#mcpackutils.item.Item.add_component"><code class="docutils literal notranslate"><span class="pre">Item.add_component()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#mcpackutils.item.Item.add_event"><code class="docutils literal notranslate"><span class="pre">Item.add_event()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#mcpackutils.item.Item.clear_components"><code class="docutils literal notranslate"><span class="pre">Item.clear_components()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#mcpackutils.item.Item.clear_events"><code class="docutils literal notranslate"><span class="pre">Item.clear_events()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#mcpackutils.item.Item.components"><code class="docutils literal notranslate"><span class="pre">Item.components</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#mcpackutils.item.Item.events"><code class="docutils literal notranslate"><span class="pre">Item.events</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#mcpackutils.item.Item.format_version"><code class="docutils literal notranslate"><span class="pre">Item.format_version</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#mcpackutils.item.Item.from_dict"><code class="docutils literal notranslate"><span class="pre">Item.from_dict()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#mcpackutils.item.Item.get_component"><code class="docutils literal notranslate"><span class="pre">Item.get_component()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#mcpackutils.item.Item.get_event"><code class="docutils literal notranslate"><span class="pre">Item.get_event()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#mcpackutils.item.Item.id"><code class="docutils literal notranslate"><span class="pre">Item.id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#mcpackutils.item.Item.identifier"><code class="docutils literal notranslate"><span class="pre">Item.identifier</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#mcpackutils.item.Item.menu_category"><code class="docutils literal notranslate"><span class="pre">Item.menu_category</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#mcpackutils.item.Item.remove_component"><code class="docutils literal notranslate"><span class="pre">Item.remove_component()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#mcpackutils.item.Item.remove_event"><code class="docutils literal notranslate"><span class="pre">Item.remove_event()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">mcpackutils</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="mcpackutils.html">mcpackutils package</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="mcpackutils.html#subpackages">Subpackages</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="mcpackutils.block.html">mcpackutils.block package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="mcpackutils.entity.html">mcpackutils.entity package</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">mcpackutils.item package</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="mcpackutils.html#submodules">Submodules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="mcpackutils.html#module-mcpackutils.addon">mcpackutils.addon module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="mcpackutils.html#module-mcpackutils.animation">mcpackutils.animation module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="mcpackutils.html#module-mcpackutils.biome">mcpackutils.biome module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="mcpackutils.html#module-mcpackutils.constant">mcpackutils.constant module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="mcpackutils.html#module-mcpackutils.event">mcpackutils.event module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="mcpackutils.html#module-mcpackutils.feature">mcpackutils.feature module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="mcpackutils.html#module-mcpackutils.fog">mcpackutils.fog module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="mcpackutils.html#module-mcpackutils.loot">mcpackutils.loot module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="mcpackutils.html#module-mcpackutils.manifest">mcpackutils.manifest module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="mcpackutils.html#module-mcpackutils.pack">mcpackutils.pack module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="mcpackutils.html#module-mcpackutils.particle">mcpackutils.particle module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="mcpackutils.html#module-mcpackutils.recipe">mcpackutils.recipe module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="mcpackutils.html#module-mcpackutils.texture_set">mcpackutils.texture_set module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="mcpackutils.html#module-mcpackutils.util">mcpackutils.util module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="mcpackutils.html#module-mcpackutils.volume">mcpackutils.volume module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="mcpackutils.html#module-mcpackutils">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="setup.html">setup module</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">mcpackutils</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">mcpackutils.item package</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/mcpackutils.item.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="mcpackutils-item-package">
+<h1>mcpackutils.item package<a class="headerlink" href="#mcpackutils-item-package" title="Link to this heading"></a></h1>
+<section id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Link to this heading"></a></h2>
+</section>
+<section id="module-mcpackutils.item.component">
+<span id="mcpackutils-item-component-module"></span><h2>mcpackutils.item.component module<a class="headerlink" href="#module-mcpackutils.item.component" title="Link to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="mcpackutils.item.component.AllowOffHandComponent">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mcpackutils.item.component.</span></span><span class="sig-name descname"><span class="pre">AllowOffHandComponent</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mcpackutils.item.component.AllowOffHandComponent" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#mcpackutils.item.component.ItemComponent" title="mcpackutils.item.component.ItemComponent"><code class="xref py py-class docutils literal notranslate"><span class="pre">ItemComponent</span></code></a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mcpackutils.item.component.AllowOffHandComponent.id">
+<span class="sig-name descname"><span class="pre">id</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'minecraft:allow_off_hand'</span></em><a class="headerlink" href="#mcpackutils.item.component.AllowOffHandComponent.id" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="mcpackutils.item.component.AllowOffHandComponent.value">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">value</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></em><a class="headerlink" href="#mcpackutils.item.component.AllowOffHandComponent.value" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="mcpackutils.item.component.BlockPlacerComponent">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mcpackutils.item.component.</span></span><span class="sig-name descname"><span class="pre">BlockPlacerComponent</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">block</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="mcpackutils.html#mcpackutils.util.Identifier" title="mcpackutils.util.Identifier"><span class="pre">Identifier</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_on</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mcpackutils.item.component.BlockPlacerComponent" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#mcpackutils.item.component.ItemComponent" title="mcpackutils.item.component.ItemComponent"><code class="xref py py-class docutils literal notranslate"><span class="pre">ItemComponent</span></code></a></p>
+<dl class="py property">
+<dt class="sig sig-object py" id="mcpackutils.item.component.BlockPlacerComponent.block">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">block</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="mcpackutils.html#mcpackutils.util.Identifier" title="mcpackutils.util.Identifier"><span class="pre">Identifier</span></a></em><a class="headerlink" href="#mcpackutils.item.component.BlockPlacerComponent.block" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mcpackutils.item.component.BlockPlacerComponent.id">
+<span class="sig-name descname"><span class="pre">id</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'minecraft:block_placer'</span></em><a class="headerlink" href="#mcpackutils.item.component.BlockPlacerComponent.id" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="mcpackutils.item.component.BlockPlacerComponent.use_on">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">use_on</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">list</span></em><a class="headerlink" href="#mcpackutils.item.component.BlockPlacerComponent.use_on" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="mcpackutils.item.component.CanDestroyInCreativeComponent">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mcpackutils.item.component.</span></span><span class="sig-name descname"><span class="pre">CanDestroyInCreativeComponent</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mcpackutils.item.component.CanDestroyInCreativeComponent" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#mcpackutils.item.component.ItemComponent" title="mcpackutils.item.component.ItemComponent"><code class="xref py py-class docutils literal notranslate"><span class="pre">ItemComponent</span></code></a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mcpackutils.item.component.CanDestroyInCreativeComponent.id">
+<span class="sig-name descname"><span class="pre">id</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'minecraft:can_destroy_in_creative'</span></em><a class="headerlink" href="#mcpackutils.item.component.CanDestroyInCreativeComponent.id" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="mcpackutils.item.component.CanDestroyInCreativeComponent.value">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">value</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></em><a class="headerlink" href="#mcpackutils.item.component.CanDestroyInCreativeComponent.value" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="mcpackutils.item.component.CooldownComponent">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mcpackutils.item.component.</span></span><span class="sig-name descname"><span class="pre">CooldownComponent</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">category</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">duration</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mcpackutils.item.component.CooldownComponent" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#mcpackutils.item.component.ItemComponent" title="mcpackutils.item.component.ItemComponent"><code class="xref py py-class docutils literal notranslate"><span class="pre">ItemComponent</span></code></a></p>
+<dl class="py property">
+<dt class="sig sig-object py" id="mcpackutils.item.component.CooldownComponent.category">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">category</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#mcpackutils.item.component.CooldownComponent.category" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="mcpackutils.item.component.CooldownComponent.duration">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">duration</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></em><a class="headerlink" href="#mcpackutils.item.component.CooldownComponent.duration" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mcpackutils.item.component.CooldownComponent.id">
+<span class="sig-name descname"><span class="pre">id</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'minecraft:cooldown'</span></em><a class="headerlink" href="#mcpackutils.item.component.CooldownComponent.id" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="mcpackutils.item.component.DamageComponent">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mcpackutils.item.component.</span></span><span class="sig-name descname"><span class="pre">DamageComponent</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mcpackutils.item.component.DamageComponent" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#mcpackutils.item.component.ItemComponent" title="mcpackutils.item.component.ItemComponent"><code class="xref py py-class docutils literal notranslate"><span class="pre">ItemComponent</span></code></a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mcpackutils.item.component.DamageComponent.id">
+<span class="sig-name descname"><span class="pre">id</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'minecraft:damage'</span></em><a class="headerlink" href="#mcpackutils.item.component.DamageComponent.id" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="mcpackutils.item.component.DamageComponent.value">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">value</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#mcpackutils.item.component.DamageComponent.value" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="mcpackutils.item.component.DisplayNameComponent">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mcpackutils.item.component.</span></span><span class="sig-name descname"><span class="pre">DisplayNameComponent</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mcpackutils.item.component.DisplayNameComponent" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#mcpackutils.item.component.ItemComponent" title="mcpackutils.item.component.ItemComponent"><code class="xref py py-class docutils literal notranslate"><span class="pre">ItemComponent</span></code></a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mcpackutils.item.component.DisplayNameComponent.id">
+<span class="sig-name descname"><span class="pre">id</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'minecraft:display_name'</span></em><a class="headerlink" href="#mcpackutils.item.component.DisplayNameComponent.id" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="mcpackutils.item.component.DisplayNameComponent.value">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">value</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#mcpackutils.item.component.DisplayNameComponent.value" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="mcpackutils.item.component.DurabilityComponent">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mcpackutils.item.component.</span></span><span class="sig-name descname"><span class="pre">DurabilityComponent</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">damage_chance</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_durability</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mcpackutils.item.component.DurabilityComponent" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#mcpackutils.item.component.ItemComponent" title="mcpackutils.item.component.ItemComponent"><code class="xref py py-class docutils literal notranslate"><span class="pre">ItemComponent</span></code></a></p>
+<dl class="py property">
+<dt class="sig sig-object py" id="mcpackutils.item.component.DurabilityComponent.damage_chance">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">damage_chance</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></em><a class="headerlink" href="#mcpackutils.item.component.DurabilityComponent.damage_chance" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mcpackutils.item.component.DurabilityComponent.id">
+<span class="sig-name descname"><span class="pre">id</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'minecraft:durability'</span></em><a class="headerlink" href="#mcpackutils.item.component.DurabilityComponent.id" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="mcpackutils.item.component.DurabilityComponent.max_durability">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">max_durability</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#mcpackutils.item.component.DurabilityComponent.max_durability" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="mcpackutils.item.component.EnchantableComponent">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mcpackutils.item.component.</span></span><span class="sig-name descname"><span class="pre">EnchantableComponent</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">slot</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mcpackutils.item.component.EnchantableComponent" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#mcpackutils.item.component.ItemComponent" title="mcpackutils.item.component.ItemComponent"><code class="xref py py-class docutils literal notranslate"><span class="pre">ItemComponent</span></code></a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mcpackutils.item.component.EnchantableComponent.id">
+<span class="sig-name descname"><span class="pre">id</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'minecraft:enchantable'</span></em><a class="headerlink" href="#mcpackutils.item.component.EnchantableComponent.id" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="mcpackutils.item.component.EnchantableComponent.slot">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">slot</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#mcpackutils.item.component.EnchantableComponent.slot" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="mcpackutils.item.component.EnchantableComponent.value">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">value</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#mcpackutils.item.component.EnchantableComponent.value" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="mcpackutils.item.component.EntityPlacerComponent">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mcpackutils.item.component.</span></span><span class="sig-name descname"><span class="pre">EntityPlacerComponent</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">entity</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="mcpackutils.html#mcpackutils.util.Identifier" title="mcpackutils.util.Identifier"><span class="pre">Identifier</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dispense_on</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_on</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mcpackutils.item.component.EntityPlacerComponent" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#mcpackutils.item.component.ItemComponent" title="mcpackutils.item.component.ItemComponent"><code class="xref py py-class docutils literal notranslate"><span class="pre">ItemComponent</span></code></a></p>
+<dl class="py property">
+<dt class="sig sig-object py" id="mcpackutils.item.component.EntityPlacerComponent.dispense_on">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">dispense_on</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">list</span></em><a class="headerlink" href="#mcpackutils.item.component.EntityPlacerComponent.dispense_on" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="mcpackutils.item.component.EntityPlacerComponent.entity">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">entity</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="mcpackutils.html#mcpackutils.util.Identifier" title="mcpackutils.util.Identifier"><span class="pre">Identifier</span></a></em><a class="headerlink" href="#mcpackutils.item.component.EntityPlacerComponent.entity" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mcpackutils.item.component.EntityPlacerComponent.id">
+<span class="sig-name descname"><span class="pre">id</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'minecraft:entity_placer'</span></em><a class="headerlink" href="#mcpackutils.item.component.EntityPlacerComponent.id" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="mcpackutils.item.component.EntityPlacerComponent.use_on">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">use_on</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">list</span></em><a class="headerlink" href="#mcpackutils.item.component.EntityPlacerComponent.use_on" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="mcpackutils.item.component.FoodComponent">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mcpackutils.item.component.</span></span><span class="sig-name descname"><span class="pre">FoodComponent</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nutrition</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">saturation_modifier</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">can_always_eat</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">using_converts_to</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="mcpackutils.html#mcpackutils.util.Identifier" title="mcpackutils.util.Identifier"><span class="pre">Identifier</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mcpackutils.item.component.FoodComponent" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#mcpackutils.item.component.ItemComponent" title="mcpackutils.item.component.ItemComponent"><code class="xref py py-class docutils literal notranslate"><span class="pre">ItemComponent</span></code></a></p>
+<dl class="py property">
+<dt class="sig sig-object py" id="mcpackutils.item.component.FoodComponent.can_always_eat">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">can_always_eat</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></em><a class="headerlink" href="#mcpackutils.item.component.FoodComponent.can_always_eat" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mcpackutils.item.component.FoodComponent.id">
+<span class="sig-name descname"><span class="pre">id</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'minecraft:food'</span></em><a class="headerlink" href="#mcpackutils.item.component.FoodComponent.id" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="mcpackutils.item.component.FoodComponent.nutrition">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">nutrition</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#mcpackutils.item.component.FoodComponent.nutrition" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="mcpackutils.item.component.FoodComponent.saturation_modifier">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">saturation_modifier</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></em><a class="headerlink" href="#mcpackutils.item.component.FoodComponent.saturation_modifier" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="mcpackutils.item.component.FoodComponent.using_converts_to">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">using_converts_to</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="mcpackutils.html#mcpackutils.util.Identifier" title="mcpackutils.util.Identifier"><span class="pre">Identifier</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#mcpackutils.item.component.FoodComponent.using_converts_to" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="mcpackutils.item.component.FuelComponent">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mcpackutils.item.component.</span></span><span class="sig-name descname"><span class="pre">FuelComponent</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">duration</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mcpackutils.item.component.FuelComponent" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#mcpackutils.item.component.ItemComponent" title="mcpackutils.item.component.ItemComponent"><code class="xref py py-class docutils literal notranslate"><span class="pre">ItemComponent</span></code></a></p>
+<dl class="py property">
+<dt class="sig sig-object py" id="mcpackutils.item.component.FuelComponent.duration">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">duration</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></em><a class="headerlink" href="#mcpackutils.item.component.FuelComponent.duration" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mcpackutils.item.component.FuelComponent.id">
+<span class="sig-name descname"><span class="pre">id</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'minecraft:fuel'</span></em><a class="headerlink" href="#mcpackutils.item.component.FuelComponent.id" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="mcpackutils.item.component.GlintComponent">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mcpackutils.item.component.</span></span><span class="sig-name descname"><span class="pre">GlintComponent</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mcpackutils.item.component.GlintComponent" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#mcpackutils.item.component.ItemComponent" title="mcpackutils.item.component.ItemComponent"><code class="xref py py-class docutils literal notranslate"><span class="pre">ItemComponent</span></code></a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mcpackutils.item.component.GlintComponent.id">
+<span class="sig-name descname"><span class="pre">id</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'minecraft:glint'</span></em><a class="headerlink" href="#mcpackutils.item.component.GlintComponent.id" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="mcpackutils.item.component.GlintComponent.value">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">value</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></em><a class="headerlink" href="#mcpackutils.item.component.GlintComponent.value" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="mcpackutils.item.component.HandEquippedComponent">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mcpackutils.item.component.</span></span><span class="sig-name descname"><span class="pre">HandEquippedComponent</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mcpackutils.item.component.HandEquippedComponent" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#mcpackutils.item.component.ItemComponent" title="mcpackutils.item.component.ItemComponent"><code class="xref py py-class docutils literal notranslate"><span class="pre">ItemComponent</span></code></a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mcpackutils.item.component.HandEquippedComponent.id">
+<span class="sig-name descname"><span class="pre">id</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'minecraft:hand_equipped'</span></em><a class="headerlink" href="#mcpackutils.item.component.HandEquippedComponent.id" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="mcpackutils.item.component.HandEquippedComponent.value">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">value</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></em><a class="headerlink" href="#mcpackutils.item.component.HandEquippedComponent.value" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="mcpackutils.item.component.HoverTextColorComponent">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mcpackutils.item.component.</span></span><span class="sig-name descname"><span class="pre">HoverTextColorComponent</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mcpackutils.item.component.HoverTextColorComponent" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#mcpackutils.item.component.ItemComponent" title="mcpackutils.item.component.ItemComponent"><code class="xref py py-class docutils literal notranslate"><span class="pre">ItemComponent</span></code></a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mcpackutils.item.component.HoverTextColorComponent.id">
+<span class="sig-name descname"><span class="pre">id</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'minecraft:hover_text_color'</span></em><a class="headerlink" href="#mcpackutils.item.component.HoverTextColorComponent.id" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="mcpackutils.item.component.HoverTextColorComponent.value">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">value</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#mcpackutils.item.component.HoverTextColorComponent.value" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="mcpackutils.item.component.IconComponent">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mcpackutils.item.component.</span></span><span class="sig-name descname"><span class="pre">IconComponent</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">texture</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="mcpackutils.html#mcpackutils.util.Identifier" title="mcpackutils.util.Identifier"><span class="pre">Identifier</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mcpackutils.item.component.IconComponent" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#mcpackutils.item.component.ItemComponent" title="mcpackutils.item.component.ItemComponent"><code class="xref py py-class docutils literal notranslate"><span class="pre">ItemComponent</span></code></a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mcpackutils.item.component.IconComponent.id">
+<span class="sig-name descname"><span class="pre">id</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'minecraft:icon'</span></em><a class="headerlink" href="#mcpackutils.item.component.IconComponent.id" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="mcpackutils.item.component.IconComponent.texture">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">texture</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="mcpackutils.html#mcpackutils.util.Identifier" title="mcpackutils.util.Identifier"><span class="pre">Identifier</span></a></em><a class="headerlink" href="#mcpackutils.item.component.IconComponent.texture" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="mcpackutils.item.component.InteractButtonComponent">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mcpackutils.item.component.</span></span><span class="sig-name descname"><span class="pre">InteractButtonComponent</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">bool</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mcpackutils.item.component.InteractButtonComponent" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#mcpackutils.item.component.ItemComponent" title="mcpackutils.item.component.ItemComponent"><code class="xref py py-class docutils literal notranslate"><span class="pre">ItemComponent</span></code></a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mcpackutils.item.component.InteractButtonComponent.id">
+<span class="sig-name descname"><span class="pre">id</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'minecraft:interact_button'</span></em><a class="headerlink" href="#mcpackutils.item.component.InteractButtonComponent.id" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="mcpackutils.item.component.InteractButtonComponent.value">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">value</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#mcpackutils.item.component.InteractButtonComponent.value" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="mcpackutils.item.component.ItemComponent">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mcpackutils.item.component.</span></span><span class="sig-name descname"><span class="pre">ItemComponent</span></span><a class="headerlink" href="#mcpackutils.item.component.ItemComponent" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="mcpackutils.item.component.ItemComponent.from_dict">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_dict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Self</span></span></span><a class="headerlink" href="#mcpackutils.item.component.ItemComponent.from_dict" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="mcpackutils.item.component.ItemComponent.json">
+<span class="sig-name descname"><span class="pre">json</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="headerlink" href="#mcpackutils.item.component.ItemComponent.json" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="mcpackutils.item.component.ItemStorageComponent">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mcpackutils.item.component.</span></span><span class="sig-name descname"><span class="pre">ItemStorageComponent</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">capacity</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mcpackutils.item.component.ItemStorageComponent" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#mcpackutils.item.component.ItemComponent" title="mcpackutils.item.component.ItemComponent"><code class="xref py py-class docutils literal notranslate"><span class="pre">ItemComponent</span></code></a></p>
+<dl class="py property">
+<dt class="sig sig-object py" id="mcpackutils.item.component.ItemStorageComponent.capacity">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">capacity</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#mcpackutils.item.component.ItemStorageComponent.capacity" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mcpackutils.item.component.ItemStorageComponent.id">
+<span class="sig-name descname"><span class="pre">id</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'minecraft:item_storage'</span></em><a class="headerlink" href="#mcpackutils.item.component.ItemStorageComponent.id" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="mcpackutils.item.component.LiquidClippedComponent">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mcpackutils.item.component.</span></span><span class="sig-name descname"><span class="pre">LiquidClippedComponent</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mcpackutils.item.component.LiquidClippedComponent" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#mcpackutils.item.component.ItemComponent" title="mcpackutils.item.component.ItemComponent"><code class="xref py py-class docutils literal notranslate"><span class="pre">ItemComponent</span></code></a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mcpackutils.item.component.LiquidClippedComponent.id">
+<span class="sig-name descname"><span class="pre">id</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'minecraft:liquid_clipped'</span></em><a class="headerlink" href="#mcpackutils.item.component.LiquidClippedComponent.id" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="mcpackutils.item.component.LiquidClippedComponent.value">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">value</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></em><a class="headerlink" href="#mcpackutils.item.component.LiquidClippedComponent.value" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="mcpackutils.item.component.MaxStackSizeComponent">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mcpackutils.item.component.</span></span><span class="sig-name descname"><span class="pre">MaxStackSizeComponent</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mcpackutils.item.component.MaxStackSizeComponent" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#mcpackutils.item.component.ItemComponent" title="mcpackutils.item.component.ItemComponent"><code class="xref py py-class docutils literal notranslate"><span class="pre">ItemComponent</span></code></a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mcpackutils.item.component.MaxStackSizeComponent.id">
+<span class="sig-name descname"><span class="pre">id</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'minecraft:max_stack_size'</span></em><a class="headerlink" href="#mcpackutils.item.component.MaxStackSizeComponent.id" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="mcpackutils.item.component.MaxStackSizeComponent.value">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">value</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#mcpackutils.item.component.MaxStackSizeComponent.value" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="mcpackutils.item.component.ProjectileComponent">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mcpackutils.item.component.</span></span><span class="sig-name descname"><span class="pre">ProjectileComponent</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">projectile_entity</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="mcpackutils.html#mcpackutils.util.Identifier" title="mcpackutils.util.Identifier"><span class="pre">Identifier</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">minimum_critical_power</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mcpackutils.item.component.ProjectileComponent" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#mcpackutils.item.component.ItemComponent" title="mcpackutils.item.component.ItemComponent"><code class="xref py py-class docutils literal notranslate"><span class="pre">ItemComponent</span></code></a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mcpackutils.item.component.ProjectileComponent.id">
+<span class="sig-name descname"><span class="pre">id</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'minecraft:projectile'</span></em><a class="headerlink" href="#mcpackutils.item.component.ProjectileComponent.id" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="mcpackutils.item.component.ProjectileComponent.minimum_critical_power">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">minimum_critical_power</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></em><a class="headerlink" href="#mcpackutils.item.component.ProjectileComponent.minimum_critical_power" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="mcpackutils.item.component.ProjectileComponent.projectile_entity">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">projectile_entity</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="mcpackutils.html#mcpackutils.util.Identifier" title="mcpackutils.util.Identifier"><span class="pre">Identifier</span></a></em><a class="headerlink" href="#mcpackutils.item.component.ProjectileComponent.projectile_entity" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="mcpackutils.item.component.RecordComponent">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mcpackutils.item.component.</span></span><span class="sig-name descname"><span class="pre">RecordComponent</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">comparator_signal</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">duration</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sound_event</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="mcpackutils.html#mcpackutils.util.Identifier" title="mcpackutils.util.Identifier"><span class="pre">Identifier</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mcpackutils.item.component.RecordComponent" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#mcpackutils.item.component.ItemComponent" title="mcpackutils.item.component.ItemComponent"><code class="xref py py-class docutils literal notranslate"><span class="pre">ItemComponent</span></code></a></p>
+<dl class="py property">
+<dt class="sig sig-object py" id="mcpackutils.item.component.RecordComponent.comparator_signal">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">comparator_signal</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#mcpackutils.item.component.RecordComponent.comparator_signal" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="mcpackutils.item.component.RecordComponent.duration">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">duration</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></em><a class="headerlink" href="#mcpackutils.item.component.RecordComponent.duration" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mcpackutils.item.component.RecordComponent.id">
+<span class="sig-name descname"><span class="pre">id</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'minecraft:record'</span></em><a class="headerlink" href="#mcpackutils.item.component.RecordComponent.id" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="mcpackutils.item.component.RecordComponent.sound_event">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">sound_event</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="mcpackutils.html#mcpackutils.util.Identifier" title="mcpackutils.util.Identifier"><span class="pre">Identifier</span></a></em><a class="headerlink" href="#mcpackutils.item.component.RecordComponent.sound_event" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="mcpackutils.item.component.RepairItem">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mcpackutils.item.component.</span></span><span class="sig-name descname"><span class="pre">RepairItem</span></span><a class="headerlink" href="#mcpackutils.item.component.RepairItem" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="mcpackutils.item.component.RepairableComponent">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mcpackutils.item.component.</span></span><span class="sig-name descname"><span class="pre">RepairableComponent</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">repair_items</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#mcpackutils.item.component.RepairItem" title="mcpackutils.item.component.RepairItem"><span class="pre">RepairItem</span></a><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mcpackutils.item.component.RepairableComponent" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#mcpackutils.item.component.ItemComponent" title="mcpackutils.item.component.ItemComponent"><code class="xref py py-class docutils literal notranslate"><span class="pre">ItemComponent</span></code></a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mcpackutils.item.component.RepairableComponent.id">
+<span class="sig-name descname"><span class="pre">id</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'minecraft:repairable'</span></em><a class="headerlink" href="#mcpackutils.item.component.RepairableComponent.id" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="mcpackutils.item.component.RepairableComponent.repair_items">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">repair_items</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">list</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#mcpackutils.item.component.RepairItem" title="mcpackutils.item.component.RepairItem"><span class="pre">RepairItem</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#mcpackutils.item.component.RepairableComponent.repair_items" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="mcpackutils.item.component.ShooterComponent">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mcpackutils.item.component.</span></span><span class="sig-name descname"><span class="pre">ShooterComponent</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ammunition</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="mcpackutils.html#mcpackutils.util.Identifier" title="mcpackutils.util.Identifier"><span class="pre">Identifier</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">charge_on_draw</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_draw_duration</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scale_power_by_draw_duration</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mcpackutils.item.component.ShooterComponent" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#mcpackutils.item.component.ItemComponent" title="mcpackutils.item.component.ItemComponent"><code class="xref py py-class docutils literal notranslate"><span class="pre">ItemComponent</span></code></a></p>
+<dl class="py property">
+<dt class="sig sig-object py" id="mcpackutils.item.component.ShooterComponent.ammunition">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">ammunition</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="mcpackutils.html#mcpackutils.util.Identifier" title="mcpackutils.util.Identifier"><span class="pre">Identifier</span></a></em><a class="headerlink" href="#mcpackutils.item.component.ShooterComponent.ammunition" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="mcpackutils.item.component.ShooterComponent.charge_on_draw">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">charge_on_draw</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></em><a class="headerlink" href="#mcpackutils.item.component.ShooterComponent.charge_on_draw" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mcpackutils.item.component.ShooterComponent.id">
+<span class="sig-name descname"><span class="pre">id</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'minecraft:shooter'</span></em><a class="headerlink" href="#mcpackutils.item.component.ShooterComponent.id" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="mcpackutils.item.component.ShooterComponent.max_draw_duration">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">max_draw_duration</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></em><a class="headerlink" href="#mcpackutils.item.component.ShooterComponent.max_draw_duration" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="mcpackutils.item.component.ShooterComponent.scale_power_by_draw_duration">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">scale_power_by_draw_duration</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></em><a class="headerlink" href="#mcpackutils.item.component.ShooterComponent.scale_power_by_draw_duration" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="mcpackutils.item.component.ShouldDespawnComponent">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mcpackutils.item.component.</span></span><span class="sig-name descname"><span class="pre">ShouldDespawnComponent</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mcpackutils.item.component.ShouldDespawnComponent" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#mcpackutils.item.component.ItemComponent" title="mcpackutils.item.component.ItemComponent"><code class="xref py py-class docutils literal notranslate"><span class="pre">ItemComponent</span></code></a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mcpackutils.item.component.ShouldDespawnComponent.id">
+<span class="sig-name descname"><span class="pre">id</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'minecraft:should_despawn'</span></em><a class="headerlink" href="#mcpackutils.item.component.ShouldDespawnComponent.id" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="mcpackutils.item.component.ShouldDespawnComponent.value">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">value</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></em><a class="headerlink" href="#mcpackutils.item.component.ShouldDespawnComponent.value" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="mcpackutils.item.component.StackedByDataComponent">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mcpackutils.item.component.</span></span><span class="sig-name descname"><span class="pre">StackedByDataComponent</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mcpackutils.item.component.StackedByDataComponent" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#mcpackutils.item.component.ItemComponent" title="mcpackutils.item.component.ItemComponent"><code class="xref py py-class docutils literal notranslate"><span class="pre">ItemComponent</span></code></a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mcpackutils.item.component.StackedByDataComponent.id">
+<span class="sig-name descname"><span class="pre">id</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'minecraft:stacked_by_data'</span></em><a class="headerlink" href="#mcpackutils.item.component.StackedByDataComponent.id" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="mcpackutils.item.component.StackedByDataComponent.value">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">value</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></em><a class="headerlink" href="#mcpackutils.item.component.StackedByDataComponent.value" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="mcpackutils.item.component.TagsComponent">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mcpackutils.item.component.</span></span><span class="sig-name descname"><span class="pre">TagsComponent</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tags</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="mcpackutils.html#mcpackutils.util.Identifier" title="mcpackutils.util.Identifier"><span class="pre">Identifier</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mcpackutils.item.component.TagsComponent" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#mcpackutils.item.component.ItemComponent" title="mcpackutils.item.component.ItemComponent"><code class="xref py py-class docutils literal notranslate"><span class="pre">ItemComponent</span></code></a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mcpackutils.item.component.TagsComponent.id">
+<span class="sig-name descname"><span class="pre">id</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'minecraft:tags'</span></em><a class="headerlink" href="#mcpackutils.item.component.TagsComponent.id" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="mcpackutils.item.component.TagsComponent.tags">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">tags</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">list</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="mcpackutils.html#mcpackutils.util.Identifier" title="mcpackutils.util.Identifier"><span class="pre">Identifier</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#mcpackutils.item.component.TagsComponent.tags" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="mcpackutils.item.component.ThrowableComponent">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mcpackutils.item.component.</span></span><span class="sig-name descname"><span class="pre">ThrowableComponent</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">do_swing_animation</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">launch_power_scale</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_draw_duration</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_launch_power</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">min_draw_duration</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scale_power_by_draw_duration</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mcpackutils.item.component.ThrowableComponent" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#mcpackutils.item.component.ItemComponent" title="mcpackutils.item.component.ItemComponent"><code class="xref py py-class docutils literal notranslate"><span class="pre">ItemComponent</span></code></a></p>
+<dl class="py property">
+<dt class="sig sig-object py" id="mcpackutils.item.component.ThrowableComponent.do_swing_animation">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">do_swing_animation</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></em><a class="headerlink" href="#mcpackutils.item.component.ThrowableComponent.do_swing_animation" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mcpackutils.item.component.ThrowableComponent.id">
+<span class="sig-name descname"><span class="pre">id</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'minecraft:throwable'</span></em><a class="headerlink" href="#mcpackutils.item.component.ThrowableComponent.id" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="mcpackutils.item.component.ThrowableComponent.launch_power_scale">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">launch_power_scale</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></em><a class="headerlink" href="#mcpackutils.item.component.ThrowableComponent.launch_power_scale" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="mcpackutils.item.component.ThrowableComponent.max_draw_duration">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">max_draw_duration</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></em><a class="headerlink" href="#mcpackutils.item.component.ThrowableComponent.max_draw_duration" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="mcpackutils.item.component.ThrowableComponent.max_launch_power">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">max_launch_power</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></em><a class="headerlink" href="#mcpackutils.item.component.ThrowableComponent.max_launch_power" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="mcpackutils.item.component.ThrowableComponent.min_draw_duration">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">min_draw_duration</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></em><a class="headerlink" href="#mcpackutils.item.component.ThrowableComponent.min_draw_duration" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="mcpackutils.item.component.ThrowableComponent.scale_power_by_draw_duration">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">scale_power_by_draw_duration</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></em><a class="headerlink" href="#mcpackutils.item.component.ThrowableComponent.scale_power_by_draw_duration" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="mcpackutils.item.component.UseAnimationComponent">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mcpackutils.item.component.</span></span><span class="sig-name descname"><span class="pre">UseAnimationComponent</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mcpackutils.item.component.UseAnimationComponent" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#mcpackutils.item.component.ItemComponent" title="mcpackutils.item.component.ItemComponent"><code class="xref py py-class docutils literal notranslate"><span class="pre">ItemComponent</span></code></a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mcpackutils.item.component.UseAnimationComponent.id">
+<span class="sig-name descname"><span class="pre">id</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'minecraft:use_animation'</span></em><a class="headerlink" href="#mcpackutils.item.component.UseAnimationComponent.id" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="mcpackutils.item.component.UseAnimationComponent.value">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">value</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#mcpackutils.item.component.UseAnimationComponent.value" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="mcpackutils.item.component.UseModifiersComponent">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mcpackutils.item.component.</span></span><span class="sig-name descname"><span class="pre">UseModifiersComponent</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">movement_modifier</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_duration</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mcpackutils.item.component.UseModifiersComponent" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#mcpackutils.item.component.ItemComponent" title="mcpackutils.item.component.ItemComponent"><code class="xref py py-class docutils literal notranslate"><span class="pre">ItemComponent</span></code></a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mcpackutils.item.component.UseModifiersComponent.id">
+<span class="sig-name descname"><span class="pre">id</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'minecraft:use_modifiers'</span></em><a class="headerlink" href="#mcpackutils.item.component.UseModifiersComponent.id" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="mcpackutils.item.component.UseModifiersComponent.movement_modifier">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">movement_modifier</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></em><a class="headerlink" href="#mcpackutils.item.component.UseModifiersComponent.movement_modifier" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="mcpackutils.item.component.UseModifiersComponent.use_duration">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">use_duration</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></em><a class="headerlink" href="#mcpackutils.item.component.UseModifiersComponent.use_duration" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="mcpackutils.item.component.WearableComponent">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mcpackutils.item.component.</span></span><span class="sig-name descname"><span class="pre">WearableComponent</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">destroy_speeds</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_efficiency</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mcpackutils.item.component.WearableComponent" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#mcpackutils.item.component.ItemComponent" title="mcpackutils.item.component.ItemComponent"><code class="xref py py-class docutils literal notranslate"><span class="pre">ItemComponent</span></code></a></p>
+<dl class="py property">
+<dt class="sig sig-object py" id="mcpackutils.item.component.WearableComponent.destroy_speeds">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">destroy_speeds</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">list</span></em><a class="headerlink" href="#mcpackutils.item.component.WearableComponent.destroy_speeds" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mcpackutils.item.component.WearableComponent.id">
+<span class="sig-name descname"><span class="pre">id</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'minecraft:digger'</span></em><a class="headerlink" href="#mcpackutils.item.component.WearableComponent.id" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="mcpackutils.item.component.WearableComponent.use_efficiency">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">use_efficiency</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></em><a class="headerlink" href="#mcpackutils.item.component.WearableComponent.use_efficiency" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="mcpackutils.item.component.component">
+<span class="sig-prename descclassname"><span class="pre">mcpackutils.item.component.</span></span><span class="sig-name descname"><span class="pre">component</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cls</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mcpackutils.item.component.component" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</section>
+<section id="module-mcpackutils.item">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-mcpackutils.item" title="Link to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="mcpackutils.item.AppleItem">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mcpackutils.item.</span></span><span class="sig-name descname"><span class="pre">AppleItem</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="mcpackutils.html#mcpackutils.util.Identifier" title="mcpackutils.util.Identifier"><span class="pre">Identifier</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mcpackutils.item.AppleItem" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#mcpackutils.item.Item" title="mcpackutils.item.Item"><code class="xref py py-class docutils literal notranslate"><span class="pre">Item</span></code></a></p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="mcpackutils.item.Item">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mcpackutils.item.</span></span><span class="sig-name descname"><span class="pre">Item</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">identifier</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="mcpackutils.html#mcpackutils.util.Identifier" title="mcpackutils.util.Identifier"><span class="pre">Identifier</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">menu_category</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="mcpackutils.html#mcpackutils.util.MenuCategory" title="mcpackutils.util.MenuCategory"><span class="pre">MenuCategory</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mcpackutils.item.Item" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="mcpackutils.html#mcpackutils.util.Saveable" title="mcpackutils.util.Saveable"><code class="xref py py-class docutils literal notranslate"><span class="pre">Saveable</span></code></a></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="mcpackutils.item.Item.add_component">
+<span class="sig-name descname"><span class="pre">add_component</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">component</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#mcpackutils.item.component.ItemComponent" title="mcpackutils.item.component.ItemComponent"><span class="pre">ItemComponent</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#mcpackutils.item.component.ItemComponent" title="mcpackutils.item.component.ItemComponent"><span class="pre">ItemComponent</span></a></span></span><a class="headerlink" href="#mcpackutils.item.Item.add_component" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="mcpackutils.item.Item.add_event">
+<span class="sig-name descname"><span class="pre">add_event</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="mcpackutils.html#mcpackutils.util.Identifier" title="mcpackutils.util.Identifier"><span class="pre">Identifier</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">event</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="mcpackutils.html#mcpackutils.event.Event" title="mcpackutils.event.Event"><span class="pre">Event</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="mcpackutils.html#mcpackutils.event.Event" title="mcpackutils.event.Event"><span class="pre">Event</span></a></span></span><a class="headerlink" href="#mcpackutils.item.Item.add_event" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="mcpackutils.item.Item.clear_components">
+<span class="sig-name descname"><span class="pre">clear_components</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Self</span></span></span><a class="headerlink" href="#mcpackutils.item.Item.clear_components" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="mcpackutils.item.Item.clear_events">
+<span class="sig-name descname"><span class="pre">clear_events</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Self</span></span></span><a class="headerlink" href="#mcpackutils.item.Item.clear_events" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="mcpackutils.item.Item.components">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">components</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="#mcpackutils.item.component.ItemComponent" title="mcpackutils.item.component.ItemComponent"><span class="pre">ItemComponent</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#mcpackutils.item.Item.components" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="mcpackutils.item.Item.events">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">events</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="mcpackutils.html#mcpackutils.util.Identifier" title="mcpackutils.util.Identifier"><span class="pre">Identifier</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="mcpackutils.html#mcpackutils.event.Event" title="mcpackutils.event.Event"><span class="pre">Event</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#mcpackutils.item.Item.events" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mcpackutils.item.Item.format_version">
+<span class="sig-name descname"><span class="pre">format_version</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'1.20.51'</span></em><a class="headerlink" href="#mcpackutils.item.Item.format_version" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="mcpackutils.item.Item.from_dict">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_dict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Self</span></span></span><a class="headerlink" href="#mcpackutils.item.Item.from_dict" title="Link to this definition"></a></dt>
+<dd><p>Load object from DICT</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>data</strong> (<em>dict</em>) – DICT data to load from</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="mcpackutils.item.Item.get_component">
+<span class="sig-name descname"><span class="pre">get_component</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#mcpackutils.item.component.ItemComponent" title="mcpackutils.item.component.ItemComponent"><span class="pre">ItemComponent</span></a></span></span><a class="headerlink" href="#mcpackutils.item.Item.get_component" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="mcpackutils.item.Item.get_event">
+<span class="sig-name descname"><span class="pre">get_event</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="mcpackutils.html#mcpackutils.util.Identifier" title="mcpackutils.util.Identifier"><span class="pre">Identifier</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="mcpackutils.html#mcpackutils.event.Event" title="mcpackutils.event.Event"><span class="pre">Event</span></a></span></span><a class="headerlink" href="#mcpackutils.item.Item.get_event" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mcpackutils.item.Item.id">
+<span class="sig-name descname"><span class="pre">id</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'minecraft:item'</span></em><a class="headerlink" href="#mcpackutils.item.Item.id" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="mcpackutils.item.Item.identifier">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">identifier</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="mcpackutils.html#mcpackutils.util.Identifier" title="mcpackutils.util.Identifier"><span class="pre">Identifier</span></a></em><a class="headerlink" href="#mcpackutils.item.Item.identifier" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="mcpackutils.item.Item.menu_category">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">menu_category</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="mcpackutils.html#mcpackutils.util.MenuCategory" title="mcpackutils.util.MenuCategory"><span class="pre">MenuCategory</span></a></em><a class="headerlink" href="#mcpackutils.item.Item.menu_category" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="mcpackutils.item.Item.remove_component">
+<span class="sig-name descname"><span class="pre">remove_component</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#mcpackutils.item.component.ItemComponent" title="mcpackutils.item.component.ItemComponent"><span class="pre">ItemComponent</span></a></span></span><a class="headerlink" href="#mcpackutils.item.Item.remove_component" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="mcpackutils.item.Item.remove_event">
+<span class="sig-name descname"><span class="pre">remove_event</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="mcpackutils.html#mcpackutils.util.Identifier" title="mcpackutils.util.Identifier"><span class="pre">Identifier</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="mcpackutils.html#mcpackutils.event.Event" title="mcpackutils.event.Event"><span class="pre">Event</span></a></span></span><a class="headerlink" href="#mcpackutils.item.Item.remove_event" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="mcpackutils.entity.html" class="btn btn-neutral float-left" title="mcpackutils.entity package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="modules.html" class="btn btn-neutral float-right" title="mcpackutils" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Legopitstop.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

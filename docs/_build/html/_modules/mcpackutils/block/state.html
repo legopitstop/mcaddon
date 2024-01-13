@@ -1,0 +1,1228 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>mcpackutils.block.state &mdash; mcpackutils 0.0.1 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=92fd9be5" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=19f00094" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../../../_static/documentation_options.js?v=d45e8c67"></script>
+        <script src="../../../_static/doctools.js?v=888ff710"></script>
+        <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            mcpackutils
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../mcpackutils.block.html">mcpackutils.block package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../mcpackutils.entity.html">mcpackutils.entity package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../mcpackutils.item.html">mcpackutils.item package</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">mcpackutils</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+          <li class="breadcrumb-item"><a href="../block.html">mcpackutils.block</a></li>
+      <li class="breadcrumb-item active">mcpackutils.block.state</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for mcpackutils.block.state</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Self</span>
+
+<span class="kn">from</span> <span class="nn">..util</span> <span class="kn">import</span> <span class="n">Identifier</span>
+
+<span class="c1"># __all__ = [&#39;BlockState&#39;, &#39;STATES&#39;, &#39;state&#39;, &#39;BlockFaceState&#39;, &#39;VerticalHalfState&#39;, &#39;CardinalDirectionState&#39;, &#39;FacingDirectionState&#39;]</span>
+
+<div class="viewcode-block" id="BlockState">
+<a class="viewcode-back" href="../../../mcpackutils.block.html#mcpackutils.block.state.BlockState">[docs]</a>
+<span class="k">class</span> <span class="nc">BlockState</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">id</span><span class="p">:</span><span class="n">Identifier</span><span class="o">|</span><span class="nb">str</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">*</span><span class="n">values</span><span class="p">:</span><span class="nb">str</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Base state class for blocks</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">id</span> <span class="o">=</span> <span class="n">Identifier</span><span class="p">(</span><span class="nb">id</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">values</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">values</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">id</span><span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">__dict__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">:</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">id</span><span class="p">):</span> <span class="p">[</span><span class="n">x</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">values</span><span class="p">]</span>
+        <span class="p">}</span>
+        <span class="k">return</span> <span class="n">data</span>
+           
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">id</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Identifier</span><span class="p">:</span>
+        <span class="k">return</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;_id&#39;</span><span class="p">)</span>
+    
+    <span class="nd">@id</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">id</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span><span class="n">Identifier</span><span class="p">):</span>
+        <span class="nb">setattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;_id&#39;</span><span class="p">,</span> <span class="n">Identifier</span><span class="p">(</span><span class="n">value</span><span class="p">))</span>
+ 
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">values</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">:</span>
+        <span class="k">return</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;_values&#39;</span><span class="p">,</span> <span class="p">[])</span>
+    
+    <span class="nd">@values</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">values</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span><span class="nb">list</span><span class="p">):</span>
+        <span class="k">def</span> <span class="nf">_default</span><span class="p">(</span><span class="n">o</span><span class="p">):</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">o</span><span class="p">,</span> <span class="nb">bool</span><span class="p">):</span>
+                <span class="k">return</span> <span class="n">o</span>
+            <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">o</span><span class="p">,</span> <span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">)):</span>
+                <span class="k">return</span> <span class="n">o</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="n">o</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">value</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">values</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
+            <span class="n">v</span> <span class="o">=</span> <span class="p">[</span><span class="n">_default</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">value</span><span class="p">]</span>
+            <span class="nb">setattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;_values&#39;</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Expected list but got &#39;</span><span class="si">{</span><span class="n">value</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s2">&#39; instead&quot;</span><span class="p">)</span>
+    
+<div class="viewcode-block" id="BlockState.from_dict">
+<a class="viewcode-back" href="../../../mcpackutils.block.html#mcpackutils.block.state.BlockState.from_dict">[docs]</a>
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">from_dict</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span><span class="nb">list</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Self</span><span class="p">:</span>
+        <span class="bp">self</span> <span class="o">=</span> <span class="bp">cls</span><span class="o">.</span><span class="fm">__new__</span><span class="p">(</span><span class="bp">cls</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span></div>
+</div>
+
+
+<span class="n">STATES</span><span class="p">:</span><span class="nb">dict</span><span class="p">[</span><span class="nb">list</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+<div class="viewcode-block" id="state">
+<a class="viewcode-back" href="../../../mcpackutils.block.html#mcpackutils.block.state.state">[docs]</a>
+<span class="k">def</span> <span class="nf">state</span><span class="p">(</span><span class="bp">cls</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Add this state to the parser</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="nf">wrapper</span><span class="p">():</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">issubclass</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">BlockState</span><span class="p">):</span> <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Expected BlockState but got &#39;</span><span class="si">{</span><span class="bp">cls</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s2">&#39; instead&quot;</span><span class="p">)</span>
+        <span class="k">global</span> <span class="n">STATES</span>
+        <span class="n">STATES</span><span class="p">[</span><span class="bp">cls</span><span class="o">.</span><span class="n">id</span><span class="p">]</span> <span class="o">=</span> <span class="bp">cls</span>
+        <span class="k">return</span> <span class="bp">cls</span>
+    <span class="k">return</span> <span class="n">wrapper</span><span class="p">()</span></div>
+
+
+<span class="c1"># BASES</span>
+
+<div class="viewcode-block" id="BooleanState">
+<a class="viewcode-back" href="../../../mcpackutils.block.html#mcpackutils.block.state.BooleanState">[docs]</a>
+<span class="k">class</span> <span class="nc">BooleanState</span><span class="p">(</span><span class="n">BlockState</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">id</span><span class="p">:</span><span class="n">Identifier</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        True or False blockstate. default: True</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">BlockState</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">id</span><span class="p">,</span> <span class="kc">False</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span></div>
+
+   
+<div class="viewcode-block" id="IntegerState">
+<a class="viewcode-back" href="../../../mcpackutils.block.html#mcpackutils.block.state.IntegerState">[docs]</a>
+<span class="k">class</span> <span class="nc">IntegerState</span><span class="p">(</span><span class="n">BlockState</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">id</span><span class="p">:</span><span class="n">Identifier</span><span class="p">,</span> <span class="n">stop</span><span class="p">:</span><span class="nb">int</span><span class="p">,</span> <span class="n">start</span><span class="p">:</span><span class="nb">int</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
+        <span class="n">BlockState</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">id</span><span class="p">,</span> <span class="o">*</span><span class="nb">range</span><span class="p">(</span><span class="n">start</span><span class="p">,</span> <span class="n">stop</span><span class="o">+</span><span class="mi">1</span><span class="p">))</span></div>
+
+        
+<span class="c1"># VANILLA</span>
+
+<div class="viewcode-block" id="BlockFaceState">
+<a class="viewcode-back" href="../../../mcpackutils.block.html#mcpackutils.block.state.BlockFaceState">[docs]</a>
+<span class="nd">@state</span>
+<span class="k">class</span> <span class="nc">BlockFaceState</span><span class="p">(</span><span class="n">BlockState</span><span class="p">):</span>
+    <span class="nb">id</span> <span class="o">=</span> <span class="n">Identifier</span><span class="p">(</span><span class="s1">&#39;block_face&#39;</span><span class="p">)</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">BlockState</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;down&quot;</span><span class="p">,</span> <span class="s2">&quot;up&quot;</span><span class="p">,</span> <span class="s2">&quot;north&quot;</span><span class="p">,</span> <span class="s2">&quot;south&quot;</span><span class="p">,</span> <span class="s2">&quot;east&quot;</span><span class="p">,</span> <span class="s2">&quot;west&quot;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="VerticalHalfState">
+<a class="viewcode-back" href="../../../mcpackutils.block.html#mcpackutils.block.state.VerticalHalfState">[docs]</a>
+<span class="nd">@state</span>
+<span class="k">class</span> <span class="nc">VerticalHalfState</span><span class="p">(</span><span class="n">BlockState</span><span class="p">):</span>
+    <span class="nb">id</span> <span class="o">=</span> <span class="n">Identifier</span><span class="p">(</span><span class="s1">&#39;vertical_half&#39;</span><span class="p">)</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">BlockState</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;bottom&quot;</span><span class="p">,</span> <span class="s2">&quot;up&quot;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="CardinalDirectionState">
+<a class="viewcode-back" href="../../../mcpackutils.block.html#mcpackutils.block.state.CardinalDirectionState">[docs]</a>
+<span class="nd">@state</span>
+<span class="k">class</span> <span class="nc">CardinalDirectionState</span><span class="p">(</span><span class="n">BlockState</span><span class="p">):</span>
+    <span class="nb">id</span> <span class="o">=</span> <span class="n">Identifier</span><span class="p">(</span><span class="s1">&#39;cardinal_direction&#39;</span><span class="p">)</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">BlockState</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;north&quot;</span><span class="p">,</span> <span class="s2">&quot;south&quot;</span><span class="p">,</span> <span class="s2">&quot;east&quot;</span><span class="p">,</span> <span class="s2">&quot;west&quot;</span><span class="p">)</span></div>
+
+
+<span class="nd">@state</span>
+<span class="k">class</span> <span class="nc">FacingDirectionState</span><span class="p">(</span><span class="n">BlockState</span><span class="p">):</span>
+    <span class="nb">id</span> <span class="o">=</span> <span class="n">Identifier</span><span class="p">(</span><span class="s1">&#39;facing_direction&#39;</span><span class="p">)</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">BlockState</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;down&quot;</span><span class="p">,</span> <span class="s2">&quot;up&quot;</span><span class="p">,</span> <span class="s2">&quot;north&quot;</span><span class="p">,</span> <span class="s2">&quot;south&quot;</span><span class="p">,</span> <span class="s2">&quot;east&quot;</span><span class="p">,</span> <span class="s2">&quot;west&quot;</span><span class="p">)</span>
+
+<div class="viewcode-block" id="ActiveState">
+<a class="viewcode-back" href="../../../mcpackutils.block.html#mcpackutils.block.state.ActiveState">[docs]</a>
+<span class="nd">@state</span>
+<span class="k">class</span> <span class="nc">ActiveState</span><span class="p">(</span><span class="n">BooleanState</span><span class="p">):</span>
+    <span class="nb">id</span> <span class="o">=</span> <span class="n">Identifier</span><span class="p">(</span><span class="s1">&#39;active&#39;</span><span class="p">)</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">BooleanState</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></div>
+
+        
+<div class="viewcode-block" id="AgeState">
+<a class="viewcode-back" href="../../../mcpackutils.block.html#mcpackutils.block.state.AgeState">[docs]</a>
+<span class="nd">@state</span>
+<span class="k">class</span> <span class="nc">AgeState</span><span class="p">(</span><span class="n">BlockState</span><span class="p">):</span>
+    <span class="nb">id</span> <span class="o">=</span> <span class="n">Identifier</span><span class="p">(</span><span class="s1">&#39;age&#39;</span><span class="p">)</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">BlockState</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">6</span><span class="p">,</span><span class="mi">7</span><span class="p">,</span><span class="mi">8</span><span class="p">,</span><span class="mi">9</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">11</span><span class="p">,</span><span class="mi">12</span><span class="p">,</span><span class="mi">13</span><span class="p">,</span><span class="mi">14</span><span class="p">,</span><span class="mi">15</span><span class="p">)</span></div>
+
+        
+<div class="viewcode-block" id="AgeBitState">
+<a class="viewcode-back" href="../../../mcpackutils.block.html#mcpackutils.block.state.AgeBitState">[docs]</a>
+<span class="nd">@state</span>
+<span class="k">class</span> <span class="nc">AgeBitState</span><span class="p">(</span><span class="n">BooleanState</span><span class="p">):</span>
+    <span class="nb">id</span> <span class="o">=</span> <span class="n">Identifier</span><span class="p">(</span><span class="s1">&#39;age_bit&#39;</span><span class="p">)</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">BooleanState</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></div>
+
+        
+<div class="viewcode-block" id="AllowUnderwaterBitState">
+<a class="viewcode-back" href="../../../mcpackutils.block.html#mcpackutils.block.state.AllowUnderwaterBitState">[docs]</a>
+<span class="nd">@state</span>
+<span class="k">class</span> <span class="nc">AllowUnderwaterBitState</span><span class="p">(</span><span class="n">BooleanState</span><span class="p">):</span>
+    <span class="nb">id</span> <span class="o">=</span> <span class="n">Identifier</span><span class="p">(</span><span class="s1">&#39;allow_underwater_bit&#39;</span><span class="p">)</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">BooleanState</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></div>
+
+        
+<div class="viewcode-block" id="AttachedBitState">
+<a class="viewcode-back" href="../../../mcpackutils.block.html#mcpackutils.block.state.AttachedBitState">[docs]</a>
+<span class="nd">@state</span>
+<span class="k">class</span> <span class="nc">AttachedBitState</span><span class="p">(</span><span class="n">BooleanState</span><span class="p">):</span>
+    <span class="nb">id</span> <span class="o">=</span> <span class="n">Identifier</span><span class="p">(</span><span class="s1">&#39;attached_bit&#39;</span><span class="p">)</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">BooleanState</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></div>
+
+        
+<div class="viewcode-block" id="AttachmentState">
+<a class="viewcode-back" href="../../../mcpackutils.block.html#mcpackutils.block.state.AttachmentState">[docs]</a>
+<span class="nd">@state</span>
+<span class="k">class</span> <span class="nc">AttachmentState</span><span class="p">(</span><span class="n">BlockState</span><span class="p">):</span>
+    <span class="nb">id</span> <span class="o">=</span> <span class="n">Identifier</span><span class="p">(</span><span class="s1">&#39;attachment&#39;</span><span class="p">)</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">BlockState</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;standing&#39;</span><span class="p">,</span> <span class="s1">&#39;hanging&#39;</span><span class="p">,</span> <span class="s1">&#39;side&#39;</span><span class="p">,</span> <span class="s1">&#39;multiple&#39;</span><span class="p">)</span></div>
+
+        
+<div class="viewcode-block" id="BambooLeafSizeState">
+<a class="viewcode-back" href="../../../mcpackutils.block.html#mcpackutils.block.state.BambooLeafSizeState">[docs]</a>
+<span class="nd">@state</span>
+<span class="k">class</span> <span class="nc">BambooLeafSizeState</span><span class="p">(</span><span class="n">BlockState</span><span class="p">):</span>
+    <span class="nb">id</span> <span class="o">=</span> <span class="n">Identifier</span><span class="p">(</span><span class="s1">&#39;bamboo_leaf_size&#39;</span><span class="p">)</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">BlockState</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;no_leaves&#39;</span><span class="p">,</span> <span class="s1">&#39;small_leaves&#39;</span><span class="p">,</span> <span class="s1">&#39;large_leaves&#39;</span><span class="p">)</span></div>
+
+        
+<div class="viewcode-block" id="BambooStalkThicknessState">
+<a class="viewcode-back" href="../../../mcpackutils.block.html#mcpackutils.block.state.BambooStalkThicknessState">[docs]</a>
+<span class="nd">@state</span>
+<span class="k">class</span> <span class="nc">BambooStalkThicknessState</span><span class="p">(</span><span class="n">BlockState</span><span class="p">):</span>
+    <span class="nb">id</span> <span class="o">=</span> <span class="n">Identifier</span><span class="p">(</span><span class="s1">&#39;bamboo_stalk&#39;</span><span class="p">)</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">BlockState</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;thin&#39;</span><span class="p">,</span> <span class="s1">&#39;thick&#39;</span><span class="p">)</span></div>
+
+        
+<div class="viewcode-block" id="BigDripleafTiltState">
+<a class="viewcode-back" href="../../../mcpackutils.block.html#mcpackutils.block.state.BigDripleafTiltState">[docs]</a>
+<span class="nd">@state</span>
+<span class="k">class</span> <span class="nc">BigDripleafTiltState</span><span class="p">(</span><span class="n">BlockState</span><span class="p">):</span>
+    <span class="nb">id</span> <span class="o">=</span> <span class="n">Identifier</span><span class="p">(</span><span class="s1">&#39;bigt_dripleaf_tilt&#39;</span><span class="p">)</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">BlockState</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;none&#39;</span><span class="p">,</span> <span class="s1">&#39;unstable&#39;</span><span class="p">,</span> <span class="s1">&#39;partial_tilt&#39;</span><span class="p">,</span><span class="s1">&#39;full_tilt&#39;</span><span class="p">)</span></div>
+
+        
+<div class="viewcode-block" id="BiteCounterState">
+<a class="viewcode-back" href="../../../mcpackutils.block.html#mcpackutils.block.state.BiteCounterState">[docs]</a>
+<span class="nd">@state</span>
+<span class="k">class</span> <span class="nc">BiteCounterState</span><span class="p">(</span><span class="n">BlockState</span><span class="p">):</span>
+    <span class="nb">id</span> <span class="o">=</span> <span class="n">Identifier</span><span class="p">(</span><span class="s1">&#39;bite_counter&#39;</span><span class="p">)</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">BlockState</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">6</span><span class="p">)</span></div>
+
+        
+<div class="viewcode-block" id="BooksStoredState">
+<a class="viewcode-back" href="../../../mcpackutils.block.html#mcpackutils.block.state.BooksStoredState">[docs]</a>
+<span class="nd">@state</span>
+<span class="k">class</span> <span class="nc">BooksStoredState</span><span class="p">(</span><span class="n">BlockState</span><span class="p">):</span>
+    <span class="nb">id</span> <span class="o">=</span> <span class="n">Identifier</span><span class="p">(</span><span class="s1">&#39;books_stored&#39;</span><span class="p">)</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">BlockState</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">6</span><span class="p">)</span></div>
+
+        
+<div class="viewcode-block" id="BrewingStandSlotABitState">
+<a class="viewcode-back" href="../../../mcpackutils.block.html#mcpackutils.block.state.BrewingStandSlotABitState">[docs]</a>
+<span class="nd">@state</span>
+<span class="k">class</span> <span class="nc">BrewingStandSlotABitState</span><span class="p">(</span><span class="n">BooleanState</span><span class="p">):</span>
+    <span class="nb">id</span> <span class="o">=</span> <span class="n">Identifier</span><span class="p">(</span><span class="s1">&#39;brewing_stand_slot_a_bit&#39;</span><span class="p">)</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">BooleanState</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></div>
+
+        
+<div class="viewcode-block" id="BrewingStandSlotBBitState">
+<a class="viewcode-back" href="../../../mcpackutils.block.html#mcpackutils.block.state.BrewingStandSlotBBitState">[docs]</a>
+<span class="nd">@state</span>
+<span class="k">class</span> <span class="nc">BrewingStandSlotBBitState</span><span class="p">(</span><span class="n">BooleanState</span><span class="p">):</span>
+    <span class="nb">id</span> <span class="o">=</span> <span class="n">Identifier</span><span class="p">(</span><span class="s1">&#39;brewing_stand_slot_b_bit&#39;</span><span class="p">)</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">BooleanState</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></div>
+
+        
+<div class="viewcode-block" id="BrewingStandSlotCBitState">
+<a class="viewcode-back" href="../../../mcpackutils.block.html#mcpackutils.block.state.BrewingStandSlotCBitState">[docs]</a>
+<span class="nd">@state</span>
+<span class="k">class</span> <span class="nc">BrewingStandSlotCBitState</span><span class="p">(</span><span class="n">BooleanState</span><span class="p">):</span>
+    <span class="nb">id</span> <span class="o">=</span> <span class="n">Identifier</span><span class="p">(</span><span class="s1">&#39;brewing_stand_slot_c_bit&#39;</span><span class="p">)</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">BooleanState</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></div>
+
+        
+<div class="viewcode-block" id="BrushedProgressState">
+<a class="viewcode-back" href="../../../mcpackutils.block.html#mcpackutils.block.state.BrushedProgressState">[docs]</a>
+<span class="nd">@state</span>
+<span class="k">class</span> <span class="nc">BrushedProgressState</span><span class="p">(</span><span class="n">BlockState</span><span class="p">):</span>
+    <span class="nb">id</span> <span class="o">=</span> <span class="n">Identifier</span><span class="p">(</span><span class="s1">&#39;brushed_progress&#39;</span><span class="p">)</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">BlockState</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">)</span></div>
+
+        
+<div class="viewcode-block" id="ButtonPressedBitState">
+<a class="viewcode-back" href="../../../mcpackutils.block.html#mcpackutils.block.state.ButtonPressedBitState">[docs]</a>
+<span class="nd">@state</span>
+<span class="k">class</span> <span class="nc">ButtonPressedBitState</span><span class="p">(</span><span class="n">BooleanState</span><span class="p">):</span>
+    <span class="nb">id</span> <span class="o">=</span> <span class="n">Identifier</span><span class="p">(</span><span class="s1">&#39;button_pressed_bit&#39;</span><span class="p">)</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">BooleanState</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></div>
+
+        
+<div class="viewcode-block" id="CandlesState">
+<a class="viewcode-back" href="../../../mcpackutils.block.html#mcpackutils.block.state.CandlesState">[docs]</a>
+<span class="nd">@state</span>
+<span class="k">class</span> <span class="nc">CandlesState</span><span class="p">(</span><span class="n">BlockState</span><span class="p">):</span>
+    <span class="nb">id</span> <span class="o">=</span> <span class="n">Identifier</span><span class="p">(</span><span class="s1">&#39;candles&#39;</span><span class="p">)</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">BlockState</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">)</span></div>
+
+        
+<div class="viewcode-block" id="CauldronLiquidState">
+<a class="viewcode-back" href="../../../mcpackutils.block.html#mcpackutils.block.state.CauldronLiquidState">[docs]</a>
+<span class="nd">@state</span>
+<span class="k">class</span> <span class="nc">CauldronLiquidState</span><span class="p">(</span><span class="n">BlockState</span><span class="p">):</span>
+    <span class="nb">id</span> <span class="o">=</span> <span class="n">Identifier</span><span class="p">(</span><span class="s1">&#39;cauldron_liquid&#39;</span><span class="p">)</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">BlockState</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;water&#39;</span><span class="p">,</span> <span class="s1">&#39;lava&#39;</span><span class="p">)</span></div>
+
+        
+<div class="viewcode-block" id="ChemistryTableTypeState">
+<a class="viewcode-back" href="../../../mcpackutils.block.html#mcpackutils.block.state.ChemistryTableTypeState">[docs]</a>
+<span class="nd">@state</span>
+<span class="k">class</span> <span class="nc">ChemistryTableTypeState</span><span class="p">(</span><span class="n">BlockState</span><span class="p">):</span>
+    <span class="nb">id</span> <span class="o">=</span> <span class="n">Identifier</span><span class="p">(</span><span class="s1">&#39;chemistry_table_type&#39;</span><span class="p">)</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">BlockState</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;compound_creator&#39;</span><span class="p">,</span> <span class="s1">&#39;material_reducer&#39;</span><span class="p">,</span> <span class="s1">&#39;element_constructor&#39;</span><span class="p">,</span> <span class="s1">&#39;lab_table&#39;</span><span class="p">)</span></div>
+
+        
+<div class="viewcode-block" id="ChiselTypeState">
+<a class="viewcode-back" href="../../../mcpackutils.block.html#mcpackutils.block.state.ChiselTypeState">[docs]</a>
+<span class="nd">@state</span>
+<span class="k">class</span> <span class="nc">ChiselTypeState</span><span class="p">(</span><span class="n">BlockState</span><span class="p">):</span>
+    <span class="nb">id</span> <span class="o">=</span> <span class="n">Identifier</span><span class="p">(</span><span class="s1">&#39;chisel_type&#39;</span><span class="p">)</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">BlockState</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;default&#39;</span><span class="p">,</span> <span class="s1">&#39;chiseled&#39;</span><span class="p">,</span> <span class="s1">&#39;lines&#39;</span><span class="p">,</span> <span class="s1">&#39;smooth&#39;</span><span class="p">)</span></div>
+
+        
+<div class="viewcode-block" id="ClusterCountState">
+<a class="viewcode-back" href="../../../mcpackutils.block.html#mcpackutils.block.state.ClusterCountState">[docs]</a>
+<span class="nd">@state</span>
+<span class="k">class</span> <span class="nc">ClusterCountState</span><span class="p">(</span><span class="n">BlockState</span><span class="p">):</span>
+    <span class="nb">id</span> <span class="o">=</span> <span class="n">Identifier</span><span class="p">(</span><span class="s1">&#39;cluster_count&#39;</span><span class="p">)</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">BlockState</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">)</span></div>
+
+        
+<div class="viewcode-block" id="ColorState">
+<a class="viewcode-back" href="../../../mcpackutils.block.html#mcpackutils.block.state.ColorState">[docs]</a>
+<span class="nd">@state</span>
+<span class="k">class</span> <span class="nc">ColorState</span><span class="p">(</span><span class="n">BlockState</span><span class="p">):</span>
+    <span class="nb">id</span> <span class="o">=</span> <span class="n">Identifier</span><span class="p">(</span><span class="s1">&#39;color&#39;</span><span class="p">)</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">BlockState</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;white&#39;</span><span class="p">,</span> <span class="s1">&#39;orange&#39;</span><span class="p">,</span> <span class="s1">&#39;magenta&#39;</span><span class="p">,</span> <span class="s1">&#39;light_blue&#39;</span><span class="p">,</span> <span class="s1">&#39;yellow&#39;</span><span class="p">,</span> <span class="s1">&#39;lime&#39;</span><span class="p">,</span> <span class="s1">&#39;pink&#39;</span><span class="p">,</span> <span class="s1">&#39;gray&#39;</span><span class="p">,</span> <span class="s1">&#39;silver&#39;</span><span class="p">,</span> <span class="s1">&#39;cyan&#39;</span><span class="p">,</span> <span class="s1">&#39;purple&#39;</span><span class="p">,</span> <span class="s1">&#39;blue&#39;</span><span class="p">,</span> <span class="s1">&#39;brown&#39;</span><span class="p">,</span> <span class="s1">&#39;green&#39;</span><span class="p">,</span> <span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="s1">&#39;black&#39;</span><span class="p">)</span></div>
+
+        
+<div class="viewcode-block" id="ColorBitState">
+<a class="viewcode-back" href="../../../mcpackutils.block.html#mcpackutils.block.state.ColorBitState">[docs]</a>
+<span class="nd">@state</span>
+<span class="k">class</span> <span class="nc">ColorBitState</span><span class="p">(</span><span class="n">BooleanState</span><span class="p">):</span>
+    <span class="nb">id</span> <span class="o">=</span> <span class="n">Identifier</span><span class="p">(</span><span class="s1">&#39;color_bit&#39;</span><span class="p">)</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">BooleanState</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></div>
+
+        
+<div class="viewcode-block" id="ConditionalBitState">
+<a class="viewcode-back" href="../../../mcpackutils.block.html#mcpackutils.block.state.ConditionalBitState">[docs]</a>
+<span class="nd">@state</span>
+<span class="k">class</span> <span class="nc">ConditionalBitState</span><span class="p">(</span><span class="n">BooleanState</span><span class="p">):</span>
+    <span class="nb">id</span> <span class="o">=</span> <span class="n">Identifier</span><span class="p">(</span><span class="s1">&#39;conditional_bit&#39;</span><span class="p">)</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">BooleanState</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></div>
+
+        
+<div class="viewcode-block" id="CoralColorState">
+<a class="viewcode-back" href="../../../mcpackutils.block.html#mcpackutils.block.state.CoralColorState">[docs]</a>
+<span class="nd">@state</span>
+<span class="k">class</span> <span class="nc">CoralColorState</span><span class="p">(</span><span class="n">BlockState</span><span class="p">):</span>
+    <span class="nb">id</span> <span class="o">=</span> <span class="n">Identifier</span><span class="p">(</span><span class="s1">&#39;coral_color&#39;</span><span class="p">)</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">BlockState</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;blue&#39;</span><span class="p">,</span> <span class="s1">&#39;pink&#39;</span><span class="p">,</span> <span class="s1">&#39;purple&#39;</span><span class="p">,</span> <span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="s1">&#39;yellow&#39;</span><span class="p">,</span> <span class="s1">&#39;blue&#39;</span><span class="p">,</span> <span class="s1">&#39;blue dead&#39;</span><span class="p">,</span> <span class="s1">&#39;pink dead&#39;</span><span class="p">,</span> <span class="s1">&#39;red dead&#39;</span><span class="p">,</span> <span class="s1">&#39;yelliow dead&#39;</span><span class="p">)</span></div>
+
+        
+<div class="viewcode-block" id="CoralDirectionState">
+<a class="viewcode-back" href="../../../mcpackutils.block.html#mcpackutils.block.state.CoralDirectionState">[docs]</a>
+<span class="nd">@state</span>
+<span class="k">class</span> <span class="nc">CoralDirectionState</span><span class="p">(</span><span class="n">BlockState</span><span class="p">):</span>
+    <span class="nb">id</span> <span class="o">=</span> <span class="n">Identifier</span><span class="p">(</span><span class="s1">&#39;coral_direction&#39;</span><span class="p">)</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">BlockState</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">)</span></div>
+
+        
+<div class="viewcode-block" id="CoralHangTypeBitState">
+<a class="viewcode-back" href="../../../mcpackutils.block.html#mcpackutils.block.state.CoralHangTypeBitState">[docs]</a>
+<span class="nd">@state</span>
+<span class="k">class</span> <span class="nc">CoralHangTypeBitState</span><span class="p">(</span><span class="n">BooleanState</span><span class="p">):</span>
+    <span class="nb">id</span> <span class="o">=</span> <span class="n">Identifier</span><span class="p">(</span><span class="s1">&#39;coral_hang_type_bit&#39;</span><span class="p">)</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">BooleanState</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></div>
+
+        
+<div class="viewcode-block" id="CoveredBitState">
+<a class="viewcode-back" href="../../../mcpackutils.block.html#mcpackutils.block.state.CoveredBitState">[docs]</a>
+<span class="nd">@state</span>
+<span class="k">class</span> <span class="nc">CoveredBitState</span><span class="p">(</span><span class="n">BooleanState</span><span class="p">):</span>
+    <span class="nb">id</span> <span class="o">=</span> <span class="n">Identifier</span><span class="p">(</span><span class="s1">&#39;coverted_bit&#39;</span><span class="p">)</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">BooleanState</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></div>
+
+        
+<div class="viewcode-block" id="CrackedState">
+<a class="viewcode-back" href="../../../mcpackutils.block.html#mcpackutils.block.state.CrackedState">[docs]</a>
+<span class="nd">@state</span>
+<span class="k">class</span> <span class="nc">CrackedState</span><span class="p">(</span><span class="n">BlockState</span><span class="p">):</span>
+    <span class="nb">id</span> <span class="o">=</span> <span class="n">Identifier</span><span class="p">(</span><span class="s1">&#39;cracked_state&#39;</span><span class="p">)</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">BlockState</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;no_cracks&#39;</span><span class="p">,</span> <span class="s1">&#39;cracked&#39;</span><span class="p">,</span> <span class="s1">&#39;max_cracked&#39;</span><span class="p">)</span></div>
+
+        
+<div class="viewcode-block" id="CraftingState">
+<a class="viewcode-back" href="../../../mcpackutils.block.html#mcpackutils.block.state.CraftingState">[docs]</a>
+<span class="nd">@state</span>
+<span class="k">class</span> <span class="nc">CraftingState</span><span class="p">(</span><span class="n">BooleanState</span><span class="p">):</span>
+    <span class="nb">id</span> <span class="o">=</span> <span class="n">Identifier</span><span class="p">(</span><span class="s1">&#39;crafting&#39;</span><span class="p">)</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">BooleanState</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></div>
+
+        
+<div class="viewcode-block" id="DamageState">
+<a class="viewcode-back" href="../../../mcpackutils.block.html#mcpackutils.block.state.DamageState">[docs]</a>
+<span class="nd">@state</span>
+<span class="k">class</span> <span class="nc">DamageState</span><span class="p">(</span><span class="n">BlockState</span><span class="p">):</span>
+    <span class="nb">id</span> <span class="o">=</span> <span class="n">Identifier</span><span class="p">(</span><span class="s1">&#39;damage&#39;</span><span class="p">)</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">BlockState</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;undamaged&#39;</span><span class="p">,</span> <span class="s1">&#39;slightly_damaged&#39;</span><span class="p">,</span> <span class="s1">&#39;very_damaged&#39;</span><span class="p">,</span> <span class="s1">&#39;broken&#39;</span><span class="p">)</span></div>
+
+        
+<div class="viewcode-block" id="DeadBitState">
+<a class="viewcode-back" href="../../../mcpackutils.block.html#mcpackutils.block.state.DeadBitState">[docs]</a>
+<span class="nd">@state</span>
+<span class="k">class</span> <span class="nc">DeadBitState</span><span class="p">(</span><span class="n">BooleanState</span><span class="p">):</span>
+    <span class="nb">id</span> <span class="o">=</span> <span class="n">Identifier</span><span class="p">(</span><span class="s1">&#39;dead_bit&#39;</span><span class="p">)</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">BooleanState</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></div>
+
+        
+<div class="viewcode-block" id="DirectionState">
+<a class="viewcode-back" href="../../../mcpackutils.block.html#mcpackutils.block.state.DirectionState">[docs]</a>
+<span class="nd">@state</span>
+<span class="k">class</span> <span class="nc">DirectionState</span><span class="p">(</span><span class="n">BlockState</span><span class="p">):</span>
+    <span class="nb">id</span> <span class="o">=</span> <span class="n">Identifier</span><span class="p">(</span><span class="s1">&#39;direction&#39;</span><span class="p">)</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">BlockState</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">)</span></div>
+
+        
+<div class="viewcode-block" id="DirtTypeState">
+<a class="viewcode-back" href="../../../mcpackutils.block.html#mcpackutils.block.state.DirtTypeState">[docs]</a>
+<span class="nd">@state</span>
+<span class="k">class</span> <span class="nc">DirtTypeState</span><span class="p">(</span><span class="n">BlockState</span><span class="p">):</span>
+    <span class="nb">id</span> <span class="o">=</span> <span class="n">Identifier</span><span class="p">(</span><span class="s1">&#39;dirt_type&#39;</span><span class="p">)</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">BlockState</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;normal&#39;</span><span class="p">,</span> <span class="s1">&#39;coarse&#39;</span><span class="p">)</span></div>
+
+        
+<div class="viewcode-block" id="DisarmedBitState">
+<a class="viewcode-back" href="../../../mcpackutils.block.html#mcpackutils.block.state.DisarmedBitState">[docs]</a>
+<span class="nd">@state</span>
+<span class="k">class</span> <span class="nc">DisarmedBitState</span><span class="p">(</span><span class="n">BooleanState</span><span class="p">):</span>
+    <span class="nb">id</span> <span class="o">=</span> <span class="n">Identifier</span><span class="p">(</span><span class="s1">&#39;disarmed_bit&#39;</span><span class="p">)</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">BooleanState</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></div>
+
+        
+<div class="viewcode-block" id="DoorHingeBitState">
+<a class="viewcode-back" href="../../../mcpackutils.block.html#mcpackutils.block.state.DoorHingeBitState">[docs]</a>
+<span class="nd">@state</span>
+<span class="k">class</span> <span class="nc">DoorHingeBitState</span><span class="p">(</span><span class="n">BooleanState</span><span class="p">):</span>
+    <span class="nb">id</span> <span class="o">=</span> <span class="n">Identifier</span><span class="p">(</span><span class="s1">&#39;door_hinge_bit&#39;</span><span class="p">)</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">BooleanState</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></div>
+
+        
+<div class="viewcode-block" id="DoublePlantTypeState">
+<a class="viewcode-back" href="../../../mcpackutils.block.html#mcpackutils.block.state.DoublePlantTypeState">[docs]</a>
+<span class="nd">@state</span>
+<span class="k">class</span> <span class="nc">DoublePlantTypeState</span><span class="p">(</span><span class="n">BlockState</span><span class="p">):</span>
+    <span class="nb">id</span> <span class="o">=</span> <span class="n">Identifier</span><span class="p">(</span><span class="s1">&#39;double_plant_type&#39;</span><span class="p">)</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">BlockState</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;sunflower&#39;</span><span class="p">,</span> <span class="s1">&#39;syringa&#39;</span><span class="p">,</span> <span class="s1">&#39;grass&#39;</span><span class="p">,</span> <span class="s1">&#39;fern&#39;</span><span class="p">,</span> <span class="s1">&#39;rose&#39;</span><span class="p">,</span> <span class="s1">&#39;paeonia&#39;</span><span class="p">)</span></div>
+
+        
+<div class="viewcode-block" id="DragDownState">
+<a class="viewcode-back" href="../../../mcpackutils.block.html#mcpackutils.block.state.DragDownState">[docs]</a>
+<span class="nd">@state</span>
+<span class="k">class</span> <span class="nc">DragDownState</span><span class="p">(</span><span class="n">BooleanState</span><span class="p">):</span>
+    <span class="nb">id</span> <span class="o">=</span> <span class="n">Identifier</span><span class="p">(</span><span class="s1">&#39;drag_down&#39;</span><span class="p">)</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">BooleanState</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></div>
+
+        
+<div class="viewcode-block" id="DripstoneThicknessState">
+<a class="viewcode-back" href="../../../mcpackutils.block.html#mcpackutils.block.state.DripstoneThicknessState">[docs]</a>
+<span class="nd">@state</span>
+<span class="k">class</span> <span class="nc">DripstoneThicknessState</span><span class="p">(</span><span class="n">BlockState</span><span class="p">):</span>
+    <span class="nb">id</span> <span class="o">=</span> <span class="n">Identifier</span><span class="p">(</span><span class="s1">&#39;dripstone_thickness&#39;</span><span class="p">)</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">BlockState</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;tip&#39;</span><span class="p">,</span> <span class="s1">&#39;frustum&#39;</span><span class="p">,</span> <span class="s1">&#39;base&#39;</span><span class="p">,</span> <span class="s1">&#39;middle&#39;</span><span class="p">,</span> <span class="s1">&#39;merge&#39;</span><span class="p">)</span></div>
+
+        
+<div class="viewcode-block" id="EndPortalEyeBitState">
+<a class="viewcode-back" href="../../../mcpackutils.block.html#mcpackutils.block.state.EndPortalEyeBitState">[docs]</a>
+<span class="nd">@state</span>
+<span class="k">class</span> <span class="nc">EndPortalEyeBitState</span><span class="p">(</span><span class="n">BooleanState</span><span class="p">):</span>
+    <span class="nb">id</span> <span class="o">=</span> <span class="n">Identifier</span><span class="p">(</span><span class="s1">&#39;end_portal_eye_bit&#39;</span><span class="p">)</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">BooleanState</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></div>
+
+        
+<div class="viewcode-block" id="ExplodeBitState">
+<a class="viewcode-back" href="../../../mcpackutils.block.html#mcpackutils.block.state.ExplodeBitState">[docs]</a>
+<span class="nd">@state</span>
+<span class="k">class</span> <span class="nc">ExplodeBitState</span><span class="p">(</span><span class="n">BooleanState</span><span class="p">):</span>
+    <span class="nb">id</span> <span class="o">=</span> <span class="n">Identifier</span><span class="p">(</span><span class="s1">&#39;explode_bit&#39;</span><span class="p">)</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">BooleanState</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></div>
+
+        
+<div class="viewcode-block" id="FacingDirectionState">
+<a class="viewcode-back" href="../../../mcpackutils.block.html#mcpackutils.block.state.FacingDirectionState">[docs]</a>
+<span class="nd">@state</span>
+<span class="k">class</span> <span class="nc">FacingDirectionState</span><span class="p">(</span><span class="n">BlockState</span><span class="p">):</span>
+    <span class="nb">id</span> <span class="o">=</span> <span class="n">Identifier</span><span class="p">(</span><span class="s1">&#39;facing_direction&#39;</span><span class="p">)</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">BlockState</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">)</span></div>
+
+        
+<div class="viewcode-block" id="FillLevelState">
+<a class="viewcode-back" href="../../../mcpackutils.block.html#mcpackutils.block.state.FillLevelState">[docs]</a>
+<span class="nd">@state</span>
+<span class="k">class</span> <span class="nc">FillLevelState</span><span class="p">(</span><span class="n">BlockState</span><span class="p">):</span>
+    <span class="nb">id</span> <span class="o">=</span> <span class="n">Identifier</span><span class="p">(</span><span class="s1">&#39;fill_level&#39;</span><span class="p">)</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">BlockState</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">6</span><span class="p">)</span></div>
+
+        
+<div class="viewcode-block" id="FlowerTypeState">
+<a class="viewcode-back" href="../../../mcpackutils.block.html#mcpackutils.block.state.FlowerTypeState">[docs]</a>
+<span class="nd">@state</span>
+<span class="k">class</span> <span class="nc">FlowerTypeState</span><span class="p">(</span><span class="n">BlockState</span><span class="p">):</span>
+    <span class="nb">id</span> <span class="o">=</span> <span class="n">Identifier</span><span class="p">(</span><span class="s1">&#39;flower_type&#39;</span><span class="p">)</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">BlockState</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;poppy&#39;</span><span class="p">,</span> <span class="s1">&#39;orchid&#39;</span><span class="p">,</span> <span class="s1">&#39;allium&#39;</span><span class="p">,</span> <span class="s1">&#39;houstonia&#39;</span><span class="p">,</span> <span class="s1">&#39;tulip_red&#39;</span><span class="p">,</span> <span class="s1">&#39;tulip_orange&#39;</span><span class="p">,</span> <span class="s1">&#39;tulip_white&#39;</span><span class="p">,</span> <span class="s1">&#39;tulip_pink&#39;</span><span class="p">,</span> <span class="s1">&#39;oxeye&#39;</span><span class="p">,</span> <span class="s1">&#39;cornflower&#39;</span><span class="p">,</span> <span class="s1">&#39;lily_of_the_valley&#39;</span><span class="p">)</span></div>
+
+        
+<div class="viewcode-block" id="GroundSignDirectionState">
+<a class="viewcode-back" href="../../../mcpackutils.block.html#mcpackutils.block.state.GroundSignDirectionState">[docs]</a>
+<span class="nd">@state</span>
+<span class="k">class</span> <span class="nc">GroundSignDirectionState</span><span class="p">(</span><span class="n">BlockState</span><span class="p">):</span>
+    <span class="nb">id</span> <span class="o">=</span> <span class="n">Identifier</span><span class="p">(</span><span class="s1">&#39;ground_sign_direction&#39;</span><span class="p">)</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">BlockState</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">6</span><span class="p">,</span><span class="mi">7</span><span class="p">,</span><span class="mi">8</span><span class="p">,</span><span class="mi">9</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">11</span><span class="p">,</span><span class="mi">12</span><span class="p">,</span><span class="mi">13</span><span class="p">,</span><span class="mi">14</span><span class="p">,</span><span class="mi">15</span><span class="p">)</span></div>
+
+        
+<div class="viewcode-block" id="GrowthState">
+<a class="viewcode-back" href="../../../mcpackutils.block.html#mcpackutils.block.state.GrowthState">[docs]</a>
+<span class="nd">@state</span>
+<span class="k">class</span> <span class="nc">GrowthState</span><span class="p">(</span><span class="n">BlockState</span><span class="p">):</span>
+    <span class="nb">id</span> <span class="o">=</span> <span class="n">Identifier</span><span class="p">(</span><span class="s1">&#39;growth&#39;</span><span class="p">)</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">BlockState</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">6</span><span class="p">,</span><span class="mi">7</span><span class="p">)</span></div>
+
+        
+<div class="viewcode-block" id="HangingState">
+<a class="viewcode-back" href="../../../mcpackutils.block.html#mcpackutils.block.state.HangingState">[docs]</a>
+<span class="nd">@state</span>
+<span class="k">class</span> <span class="nc">HangingState</span><span class="p">(</span><span class="n">BooleanState</span><span class="p">):</span>
+    <span class="nb">id</span> <span class="o">=</span> <span class="n">Identifier</span><span class="p">(</span><span class="s1">&#39;hanging&#39;</span><span class="p">)</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">BooleanState</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></div>
+
+        
+<div class="viewcode-block" id="HeadPieceBitState">
+<a class="viewcode-back" href="../../../mcpackutils.block.html#mcpackutils.block.state.HeadPieceBitState">[docs]</a>
+<span class="nd">@state</span>
+<span class="k">class</span> <span class="nc">HeadPieceBitState</span><span class="p">(</span><span class="n">BooleanState</span><span class="p">):</span>
+    <span class="nb">id</span> <span class="o">=</span> <span class="n">Identifier</span><span class="p">(</span><span class="s1">&#39;head_piece_bit&#39;</span><span class="p">)</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">BooleanState</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></div>
+
+        
+<div class="viewcode-block" id="HeightState">
+<a class="viewcode-back" href="../../../mcpackutils.block.html#mcpackutils.block.state.HeightState">[docs]</a>
+<span class="nd">@state</span>
+<span class="k">class</span> <span class="nc">HeightState</span><span class="p">(</span><span class="n">BlockState</span><span class="p">):</span>
+    <span class="nb">id</span> <span class="o">=</span> <span class="n">Identifier</span><span class="p">(</span><span class="s1">&#39;height&#39;</span><span class="p">)</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">BlockState</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">6</span><span class="p">,</span><span class="mi">7</span><span class="p">)</span></div>
+
+        
+<div class="viewcode-block" id="HugeMushroomBitsState">
+<a class="viewcode-back" href="../../../mcpackutils.block.html#mcpackutils.block.state.HugeMushroomBitsState">[docs]</a>
+<span class="nd">@state</span>
+<span class="k">class</span> <span class="nc">HugeMushroomBitsState</span><span class="p">(</span><span class="n">BlockState</span><span class="p">):</span>
+    <span class="nb">id</span> <span class="o">=</span> <span class="n">Identifier</span><span class="p">(</span><span class="s1">&#39;huge_mushroom_bit&#39;</span><span class="p">)</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">BlockState</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">6</span><span class="p">,</span><span class="mi">7</span><span class="p">,</span><span class="mi">8</span><span class="p">,</span><span class="mi">9</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">11</span><span class="p">,</span><span class="mi">12</span><span class="p">,</span><span class="mi">13</span><span class="p">,</span><span class="mi">14</span><span class="p">,</span><span class="mi">15</span><span class="p">)</span></div>
+
+        
+<div class="viewcode-block" id="InWallBitState">
+<a class="viewcode-back" href="../../../mcpackutils.block.html#mcpackutils.block.state.InWallBitState">[docs]</a>
+<span class="nd">@state</span>
+<span class="k">class</span> <span class="nc">InWallBitState</span><span class="p">(</span><span class="n">BooleanState</span><span class="p">):</span>
+    <span class="nb">id</span> <span class="o">=</span> <span class="n">Identifier</span><span class="p">(</span><span class="s1">&#39;in_wall_bit&#39;</span><span class="p">)</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">BooleanState</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></div>
+
+        
+<div class="viewcode-block" id="InfiniburnBitState">
+<a class="viewcode-back" href="../../../mcpackutils.block.html#mcpackutils.block.state.InfiniburnBitState">[docs]</a>
+<span class="nd">@state</span>
+<span class="k">class</span> <span class="nc">InfiniburnBitState</span><span class="p">(</span><span class="n">BooleanState</span><span class="p">):</span>
+    <span class="nb">id</span> <span class="o">=</span> <span class="n">Identifier</span><span class="p">(</span><span class="s1">&#39;infiniburn_bit&#39;</span><span class="p">)</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">BooleanState</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></div>
+
+        
+<div class="viewcode-block" id="ItemFrameMapBitState">
+<a class="viewcode-back" href="../../../mcpackutils.block.html#mcpackutils.block.state.ItemFrameMapBitState">[docs]</a>
+<span class="nd">@state</span>
+<span class="k">class</span> <span class="nc">ItemFrameMapBitState</span><span class="p">(</span><span class="n">BooleanState</span><span class="p">):</span>
+    <span class="nb">id</span> <span class="o">=</span> <span class="n">Identifier</span><span class="p">(</span><span class="s1">&#39;item_frame_map_bit&#39;</span><span class="p">)</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">BooleanState</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></div>
+
+        
+<div class="viewcode-block" id="ItemFramePhotoBitState">
+<a class="viewcode-back" href="../../../mcpackutils.block.html#mcpackutils.block.state.ItemFramePhotoBitState">[docs]</a>
+<span class="nd">@state</span>
+<span class="k">class</span> <span class="nc">ItemFramePhotoBitState</span><span class="p">(</span><span class="n">BooleanState</span><span class="p">):</span>
+    <span class="nb">id</span> <span class="o">=</span> <span class="n">Identifier</span><span class="p">(</span><span class="s1">&#39;item_frame_photo_bit&#39;</span><span class="p">)</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">BooleanState</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></div>
+
+ 
+<div class="viewcode-block" id="LiquidDepthState">
+<a class="viewcode-back" href="../../../mcpackutils.block.html#mcpackutils.block.state.LiquidDepthState">[docs]</a>
+<span class="nd">@state</span>
+<span class="k">class</span> <span class="nc">LiquidDepthState</span><span class="p">(</span><span class="n">BlockState</span><span class="p">):</span>
+    <span class="nb">id</span> <span class="o">=</span> <span class="n">Identifier</span><span class="p">(</span><span class="s1">&#39;liquid_depth&#39;</span><span class="p">)</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">BlockState</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">6</span><span class="p">,</span><span class="mi">7</span><span class="p">,</span><span class="mi">8</span><span class="p">,</span><span class="mi">9</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">11</span><span class="p">,</span><span class="mi">12</span><span class="p">,</span><span class="mi">13</span><span class="p">,</span><span class="mi">14</span><span class="p">,</span><span class="mi">15</span><span class="p">)</span></div>
+
+        
+<div class="viewcode-block" id="MoisturizedAmountState">
+<a class="viewcode-back" href="../../../mcpackutils.block.html#mcpackutils.block.state.MoisturizedAmountState">[docs]</a>
+<span class="nd">@state</span>
+<span class="k">class</span> <span class="nc">MoisturizedAmountState</span><span class="p">(</span><span class="n">BlockState</span><span class="p">):</span>
+    <span class="nb">id</span> <span class="o">=</span> <span class="n">Identifier</span><span class="p">(</span><span class="s1">&#39;moisturized_amount&#39;</span><span class="p">)</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">BlockState</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">6</span><span class="p">,</span><span class="mi">7</span><span class="p">)</span></div>
+
+        
+<div class="viewcode-block" id="MonsterEggStoneTypeState">
+<a class="viewcode-back" href="../../../mcpackutils.block.html#mcpackutils.block.state.MonsterEggStoneTypeState">[docs]</a>
+<span class="nd">@state</span>
+<span class="k">class</span> <span class="nc">MonsterEggStoneTypeState</span><span class="p">(</span><span class="n">BlockState</span><span class="p">):</span>
+    <span class="nb">id</span> <span class="o">=</span> <span class="n">Identifier</span><span class="p">(</span><span class="s1">&#39;monster_egg_stone_type&#39;</span><span class="p">)</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">BlockState</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;stone&#39;</span><span class="p">,</span> <span class="s1">&#39;cobblestone&#39;</span><span class="p">,</span> <span class="s1">&#39;stone_brick&#39;</span><span class="p">,</span> <span class="s1">&#39;mossy_stone_brick&#39;</span><span class="p">,</span> <span class="s1">&#39;cracked_stone_brick&#39;</span><span class="p">,</span> <span class="s1">&#39;chiseled_stone_brick&#39;</span><span class="p">)</span></div>
+
+        
+<div class="viewcode-block" id="NewLeafTypeState">
+<a class="viewcode-back" href="../../../mcpackutils.block.html#mcpackutils.block.state.NewLeafTypeState">[docs]</a>
+<span class="nd">@state</span>
+<span class="k">class</span> <span class="nc">NewLeafTypeState</span><span class="p">(</span><span class="n">BlockState</span><span class="p">):</span>
+    <span class="nb">id</span> <span class="o">=</span> <span class="n">Identifier</span><span class="p">(</span><span class="s1">&#39;new_leaf_type&#39;</span><span class="p">)</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">BlockState</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;acacia&#39;</span><span class="p">,</span> <span class="s1">&#39;dark_oak&#39;</span><span class="p">)</span></div>
+
+        
+<div class="viewcode-block" id="NewLogTypeState">
+<a class="viewcode-back" href="../../../mcpackutils.block.html#mcpackutils.block.state.NewLogTypeState">[docs]</a>
+<span class="nd">@state</span>
+<span class="k">class</span> <span class="nc">NewLogTypeState</span><span class="p">(</span><span class="n">BlockState</span><span class="p">):</span>
+    <span class="nb">id</span> <span class="o">=</span> <span class="n">Identifier</span><span class="p">(</span><span class="s1">&#39;new_log_type&#39;</span><span class="p">)</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">BlockState</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;acacia&#39;</span><span class="p">,</span> <span class="s1">&#39;dark_oak&#39;</span><span class="p">)</span></div>
+
+        
+<div class="viewcode-block" id="NoDropBitState">
+<a class="viewcode-back" href="../../../mcpackutils.block.html#mcpackutils.block.state.NoDropBitState">[docs]</a>
+<span class="nd">@state</span>
+<span class="k">class</span> <span class="nc">NoDropBitState</span><span class="p">(</span><span class="n">BooleanState</span><span class="p">):</span>
+    <span class="nb">id</span> <span class="o">=</span> <span class="n">Identifier</span><span class="p">(</span><span class="s1">&#39;no_drop_bit&#39;</span><span class="p">)</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">BooleanState</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></div>
+
+        
+<div class="viewcode-block" id="OccupiedBitState">
+<a class="viewcode-back" href="../../../mcpackutils.block.html#mcpackutils.block.state.OccupiedBitState">[docs]</a>
+<span class="nd">@state</span>
+<span class="k">class</span> <span class="nc">OccupiedBitState</span><span class="p">(</span><span class="n">BooleanState</span><span class="p">):</span>
+    <span class="nb">id</span> <span class="o">=</span> <span class="n">Identifier</span><span class="p">(</span><span class="s1">&#39;occupied_bit&#39;</span><span class="p">)</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">BooleanState</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></div>
+
+        
+<div class="viewcode-block" id="OldLeafTypeState">
+<a class="viewcode-back" href="../../../mcpackutils.block.html#mcpackutils.block.state.OldLeafTypeState">[docs]</a>
+<span class="nd">@state</span>
+<span class="k">class</span> <span class="nc">OldLeafTypeState</span><span class="p">(</span><span class="n">BlockState</span><span class="p">):</span>
+    <span class="nb">id</span> <span class="o">=</span> <span class="n">Identifier</span><span class="p">(</span><span class="s1">&#39;old_leaf_type&#39;</span><span class="p">)</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">BlockState</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;oak&#39;</span><span class="p">,</span> <span class="s1">&#39;spruce&#39;</span><span class="p">,</span> <span class="s1">&#39;birch&#39;</span><span class="p">,</span> <span class="s1">&#39;jungle&#39;</span><span class="p">)</span></div>
+
+        
+<div class="viewcode-block" id="OldLogTypeState">
+<a class="viewcode-back" href="../../../mcpackutils.block.html#mcpackutils.block.state.OldLogTypeState">[docs]</a>
+<span class="nd">@state</span>
+<span class="k">class</span> <span class="nc">OldLogTypeState</span><span class="p">(</span><span class="n">BlockState</span><span class="p">):</span>
+    <span class="nb">id</span> <span class="o">=</span> <span class="n">Identifier</span><span class="p">(</span><span class="s1">&#39;old_log_type&#39;</span><span class="p">)</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">BlockState</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;oak&#39;</span><span class="p">,</span> <span class="s1">&#39;spruce&#39;</span><span class="p">,</span> <span class="s1">&#39;birch&#39;</span><span class="p">,</span> <span class="s1">&#39;jungle&#39;</span><span class="p">)</span></div>
+
+        
+<div class="viewcode-block" id="OpenBitState">
+<a class="viewcode-back" href="../../../mcpackutils.block.html#mcpackutils.block.state.OpenBitState">[docs]</a>
+<span class="nd">@state</span>
+<span class="k">class</span> <span class="nc">OpenBitState</span><span class="p">(</span><span class="n">BooleanState</span><span class="p">):</span>
+    <span class="nb">id</span> <span class="o">=</span> <span class="n">Identifier</span><span class="p">(</span><span class="s1">&#39;open_bit&#39;</span><span class="p">)</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">BooleanState</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></div>
+
+        
+<div class="viewcode-block" id="OrientationState">
+<a class="viewcode-back" href="../../../mcpackutils.block.html#mcpackutils.block.state.OrientationState">[docs]</a>
+<span class="nd">@state</span>
+<span class="k">class</span> <span class="nc">OrientationState</span><span class="p">(</span><span class="n">BooleanState</span><span class="p">):</span>
+    <span class="nb">id</span> <span class="o">=</span> <span class="n">Identifier</span><span class="p">(</span><span class="s1">&#39;orientation&#39;</span><span class="p">)</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">BooleanState</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></div>
+
+        
+<div class="viewcode-block" id="OutputLitBitState">
+<a class="viewcode-back" href="../../../mcpackutils.block.html#mcpackutils.block.state.OutputLitBitState">[docs]</a>
+<span class="nd">@state</span>
+<span class="k">class</span> <span class="nc">OutputLitBitState</span><span class="p">(</span><span class="n">BooleanState</span><span class="p">):</span>
+    <span class="nb">id</span> <span class="o">=</span> <span class="n">Identifier</span><span class="p">(</span><span class="s1">&#39;output_lit_bit&#39;</span><span class="p">)</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">BooleanState</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></div>
+
+        
+<div class="viewcode-block" id="OutputSubtractBitState">
+<a class="viewcode-back" href="../../../mcpackutils.block.html#mcpackutils.block.state.OutputSubtractBitState">[docs]</a>
+<span class="nd">@state</span>
+<span class="k">class</span> <span class="nc">OutputSubtractBitState</span><span class="p">(</span><span class="n">BooleanState</span><span class="p">):</span>
+    <span class="nb">id</span> <span class="o">=</span> <span class="n">Identifier</span><span class="p">(</span><span class="s1">&#39;output_subtract_bit&#39;</span><span class="p">)</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">BooleanState</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></div>
+
+        
+<div class="viewcode-block" id="PersistentBitState">
+<a class="viewcode-back" href="../../../mcpackutils.block.html#mcpackutils.block.state.PersistentBitState">[docs]</a>
+<span class="nd">@state</span>
+<span class="k">class</span> <span class="nc">PersistentBitState</span><span class="p">(</span><span class="n">BooleanState</span><span class="p">):</span>
+    <span class="nb">id</span> <span class="o">=</span> <span class="n">Identifier</span><span class="p">(</span><span class="s1">&#39;persistent_bit&#39;</span><span class="p">)</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">BooleanState</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></div>
+
+        
+<div class="viewcode-block" id="PortalAxisState">
+<a class="viewcode-back" href="../../../mcpackutils.block.html#mcpackutils.block.state.PortalAxisState">[docs]</a>
+<span class="nd">@state</span>
+<span class="k">class</span> <span class="nc">PortalAxisState</span><span class="p">(</span><span class="n">BlockState</span><span class="p">):</span>
+    <span class="nb">id</span> <span class="o">=</span> <span class="n">Identifier</span><span class="p">(</span><span class="s1">&#39;portal_axis&#39;</span><span class="p">)</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">BlockState</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;unknown&#39;</span><span class="p">,</span> <span class="s1">&#39;x&#39;</span><span class="p">,</span> <span class="s1">&#39;z&#39;</span><span class="p">)</span></div>
+
+        
+<div class="viewcode-block" id="PoweredBitState">
+<a class="viewcode-back" href="../../../mcpackutils.block.html#mcpackutils.block.state.PoweredBitState">[docs]</a>
+<span class="nd">@state</span>
+<span class="k">class</span> <span class="nc">PoweredBitState</span><span class="p">(</span><span class="n">BooleanState</span><span class="p">):</span>
+    <span class="nb">id</span> <span class="o">=</span> <span class="n">Identifier</span><span class="p">(</span><span class="s1">&#39;powered_bit&#39;</span><span class="p">)</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">BooleanState</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></div>
+
+        
+<div class="viewcode-block" id="RailDataBitState">
+<a class="viewcode-back" href="../../../mcpackutils.block.html#mcpackutils.block.state.RailDataBitState">[docs]</a>
+<span class="nd">@state</span>
+<span class="k">class</span> <span class="nc">RailDataBitState</span><span class="p">(</span><span class="n">BooleanState</span><span class="p">):</span>
+    <span class="nb">id</span> <span class="o">=</span> <span class="n">Identifier</span><span class="p">(</span><span class="s1">&#39;rail_data_bit&#39;</span><span class="p">)</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">BooleanState</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></div>
+
+        
+<div class="viewcode-block" id="RailDirectionState">
+<a class="viewcode-back" href="../../../mcpackutils.block.html#mcpackutils.block.state.RailDirectionState">[docs]</a>
+<span class="nd">@state</span>
+<span class="k">class</span> <span class="nc">RailDirectionState</span><span class="p">(</span><span class="n">BlockState</span><span class="p">):</span>
+    <span class="nb">id</span> <span class="o">=</span> <span class="n">Identifier</span><span class="p">(</span><span class="s1">&#39;rail_direction&#39;</span><span class="p">)</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">BlockState</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">6</span><span class="p">,</span><span class="mi">7</span><span class="p">,</span><span class="mi">8</span><span class="p">)</span></div>
+
+        
+<div class="viewcode-block" id="RedstoneSignalState">
+<a class="viewcode-back" href="../../../mcpackutils.block.html#mcpackutils.block.state.RedstoneSignalState">[docs]</a>
+<span class="nd">@state</span>
+<span class="k">class</span> <span class="nc">RedstoneSignalState</span><span class="p">(</span><span class="n">BlockState</span><span class="p">):</span>
+    <span class="nb">id</span> <span class="o">=</span> <span class="n">Identifier</span><span class="p">(</span><span class="s1">&#39;redstone_signal&#39;</span><span class="p">)</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">BlockState</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">6</span><span class="p">,</span><span class="mi">7</span><span class="p">,</span><span class="mi">8</span><span class="p">,</span><span class="mi">9</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span><span class="mi">11</span><span class="p">,</span><span class="mi">12</span><span class="p">,</span><span class="mi">13</span><span class="p">,</span><span class="mi">14</span><span class="p">,</span><span class="mi">15</span><span class="p">)</span></div>
+
+        
+<div class="viewcode-block" id="RepeaterDelayState">
+<a class="viewcode-back" href="../../../mcpackutils.block.html#mcpackutils.block.state.RepeaterDelayState">[docs]</a>
+<span class="nd">@state</span>
+<span class="k">class</span> <span class="nc">RepeaterDelayState</span><span class="p">(</span><span class="n">BlockState</span><span class="p">):</span>
+    <span class="nb">id</span> <span class="o">=</span> <span class="n">Identifier</span><span class="p">(</span><span class="s1">&#39;repeater_delay&#39;</span><span class="p">)</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">BlockState</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">)</span></div>
+
+        
+<div class="viewcode-block" id="SandStoneTypeState">
+<a class="viewcode-back" href="../../../mcpackutils.block.html#mcpackutils.block.state.SandStoneTypeState">[docs]</a>
+<span class="nd">@state</span>
+<span class="k">class</span> <span class="nc">SandStoneTypeState</span><span class="p">(</span><span class="n">BlockState</span><span class="p">):</span>
+    <span class="nb">id</span> <span class="o">=</span> <span class="n">Identifier</span><span class="p">(</span><span class="s1">&#39;sand_stone_type&#39;</span><span class="p">)</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">BlockState</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;default&#39;</span><span class="p">,</span> <span class="s1">&#39;heiroglyphs&#39;</span><span class="p">,</span> <span class="s1">&#39;cut&#39;</span><span class="p">,</span> <span class="s1">&#39;smooth&#39;</span><span class="p">)</span></div>
+
+        
+<div class="viewcode-block" id="SandTypeState">
+<a class="viewcode-back" href="../../../mcpackutils.block.html#mcpackutils.block.state.SandTypeState">[docs]</a>
+<span class="nd">@state</span>
+<span class="k">class</span> <span class="nc">SandTypeState</span><span class="p">(</span><span class="n">BlockState</span><span class="p">):</span>
+    <span class="nb">id</span> <span class="o">=</span> <span class="n">Identifier</span><span class="p">(</span><span class="s1">&#39;sand_type&#39;</span><span class="p">)</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">BlockState</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;normal&#39;</span><span class="p">,</span> <span class="s1">&#39;type&#39;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="SaplingTypeState">
+<a class="viewcode-back" href="../../../mcpackutils.block.html#mcpackutils.block.state.SaplingTypeState">[docs]</a>
+<span class="nd">@state</span>
+<span class="k">class</span> <span class="nc">SaplingTypeState</span><span class="p">(</span><span class="n">BlockState</span><span class="p">):</span>
+    <span class="nb">id</span> <span class="o">=</span> <span class="n">Identifier</span><span class="p">(</span><span class="s1">&#39;sapling_type&#39;</span><span class="p">)</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">BlockState</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;evergreen&#39;</span><span class="p">,</span> <span class="s1">&#39;birch&#39;</span><span class="p">,</span> <span class="s1">&#39;jungle&#39;</span><span class="p">,</span> <span class="s1">&#39;acacia&#39;</span><span class="p">,</span> <span class="s1">&#39;roofed_oak&#39;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="SculkSensorPhaseState">
+<a class="viewcode-back" href="../../../mcpackutils.block.html#mcpackutils.block.state.SculkSensorPhaseState">[docs]</a>
+<span class="nd">@state</span>
+<span class="k">class</span> <span class="nc">SculkSensorPhaseState</span><span class="p">(</span><span class="n">BlockState</span><span class="p">):</span>
+    <span class="nb">id</span> <span class="o">=</span> <span class="n">Identifier</span><span class="p">(</span><span class="s1">&#39;sculk_sensor_phase&#39;</span><span class="p">)</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">BlockState</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;inactive&#39;</span><span class="p">,</span> <span class="s1">&#39;active&#39;</span><span class="p">,</span> <span class="s1">&#39;cooldown&#39;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="SeaGrassTypeState">
+<a class="viewcode-back" href="../../../mcpackutils.block.html#mcpackutils.block.state.SeaGrassTypeState">[docs]</a>
+<span class="nd">@state</span>
+<span class="k">class</span> <span class="nc">SeaGrassTypeState</span><span class="p">(</span><span class="n">BlockState</span><span class="p">):</span>
+    <span class="nb">id</span> <span class="o">=</span> <span class="n">Identifier</span><span class="p">(</span><span class="s1">&#39;sea_grass_type&#39;</span><span class="p">)</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">BlockState</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;default&#39;</span><span class="p">,</span> <span class="s1">&#39;double_top&#39;</span><span class="p">,</span> <span class="s1">&#39;double_bot&#39;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="SpongeTypeState">
+<a class="viewcode-back" href="../../../mcpackutils.block.html#mcpackutils.block.state.SpongeTypeState">[docs]</a>
+<span class="nd">@state</span>
+<span class="k">class</span> <span class="nc">SpongeTypeState</span><span class="p">(</span><span class="n">BlockState</span><span class="p">):</span>
+    <span class="nb">id</span> <span class="o">=</span> <span class="n">Identifier</span><span class="p">(</span><span class="s1">&#39;sponge_type&#39;</span><span class="p">)</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">BlockState</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;dry&#39;</span><span class="p">,</span> <span class="s1">&#39;wet&#39;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="StabilityState">
+<a class="viewcode-back" href="../../../mcpackutils.block.html#mcpackutils.block.state.StabilityState">[docs]</a>
+<span class="nd">@state</span>
+<span class="k">class</span> <span class="nc">StabilityState</span><span class="p">(</span><span class="n">BlockState</span><span class="p">):</span>
+    <span class="nb">id</span> <span class="o">=</span> <span class="n">Identifier</span><span class="p">(</span><span class="s1">&#39;stability&#39;</span><span class="p">)</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">BlockState</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="StabilityCheckState">
+<a class="viewcode-back" href="../../../mcpackutils.block.html#mcpackutils.block.state.StabilityCheckState">[docs]</a>
+<span class="nd">@state</span>
+<span class="k">class</span> <span class="nc">StabilityCheckState</span><span class="p">(</span><span class="n">BooleanState</span><span class="p">):</span>
+    <span class="nb">id</span> <span class="o">=</span> <span class="n">Identifier</span><span class="p">(</span><span class="s1">&#39;stability_check&#39;</span><span class="p">)</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">BooleanState</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="StoneBrickTypeState">
+<a class="viewcode-back" href="../../../mcpackutils.block.html#mcpackutils.block.state.StoneBrickTypeState">[docs]</a>
+<span class="nd">@state</span>
+<span class="k">class</span> <span class="nc">StoneBrickTypeState</span><span class="p">(</span><span class="n">BlockState</span><span class="p">):</span>
+    <span class="nb">id</span> <span class="o">=</span> <span class="n">Identifier</span><span class="p">(</span><span class="s1">&#39;stone_brick_type&#39;</span><span class="p">)</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">BlockState</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;default&#39;</span><span class="p">,</span> <span class="s1">&#39;mossy&#39;</span><span class="p">,</span> <span class="s1">&#39;cracked&#39;</span><span class="p">,</span> <span class="s1">&#39;chiseled&#39;</span><span class="p">,</span> <span class="s1">&#39;smooth&#39;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="StoneSlabTypeState">
+<a class="viewcode-back" href="../../../mcpackutils.block.html#mcpackutils.block.state.StoneSlabTypeState">[docs]</a>
+<span class="nd">@state</span>
+<span class="k">class</span> <span class="nc">StoneSlabTypeState</span><span class="p">(</span><span class="n">BlockState</span><span class="p">):</span>
+    <span class="nb">id</span> <span class="o">=</span> <span class="n">Identifier</span><span class="p">(</span><span class="s1">&#39;stone_slab_type&#39;</span><span class="p">)</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">BlockState</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;smooth_stone&#39;</span><span class="p">,</span> <span class="s1">&#39;sandstone&#39;</span><span class="p">,</span> <span class="s1">&#39;wood&#39;</span><span class="p">,</span> <span class="s1">&#39;cobblestone&#39;</span><span class="p">,</span> <span class="s1">&#39;brick&#39;</span><span class="p">,</span> <span class="s1">&#39;stone_brick&#39;</span><span class="p">,</span> <span class="s1">&#39;quartz&#39;</span><span class="p">,</span> <span class="s1">&#39;nether_brick&#39;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="StoneSlabType2State">
+<a class="viewcode-back" href="../../../mcpackutils.block.html#mcpackutils.block.state.StoneSlabType2State">[docs]</a>
+<span class="nd">@state</span>
+<span class="k">class</span> <span class="nc">StoneSlabType2State</span><span class="p">(</span><span class="n">BlockState</span><span class="p">):</span>
+    <span class="nb">id</span> <span class="o">=</span> <span class="n">Identifier</span><span class="p">(</span><span class="s1">&#39;stone_slab_type2&#39;</span><span class="p">)</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">BlockState</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;red_sandstone&#39;</span><span class="p">,</span> <span class="s1">&#39;purpur&#39;</span><span class="p">,</span> <span class="s1">&#39;prismarine_rough&#39;</span><span class="p">,</span> <span class="s1">&#39;prismarine_dark&#39;</span><span class="p">,</span> <span class="s1">&#39;prismarine_brick&#39;</span><span class="p">,</span> <span class="s1">&#39;mossy_cobblestone&#39;</span><span class="p">,</span> <span class="s1">&#39;smooth_sandstone&#39;</span><span class="p">,</span> <span class="s1">&#39;red_nether_brick&#39;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="StoneSlabType3State">
+<a class="viewcode-back" href="../../../mcpackutils.block.html#mcpackutils.block.state.StoneSlabType3State">[docs]</a>
+<span class="nd">@state</span>
+<span class="k">class</span> <span class="nc">StoneSlabType3State</span><span class="p">(</span><span class="n">BlockState</span><span class="p">):</span>
+    <span class="nb">id</span> <span class="o">=</span> <span class="n">Identifier</span><span class="p">(</span><span class="s1">&#39;stone_slab_type3&#39;</span><span class="p">)</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">BlockState</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;end_stone_brick&#39;</span><span class="p">,</span> <span class="s1">&#39;smooth_red_sandstone&#39;</span><span class="p">,</span> <span class="s1">&#39;polishe_andesite&#39;</span><span class="p">,</span> <span class="s1">&#39;andesite&#39;</span><span class="p">,</span> <span class="s1">&#39;diorite&#39;</span><span class="p">,</span> <span class="s1">&#39;polished_diorite&#39;</span><span class="p">,</span> <span class="s1">&#39;granite&#39;</span><span class="p">,</span> <span class="s1">&#39;polished_granite&#39;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="StoneSlabType4State">
+<a class="viewcode-back" href="../../../mcpackutils.block.html#mcpackutils.block.state.StoneSlabType4State">[docs]</a>
+<span class="nd">@state</span>
+<span class="k">class</span> <span class="nc">StoneSlabType4State</span><span class="p">(</span><span class="n">BlockState</span><span class="p">):</span>
+    <span class="nb">id</span> <span class="o">=</span> <span class="n">Identifier</span><span class="p">(</span><span class="s1">&#39;stone_slab_type_4&#39;</span><span class="p">)</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">BlockState</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;mossy_stone_brick&#39;</span><span class="p">,</span> <span class="s1">&#39;smooth_quartz&#39;</span><span class="p">,</span> <span class="s1">&#39;stone&#39;</span><span class="p">,</span> <span class="s1">&#39;cut_sandstone&#39;</span><span class="p">,</span> <span class="s1">&#39;cut_red_sandstone&#39;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="StoneTypeState">
+<a class="viewcode-back" href="../../../mcpackutils.block.html#mcpackutils.block.state.StoneTypeState">[docs]</a>
+<span class="nd">@state</span>
+<span class="k">class</span> <span class="nc">StoneTypeState</span><span class="p">(</span><span class="n">BlockState</span><span class="p">):</span>
+    <span class="nb">id</span> <span class="o">=</span> <span class="n">Identifier</span><span class="p">(</span><span class="s1">&#39;stone_type&#39;</span><span class="p">)</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">BlockState</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;stone&#39;</span><span class="p">,</span> <span class="s1">&#39;granite&#39;</span><span class="p">,</span> <span class="s1">&#39;granite_smooth&#39;</span><span class="p">,</span> <span class="s1">&#39;diorite&#39;</span><span class="p">,</span> <span class="s1">&#39;diorite_smooth&#39;</span><span class="p">,</span> <span class="s1">&#39;andesite&#39;</span><span class="p">,</span> <span class="s1">&#39;andesite_smooth&#39;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="StrippedBitState">
+<a class="viewcode-back" href="../../../mcpackutils.block.html#mcpackutils.block.state.StrippedBitState">[docs]</a>
+<span class="nd">@state</span>
+<span class="k">class</span> <span class="nc">StrippedBitState</span><span class="p">(</span><span class="n">BooleanState</span><span class="p">):</span>
+    <span class="nb">id</span> <span class="o">=</span> <span class="n">Identifier</span><span class="p">(</span><span class="s1">&#39;stripped_bit&#39;</span><span class="p">)</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">BooleanState</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="StructureBlockTypeState">
+<a class="viewcode-back" href="../../../mcpackutils.block.html#mcpackutils.block.state.StructureBlockTypeState">[docs]</a>
+<span class="nd">@state</span>
+<span class="k">class</span> <span class="nc">StructureBlockTypeState</span><span class="p">(</span><span class="n">BlockState</span><span class="p">):</span>
+    <span class="nb">id</span> <span class="o">=</span> <span class="n">Identifier</span><span class="p">(</span><span class="s1">&#39;structure_block_type&#39;</span><span class="p">)</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">BlockState</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="s1">&#39;data&#39;</span><span class="p">,</span> <span class="s1">&#39;save&#39;</span><span class="p">,</span> <span class="s1">&#39;load&#39;</span><span class="p">,</span> <span class="s1">&#39;corner&#39;</span><span class="p">,</span> <span class="s1">&#39;invalid&#39;</span><span class="p">,</span> <span class="s1">&#39;export&#39;</span> <span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="StructureVoidTypeState">
+<a class="viewcode-back" href="../../../mcpackutils.block.html#mcpackutils.block.state.StructureVoidTypeState">[docs]</a>
+<span class="nd">@state</span>
+<span class="k">class</span> <span class="nc">StructureVoidTypeState</span><span class="p">(</span><span class="n">BlockState</span><span class="p">):</span>
+    <span class="nb">id</span> <span class="o">=</span> <span class="n">Identifier</span><span class="p">(</span><span class="s1">&#39;structure_void_type&#39;</span><span class="p">)</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">BlockState</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;void&#39;</span><span class="p">,</span> <span class="s1">&#39;air&#39;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="SuspendedBitState">
+<a class="viewcode-back" href="../../../mcpackutils.block.html#mcpackutils.block.state.SuspendedBitState">[docs]</a>
+<span class="nd">@state</span>
+<span class="k">class</span> <span class="nc">SuspendedBitState</span><span class="p">(</span><span class="n">BooleanState</span><span class="p">):</span>
+    <span class="nb">id</span> <span class="o">=</span> <span class="n">Identifier</span><span class="p">(</span><span class="s1">&#39;suspended_bit&#39;</span><span class="p">)</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">BooleanState</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="TallGrassTypeState">
+<a class="viewcode-back" href="../../../mcpackutils.block.html#mcpackutils.block.state.TallGrassTypeState">[docs]</a>
+<span class="nd">@state</span>
+<span class="k">class</span> <span class="nc">TallGrassTypeState</span><span class="p">(</span><span class="n">BlockState</span><span class="p">):</span>
+    <span class="nb">id</span> <span class="o">=</span> <span class="n">Identifier</span><span class="p">(</span><span class="s1">&#39;tall_grass_type&#39;</span><span class="p">)</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">BlockState</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;default&#39;</span><span class="p">,</span> <span class="s1">&#39;tall&#39;</span><span class="p">,</span> <span class="s1">&#39;fern&#39;</span><span class="p">,</span> <span class="s1">&#39;snow&#39;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="ToggleBitState">
+<a class="viewcode-back" href="../../../mcpackutils.block.html#mcpackutils.block.state.ToggleBitState">[docs]</a>
+<span class="nd">@state</span>
+<span class="k">class</span> <span class="nc">ToggleBitState</span><span class="p">(</span><span class="n">BooleanState</span><span class="p">):</span>
+    <span class="nb">id</span> <span class="o">=</span> <span class="n">Identifier</span><span class="p">(</span><span class="s1">&#39;toggle_bit&#39;</span><span class="p">)</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">BooleanState</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="TopSlotBitState">
+<a class="viewcode-back" href="../../../mcpackutils.block.html#mcpackutils.block.state.TopSlotBitState">[docs]</a>
+<span class="nd">@state</span>
+<span class="k">class</span> <span class="nc">TopSlotBitState</span><span class="p">(</span><span class="n">BooleanState</span><span class="p">):</span>
+    <span class="nb">id</span> <span class="o">=</span> <span class="n">Identifier</span><span class="p">(</span><span class="s1">&#39;top_slot_bit&#39;</span><span class="p">)</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">BooleanState</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="TorchFacingDirectionState">
+<a class="viewcode-back" href="../../../mcpackutils.block.html#mcpackutils.block.state.TorchFacingDirectionState">[docs]</a>
+<span class="nd">@state</span>
+<span class="k">class</span> <span class="nc">TorchFacingDirectionState</span><span class="p">(</span><span class="n">BlockState</span><span class="p">):</span>
+    <span class="nb">id</span> <span class="o">=</span> <span class="n">Identifier</span><span class="p">(</span><span class="s1">&#39;torch_facing_direction&#39;</span><span class="p">)</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">BlockState</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;unknown&#39;</span><span class="p">,</span> <span class="s1">&#39;west&#39;</span><span class="p">,</span> <span class="s1">&#39;east&#39;</span><span class="p">,</span> <span class="s1">&#39;north&#39;</span><span class="p">,</span> <span class="s1">&#39;south&#39;</span><span class="p">,</span> <span class="s1">&#39;top&#39;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="TriggedBitState">
+<a class="viewcode-back" href="../../../mcpackutils.block.html#mcpackutils.block.state.TriggedBitState">[docs]</a>
+<span class="nd">@state</span>
+<span class="k">class</span> <span class="nc">TriggedBitState</span><span class="p">(</span><span class="n">BooleanState</span><span class="p">):</span>
+    <span class="nb">id</span> <span class="o">=</span> <span class="n">Identifier</span><span class="p">(</span><span class="s1">&#39;triggered_bit&#39;</span><span class="p">)</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">BooleanState</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="TurtleEggCountState">
+<a class="viewcode-back" href="../../../mcpackutils.block.html#mcpackutils.block.state.TurtleEggCountState">[docs]</a>
+<span class="nd">@state</span>
+<span class="k">class</span> <span class="nc">TurtleEggCountState</span><span class="p">(</span><span class="n">BlockState</span><span class="p">):</span>
+    <span class="nb">id</span> <span class="o">=</span> <span class="n">Identifier</span><span class="p">(</span><span class="s1">&#39;turtle_egg_count&#39;</span><span class="p">)</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">BlockState</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;one_egg&#39;</span><span class="p">,</span> <span class="s1">&#39;two_egg&#39;</span><span class="p">,</span> <span class="s1">&#39;three_egg&#39;</span><span class="p">,</span> <span class="s1">&#39;four_egg&#39;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="UpdateBitState">
+<a class="viewcode-back" href="../../../mcpackutils.block.html#mcpackutils.block.state.UpdateBitState">[docs]</a>
+<span class="nd">@state</span>
+<span class="k">class</span> <span class="nc">UpdateBitState</span><span class="p">(</span><span class="n">BooleanState</span><span class="p">):</span>
+    <span class="nb">id</span> <span class="o">=</span> <span class="n">Identifier</span><span class="p">(</span><span class="s1">&#39;update_bit&#39;</span><span class="p">)</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">BooleanState</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="UpperBlockBitState">
+<a class="viewcode-back" href="../../../mcpackutils.block.html#mcpackutils.block.state.UpperBlockBitState">[docs]</a>
+<span class="nd">@state</span>
+<span class="k">class</span> <span class="nc">UpperBlockBitState</span><span class="p">(</span><span class="n">BooleanState</span><span class="p">):</span>
+    <span class="nb">id</span> <span class="o">=</span> <span class="n">Identifier</span><span class="p">(</span><span class="s1">&#39;upper_block_bit&#39;</span><span class="p">)</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">BooleanState</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="UpsideDownBitState">
+<a class="viewcode-back" href="../../../mcpackutils.block.html#mcpackutils.block.state.UpsideDownBitState">[docs]</a>
+<span class="nd">@state</span>
+<span class="k">class</span> <span class="nc">UpsideDownBitState</span><span class="p">(</span><span class="n">BooleanState</span><span class="p">):</span>
+    <span class="nb">id</span> <span class="o">=</span> <span class="n">Identifier</span><span class="p">(</span><span class="s1">&#39;upside_down_bit&#39;</span><span class="p">)</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">BooleanState</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="VineDirectionBitsState">
+<a class="viewcode-back" href="../../../mcpackutils.block.html#mcpackutils.block.state.VineDirectionBitsState">[docs]</a>
+<span class="nd">@state</span>
+<span class="k">class</span> <span class="nc">VineDirectionBitsState</span><span class="p">(</span><span class="n">BlockState</span><span class="p">):</span>
+    <span class="nb">id</span> <span class="o">=</span> <span class="n">Identifier</span><span class="p">(</span><span class="s1">&#39;vine_direction_bits&#39;</span><span class="p">)</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">BlockState</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">6</span><span class="p">,</span><span class="mi">7</span><span class="p">,</span><span class="mi">8</span><span class="p">,</span><span class="mi">9</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">11</span><span class="p">,</span><span class="mi">12</span><span class="p">,</span><span class="mi">13</span><span class="p">,</span><span class="mi">14</span><span class="p">,</span><span class="mi">15</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="WallBlockTypeState">
+<a class="viewcode-back" href="../../../mcpackutils.block.html#mcpackutils.block.state.WallBlockTypeState">[docs]</a>
+<span class="nd">@state</span>
+<span class="k">class</span> <span class="nc">WallBlockTypeState</span><span class="p">(</span><span class="n">BlockState</span><span class="p">):</span>
+    <span class="nb">id</span> <span class="o">=</span> <span class="n">Identifier</span><span class="p">(</span><span class="s1">&#39;wall_block_type&#39;</span><span class="p">)</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">BlockState</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;cobblestone&#39;</span><span class="p">,</span> <span class="s1">&#39;mossy_cobblestone&#39;</span><span class="p">,</span> <span class="s1">&#39;granite&#39;</span><span class="p">,</span> <span class="s1">&#39;diorite&#39;</span><span class="p">,</span> <span class="s1">&#39;andesite&#39;</span><span class="p">,</span> <span class="s1">&#39;sandstone&#39;</span><span class="p">,</span> <span class="s1">&#39;brick&#39;</span><span class="p">,</span> <span class="s1">&#39;stone_brick&#39;</span><span class="p">,</span> <span class="s1">&#39;mossy_stone_brick&#39;</span><span class="p">,</span> <span class="s1">&#39;nether_brick&#39;</span><span class="p">,</span> <span class="s1">&#39;end_brick&#39;</span><span class="p">,</span> <span class="s1">&#39;prismarine&#39;</span><span class="p">,</span> <span class="s1">&#39;red_sandstone&#39;</span><span class="p">,</span> <span class="s1">&#39;red_nether_brick&#39;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="WallConnectionTypEastState">
+<a class="viewcode-back" href="../../../mcpackutils.block.html#mcpackutils.block.state.WallConnectionTypEastState">[docs]</a>
+<span class="nd">@state</span>
+<span class="k">class</span> <span class="nc">WallConnectionTypEastState</span><span class="p">(</span><span class="n">BlockState</span><span class="p">):</span>
+    <span class="nb">id</span> <span class="o">=</span> <span class="n">Identifier</span><span class="p">(</span><span class="s1">&#39;wall_connection_type_east&#39;</span><span class="p">)</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">BlockState</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;none&#39;</span><span class="p">,</span> <span class="s1">&#39;short&#39;</span><span class="p">,</span> <span class="s1">&#39;tall&#39;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="WallConnectionTypeNorthState">
+<a class="viewcode-back" href="../../../mcpackutils.block.html#mcpackutils.block.state.WallConnectionTypeNorthState">[docs]</a>
+<span class="nd">@state</span>
+<span class="k">class</span> <span class="nc">WallConnectionTypeNorthState</span><span class="p">(</span><span class="n">BlockState</span><span class="p">):</span>
+    <span class="nb">id</span> <span class="o">=</span> <span class="n">Identifier</span><span class="p">(</span><span class="s1">&#39;wall_connection_type_north&#39;</span><span class="p">)</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">BlockState</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;none&#39;</span><span class="p">,</span> <span class="s1">&#39;short&#39;</span><span class="p">,</span> <span class="s1">&#39;tall&#39;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="WallConnectionTypeSouthState">
+<a class="viewcode-back" href="../../../mcpackutils.block.html#mcpackutils.block.state.WallConnectionTypeSouthState">[docs]</a>
+<span class="nd">@state</span>
+<span class="k">class</span> <span class="nc">WallConnectionTypeSouthState</span><span class="p">(</span><span class="n">BlockState</span><span class="p">):</span>
+    <span class="nb">id</span> <span class="o">=</span> <span class="n">Identifier</span><span class="p">(</span><span class="s1">&#39;wall_connection_type_south&#39;</span><span class="p">)</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">BlockState</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;none&#39;</span><span class="p">,</span> <span class="s1">&#39;short&#39;</span><span class="p">,</span> <span class="s1">&#39;tall&#39;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="WallConnectionTypeWestState">
+<a class="viewcode-back" href="../../../mcpackutils.block.html#mcpackutils.block.state.WallConnectionTypeWestState">[docs]</a>
+<span class="nd">@state</span>
+<span class="k">class</span> <span class="nc">WallConnectionTypeWestState</span><span class="p">(</span><span class="n">BlockState</span><span class="p">):</span>
+    <span class="nb">id</span> <span class="o">=</span> <span class="n">Identifier</span><span class="p">(</span><span class="s1">&#39;wall_connection_type_west&#39;</span><span class="p">)</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">BlockState</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;none&#39;</span><span class="p">,</span> <span class="s1">&#39;short&#39;</span><span class="p">,</span> <span class="s1">&#39;tall&#39;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="WallPostBitState">
+<a class="viewcode-back" href="../../../mcpackutils.block.html#mcpackutils.block.state.WallPostBitState">[docs]</a>
+<span class="nd">@state</span>
+<span class="k">class</span> <span class="nc">WallPostBitState</span><span class="p">(</span><span class="n">BooleanState</span><span class="p">):</span>
+    <span class="nb">id</span> <span class="o">=</span> <span class="n">Identifier</span><span class="p">(</span><span class="s1">&#39;wall_post_bit&#39;</span><span class="p">)</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">BooleanState</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="WeirdoDirectionState">
+<a class="viewcode-back" href="../../../mcpackutils.block.html#mcpackutils.block.state.WeirdoDirectionState">[docs]</a>
+<span class="nd">@state</span>
+<span class="k">class</span> <span class="nc">WeirdoDirectionState</span><span class="p">(</span><span class="n">BlockState</span><span class="p">):</span>
+    <span class="nb">id</span> <span class="o">=</span> <span class="n">Identifier</span><span class="p">(</span><span class="s1">&#39;weirdo_direction&#39;</span><span class="p">)</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">BlockState</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="WoodTypeState">
+<a class="viewcode-back" href="../../../mcpackutils.block.html#mcpackutils.block.state.WoodTypeState">[docs]</a>
+<span class="nd">@state</span>
+<span class="k">class</span> <span class="nc">WoodTypeState</span><span class="p">(</span><span class="n">BlockState</span><span class="p">):</span>
+    <span class="nb">id</span> <span class="o">=</span> <span class="n">Identifier</span><span class="p">(</span><span class="s1">&#39;wood_type&#39;</span><span class="p">)</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">BlockState</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;oak&#39;</span><span class="p">,</span> <span class="s1">&#39;spruce&#39;</span><span class="p">,</span> <span class="s1">&#39;birch&#39;</span><span class="p">,</span> <span class="s1">&#39;jungle&#39;</span><span class="p">,</span> <span class="s1">&#39;acacia&#39;</span><span class="p">,</span> <span class="s1">&#39;dark_oak&#39;</span><span class="p">)</span></div>
+
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Legopitstop.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

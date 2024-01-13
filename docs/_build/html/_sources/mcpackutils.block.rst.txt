@@ -1,0 +1,37 @@
+mcpackutils.block package
+=========================
+
+Submodules
+----------
+
+mcpackutils.block.component module
+----------------------------------
+
+.. automodule:: mcpackutils.block.component
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+mcpackutils.block.state module
+------------------------------
+
+.. automodule:: mcpackutils.block.state
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+mcpackutils.block.trait module
+------------------------------
+
+.. automodule:: mcpackutils.block.trait
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Module contents
+---------------
+
+.. automodule:: mcpackutils.block
+   :members:
+   :undoc-members:
+   :show-inheritance:

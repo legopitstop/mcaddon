@@ -1,0 +1,157 @@
+mcpackutils package
+===================
+
+Submodules
+----------
+
+mcpackutils.addon module
+------------------------
+
+.. automodule:: mcpackutils.addon
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+mcpackutils.animation module
+----------------------------
+
+.. automodule:: mcpackutils.animation
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+mcpackutils.biome module
+------------------------
+
+.. automodule:: mcpackutils.biome
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+mcpackutils.block module
+------------------------
+
+.. automodule:: mcpackutils.block
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+mcpackutils.constant module
+---------------------------
+
+.. automodule:: mcpackutils.constant
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+mcpackutils.entity module
+-------------------------
+
+.. automodule:: mcpackutils.entity
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+mcpackutils.event module
+------------------------
+
+.. automodule:: mcpackutils.event
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+mcpackutils.feature module
+--------------------------
+
+.. automodule:: mcpackutils.feature
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+mcpackutils.fog module
+----------------------
+
+.. automodule:: mcpackutils.fog
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+mcpackutils.item module
+-----------------------
+
+.. automodule:: mcpackutils.item
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+mcpackutils.loot module
+-----------------------
+
+.. automodule:: mcpackutils.loot
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+mcpackutils.manifest module
+---------------------------
+
+.. automodule:: mcpackutils.manifest
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+mcpackutils.pack module
+-----------------------
+
+.. automodule:: mcpackutils.pack
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+mcpackutils.particle module
+---------------------------
+
+.. automodule:: mcpackutils.particle
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+mcpackutils.recipe module
+-------------------------
+
+.. automodule:: mcpackutils.recipe
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+mcpackutils.texture\_set module
+-------------------------------
+
+.. automodule:: mcpackutils.texture_set
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+mcpackutils.util module
+-----------------------
+
+.. automodule:: mcpackutils.util
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+mcpackutils.volume module
+-------------------------
+
+.. automodule:: mcpackutils.volume
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Module contents
+---------------
+
+.. automodule:: mcpackutils
+   :members:
+   :undoc-members:
+   :show-inheritance:
