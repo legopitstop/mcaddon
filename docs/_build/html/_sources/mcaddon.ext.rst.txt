@@ -1,0 +1,29 @@
+mcaddon.ext package
+===================
+
+Submodules
+----------
+
+mcaddon.ext.extra module
+------------------------
+
+.. automodule:: mcaddon.ext.extra
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+mcaddon.ext.vanilla module
+--------------------------
+
+.. automodule:: mcaddon.ext.vanilla
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Module contents
+---------------
+
+.. automodule:: mcaddon.ext
+   :members:
+   :undoc-members:
+   :show-inheritance:

@@ -82,7 +82,7 @@
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Base event class for items and blocks</span>
 
-<span class="sd">        :param target: The target context to execute against, defaults to EventTarget.SELF</span>
+<span class="sd">        :param target: The target context to execute against, defaults to EventTarget.self</span>
 <span class="sd">        :type target: EventTarget, optional</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">target</span> <span class="o">=</span> <span class="n">target</span>
@@ -146,7 +146,7 @@
 <span class="sd">        :type amplifier: int, optional</span>
 <span class="sd">        :param duration: The duration of the mob effect, defaults to 0.0</span>
 <span class="sd">        :type duration: float, optional</span>
-<span class="sd">        :param target: The target context to execute against, defaults to EventTarget.SELF</span>
+<span class="sd">        :param target: The target context to execute against, defaults to EventTarget.self</span>
 <span class="sd">        :type target: EventTarget, optional</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">Event</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">target</span><span class="p">)</span>
@@ -213,7 +213,7 @@
 <span class="sd">        :type amount: int, optional</span>
 <span class="sd">        :param mob_amount: The amount of damage to deal if held by a mob, defaults to 0</span>
 <span class="sd">        :type mob_amount: int, optional</span>
-<span class="sd">        :param target: The target context to execute against, defaults to EventTarget.SELF</span>
+<span class="sd">        :param target: The target context to execute against, defaults to EventTarget.self</span>
 <span class="sd">        :type target: EventTarget, optional</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">Event</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">target</span><span class="p">)</span>
@@ -274,7 +274,7 @@
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Decrement item stack</span>
 
-<span class="sd">        :param target: The target context to execute against, defaults to EventTarget.SELF</span>
+<span class="sd">        :param target: The target context to execute against, defaults to EventTarget.self</span>
 <span class="sd">        :type target: EventTarget, optional</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">Event</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">target</span><span class="p">)</span>
@@ -293,7 +293,7 @@
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Kill target. If target is self and this is run from a block then destroy the block</span>
 
-<span class="sd">        :param target: The target context to execute against, defaults to EventTarget.SELF</span>
+<span class="sd">        :param target: The target context to execute against, defaults to EventTarget.self</span>
 <span class="sd">        :type target: EventTarget, optional</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">Event</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">target</span><span class="p">)</span>
@@ -317,7 +317,7 @@
 <span class="sd">        :type effect: Identifier | str</span>
 <span class="sd">        :param data: Particle data value, defaults to 0</span>
 <span class="sd">        :type data: int, optional</span>
-<span class="sd">        :param target: The target context to execute against, defaults to EventTarget.SELF</span>
+<span class="sd">        :param target: The target context to execute against, defaults to EventTarget.self</span>
 <span class="sd">        :type target: EventTarget, optional</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">Event</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">target</span><span class="p">)</span>
@@ -367,7 +367,7 @@
 
 <span class="sd">        :param sound: The name of the sound to play</span>
 <span class="sd">        :type sound: str</span>
-<span class="sd">        :param target: The target context to execute against, defaults to EventTarget.SELF</span>
+<span class="sd">        :param target: The target context to execute against, defaults to EventTarget.self</span>
 <span class="sd">        :type target: EventTarget, optional</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">Event</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">target</span><span class="p">)</span>
@@ -401,7 +401,7 @@
 
 <span class="sd">        :param effect: The mob effect to remove. Use &#39;all&#39; to remove all mob effects from target</span>
 <span class="sd">        :type effect: Identifier | str</span>
-<span class="sd">        :param target: The target context to execute against, defaults to EventTarget.SELF</span>
+<span class="sd">        :param target: The target context to execute against, defaults to EventTarget.self</span>
 <span class="sd">        :type target: EventTarget, optional</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">Event</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">target</span><span class="p">)</span>
@@ -438,7 +438,7 @@
 
 <span class="sd">        :param command: Slash command(s) to run</span>
 <span class="sd">        :type command: str | list[str]</span>
-<span class="sd">        :param target: The target context to execute against, defaults to EventTarget.SELF</span>
+<span class="sd">        :param target: The target context to execute against, defaults to EventTarget.self</span>
 <span class="sd">        :type target: EventTarget, optional</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">Event</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">target</span><span class="p">)</span>
@@ -575,7 +575,7 @@
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Event causes the actor to swing</span>
 
-<span class="sd">        :param target: The target context to execute against, defaults to EventTarget.SELF</span>
+<span class="sd">        :param target: The target context to execute against, defaults to EventTarget.self</span>
 <span class="sd">        :type target: EventTarget, optional</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">Event</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">target</span><span class="p">)</span>
@@ -602,7 +602,7 @@
 <span class="sd">        :type land_on_block: bool, optional</span>
 <span class="sd">        :param max_range: Max range the target can teleport relative to the origin destination, defaults to [8.0, 8.0, 8.0]</span>
 <span class="sd">        :type max_range: list, optional</span>
-<span class="sd">        :param target: The target context to execute against, defaults to EventTarget.SELF</span>
+<span class="sd">        :param target: The target context to execute against, defaults to EventTarget.self</span>
 <span class="sd">        :type target: EventTarget, optional</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">avoid_water</span> <span class="o">=</span> <span class="n">avoid_water</span>
@@ -833,7 +833,7 @@
 <span class="sd">        :type event: Identifier | str</span>
 <span class="sd">        :param condition: The conditions to test, defaults to None</span>
 <span class="sd">        :type condition: Molang, optional</span>
-<span class="sd">        :param target: The target context to execute against, defaults to EventTarget.SELF</span>
+<span class="sd">        :param target: The target context to execute against, defaults to EventTarget.self</span>
 <span class="sd">        :type target: str, optional</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">Event</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">target</span><span class="p">)</span>

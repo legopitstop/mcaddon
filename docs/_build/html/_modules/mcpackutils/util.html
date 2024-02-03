@@ -74,7 +74,7 @@
 
 <span class="kn">from</span> <span class="nn">.constant</span> <span class="kn">import</span> <span class="n">Category</span>
 
-<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Identifier&#39;</span><span class="p">,</span> <span class="s1">&#39;Saveable&#39;</span><span class="p">,</span> <span class="s1">&#39;Molang&#39;</span><span class="p">,</span> <span class="s1">&#39;MenuCategory&#39;</span><span class="p">]</span>
+<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Identifier&#39;</span><span class="p">,</span> <span class="s1">&#39;File&#39;</span><span class="p">,</span> <span class="s1">&#39;Molang&#39;</span><span class="p">,</span> <span class="s1">&#39;MenuCategory&#39;</span><span class="p">]</span>
 
 <span class="c1"># Should use datapackutils.Identifier</span>
 <div class="viewcode-block" id="Identifier">
@@ -259,11 +259,11 @@
 </div>
 
 
-<div class="viewcode-block" id="Saveable">
-<a class="viewcode-back" href="../../mcpackutils.html#mcpackutils.event.Saveable">[docs]</a>
-<span class="k">class</span> <span class="nc">Saveable</span><span class="p">:</span>
-<div class="viewcode-block" id="Saveable.from_dict">
-<a class="viewcode-back" href="../../mcpackutils.html#mcpackutils.event.Saveable.from_dict">[docs]</a>
+<div class="viewcode-block" id="File">
+<a class="viewcode-back" href="../../mcpackutils.html#mcpackutils.event.File">[docs]</a>
+<span class="k">class</span> <span class="nc">File</span><span class="p">:</span>
+<div class="viewcode-block" id="File.from_dict">
+<a class="viewcode-back" href="../../mcpackutils.html#mcpackutils.event.File.from_dict">[docs]</a>
     <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">from_dict</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span><span class="nb">dict</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
@@ -275,8 +275,8 @@
         <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">()</span></div>
 
 
-<div class="viewcode-block" id="Saveable.json">
-<a class="viewcode-back" href="../../mcpackutils.html#mcpackutils.event.Saveable.json">[docs]</a>
+<div class="viewcode-block" id="File.json">
+<a class="viewcode-back" href="../../mcpackutils.html#mcpackutils.event.File.json">[docs]</a>
     <span class="k">def</span> <span class="nf">json</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kw</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Convert object to a string in JSON format</span>
@@ -287,8 +287,8 @@
         <span class="k">return</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="vm">__dict__</span><span class="p">,</span> <span class="o">**</span><span class="n">kw</span><span class="p">)</span></div>
 
     
-<div class="viewcode-block" id="Saveable.save">
-<a class="viewcode-back" href="../../mcpackutils.html#mcpackutils.event.Saveable.save">[docs]</a>
+<div class="viewcode-block" id="File.save">
+<a class="viewcode-back" href="../../mcpackutils.html#mcpackutils.event.File.save">[docs]</a>
     <span class="k">def</span> <span class="nf">save</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">fp</span><span class="p">:</span><span class="nb">str</span><span class="p">,</span> <span class="n">indent</span><span class="p">:</span><span class="nb">int</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="o">**</span><span class="n">kw</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Self</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Save file as JSON</span>

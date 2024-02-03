@@ -1,16 +1,31 @@
 from typing import Self
-import json
 import re
 
 from .constant import Category
 
-__all__ = ['Identifier', 'Saveable', 'Molang', 'MenuCategory']
 
-# Should use datapackutils.Identifier
+def stringify(self, args):
+    inner = ", ".join([f"{k}={repr(getattr(self, k))}" for k in args])
+    return f"{self.__class__.__name__}({inner})"
+
+
+def getattr2(o, name, default=None):
+    """
+    Normal getattr function but if not defined it uses setattr and returns the default value
+    """
+    res = getattr(o, name, None)
+    if res is None:
+        setattr(o, name, default)
+        return default
+    return res
+
+
+# Should extend datapackutils.Identifier to include AUX values
 class Identifier:
-    DEFAULT_NAMESPACE = 'minecraft'
-    SEPERATOR = ':'
-    def __init__(self, namespace:str, path:str=None):
+    DEFAULT_NAMESPACE = "minecraft"
+    SEPERATOR = ":"
+
+    def __init__(self, namespace: str, path: str = None):
         if path is None:
             id = Identifier.parse(namespace)
             self.namespace = id.namespace
@@ -23,7 +38,11 @@ class Identifier:
         return repr(str(self))
 
     def __str__(self) -> str:
-        return self.namespace if self.path is None else self.namespace+str(self.SEPERATOR)+self.path
+        return (
+            self.namespace
+            if self.path is None
+            else self.namespace + str(self.SEPERATOR) + self.path
+        )
 
     def __eq__(self, other) -> bool:
         other = Identifier(other)
@@ -43,41 +62,40 @@ class Identifier:
 
     @property
     def __dict__(self) -> dict:
-        data = {
-            'namespace': self.namespace,
-            'path': self.path
-        }
+        data = {"namespace": self.namespace, "path": self.path}
         return data
 
     @property
     def namespace(self) -> str:
-        return getattr(self, '_namespace', self.DEFAULT_NAMESPACE)
-    
+        return getattr(self, "_namespace", self.DEFAULT_NAMESPACE)
+
     @namespace.setter
-    def namespace(self, value:str|None):
-        if value is None or value=='': setattr(self, '_namespace', self.DEFAULT_NAMESPACE)
+    def namespace(self, value: str | None):
+        if value is None or value == "":
+            setattr(self, "_namespace", self.DEFAULT_NAMESPACE)
         elif isinstance(value, Identifier):
             self.namespace = value.namespace
-        elif self.is_namespace_valid(value): 
-            setattr(self, '_namespace', str(value).strip())
+        elif self.is_namespace_valid(value):
+            setattr(self, "_namespace", str(value).strip())
         else:
             raise ValueError(value)
 
     @property
-    def path(self) -> str|None:
-        return getattr(self, '_path', 'air')
-    
+    def path(self) -> str | None:
+        return getattr(self, "_path", "air")
+
     @path.setter
-    def path(self, value:str):
-        if value is None or value =='': setattr(self, '_path', None)
+    def path(self, value: str):
+        if value is None or value == "":
+            setattr(self, "_path", None)
         elif isinstance(value, Identifier):
             self.path = value.path
         elif self.is_path_valid(str(value)):
-            setattr(self, '_path', str(value).strip())
+            setattr(self, "_path", str(value).strip())
         else:
             raise ValueError(value)
-    
-    def is_path_valid(self, path:str=None) -> bool:
+
+    def is_path_valid(self, path: str = None) -> bool:
         """
         Validates the path
 
@@ -87,10 +105,10 @@ class Identifier:
         :rtype: bool
         """
         v = self.path if path is None else path
-        res = re.match(r'^[a-z-0-9/_]+$', v)
+        res = re.match(r"^[a-zA-Z-0-9/_\.]+$", v)
         return res is not None
-    
-    def is_namespace_valid(self, namespace:str=None) -> bool:
+
+    def is_namespace_valid(self, namespace: str = None) -> bool:
         """
         Validates the namespace
 
@@ -100,11 +118,11 @@ class Identifier:
         :rtype: bool
         """
         v = self.namespace if namespace is None else namespace
-        res = re.match(r'^[a-z0-9/_]+$', v)
+        res = re.match(r"^[a-z0-9_]+$", v)
         return res is not None
 
     @classmethod
-    def parse(cls, value:str) -> Self:
+    def parse(cls, value: str) -> Self:
         """
         Parse this value as an identifier
 
@@ -115,7 +133,7 @@ class Identifier:
         self = cls.__new__(cls)
         if isinstance(value, Identifier):
             return value.copy()
-        
+
         if str(value).count(self.SEPERATOR) == 0:
             self.path = value
         else:
@@ -123,7 +141,7 @@ class Identifier:
             self.namespace = x[0]
             self.path = x[1]
         return self
-    
+
     def copy(self) -> Self:
         """
         Returns a copy of this identifier
@@ -131,25 +149,27 @@ class Identifier:
         :rtype: Identifier
         """
         return Identifier(self.namespace, self.path)
-    
-    def copy_with_path(self, path:str) -> Self:
+
+    def copy_with_path(self, path: str) -> Self:
         """
         Returns a copy of this identifier with a new path
 
         :rtype: Identifier
         """
         id = self.copy()
-        id.path = path
+        id.path = path.path if isinstance(path, Identifier) else path
         return id
-    
-    def copy_with_namespace(self, namespace:str) -> Self:
+
+    def copy_with_namespace(self, namespace: str) -> Self:
         """
         Returns a copy of this identifier with a new namespace
 
         :rtype: Identifier
         """
         id = self.copy()
-        id.namespace = namespace
+        id.namespace = (
+            namespace.namespace if isinstance(namespace, Identifier) else namespace
+        )
         return id
 
     def split(self) -> tuple:
@@ -162,433 +182,269 @@ class Identifier:
         self.path.replace(old, new, count)
         return self
 
-class Saveable:
-    @classmethod
-    def from_dict(cls, data:dict):
-        """
-        Load object from DICT
 
-        :param data: DICT data to load from
-        :type data: dict
-        """
-        raise NotImplementedError()
+ID = Identifier
 
-    def json(self, **kw) -> str:
-        """
-        Convert object to a string in JSON format
 
-        :return: Stringified JSON
-        :rtype: str
-        """
-        return json.dumps(self.__dict__, **kw)
-    
-    def save(self, fp:str, indent:int=2, **kw) -> Self:
-        """
-        Save file as JSON
+class Identifiable:
+    def __init__(self, identifier: Identifier):
+        self.identifier = identifier
 
-        :param fp: File path to save as
-        :type fp: str
-        :param indent: indent level, defaults to 2
-        :type indent: int, optional
-        """
-        with open(fp, 'w') as f:
-            f.write(self.json(indent=indent, **kw))
-        return self
+    @property
+    def identifier(self) -> Identifier:
+        """The unique identifier for this object. It must be of the form 'namespace:name', where namespace cannot be 'minecraft'."""
+        return getattr(self, "_identifier")
 
-# TEMP: Should use molang package
-class Molang:
-    def __init__(self, string:str=''):
-        self.string = string
+    @identifier.setter
+    def identifier(self, value: Identifier):
+        if not isinstance(value, (Identifier, str)):
+            raise TypeError(
+                f"Expected Identifier but got '{value.__class__.__name__}' instead"
+            )
+        id = Identifier(value)
+        self.filename = id.path
+        setattr(self, "_identifier", id)
+
+
+class Version:
+    def __init__(self, major: int, minor: int, patch: int):
+        self.major = major
+        self.minor = minor
+        self.patch = patch
 
     def __str__(self) -> str:
-        return self.string
-    
+        return ".".join([str(i) for i in self.__dict__])
+
+    def __iter__(self):
+        for i in [self.major, self.minor, self.patch]:
+            yield i
+
+    def __getitem__(self, k):
+        match k:
+            case 0 | "0" | "major":
+                return self.major
+            case 1 | "1" | "minor":
+                return self.minor
+            case 2 | "2" | "patch":
+                return self.patch
+        raise KeyError(k)
+
     @property
-    def string(self) -> str:
-        return getattr(self, '_string')
-    
-    @string.setter
-    def string(self, value:str):
-        setattr(self, '_string', str(value))
+    def __dict__(self) -> list:
+        return [self.major, self.minor, self.patch]
+
+    @property
+    def major(self) -> int:
+        return getattr(self, "_major", 0)
+
+    @major.setter
+    def major(self, value: int):
+        if value is None:
+            self.major = 0
+            return
+        if not isinstance(value, int):
+            raise TypeError(
+                f"Expected int but got '{value.__class__.__name__}' instead"
+            )
+        setattr(self, "_major", value)
+
+    @property
+    def minor(self) -> int:
+        return getattr(self, "_minor", 0)
+
+    @minor.setter
+    def minor(self, value: int):
+        if value is None:
+            self.minor = 0
+            return
+        if not isinstance(value, int):
+            raise TypeError(
+                f"Expected int but got '{value.__class__.__name__}' instead"
+            )
+        setattr(self, "_minor", value)
+
+    @property
+    def patch(self) -> int:
+        return getattr(self, "_patch", 0)
+
+    @patch.setter
+    def patch(self, value: int):
+        if value is None:
+            self.patch = 0
+            return
+        if not isinstance(value, int):
+            raise TypeError(
+                f"Expected int but got '{value.__class__.__name__}' instead"
+            )
+        setattr(self, "_patch", value)
 
     @classmethod
-    def parse(cls, s:str) -> Self:
+    def parse(cls, s: str | list) -> Self:
         self = cls.__new__(cls)
-        self.string = s
-        return self
-
-    def append(self, s:str) -> Self:
-        self.string += str(s)
-        return self
-    
-    def prepend(self, s:str) -> Self:
-        self.string = str(s)+self.string
-        return self
-
-    def paren(self, lang) -> Self:
-        self.append(f"({lang.string})")
-        return self
-
-    # LOGICAL OPERATORS
-
-    def _ops(self, char, a, b) -> Self:
-        self.append(f'{a} {char} {b}')
-        return self
-    
-    def and_(self, a, b) -> Self:
-        self._ops('&&', a, b)
-        return self
-    
-    def or_(self, a, b) -> Self:
-        self._ops('||', a, b)
-        return self
-    
-    def lt(self, a, b) -> Self:
-        self._ops('<', a, b)
-        return self
-    
-    def gt(self, a, b) -> Self:
-        self._ops('>', a, b)
-        return self
-    
-    def lteq(self, a, b) -> Self:
-        self._ops('<=', a, b)
-        return self
-    
-    def gteq(self, a, b) -> Self:
-        self._ops('>=', a, b)
-        return self
-    
-    def not_(self, a, b) -> Self:
-        self._ops('!=', a, b)
-        return self
-
-    # MATH OPERATORS
-
-    def add(self, a, b) -> Self:
-        return self._ops('+', a, b)
-    
-    def sub(self, a, b) -> Self:
-        return self._ops('-', a, b)
-    
-    def mul(self, a, b) -> Self:
-        return self._ops('*', a, b)
-    
-    def div(self, a, b) -> Self:
-        return self._ops('/', a, b)
-
-    # MATH
-
-    def _math(self, function_name:str, *args) -> Self:
-        """
-        Various math functions
-
-        :param function_name: The name of the function
-        :type function_name: str
-        """
-        if args:
-            self.string += f'math.{function_name}({", ".join(args)})'
+        if isinstance(s, list):
+            self.major = s[0]
+            self.minor = s[1]
+            self.patch = s[2]
         else:
-            self.string += f'math.{function_name}'
+            major, minor, patch = str(s).split(".")
+            self.major = int(major)
+            self.minor = int(minor)
+            self.patch = int(patch)
         return self
-    
-    def abs(self, value) -> Self:
-        """
-        Absolute value of value
-        """
-        return self._math('abs', value)
-    
-    def acos(self, value) -> Self:
-        """
-        arccos of value
-        """
-        return self._math('acos', value)
-    
-    def asin(self, value) -> Self:
-        """
-        arcsin of value
-        """
-        return self._math('asin', value)
-    
-    def atan(self, value) -> Self:
-        """
-        arctan of value
-        """
-        return self._math('atan', value)
-    
-    def atan2(self, y,x) -> Self:
-        """
-        arctan of y/x. NOTE: the order of arguments!
-        """
-        return self._math('atan2', y,x)
-    
-    def cell(self, value) -> Self:
-        """
-        Round value up to nearest integral number
-        """
-        return self._math('cell', value)
-    
-    def clamp(self, value, min, max) -> Self:
-        """
-        Clamp value to between min and max inclusive
-        """
-        return self._math('clamp', value, min, max)
-    
-    def cos(self, value) -> Self:
-        """
-        Cosine (in degrees) of value
-        """
-        return self._math('cos', value)
-    
-    def die_roll(self, num, low, high) -> Self:
-        """
-        returns the sum of 'num' random numbers, each with a value from low to high`. Note: the generated random numbers are not integers like normal dice. For that, use `math.die_roll_integer`.
-        """
-        return self._math('die_roll', num, low, high)
-    
-    def die_roll_integer(self, num, low, high) -> Self:
-        """
-        returns the sum of 'num' random integer numbers, each with a value from low to high`. Note: the generated random numbers are integers like normal dice.
-        """
-        return self._math('die_roll_integer', num, low, high)
-    
-    def exp(self, value) -> Self:
-        """
-        Calculates e to the value'th power
-        """
-        return self._math('exp', value)
-    
-    def floor(self, value) -> Self:
-        """
-        Round value down to nearest integral number
-        """
-        return self._math('floor', value)
-    
-    def hermite_blend(self, value) -> Self:
-        """
-        Useful for simple smooth curve interpolation using one of the Hermite Basis functions: `3t^2 - 2t^3`. Note that while any valid float is a valid input, this function works best in the range [0,1].
-        """
-        return self._math('hermite_blend', value)
-    
-    def lerp(self, start, zero_to_one) -> Self:
-        """
-        Lerp from start to end via 0_to_1
-        """
-        return self._math('lerp', start, zero_to_one)
-    
-    def lerprotate(self, start, end, zero_to_one) -> Self:
-        """
-        Lerp the shortest direction around a circle from start degrees to end degrees via 0_to_1
-        """
-        return self._math('lerprotate', start, end, zero_to_one)
-    
-    def ln(self, value) -> Self:
-        """
-        Natural logarithm of value
-        """
-        return self._math('ln', value)
-    
-    def max(self, a, b) -> Self:
-        """
-        Return highest value of A or B
-        """
-        return self._math('max', a, b)
-    
-    def min(self, a, b) -> Self:
-        """
-        Return lowest value of A or B
-        """
-        return self._math('min', a, b)
-    
-    def min_angle(self, value) -> Self:
-        """
-        Minimize angle magnitude (in degrees) into the range [-180, 180)
-        """
-        return self._math('min_angle', value)
-    
-    def mod(self, value, denominator) -> Self:
-        """
-        Return the remainder of value / denominator
-        """
-        return self._math('mod', value, denominator)
-    
-    def pi(self) -> Self:
-        """
-        Returns the float representation of the constant pi.
-        """
-        return self._math('pi')
-    
-    def pow(self, base, exponent) -> Self:
-        """
-        Elevates `base` to the `exponent`'th power
-        """
-        return self._math('pow', base, exponent)
-    
-    def random(self, low, high) -> Self:
-        """
-        Random value between low and high inclusive
-        """
-        return self._math('random', low, high)
-    
-    def random_integer(self, low, high) -> Self:
-        """
-        Random integer value between low and high inclusive
-        """
-        return self._math('random_integer', low, high)
-    
-    def round(self, value) -> Self:
-        """
-        Round value to nearest integral number
-        """
-        return self._math('round', value)
-    
-    def sin(self, value) -> Self:
-        """
-        Sine (in degrees) of value
-        """
-        return self._math('sin', value)
-    
-    def sqrt(self, value) -> Self:
-        """
-        Square root of value
-        """
-        return self._math('sqrt', value)
-    
-    def trunc(self, value) -> Self:
-        """
-        Round value towards zero
-        """
-        return self._math('trunc', value)
 
-    # QUERY
 
-    def query(self, function_name:str, *args) -> Self:
-        """
-        Access to an entity's properties
-
-        :param function_name: The name of the function
-        :type function_name: str
-        """
-        if args:
-            self.string += f'q.{function_name}({", ".join(args)})'
-        else:
-            self.string += f'q.{function_name}'
-        return self
-    
-    def block_state(self, state:str) -> Self:
-        return self.query('block_state', state)
-    
-    def has_block_state(self, state:str) -> Self:
-        return self.query('has_block_state', state)
-    
-    # MISC
-
-    def geometry(self, texture_name:str) -> Self:
-        """
-        A reference to a geometry named in the entity definition
-
-        :param texture_name: The name of the geometry
-        :type texture_name: str
-        """
-        self.string += f'geometry.{texture_name}'
-        return self
-    
-    def material(self, texture_name:str) -> Self:
-        """
-        A reference to a material named in the entity definition
-
-        :param texture_name: The name of the material
-        :type texture_name: str
-        """
-        self.string += f'material.{texture_name}'
-        return self
-    
-    def texture(self, texture_name:str) -> Self:
-        """
-        A reference to a texture named in the entity definition
-
-        :param texture_name: The name of the texture
-        :type texture_name: str
-        """
-        self.string += f'texture.{texture_name}'
-        return self
-    
-    def variable(self, variable_name:str) -> Self:
-        """
-        Read/write storage on an actor
-
-        :param variable_name: The name of the variable
-        :type variable_name: str
-        """
-        self.string += f'v.{variable_name}'
-        return self
-    
-    def temp(self, variable_name:str) -> Self:
-        """
-        Read/write temporary storage
-
-        :param variable_name: The name of the variable
-        :type variable_name: str
-        """
-        self.string += f't.{variable_name}'
-        return self
-    
-    def context(self, variable_name:str) -> Self:
-        """
-        Read-only storage provided by the game in certain scenarios
-
-        :param variable_name: The name of the variable
-        :type variable_name: str
-        """
-        self.string += f'c.{variable_name}'
-        return self
-    
 class MenuCategory:
-    def __init__(self, category:Category, group:str, is_hidden_in_commands:bool=False):
+    def __init__(
+        self,
+        category: Category | str,
+        group: str = None,
+        is_hidden_in_commands: bool = False,
+    ):
+        """
+        The creative group name and category for this block/item
+
+        :param category: The Creative Category that this item belongs to
+        :type category: Category | str
+        :param group: The Creative Group that this item belongs to. Group name is limited to 256 characters, defaults to None
+        :type group: str, optional
+        :param is_hidden_in_commands: Determines whether or not this item can be used with commands, defaults to False
+        :type is_hidden_in_commands: bool, optional
+        """
         self.category = category
         self.group = group
         self.is_hidden_in_commands = is_hidden_in_commands
 
     @property
     def __dict__(self) -> dict:
-        data = {
-            'category': self.category._value_,
-            'group': self.group
-        }
+        data = {"category": self.category._value_}
+        if self.category._value_ != "none":
+            data["group"] = self.group
         if self.is_hidden_in_commands:
-            data['is_hidden_in_commands'] = self.is_hidden_in_commands
+            data["is_hidden_in_commands"] = self.is_hidden_in_commands
         return data
-    
+
     @property
     def category(self) -> Category:
-        return getattr(self, '_category')
-    
+        return getattr(self, "_category")
+
     @category.setter
-    def category(self, value:Category):
-        if not isinstance(value, Category): raise TypeError(f"Expected Category but got '{value.__class__.__name__}' instead") 
-        setattr(self, '_category', value)
+    def category(self, value: Category):
+        if isinstance(value, Category):
+            setattr(self, "_category", value)
+        else:
+            self.category = Category[str(value).lower()]
 
     @property
     def group(self) -> str:
-        return getattr(self, '_group')
-    
+        return getattr(self, "_group", "itemGroup.search")
+
     @group.setter
-    def group(self, value:str):
-        setattr(self, '_group', str(value))
+    def group(self, value: str):
+        if value is None:
+            self.group = "itemGroup.search"
+            return
+        setattr(self, "_group", str(value))
 
     @property
     def is_hidden_in_commands(self) -> bool:
-        return getattr(self, '_is_hidden_in_commands')
-    
+        return getattr(self, "_is_hidden_in_commands")
+
     @is_hidden_in_commands.setter
-    def is_hidden_in_commands(self, value:bool):
-        if not isinstance(value, bool): raise TypeError(f"Expected bool but got '{value.__class__.__name__}' instead")
-        setattr(self, '_is_hidden_in_commands', value)
+    def is_hidden_in_commands(self, value: bool):
+        if not isinstance(value, bool):
+            raise TypeError(
+                f"Expected bool but got '{value.__class__.__name__}' instead"
+            )
+        setattr(self, "_is_hidden_in_commands", value)
 
     @classmethod
-    def from_dict(cls, data:dict) -> Self:
+    def from_dict(cls, data: dict) -> Self:
         self = cls.__new__(cls)
-        if 'category' in data: self.category = data.pop('category')
-        if 'group' in data: self.group = data.pop('group')
-        if 'is_hidden_in_commands' in data: self.is_hidden_in_commands = data.pop('is_hidden_in_commands')
+        if "category" in data:
+            self.category = data.pop("category")
+        if "group" in data:
+            self.group = data.pop("group")
+        if "is_hidden_in_commands" in data:
+            self.is_hidden_in_commands = data.pop("is_hidden_in_commands")
+        return self
+
+
+class Box:
+    def __init__(self, origin: list = None, size: list = None):
+        self.origin = origin
+        self.size = size
+
+    @property
+    def __dict__(self) -> dict:
+        data = {}
+        if self.origin is not None:
+            data["origin"] = self.origin
+        if self.size is not None:
+            data["size"] = self.size
+        if isinstance(self.origin, bool):
+            data = self.origin
+        return data
+
+    @classmethod
+    def from_dict(cls, data: dict) -> Self:
+        self = cls.__new__(cls)
+        if "origin" in data:
+            self.origin = data.pop("origin")
+        if "size" in data:
+            self.size = data.pop("size")
+        return self
+
+    @property
+    def origin(self) -> list[float]:
+        """Minimal position of the bounds of the box. "origin" is specified as [x, y, z] and must be in the range (-8, 0, -8) to (8, 16, 8), inclusive, defaults to [-8.0, 0, -8.0]"""
+        return getattr(self, "_origin", None)
+
+    @origin.setter
+    def origin(self, value: list[float]):
+        if value is None:
+            setattr(self, "_origin", [-8.0, 0, -8.0])
+            return
+        elif isinstance(value, bool):
+            setattr(self, "_origin", value)
+        elif isinstance(value, list):
+            setattr(self, "_origin", value)
+        else:
+            raise TypeError(
+                f"Expected list[float] but got '{value.__class__.__name__}' instead"
+            )
+
+    @property
+    def size(self) -> list[float]:
+        """Size of each side of the box. Size is specified as [x, y, z]. "origin" + "size" must be in the range (-8, 0, -8) to (8, 16, 8), inclusive, defaults to [16.0, 16.0, 16.0]"""
+        return getattr(self, "_size", None)
+
+    @size.setter
+    def size(self, value: list[float]):
+        if value is None:
+            setattr(self, "_size", [16, 16, 16])
+            return
+        if not isinstance(value, list):
+            raise TypeError(
+                f"Expected list[float] but got '{value.__class__.__name__}' instead"
+            )
+        setattr(self, "_size", value)
+
+    def is_cube(self) -> bool:
+        return self.origin == [-8, 0, -8] and self.size == [16, 16, 16]
+
+    def is_none(self) -> bool:
+        return self.origin == [0, 0, 0] and self.size == [0, 0, 0]
+
+    @classmethod
+    def cube(cls) -> Self:
+        self = cls.__new__(cls)
+        self.origin = [-8, 0, -8]
+        self.size = [16, 16, 16]
+        return self
+
+    @classmethod
+    def none(cls) -> Self:
+        self = cls.__new__(cls)
+        self.origin = [0, 0, 0]
+        self.size = [0, 0, 0]
         return self

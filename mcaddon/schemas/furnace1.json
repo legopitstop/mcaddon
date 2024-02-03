@@ -1,0 +1,36 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "type": "object",
+  "required": ["format_version", "minecraft:recipe_furnace"],
+  "properties": {
+    "format_version": { "type": "string" },
+    "minecraft:recipe_furnace": {
+      "type": "object",
+      "required": ["description"],
+      "properties": {
+        "description": {
+          "type": "object",
+          "required": ["identifier"],
+          "properties": {
+            "identifier": { "type": "string" }
+          },
+          "additionalProperties": false
+        },
+        "input": { "type": ["string", "object"] },
+        "output": { "type": "string" },
+        "tags": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "priority": {
+          "type": "integer"
+        },
+        "unlock": {}
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false
+}

@@ -1,0 +1,37 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "type": "object",
+  "definitions": {
+    "Ingredient": {
+      "type": "object",
+      "properties": {
+        "item": {
+          "type": "string"
+        },
+        "tag": {
+          "type": "string"
+        },
+        "data": {
+          "type": "integer"
+        }
+      },
+      "additionalProperties": false
+    },
+    "recipeUnlock": {
+      "type": ["array", "object"],
+      "items": {
+        "type": "object",
+        "properties": {
+          "context": {"type": "string"}
+        },
+        "additionalProperties": false
+      },
+      "properties": {
+        "context": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false
+    }
+  }
+}

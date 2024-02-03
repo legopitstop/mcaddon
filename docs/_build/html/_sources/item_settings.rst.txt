@@ -1,0 +1,7 @@
+item\_settings module
+=====================
+
+.. automodule:: item_settings
+   :members:
+   :undoc-members:
+   :show-inheritance:

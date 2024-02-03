@@ -1,0 +1,56 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "type": "object",
+  "required": ["format_version", "minecraft:recipe_shaped"],
+  "properties": {
+    "format_version": {
+      "type": "string"
+    },
+    "minecraft:recipe_shaped": {
+      "type": "object",
+      "required": ["description"],
+      "properties": {
+        "description": {
+          "type": "object",
+          "required": ["identifier"],
+          "properties": {
+            "identifier": {
+              "type": "string"
+            }
+          },
+          "additionalProperties": false
+        },
+        "group": {
+          "type": "string"
+        },
+        "key": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "object"
+          }
+        },
+        "pattern": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 3,
+          "items": {
+            "type": "string"
+          }
+        },
+        "result": {
+          "type": ["object", "string", "array"]
+        },
+        "tags": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "priority": {
+          "type": "integer"
+        },
+        "unlock": {}
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false
+}

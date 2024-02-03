@@ -340,7 +340,7 @@
 <li class="toctree-l4"><a class="reference internal" href="#mcpackutils.util.Identifier"><code class="docutils literal notranslate"><span class="pre">Identifier</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#mcpackutils.util.MenuCategory"><code class="docutils literal notranslate"><span class="pre">MenuCategory</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#mcpackutils.util.Molang"><code class="docutils literal notranslate"><span class="pre">Molang</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="#mcpackutils.util.Saveable"><code class="docutils literal notranslate"><span class="pre">Saveable</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#mcpackutils.util.File"><code class="docutils literal notranslate"><span class="pre">File</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="#module-mcpackutils.volume">mcpackutils.volume module</a></li>
@@ -506,7 +506,7 @@
 <dl class="py class">
 <dt class="sig sig-object py" id="mcpackutils.block.Block">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mcpackutils.block.</span></span><span class="sig-name descname"><span class="pre">Block</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">identifier</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#mcpackutils.util.Identifier" title="mcpackutils.util.Identifier"><span class="pre">Identifier</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">menu_category</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#mcpackutils.util.MenuCategory" title="mcpackutils.util.MenuCategory"><span class="pre">MenuCategory</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mcpackutils.block.Block" title="Link to this definition"></a></dt>
-<dd><p>Bases: <a class="reference internal" href="#mcpackutils.util.Saveable" title="mcpackutils.util.Saveable"><code class="xref py py-class docutils literal notranslate"><span class="pre">Saveable</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="#mcpackutils.util.File" title="mcpackutils.util.File"><code class="xref py py-class docutils literal notranslate"><span class="pre">File</span></code></a></p>
 <dl class="py method">
 <dt class="sig sig-object py" id="mcpackutils.block.Block.add_component">
 <span class="sig-name descname"><span class="pre">add_component</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">component</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#mcpackutils.block.BlockComponent" title="mcpackutils.block.BlockComponent"><span class="pre">BlockComponent</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#mcpackutils.block.BlockComponent" title="mcpackutils.block.BlockComponent"><span class="pre">BlockComponent</span></a></span></span><a class="headerlink" href="#mcpackutils.block.Block.add_component" title="Link to this definition"></a></dt>
@@ -2937,8 +2937,8 @@
 <dd></dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="mcpackutils.constant.EventTarget.SELF">
-<span class="sig-name descname"><span class="pre">SELF</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'self'</span></em><a class="headerlink" href="#mcpackutils.constant.EventTarget.SELF" title="Link to this definition"></a></dt>
+<dt class="sig sig-object py" id="mcpackutils.constant.EventTarget.self">
+<span class="sig-name descname"><span class="pre">SELF</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'self'</span></em><a class="headerlink" href="#mcpackutils.constant.EventTarget.self" title="Link to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
@@ -3833,7 +3833,7 @@
 <dl class="py class">
 <dt class="sig sig-object py" id="mcpackutils.item.Item">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mcpackutils.item.</span></span><span class="sig-name descname"><span class="pre">Item</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">identifier</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#mcpackutils.util.Identifier" title="mcpackutils.util.Identifier"><span class="pre">Identifier</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">menu_category</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#mcpackutils.util.MenuCategory" title="mcpackutils.util.MenuCategory"><span class="pre">MenuCategory</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mcpackutils.item.Item" title="Link to this definition"></a></dt>
-<dd><p>Bases: <a class="reference internal" href="#mcpackutils.util.Saveable" title="mcpackutils.util.Saveable"><code class="xref py py-class docutils literal notranslate"><span class="pre">Saveable</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="#mcpackutils.util.File" title="mcpackutils.util.File"><code class="xref py py-class docutils literal notranslate"><span class="pre">File</span></code></a></p>
 <dl class="py method">
 <dt class="sig sig-object py" id="mcpackutils.item.Item.add_component">
 <span class="sig-name descname"><span class="pre">add_component</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">component</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#mcpackutils.item.ItemComponent" title="mcpackutils.item.ItemComponent"><span class="pre">ItemComponent</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#mcpackutils.item.ItemComponent" title="mcpackutils.item.ItemComponent"><span class="pre">ItemComponent</span></a></span></span><a class="headerlink" href="#mcpackutils.item.Item.add_component" title="Link to this definition"></a></dt>
@@ -4239,7 +4239,7 @@
 <dl class="py class">
 <dt class="sig sig-object py" id="mcpackutils.loot.LootTable">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mcpackutils.loot.</span></span><span class="sig-name descname"><span class="pre">LootTable</span></span><a class="headerlink" href="#mcpackutils.loot.LootTable" title="Link to this definition"></a></dt>
-<dd><p>Bases: <a class="reference internal" href="#mcpackutils.util.Saveable" title="mcpackutils.util.Saveable"><code class="xref py py-class docutils literal notranslate"><span class="pre">Saveable</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="#mcpackutils.util.File" title="mcpackutils.util.File"><code class="xref py py-class docutils literal notranslate"><span class="pre">File</span></code></a></p>
 </dd></dl>
 
 </section>
@@ -4320,7 +4320,7 @@
 <dl class="py class">
 <dt class="sig sig-object py" id="mcpackutils.manifest.Manifest">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mcpackutils.manifest.</span></span><span class="sig-name descname"><span class="pre">Manifest</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">header</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#mcpackutils.manifest.Header" title="mcpackutils.manifest.Header"><span class="pre">Header</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">metadata</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#mcpackutils.manifest.Metadata" title="mcpackutils.manifest.Metadata"><span class="pre">Metadata</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mcpackutils.manifest.Manifest" title="Link to this definition"></a></dt>
-<dd><p>Bases: <a class="reference internal" href="#mcpackutils.util.Saveable" title="mcpackutils.util.Saveable"><code class="xref py py-class docutils literal notranslate"><span class="pre">Saveable</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="#mcpackutils.util.File" title="mcpackutils.util.File"><code class="xref py py-class docutils literal notranslate"><span class="pre">File</span></code></a></p>
 <dl class="py method">
 <dt class="sig sig-object py" id="mcpackutils.manifest.Manifest.add_dependency">
 <span class="sig-name descname"><span class="pre">add_dependency</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dependency</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#mcpackutils.manifest.Dependency" title="mcpackutils.manifest.Dependency"><span class="pre">Dependency</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#mcpackutils.manifest.Dependency" title="mcpackutils.manifest.Dependency"><span class="pre">Dependency</span></a></span></span><a class="headerlink" href="#mcpackutils.manifest.Manifest.add_dependency" title="Link to this definition"></a></dt>
@@ -5094,12 +5094,12 @@
 </dd></dl>
 
 <dl class="py class">
-<dt class="sig sig-object py" id="mcpackutils.util.Saveable">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mcpackutils.util.</span></span><span class="sig-name descname"><span class="pre">Saveable</span></span><a class="headerlink" href="#mcpackutils.util.Saveable" title="Link to this definition"></a></dt>
+<dt class="sig sig-object py" id="mcpackutils.util.File">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mcpackutils.util.</span></span><span class="sig-name descname"><span class="pre">File</span></span><a class="headerlink" href="#mcpackutils.util.File" title="Link to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <dl class="py method">
-<dt class="sig sig-object py" id="mcpackutils.util.Saveable.from_dict">
-<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_dict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mcpackutils.util.Saveable.from_dict" title="Link to this definition"></a></dt>
+<dt class="sig sig-object py" id="mcpackutils.util.File.from_dict">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_dict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mcpackutils.util.File.from_dict" title="Link to this definition"></a></dt>
 <dd><p>Load object from DICT</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -5109,8 +5109,8 @@
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="mcpackutils.util.Saveable.json">
-<span class="sig-name descname"><span class="pre">json</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kw</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="headerlink" href="#mcpackutils.util.Saveable.json" title="Link to this definition"></a></dt>
+<dt class="sig sig-object py" id="mcpackutils.util.File.json">
+<span class="sig-name descname"><span class="pre">json</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kw</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="headerlink" href="#mcpackutils.util.File.json" title="Link to this definition"></a></dt>
 <dd><p>Convert object to a string in JSON format</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
@@ -5123,8 +5123,8 @@
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="mcpackutils.util.Saveable.save">
-<span class="sig-name descname"><span class="pre">save</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fp</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">indent</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">2</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kw</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Self</span></span></span><a class="headerlink" href="#mcpackutils.util.Saveable.save" title="Link to this definition"></a></dt>
+<dt class="sig sig-object py" id="mcpackutils.util.File.save">
+<span class="sig-name descname"><span class="pre">save</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fp</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">indent</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">2</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kw</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Self</span></span></span><a class="headerlink" href="#mcpackutils.util.File.save" title="Link to this definition"></a></dt>
 <dd><p>Save file as JSON</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>

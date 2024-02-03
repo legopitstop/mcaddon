@@ -1,0 +1,35 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "type": "object",
+  "required": ["format_version", "minecraft:recipe_smithing_trim"],
+  "properties": {
+    "format_version": { "type": "string" },
+    "minecraft:recipe_smithing_trim": {
+      "type": "object",
+      "required": ["description"],
+      "properties": {
+        "addition": { "type": ["string", "object"] },
+        "base": { "type": ["string", "object"] },
+        "description": {
+          "type": "object",
+          "required": ["identifier"],
+          "properties": {
+            "identifier": { "type": "string" }
+          },
+          "additionalProperties": false
+        },
+        "tags": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "template": {
+          "type": ["string", "object"]
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false
+}

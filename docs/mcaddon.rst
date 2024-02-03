@@ -1,37 +1,37 @@
 mcaddon package
 ===============
 
+Subpackages
+-----------
+
+.. toctree::
+   :maxdepth: 4
+
+   mcaddon.schemas
+
 Submodules
 ----------
-
-mcaddon.addon module
---------------------
-
-.. automodule:: mcaddon.addon
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
-mcaddon.animation module
-------------------------
-
-.. automodule:: mcaddon.animation
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
-mcaddon.biome module
---------------------
-
-.. automodule:: mcaddon.biome
-   :members:
-   :undoc-members:
-   :show-inheritance:
 
 mcaddon.block module
 --------------------
 
 .. automodule:: mcaddon.block
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+mcaddon.camera module
+---------------------
+
+.. automodule:: mcaddon.camera
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+mcaddon.cli module
+------------------
+
+.. automodule:: mcaddon.cli
    :members:
    :undoc-members:
    :show-inheritance:
@@ -44,14 +44,6 @@ mcaddon.constant module
    :undoc-members:
    :show-inheritance:
 
-mcaddon.entity module
----------------------
-
-.. automodule:: mcaddon.entity
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
 mcaddon.event module
 --------------------
 
@@ -60,18 +52,18 @@ mcaddon.event module
    :undoc-members:
    :show-inheritance:
 
-mcaddon.feature module
-----------------------
+mcaddon.exception module
+------------------------
 
-.. automodule:: mcaddon.feature
+.. automodule:: mcaddon.exception
    :members:
    :undoc-members:
    :show-inheritance:
 
-mcaddon.fog module
-------------------
+mcaddon.file module
+-------------------
 
-.. automodule:: mcaddon.fog
+.. automodule:: mcaddon.file
    :members:
    :undoc-members:
    :show-inheritance:
@@ -108,14 +100,6 @@ mcaddon.pack module
    :undoc-members:
    :show-inheritance:
 
-mcaddon.particle module
------------------------
-
-.. automodule:: mcaddon.particle
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
 mcaddon.recipe module
 ---------------------
 
@@ -124,10 +108,34 @@ mcaddon.recipe module
    :undoc-members:
    :show-inheritance:
 
-mcaddon.texture\_set module
----------------------------
+mcaddon.registry module
+-----------------------
 
-.. automodule:: mcaddon.texture_set
+.. automodule:: mcaddon.registry
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+mcaddon.resrouce module
+-----------------------
+
+.. automodule:: mcaddon.resrouce
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+mcaddon.state module
+--------------------
+
+.. automodule:: mcaddon.state
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+mcaddon.text module
+-------------------
+
+.. automodule:: mcaddon.text
    :members:
    :undoc-members:
    :show-inheritance:

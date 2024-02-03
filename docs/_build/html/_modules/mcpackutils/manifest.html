@@ -72,7 +72,7 @@
 <span class="kn">from</span> <span class="nn">uuid</span> <span class="kn">import</span> <span class="n">uuid4</span>
 
 <span class="kn">from</span> <span class="nn">.constant</span> <span class="kn">import</span> <span class="n">ModuleType</span>
-<span class="kn">from</span> <span class="nn">.util</span> <span class="kn">import</span> <span class="n">Saveable</span>
+<span class="kn">from</span> <span class="nn">.util</span> <span class="kn">import</span> <span class="n">File</span>
 
 <span class="n">MIN_ENGINE_VERSION</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">51</span><span class="p">]</span>
 <span class="n">FORMAT_VERSION</span> <span class="o">=</span> <span class="mi">1</span>
@@ -379,7 +379,7 @@
 
 <div class="viewcode-block" id="Manifest">
 <a class="viewcode-back" href="../../mcpackutils.html#mcpackutils.manifest.Manifest">[docs]</a>
-<span class="k">class</span> <span class="nc">Manifest</span><span class="p">(</span><span class="n">Saveable</span><span class="p">):</span>
+<span class="k">class</span> <span class="nc">Manifest</span><span class="p">(</span><span class="n">File</span><span class="p">):</span>
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">header</span><span class="p">:</span><span class="n">Header</span><span class="p">,</span> <span class="n">metadata</span><span class="p">:</span><span class="n">Metadata</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">format_version</span> <span class="o">=</span> <span class="n">FORMAT_VERSION</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">header</span> <span class="o">=</span> <span class="n">header</span>
