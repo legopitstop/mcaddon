@@ -1,8 +1,8 @@
 from typing import Self
 
 from .item import ItemStack
-from .registry import INSTANCE, Registries
 from .exception import RecipeTypeNotFoundError
+from .registry import INSTANCE, Registries
 from .constant import RecipeTag
 from .file import JsonFile, Loader
 from .util import getattr2, Identifier, Identifiable

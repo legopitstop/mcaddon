@@ -8,8 +8,8 @@ import json
 
 
 from . import VERSION
-from .constant import Edition
 from .exception import ManifestNotFoundError
+from .constant import Edition
 from .manifest import Manifest
 from .file import ArchiveFile, File, Importable
 from .util import getattr2, Identifier

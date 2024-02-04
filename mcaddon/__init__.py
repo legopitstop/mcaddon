@@ -41,8 +41,8 @@ VERSION = {
     "MIN_ENGINE_VERSION": [1, 20, 51],
 }
 
-from .registry import *
 from .exception import *
+from .registry import *
 from .constant import *
 from .file import *
 from .util import *

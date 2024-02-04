@@ -3,9 +3,9 @@ from molang import Molang
 from dataclasses import dataclass
 
 from . import VERSION
+from .exception import ComponentNotFoundError
 from .item import ItemStack
 from .registry import INSTANCE, Registries
-from .exception import ComponentNotFoundError
 from .constant import RenderMethod, BlockFace
 from .file import JsonFile, Loader
 from .util import getattr2, stringify, Box, Identifier, MenuCategory, Identifiable
