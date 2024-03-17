@@ -1,6 +1,5 @@
 from typing import Self
 from io import TextIOWrapper, BytesIO
-from zipfile import ZipFile
 from PIL import Image, ImageFile
 from dataclasses import dataclass
 import os
@@ -8,11 +7,13 @@ import chevron
 import commentjson
 import tempfile
 import jsonschema
+import zipfile
+import tarfile
 
 from . import APPDATA_PATH, EDU_APPDATA_PATH, PRE_APPDATA_PATH
-from .exception import MinecraftNotFoundError, SchemaNotFoundError
+from .exception import MinecraftNotFoundError, SchemaNotFoundError, SyntaxError
 from .constant import Edition
-from .util import getattr2
+from .util import getattr2, splitpath, modpath, Misc, Identifiable, Identifier
 
 
 class Schema:
@@ -23,6 +24,7 @@ class Schema:
 
     @property
     def schemafile(self) -> str:
+        """The filepath to this JSON schema."""
         return getattr(self, "_schemafile")
 
     @schemafile.setter
@@ -31,6 +33,7 @@ class Schema:
 
     @property
     def version(self) -> str | int:
+        """The version to match."""
         return getattr(self, "_version")
 
     @version.setter
@@ -38,6 +41,7 @@ class Schema:
         setattr(self, "_version", value)
 
     def schema(self) -> dict:
+        """Get the JSON schema file and cache for future use."""
         if self.cache is None:
             path = (
                 self.schemafile
@@ -60,6 +64,7 @@ class Loader:
 
     @property
     def schemas(self) -> list[Schema]:
+        """All schemas registered to this loader."""
         return getattr2(self, "_schemas", [])
 
     @schemas.setter
@@ -72,6 +77,7 @@ class Loader:
 
     @property
     def key(self) -> str:
+        """The root key required for this object."""
         return getattr(self, "_key")
 
     @key.setter
@@ -80,6 +86,7 @@ class Loader:
 
     @property
     def name(self) -> str:
+        """The display name of this loader for errors."""
         return getattr(self, "_name", "untitled")
 
     @name.setter
@@ -115,6 +122,7 @@ class Loader:
         self.schemas.append(schem)
 
     def clear_schemas(self):
+        """Remove all schemas"""
         self.schemas = []
 
     def validate(self, data: dict, errors: bool = True) -> bool:
@@ -126,18 +134,19 @@ class Loader:
         :param errors: If true it will raise errors if invalid, defaults to True
         :type errors: bool, optional
         """
-        if self.key in data:
-            version = data.get(self.key)
+        obj = data.copy()
+        if self.key in obj:
+            version = obj.get(self.key)
             s = self.get_schema(version)
             if s is not None:
                 schema = s.schema()
                 try:
                     # resolver = jsonschema.RefResolver(base_uri='file://'+os.path.dirname(__file__), store={})
-                    jsonschema.validate(data, schema)
+                    jsonschema.validate(obj, schema)
                     return True
                 except jsonschema.ValidationError as err:
                     if errors:
-                        raise SyntaxError(self.name, err.message)
+                        raise SyntaxError(self.name, err.message, s.schemafile)
                     return False
             if errors:
                 raise SchemaNotFoundError(self.name, version)
@@ -163,11 +172,13 @@ class Loader:
 
 
 class Importable:
-    def import_to(self, edition: Edition = Edition.bedrock, dev: bool = True) -> str:
+    def import_to(
+        self, name: str = None, edition: Edition = Edition.BEDROCK, dev: bool = True
+    ) -> str:
         """
         Saves this addon/pack to the correct Minecraft folders.
 
-        :param edition: The Minecraft edition to import to, defaults to Edition.bedrock
+        :param edition: The Minecraft edition to import to, defaults to Edition.BEDROCK
         :type edition: Edition, optional
         :param dev: When True it will place this addon/pack in the development packs folders, defaults to True
         :type dev: bool, optional
@@ -177,14 +188,16 @@ class Importable:
         # Bulid addon
         path = None
         match edition:
-            case Edition.bedrock:
+            case Edition.BEDROCK:
                 path = APPDATA_PATH
-            case Edition.preview:
+            case Edition.PREVIEW:
                 path = PRE_APPDATA_PATH
-            case Edition.education:
+            case Edition.EDUCATION:
                 path = EDU_APPDATA_PATH
         if path is None:
             raise NotImplementedError("This platform is not supported")
+        if name is not None:
+            self.filename = name
 
         if not os.path.isdir(path):
             raise MinecraftNotFoundError(edition)
@@ -203,10 +216,8 @@ class Importable:
         return tf.name
 
 
-class File:
-    """
-    Represents a File.
-    """
+class File(Misc):
+    """Represents a File."""
 
     def __enter__(self) -> Self:
         return self
@@ -215,77 +226,116 @@ class File:
         self.save()
 
     @property
+    def fp(self) -> str:
+        """This objects path on disk"""
+        return getattr(self, "_fp", self.FILEPATH)
+
+    @fp.setter
+    def fp(self, value: str):
+        setattr(self, "_fp", os.path.join(value))
+
+    @property
     def extension(self) -> str:
-        return getattr(self, "_extension", self.EXTENSION)
+        """This objects extension from fp"""
+        return splitpath(self.fp)[2]
 
     @extension.setter
     def extension(self, value: str):
-        if value is None:
-            delattr(self, "_extension")
-            return
-        setattr(self, "_extension", str(value))
+        self.fp = modpath(self.fp, "e", value)
 
     @property
     def filename(self) -> str:
-        return getattr(self, "_filename", self.FILENAME)
+        """This objects name from fp"""
+        return splitpath(self.fp)[1]
 
     @filename.setter
     def filename(self, value: str):
-        if value is None:
-            delattr(self, "_filename")
-            return
-        setattr(self, "_filename", str(value))
+        self.fp = modpath(self.fp, "f", value)
 
     @property
     def dirname(self) -> str:
-        return getattr(self, "_dirname", self.DIRNAME)
+        """This objects directory from fp"""
+        return splitpath(self.fp)[0]
 
     @dirname.setter
     def dirname(self, value: str):
-        if value is None:
-            delattr(self, "_dirname")
-            return
-        setattr(self, "_dirname", str(value))
+        self.fp = modpath(self.fp, "d", value)
 
     @classmethod
     def from_fileobj(cls, fileobj: TextIOWrapper, args: dict[str, str]) -> Self:
         raise NotImplementedError()
 
     @classmethod
-    def load(cls, filename: str, args={}):
-        with open(filename, "r") as fileobj:
-            self = cls.from_fileobj(fileobj, args)
-            return self
+    def open(cls, file: str, start: str = None):
+        """
+        Open a FILE to load
 
-    def has_filename(self) -> bool:
-        return hasattr(self, "_filename")
+        :param file: The path to a DIRECTORY or ARCHIVE FILE to open
+        :type file: str
+        """
+        with open(file, "r") as fd:
+            obj = cls.load(fd)
+            obj.filename = os.path.basename(file)
+            dirname = os.path.dirname(os.path.relpath(file, start))
+            if dirname is not None and dirname != "" and dirname != " ":
+                obj.dirname = os.path.join(obj.dirname, dirname)
+            return obj
 
-    def write(self, fileobj: TextIOWrapper, **kw) -> Self:
+    @classmethod
+    def loads(cls, s: str) -> Self:
         raise NotImplementedError()
 
-    def save(self, filename: str = None, **kw) -> Self:
-        if filename is None:
-            filename = self.filename
-        if filename is None:
+    @classmethod
+    def load(cls, fileobj: TextIOWrapper) -> Self:
+        """
+        Deserialize fp (a .read()-supporting file-like object) to a Python object.
+        """
+        return cls.loads(fileobj.read())
+
+    def dump(self, fileobj: TextIOWrapper):
+        """
+        Serialize obj as a formatted stream to fp (a .write()-supporting file-like object).
+        """
+        fileobj.write(bytes(self.dumps(), "utf-8"))
+
+    def dumps(self) -> str:
+        raise NotImplementedError()
+
+    def save(self, fp: str = None, overwrite: bool = True, **kw) -> Self:
+        """
+        Save this object to disk.
+
+        :param fp: The filepath to save, defaults to None
+        :type fp: str, optional
+        :param overwrite: When true it will override the previus written file. When false it will not override the file, defaults to True
+        :type overwrite: bool, optional
+        """
+        fp = self.filename if fp is None else fp
+        if fp is None:
             raise ValueError("No filename specified")
 
         # add extension if missing
-        name, ext = os.path.splitext(filename)
+        name, ext = os.path.splitext(fp)
         if name.endswith("/") or name.endswith("\\"):
-            filename += self.FILENAME + self.extension
+            fp += self.filename + self.extension
         elif ext == "":
-            filename += self.extension
+            fp += self.extension
 
-        dir = os.path.dirname(filename)
+        dir = os.path.dirname(fp)
         if dir != "":
             os.makedirs(dir, exist_ok=True)
-        with open(str(filename), "w") as fd:
-            self.write(fd, **kw)
-        return self
+        with open(str(fp), "wb") as fd:
+            return self.dump(fd)
+
+    def valid(self, fp: str) -> bool:
+        return True
 
     def getvalue(self) -> bytes:
+        """
+        :rtype: bytes
+        """
         with BytesIO() as io:
-            self.write(io)
+            self.dump(io)
             return io.getvalue()
 
 
@@ -294,6 +344,43 @@ class JsonFile(File):
     """
     Represents a JSON File.
     """
+
+    def __eq__(self, other) -> bool:
+        # if isinstance(other, JsonFile): Super Slow
+        #     return self.jsonify() == other.jsonify()
+        if isinstance(self, Identifiable) and isinstance(
+            other, (str, Identifier, Identifiable)
+        ):
+            return self.identifier == Identifiable.of(other)
+        return False
+
+    def __len__(self) -> int:
+        return len(self.__dict__)
+
+    def __contains__(self, item) -> bool:
+        if hasattr(self, item):
+            value = getattr(self, item)
+            if isinstance(value, (dict, list, set)):
+                return True if value else False
+            return value is not None
+        return False
+
+    # TODO: Handle nested values. ex: 'main.nested' == {main: {nested: 5}}}
+    def __setitem__(self, name: str, value) -> None:
+        setattr(self, name, value)
+
+    def __getitem__(self, name: str):
+        return getattr(self, name)
+
+    def __delitem__(self, name: str) -> None:
+        delattr(self, name)
+
+    def __getstate__(self):
+        state = self.__dict__.copy()
+        return state
+
+    def __setstate__(self, state):
+        self.__dict__.update(state)
 
     @classmethod
     def from_dict(cls, data: dict) -> Self:
@@ -306,42 +393,58 @@ class JsonFile(File):
         raise NotImplementedError()
 
     @classmethod
-    def from_fileobj(cls, fileobj: TextIOWrapper, args: dict[str, str] = {}) -> Self:
-        """
-        Load object from FILEOBJ
+    def jsonfile(cls, fp: str) -> dict:
+        """Opens fp and returns the result as JSON"""
+        with open(fp, "r") as fd:
+            return commentjson.load(fd)
 
-        :param fileobj: The file to load
-        :type fileobj: TextIOWrapper
-        :param args: The arguments to pass to chevron to render
-        :type args: dict[str, str]
-        :rtype: JsonFile
-        """
-        text = chevron.render(fileobj, args, warn=True)
+    @classmethod
+    def load(cls, fileobj: TextIOWrapper, args: dict[str, str] = {}) -> Self:
+        """Deserialize fp (a .read()-supporting file-like object containing a JSON document) to a Python object."""
+        text = chevron.render(fileobj.read(), args, warn=True)
         self = cls.from_dict(commentjson.loads(text))
         self.filename = getattr(fileobj, "name", None)
         return self
 
-    def json(self, **kw) -> str:
-        """
-        Convert object to a string in JSON format
+    @classmethod
+    def loads(cls, s: str, args: dict[str, str] = {}) -> Self:
+        """Deserialize s (a str, bytes or bytearray instance containing a JSON document) to a Python object."""
+        text = chevron.render(s, args, warn=True)
+        self = cls.from_dict(commentjson.loads(text))
+        return self
 
-        :return: Stringified JSON
-        :rtype: str
-        """
-        return commentjson.dumps(self.__dict__, **kw)
+    def dumps(self, indent: int = 2, **kw) -> str:
+        """Serialize obj to a JSON formatted str."""
+        return commentjson.dumps(self.jsonify(), indent=indent, **kw)
 
-    def write(self, fileobj: TextIOWrapper, indent: int = 2, **kw) -> int:
+    def valid(self, fp: str) -> bool:
         """
-        Write FILEOBJ as JSON
+        Whether or not this is a valid object
 
-        :param fileobj: The file to write to
-        :type fileobj: TextIOWrapper
-        :param indent: The indentation for the JSON, defaults to 2
-        :type indent: int, optional
-        :return: _description_
-        :rtype: int
+        :param fp: The FILE to validate
+        :type fp: str
+        :rtype: bool
         """
-        return fileobj.write(self.json(indent=indent, **kw))
+        data = self.jsonfile(fp)
+        return str(self.id) in data
+
+    def copy(self) -> Self:
+        return self.from_dict(self.jsonify())
+
+    def generate(self, ctx) -> None:
+        """
+        Called when this object is added to BehaviorPack or ResourcePack
+
+        :type ctx: BehaviorPack | ResourcePack
+        """
+        ...
+
+    @staticmethod
+    def from_dict(data: dict) -> Self:
+        raise NotImplementedError()
+
+    def jsonify(self) -> dict:
+        raise NotImplementedError()
 
 
 @dataclass(repr=False)
@@ -363,20 +466,10 @@ class PngFile(File):
         return fileobj.write(self.json(indent=indent, **kw))
 
 
-class ArchiveFile:
+class ArchiveFile(Misc):
     """
     Represents an Archive File.
     """
-
-    @classmethod
-    def load(cls, filename: str = None) -> Self:
-        self = cls.__new__(cls)
-        if filename is not None:
-            self.filename = filename
-            if filename.startswith(".zip"):
-                with ZipFile(filename) as zip:
-                    return cls.readzip(zip)
-        return cls.readdir(filename)
 
     def __enter__(self) -> Self:
         return self
@@ -386,84 +479,134 @@ class ArchiveFile:
         return self
 
     @property
+    def fp(self) -> str:
+        """This objects path on disk"""
+        return getattr(self, "_fp", self.FILEPATH)
+
+    @fp.setter
+    def fp(self, value: str):
+        setattr(self, "_fp", os.path.join(value))
+
+    @property
     def extension(self) -> str:
-        return getattr(self, "_extension", self.EXTENSION)
+        """This objects extension from fp"""
+        return splitpath(self.fp)[2]
 
     @extension.setter
     def extension(self, value: str):
-        if value is None:
-            delattr(self, "_extension")
-            return
-        setattr(self, "_extension", str(value))
+        self.fp = modpath(self.fp, "e", value)
 
     @property
     def filename(self) -> str:
-        return getattr(self, "_filename", self.FILENAME)
+        """This objects name from fp"""
+        return splitpath(self.fp)[1]
 
     @filename.setter
     def filename(self, value: str):
-        if value is None:
-            delattr(self, "_filename")
-            return
-        setattr(self, "_filename", os.path.realpath(value))
+        self.fp = modpath(self.fp, "f", value)
+
+    @property
+    def dirname(self) -> str:
+        """This objects directory from fp"""
+        return splitpath(self.fp)[0]
+
+    @dirname.setter
+    def dirname(self, value: str):
+        self.fp = modpath(self.fp, "d", value)
+
+    # new
 
     @classmethod
-    def readzip(cls, zip: ZipFile) -> Self:
+    def open(cls, file: str, *args, **kw) -> Self:
+        """
+        Open a ZIP, TAR, or DIRECTORY to load
+
+        :param file: The path to a DIRECTORY or ARCHIVE FILE to open
+        :type file: str
+        """
+        try:
+            if zipfile.is_zipfile(file):
+                with zipfile.ZipFile(file, "r") as fd:
+                    obj = cls.load_archive(fd, *args, **kw)
+            elif tarfile.is_tarfile(file):
+                with tarfile.open(file, "r") as tf:
+                    obj = cls.load_archive(tf, *args, **kw)
+
+            obj.dirname = os.path.dirname(file)
+            obj.filename, ext = os.path.splitext(os.path.basename(file))
+            return obj
+        except PermissionError:
+            obj = cls.load_directory(file, *args, **kw)
+            obj.dirname = os.path.dirname(file)
+            obj.filename, ext = os.path.splitext(os.path.basename(file))
+            return obj
+
+    @classmethod
+    def load_archive(cls, fileobj: zipfile.ZipFile, *args, **kw) -> Self:
         raise NotImplementedError()
 
     @classmethod
-    def readdir(cls, path: str) -> Self:
+    def load_directory(cls, path: str, *args, **kw) -> Self:
         raise NotImplementedError()
 
-    def has_filename(self) -> bool:
-        return hasattr(self, "_filename")
+    def dump_archive(self, fileobj: zipfile.ZipFile, *args, **kw):
+        raise NotImplementedError()
+
+    def dump_directory(self, path: str, *args, **kw):
+        raise NotImplementedError()
 
     def save(
-        self, filename: str = None, zipped: bool = False, overwrite: bool = False
-    ) -> Self:
-        if filename is None:
-            filename = self.filename
-        if filename is None:
-            raise ValueError("No path specified")
+        self, fp: str = None, zipped: bool = False, overwrite: bool = False, *args, **kw
+    ):
+        """
+        Save this object to disk.
 
-        # add extension if missing
-        name, ext = os.path.splitext(filename)
-        if name.endswith("/") or name.endswith("\\"):
-            filename += self.FILENAME + self.extension
-        elif ext == "":
-            filename += self.extension
+        :param fp: The filepath to save, defaults to None
+        :type fp: str, optional
+        :param zipped: When true it will save as a ZIP file. When false save in FOLDER, defaults to False
+        :type zipped: bool, optional
+        :param overwrite: When true it will override the previus written file. When false it will not override the file, defaults to False
+        :type overwrite: bool, optional
+        """
+        fp = self.fp if fp is None else fp
+        if fp is None:
+            raise ValueError("No filename specified")
+        self.fp = fp
 
-        # Make dir
-        dir = os.path.dirname(filename)
-        if dir != "":
-            os.makedirs(dir, exist_ok=True)
+        # Make unique filename if overrite=False and exits
+        if not overwrite and os.path.exists(fp):
+            c = 0
+            while not os.path.exists(fp):
+                t, ext = os.path.splitext(fp)
+                fp = t + str(c) + ext
+                c += 1
 
         if zipped:
-            if os.path.exists(filename) and not overwrite:
-                raise FileExistsError(f"Could't overwrite {filename!r}")
-            with ZipFile(filename, "w") as zip:
-                self.writezip(zip)
-            return self
-        else:
-            filename, ext = os.path.splitext(filename)
-            if not overwrite:
-                c = 1
-                while os.path.exists(filename):
-                    filename = filename + str(c)
-                    c += 1
-            self.writedir(filename)
-        return self
+            os.makedirs(os.path.dirname(fp), exist_ok=True)
+            with zipfile.ZipFile(fp, "w") as zf:
+                return self.dump_archive(zf, *args, **kw)
+        return self.dump_directory(
+            os.path.join(self.dirname, self.filename), *args, **kw
+        )
 
-    def writedir(self, path: str) -> Self:
-        raise NotImplementedError()
+    def valid(self, fp: str) -> bool:
+        """
+        Whether or not this is a valid object
 
-    def writezip(self, zip: ZipFile) -> Self:
-        raise NotImplementedError()
+        :param fp: The DIRECTORY, TAR file or ZIP file to validate
+        :type fp: str
+        :rtype: bool
+        """
+        try:
+            return tarfile.is_tarfile(fp) or zipfile.is_zipfile(fp)  # TAR or ZIP file
+        except PermissionError:
+            return True  # Directory
 
     def getvalue(self) -> bytes:
+        """
+        :rtype: bytes
+        """
         with BytesIO() as io:
-            with ZipFile(io, "w") as zip:
-                self.writezip(zip)
+            with zipfile.ZipFile(io, "w") as zf:
+                self.dump_archive(zf)
             return io.getvalue()
-
-    def setup(self): ...

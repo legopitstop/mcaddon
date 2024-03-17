@@ -76,7 +76,7 @@
   <h1>Source code for mcpackutils.block.trait</h1><div class="highlight"><pre>
 <span></span><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Self</span>
 
-<span class="kn">from</span> <span class="nn">.state</span> <span class="kn">import</span> <span class="n">BlockState</span><span class="p">,</span> <span class="n">CardinalDirectionState</span><span class="p">,</span> <span class="n">FacingDirectionState</span><span class="p">,</span> <span class="n">BlockFaceState</span><span class="p">,</span> <span class="n">VerticalHalfState</span>
+<span class="kn">from</span> <span class="nn">.state</span> <span class="kn">import</span> <span class="n">BlockProperty</span><span class="p">,</span> <span class="n">CardinalDirectionState</span><span class="p">,</span> <span class="n">FacingDirectionState</span><span class="p">,</span> <span class="n">BlockFaceState</span><span class="p">,</span> <span class="n">VerticalHalfState</span>
 <span class="kn">from</span> <span class="nn">..util</span> <span class="kn">import</span> <span class="n">Identifier</span>
 
 <span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;BlockTrait&#39;</span><span class="p">,</span> <span class="s1">&#39;TRAITS&#39;</span><span class="p">,</span> <span class="s1">&#39;trait&#39;</span><span class="p">,</span> <span class="s1">&#39;PlacementDirectionTrait&#39;</span><span class="p">,</span> <span class="s1">&#39;PlacementPositionTrait&#39;</span><span class="p">]</span>
@@ -84,7 +84,7 @@
 <div class="viewcode-block" id="BlockTrait">
 <a class="viewcode-back" href="../../../mcpackutils.block.html#mcpackutils.block.trait.BlockTrait">[docs]</a>
 <span class="k">class</span> <span class="nc">BlockTrait</span><span class="p">:</span>
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">enabled_states</span><span class="p">:</span><span class="nb">list</span><span class="p">[</span><span class="n">BlockState</span><span class="p">]):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">enabled_states</span><span class="p">:</span><span class="nb">list</span><span class="p">[</span><span class="n">BlockProperty</span><span class="p">]):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Base trait class for blocks</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -106,17 +106,17 @@
         <span class="nb">setattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;_id&#39;</span><span class="p">,</span> <span class="n">Identifier</span><span class="p">(</span><span class="n">value</span><span class="p">))</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">enabled_states</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="n">BlockState</span><span class="p">]:</span>
+    <span class="k">def</span> <span class="nf">enabled_states</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="n">BlockProperty</span><span class="p">]:</span>
         <span class="k">return</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;_enabled_states&#39;</span><span class="p">,</span> <span class="p">[])</span>
     
     <span class="nd">@enabled_states</span><span class="o">.</span><span class="n">setter</span>
-    <span class="k">def</span> <span class="nf">enabled_states</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span><span class="nb">list</span><span class="p">[</span><span class="n">BlockState</span><span class="p">]):</span>
+    <span class="k">def</span> <span class="nf">enabled_states</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span><span class="nb">list</span><span class="p">[</span><span class="n">BlockProperty</span><span class="p">]):</span>
         <span class="k">if</span> <span class="n">value</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">enabled_states</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
             <span class="n">v</span> <span class="o">=</span> <span class="p">[]</span>
             <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">value</span><span class="p">:</span>
-                <span class="k">if</span> <span class="ow">not</span> <span class="nb">issubclass</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">BlockState</span><span class="p">):</span>
-                    <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Expected BlockState but got &#39;</span><span class="si">{</span><span class="n">x</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s2">&#39; instead&quot;</span><span class="p">)</span>
+                <span class="k">if</span> <span class="ow">not</span> <span class="nb">issubclass</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">BlockProperty</span><span class="p">):</span>
+                    <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Expected BlockProperty but got &#39;</span><span class="si">{</span><span class="n">x</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s2">&#39; instead&quot;</span><span class="p">)</span>
                 <span class="n">v</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
             <span class="nb">setattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;_enabled_states&#39;</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
@@ -152,12 +152,12 @@
 <span class="nd">@trait</span>
 <span class="k">class</span> <span class="nc">PlacementDirectionTrait</span><span class="p">(</span><span class="n">BlockTrait</span><span class="p">):</span>
     <span class="nb">id</span> <span class="o">=</span> <span class="n">Identifier</span><span class="p">(</span><span class="s1">&#39;placement_direction&#39;</span><span class="p">)</span>
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">enabled_states</span><span class="p">:</span><span class="nb">list</span><span class="p">[</span><span class="n">BlockState</span><span class="p">]</span><span class="o">=</span><span class="p">[],</span> <span class="n">y_rotation_offset</span><span class="p">:</span><span class="nb">float</span><span class="o">=</span><span class="mf">0.0</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">enabled_states</span><span class="p">:</span><span class="nb">list</span><span class="p">[</span><span class="n">BlockProperty</span><span class="p">]</span><span class="o">=</span><span class="p">[],</span> <span class="n">y_rotation_offset</span><span class="p">:</span><span class="nb">float</span><span class="o">=</span><span class="mf">0.0</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Adds the CardinalDirectionState and/or FacingDirectionState states and setter function to the block. The values of these states are set when the block is placed.</span>
 
 <span class="sd">        :param enabled_states: Which states to enable. Must specify at least one, defaults to []</span>
-<span class="sd">        :type enabled_states: list[BlockState], optional</span>
+<span class="sd">        :type enabled_states: list[BlockProperty], optional</span>
 <span class="sd">        :param y_rotation_offset: The y rotation offset to apply to the block. Must be [0.0, 90.0, 180.0, 270.0]. Default is 0, meaning if the player is facing north, the CardinalDirectionState and/or FacingDirectionState state will be north, defaults to 0.0</span>
 <span class="sd">        :type y_rotation_offset: float, optional</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -242,12 +242,12 @@
 <span class="nd">@trait</span>
 <span class="k">class</span> <span class="nc">PlacementPositionTrait</span><span class="p">(</span><span class="n">BlockTrait</span><span class="p">):</span>
     <span class="nb">id</span> <span class="o">=</span> <span class="n">Identifier</span><span class="p">(</span><span class="s1">&#39;placement_position&#39;</span><span class="p">)</span>
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">enabled_states</span><span class="p">:</span><span class="nb">list</span><span class="p">[</span><span class="n">BlockState</span><span class="p">]</span><span class="o">=</span><span class="p">[]):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">enabled_states</span><span class="p">:</span><span class="nb">list</span><span class="p">[</span><span class="n">BlockProperty</span><span class="p">]</span><span class="o">=</span><span class="p">[]):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Adds the BlockFaceState and/or VerticalHalfState BlockStates. The value of these state(s) are set when the block is placed.</span>
+<span class="sd">        Adds the BlockFaceState and/or VerticalHalfState BlockPropertys. The value of these state(s) are set when the block is placed.</span>
 
 <span class="sd">        :param enabled_states: Which states to enable. Must specify at least one, defaults to []</span>
-<span class="sd">        :type enabled_states: list[BlockState], optional</span>
+<span class="sd">        :type enabled_states: list[BlockProperty], optional</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">for</span> <span class="n">state</span> <span class="ow">in</span> <span class="n">enabled_states</span><span class="p">:</span>
             <span class="k">if</span> <span class="ow">not</span> <span class="nb">issubclass</span><span class="p">(</span><span class="n">state</span><span class="p">,</span> <span class="p">(</span><span class="n">BlockFaceState</span><span class="p">,</span> <span class="n">VerticalHalfState</span><span class="p">)):</span> <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Expected BlockFaceState or VerticalHalfState but got &#39;</span><span class="si">{</span><span class="n">state</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s2">&#39; instead&quot;</span><span class="p">)</span>

@@ -1,4 +1,7 @@
+import os
+
 from .. import (
+    __file__,
     INSTANCE,
     Schema,
     BlockPermutation,
@@ -7,27 +10,36 @@ from .. import (
     ComponentNotFoundError,
     EventNotFoundError,
     Block,
+    BlockTagsComponent,
 )
 
 
 class BlockSchema1(Schema):
     def __init__(self):
-        Schema.__init__(self, "block1.json")
+        Schema.__init__(
+            self,
+            os.path.join(os.path.dirname(__file__), "data", "schemas", "block1.json"),
+        )
 
     def load(cls, self: Block, data: dict):
-        if "description" in data:
-            desc = data["description"]
-            if "identifier" in desc:
-                self.identifier = desc["identifier"]
+        self.identifier = data["description"]["identifier"]
 
         if "components" in data:
             comp = data["components"]
+            tags = BlockTagsComponent()
             for k, v in comp.items():
                 id = Identifier(k)
+                if str(id).startswith("tag:"):
+                    tags.add_tag(id.path)
+                    continue
                 clazz = INSTANCE.get_registry(Registries.BLOCK_COMPONENT_TYPE).get(id)
                 if clazz is None:
                     raise ComponentNotFoundError(repr(id))
                 self.components[id] = clazz.from_dict(v)
+
+            # Add tag
+            if len(tags.tags) >= 1:
+                self.components[Identifier("tags")] = tags
 
         if "permutations" in data:
             for perm in data["permutations"]:

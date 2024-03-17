@@ -68,7 +68,7 @@
 <li class="toctree-l4"><a class="reference internal" href="#mcpackutils.block.BlockDescriptor"><code class="docutils literal notranslate"><span class="pre">BlockDescriptor</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#mcpackutils.block.BlockFaceState"><code class="docutils literal notranslate"><span class="pre">BlockFaceState</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#mcpackutils.block.BlockPermutation"><code class="docutils literal notranslate"><span class="pre">BlockPermutation</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="#mcpackutils.block.BlockState"><code class="docutils literal notranslate"><span class="pre">BlockState</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#mcpackutils.block.BlockProperty"><code class="docutils literal notranslate"><span class="pre">BlockProperty</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#mcpackutils.block.BlockTags"><code class="docutils literal notranslate"><span class="pre">BlockTags</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#mcpackutils.block.BlockTrait"><code class="docutils literal notranslate"><span class="pre">BlockTrait</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#mcpackutils.block.BoneVisabilityComponent"><code class="docutils literal notranslate"><span class="pre">BoneVisabilityComponent</span></code></a></li>
@@ -251,11 +251,11 @@
 <li class="toctree-l3"><a class="reference internal" href="#module-mcpackutils.event">mcpackutils.event module</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#mcpackutils.event.AddMobEffect"><code class="docutils literal notranslate"><span class="pre">AddMobEffect</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#mcpackutils.event.Damage"><code class="docutils literal notranslate"><span class="pre">Damage</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="#mcpackutils.event.DecrementBlockState"><code class="docutils literal notranslate"><span class="pre">DecrementBlockState</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#mcpackutils.event.DecrementBlockProperty"><code class="docutils literal notranslate"><span class="pre">DecrementBlockProperty</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#mcpackutils.event.DecrementStack"><code class="docutils literal notranslate"><span class="pre">DecrementStack</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#mcpackutils.event.Die"><code class="docutils literal notranslate"><span class="pre">Die</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#mcpackutils.event.Event"><code class="docutils literal notranslate"><span class="pre">Event</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="#mcpackutils.event.IncrementBlockState"><code class="docutils literal notranslate"><span class="pre">IncrementBlockState</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#mcpackutils.event.IncrementBlockProperty"><code class="docutils literal notranslate"><span class="pre">IncrementBlockProperty</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#mcpackutils.event.PlayEffect"><code class="docutils literal notranslate"><span class="pre">PlayEffect</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#mcpackutils.event.PlaySound"><code class="docutils literal notranslate"><span class="pre">PlaySound</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#mcpackutils.event.Randomize"><code class="docutils literal notranslate"><span class="pre">Randomize</span></code></a></li>
@@ -264,10 +264,10 @@
 <li class="toctree-l4"><a class="reference internal" href="#mcpackutils.event.Sequence"><code class="docutils literal notranslate"><span class="pre">Sequence</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#mcpackutils.event.SetBlock"><code class="docutils literal notranslate"><span class="pre">SetBlock</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#mcpackutils.event.SetBlockAtPos"><code class="docutils literal notranslate"><span class="pre">SetBlockAtPos</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="#mcpackutils.event.SetBlockState"><code class="docutils literal notranslate"><span class="pre">SetBlockState</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#mcpackutils.event.SetBlockProperty"><code class="docutils literal notranslate"><span class="pre">SetBlockProperty</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#mcpackutils.event.SpawnLoot"><code class="docutils literal notranslate"><span class="pre">SpawnLoot</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#mcpackutils.event.Swing"><code class="docutils literal notranslate"><span class="pre">Swing</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="#mcpackutils.event.SwitchBlockState"><code class="docutils literal notranslate"><span class="pre">SwitchBlockState</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#mcpackutils.event.SwitchBlockProperty"><code class="docutils literal notranslate"><span class="pre">SwitchBlockProperty</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#mcpackutils.event.Teleport"><code class="docutils literal notranslate"><span class="pre">Teleport</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#mcpackutils.event.TransformiIem"><code class="docutils literal notranslate"><span class="pre">TransformiIem</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#mcpackutils.event.Trigger"><code class="docutils literal notranslate"><span class="pre">Trigger</span></code></a></li>
@@ -418,7 +418,7 @@
 <dl class="py class">
 <dt class="sig sig-object py" id="mcpackutils.block.AgeState">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mcpackutils.block.</span></span><span class="sig-name descname"><span class="pre">AgeState</span></span><a class="headerlink" href="#mcpackutils.block.AgeState" title="Link to this definition"></a></dt>
-<dd><p>Bases: <a class="reference internal" href="#mcpackutils.block.BlockState" title="mcpackutils.block.BlockState"><code class="xref py py-class docutils literal notranslate"><span class="pre">BlockState</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="#mcpackutils.block.BlockProperty" title="mcpackutils.block.BlockProperty"><code class="xref py py-class docutils literal notranslate"><span class="pre">BlockProperty</span></code></a></p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mcpackutils.block.AgeState.id">
 <span class="sig-name descname"><span class="pre">id</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'minecraft:age'</span></em><a class="headerlink" href="#mcpackutils.block.AgeState.id" title="Link to this definition"></a></dt>
@@ -451,7 +451,7 @@
 <dl class="py class">
 <dt class="sig sig-object py" id="mcpackutils.block.AttachmentState">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mcpackutils.block.</span></span><span class="sig-name descname"><span class="pre">AttachmentState</span></span><a class="headerlink" href="#mcpackutils.block.AttachmentState" title="Link to this definition"></a></dt>
-<dd><p>Bases: <a class="reference internal" href="#mcpackutils.block.BlockState" title="mcpackutils.block.BlockState"><code class="xref py py-class docutils literal notranslate"><span class="pre">BlockState</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="#mcpackutils.block.BlockProperty" title="mcpackutils.block.BlockProperty"><code class="xref py py-class docutils literal notranslate"><span class="pre">BlockProperty</span></code></a></p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mcpackutils.block.AttachmentState.id">
 <span class="sig-name descname"><span class="pre">id</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'minecraft:attachment'</span></em><a class="headerlink" href="#mcpackutils.block.AttachmentState.id" title="Link to this definition"></a></dt>
@@ -462,7 +462,7 @@
 <dl class="py class">
 <dt class="sig sig-object py" id="mcpackutils.block.BambooLeafSizeState">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mcpackutils.block.</span></span><span class="sig-name descname"><span class="pre">BambooLeafSizeState</span></span><a class="headerlink" href="#mcpackutils.block.BambooLeafSizeState" title="Link to this definition"></a></dt>
-<dd><p>Bases: <a class="reference internal" href="#mcpackutils.block.BlockState" title="mcpackutils.block.BlockState"><code class="xref py py-class docutils literal notranslate"><span class="pre">BlockState</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="#mcpackutils.block.BlockProperty" title="mcpackutils.block.BlockProperty"><code class="xref py py-class docutils literal notranslate"><span class="pre">BlockProperty</span></code></a></p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mcpackutils.block.BambooLeafSizeState.id">
 <span class="sig-name descname"><span class="pre">id</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'minecraft:bamboo_leaf_size'</span></em><a class="headerlink" href="#mcpackutils.block.BambooLeafSizeState.id" title="Link to this definition"></a></dt>
@@ -473,7 +473,7 @@
 <dl class="py class">
 <dt class="sig sig-object py" id="mcpackutils.block.BambooStalkThicknessState">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mcpackutils.block.</span></span><span class="sig-name descname"><span class="pre">BambooStalkThicknessState</span></span><a class="headerlink" href="#mcpackutils.block.BambooStalkThicknessState" title="Link to this definition"></a></dt>
-<dd><p>Bases: <a class="reference internal" href="#mcpackutils.block.BlockState" title="mcpackutils.block.BlockState"><code class="xref py py-class docutils literal notranslate"><span class="pre">BlockState</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="#mcpackutils.block.BlockProperty" title="mcpackutils.block.BlockProperty"><code class="xref py py-class docutils literal notranslate"><span class="pre">BlockProperty</span></code></a></p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mcpackutils.block.BambooStalkThicknessState.id">
 <span class="sig-name descname"><span class="pre">id</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'minecraft:bamboo_stalk'</span></em><a class="headerlink" href="#mcpackutils.block.BambooStalkThicknessState.id" title="Link to this definition"></a></dt>
@@ -484,7 +484,7 @@
 <dl class="py class">
 <dt class="sig sig-object py" id="mcpackutils.block.BigDripleafTiltState">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mcpackutils.block.</span></span><span class="sig-name descname"><span class="pre">BigDripleafTiltState</span></span><a class="headerlink" href="#mcpackutils.block.BigDripleafTiltState" title="Link to this definition"></a></dt>
-<dd><p>Bases: <a class="reference internal" href="#mcpackutils.block.BlockState" title="mcpackutils.block.BlockState"><code class="xref py py-class docutils literal notranslate"><span class="pre">BlockState</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="#mcpackutils.block.BlockProperty" title="mcpackutils.block.BlockProperty"><code class="xref py py-class docutils literal notranslate"><span class="pre">BlockProperty</span></code></a></p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mcpackutils.block.BigDripleafTiltState.id">
 <span class="sig-name descname"><span class="pre">id</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'minecraft:bigt_dripleaf_tilt'</span></em><a class="headerlink" href="#mcpackutils.block.BigDripleafTiltState.id" title="Link to this definition"></a></dt>
@@ -495,7 +495,7 @@
 <dl class="py class">
 <dt class="sig sig-object py" id="mcpackutils.block.BiteCounterState">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mcpackutils.block.</span></span><span class="sig-name descname"><span class="pre">BiteCounterState</span></span><a class="headerlink" href="#mcpackutils.block.BiteCounterState" title="Link to this definition"></a></dt>
-<dd><p>Bases: <a class="reference internal" href="#mcpackutils.block.BlockState" title="mcpackutils.block.BlockState"><code class="xref py py-class docutils literal notranslate"><span class="pre">BlockState</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="#mcpackutils.block.BlockProperty" title="mcpackutils.block.BlockProperty"><code class="xref py py-class docutils literal notranslate"><span class="pre">BlockProperty</span></code></a></p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mcpackutils.block.BiteCounterState.id">
 <span class="sig-name descname"><span class="pre">id</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'minecraft:bite_counter'</span></em><a class="headerlink" href="#mcpackutils.block.BiteCounterState.id" title="Link to this definition"></a></dt>
@@ -524,7 +524,7 @@
 
 <dl class="py method">
 <dt class="sig sig-object py" id="mcpackutils.block.Block.add_state">
-<span class="sig-name descname"><span class="pre">add_state</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">state</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#mcpackutils.block.BlockState" title="mcpackutils.block.BlockState"><span class="pre">BlockState</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#mcpackutils.block.BlockState" title="mcpackutils.block.BlockState"><span class="pre">BlockState</span></a></span></span><a class="headerlink" href="#mcpackutils.block.Block.add_state" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">add_state</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">state</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#mcpackutils.block.BlockProperty" title="mcpackutils.block.BlockProperty"><span class="pre">BlockProperty</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#mcpackutils.block.BlockProperty" title="mcpackutils.block.BlockProperty"><span class="pre">BlockProperty</span></a></span></span><a class="headerlink" href="#mcpackutils.block.Block.add_state" title="Link to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
@@ -600,7 +600,7 @@
 
 <dl class="py method">
 <dt class="sig sig-object py" id="mcpackutils.block.Block.get_state">
-<span class="sig-name descname"><span class="pre">get_state</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#mcpackutils.util.Identifier" title="mcpackutils.util.Identifier"><span class="pre">Identifier</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#mcpackutils.block.BlockState" title="mcpackutils.block.BlockState"><span class="pre">BlockState</span></a></span></span><a class="headerlink" href="#mcpackutils.block.Block.get_state" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">get_state</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#mcpackutils.util.Identifier" title="mcpackutils.util.Identifier"><span class="pre">Identifier</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#mcpackutils.block.BlockProperty" title="mcpackutils.block.BlockProperty"><span class="pre">BlockProperty</span></a></span></span><a class="headerlink" href="#mcpackutils.block.Block.get_state" title="Link to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
@@ -645,7 +645,7 @@
 
 <dl class="py method">
 <dt class="sig sig-object py" id="mcpackutils.block.Block.remove_state">
-<span class="sig-name descname"><span class="pre">remove_state</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#mcpackutils.util.Identifier" title="mcpackutils.util.Identifier"><span class="pre">Identifier</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#mcpackutils.block.BlockState" title="mcpackutils.block.BlockState"><span class="pre">BlockState</span></a></span></span><a class="headerlink" href="#mcpackutils.block.Block.remove_state" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">remove_state</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#mcpackutils.util.Identifier" title="mcpackutils.util.Identifier"><span class="pre">Identifier</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#mcpackutils.block.BlockProperty" title="mcpackutils.block.BlockProperty"><span class="pre">BlockProperty</span></a></span></span><a class="headerlink" href="#mcpackutils.block.Block.remove_state" title="Link to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
@@ -655,7 +655,7 @@
 
 <dl class="py property">
 <dt class="sig sig-object py" id="mcpackutils.block.Block.states">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">states</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#mcpackutils.util.Identifier" title="mcpackutils.util.Identifier"><span class="pre">Identifier</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="#mcpackutils.block.BlockState" title="mcpackutils.block.BlockState"><span class="pre">BlockState</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#mcpackutils.block.Block.states" title="Link to this definition"></a></dt>
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">states</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#mcpackutils.util.Identifier" title="mcpackutils.util.Identifier"><span class="pre">Identifier</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="#mcpackutils.block.BlockProperty" title="mcpackutils.block.BlockProperty"><span class="pre">BlockProperty</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#mcpackutils.block.Block.states" title="Link to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py property">
@@ -700,7 +700,7 @@
 <dl class="py class">
 <dt class="sig sig-object py" id="mcpackutils.block.BlockFaceState">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mcpackutils.block.</span></span><span class="sig-name descname"><span class="pre">BlockFaceState</span></span><a class="headerlink" href="#mcpackutils.block.BlockFaceState" title="Link to this definition"></a></dt>
-<dd><p>Bases: <a class="reference internal" href="#mcpackutils.block.BlockState" title="mcpackutils.block.BlockState"><code class="xref py py-class docutils literal notranslate"><span class="pre">BlockState</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="#mcpackutils.block.BlockProperty" title="mcpackutils.block.BlockProperty"><code class="xref py py-class docutils literal notranslate"><span class="pre">BlockProperty</span></code></a></p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mcpackutils.block.BlockFaceState.id">
 <span class="sig-name descname"><span class="pre">id</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'minecraft:block_face'</span></em><a class="headerlink" href="#mcpackutils.block.BlockFaceState.id" title="Link to this definition"></a></dt>
@@ -745,22 +745,22 @@
 </dd></dl>
 
 <dl class="py class">
-<dt class="sig sig-object py" id="mcpackutils.block.BlockState">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mcpackutils.block.</span></span><span class="sig-name descname"><span class="pre">BlockState</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#mcpackutils.util.Identifier" title="mcpackutils.util.Identifier"><span class="pre">Identifier</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">values</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mcpackutils.block.BlockState" title="Link to this definition"></a></dt>
+<dt class="sig sig-object py" id="mcpackutils.block.BlockProperty">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mcpackutils.block.</span></span><span class="sig-name descname"><span class="pre">BlockProperty</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#mcpackutils.util.Identifier" title="mcpackutils.util.Identifier"><span class="pre">Identifier</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">values</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mcpackutils.block.BlockProperty" title="Link to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <dl class="py method">
-<dt class="sig sig-object py" id="mcpackutils.block.BlockState.from_dict">
-<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_dict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Self</span></span></span><a class="headerlink" href="#mcpackutils.block.BlockState.from_dict" title="Link to this definition"></a></dt>
+<dt class="sig sig-object py" id="mcpackutils.block.BlockProperty.from_dict">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_dict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Self</span></span></span><a class="headerlink" href="#mcpackutils.block.BlockProperty.from_dict" title="Link to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py property">
-<dt class="sig sig-object py" id="mcpackutils.block.BlockState.id">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">id</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#mcpackutils.util.Identifier" title="mcpackutils.util.Identifier"><span class="pre">Identifier</span></a></em><a class="headerlink" href="#mcpackutils.block.BlockState.id" title="Link to this definition"></a></dt>
+<dt class="sig sig-object py" id="mcpackutils.block.BlockProperty.id">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">id</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#mcpackutils.util.Identifier" title="mcpackutils.util.Identifier"><span class="pre">Identifier</span></a></em><a class="headerlink" href="#mcpackutils.block.BlockProperty.id" title="Link to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py property">
-<dt class="sig sig-object py" id="mcpackutils.block.BlockState.values">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">values</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">list</span></em><a class="headerlink" href="#mcpackutils.block.BlockState.values" title="Link to this definition"></a></dt>
+<dt class="sig sig-object py" id="mcpackutils.block.BlockProperty.values">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">values</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">list</span></em><a class="headerlink" href="#mcpackutils.block.BlockProperty.values" title="Link to this definition"></a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -783,11 +783,11 @@
 
 <dl class="py class">
 <dt class="sig sig-object py" id="mcpackutils.block.BlockTrait">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mcpackutils.block.</span></span><span class="sig-name descname"><span class="pre">BlockTrait</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">enabled_states</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#mcpackutils.block.BlockState" title="mcpackutils.block.BlockState"><span class="pre">BlockState</span></a><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mcpackutils.block.BlockTrait" title="Link to this definition"></a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mcpackutils.block.</span></span><span class="sig-name descname"><span class="pre">BlockTrait</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">enabled_states</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#mcpackutils.block.BlockProperty" title="mcpackutils.block.BlockProperty"><span class="pre">BlockProperty</span></a><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mcpackutils.block.BlockTrait" title="Link to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <dl class="py property">
 <dt class="sig sig-object py" id="mcpackutils.block.BlockTrait.enabled_states">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">enabled_states</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">list</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#mcpackutils.block.BlockState" title="mcpackutils.block.BlockState"><span class="pre">BlockState</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#mcpackutils.block.BlockTrait.enabled_states" title="Link to this definition"></a></dt>
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">enabled_states</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">list</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#mcpackutils.block.BlockProperty" title="mcpackutils.block.BlockProperty"><span class="pre">BlockProperty</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#mcpackutils.block.BlockTrait.enabled_states" title="Link to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
@@ -813,7 +813,7 @@
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mcpackutils.block.BoneVisabilityComponent.id">
-<span class="sig-name descname"><span class="pre">id</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'minecraft:bone_visability'</span></em><a class="headerlink" href="#mcpackutils.block.BoneVisabilityComponent.id" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">id</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'minecraft:bone_visibility'</span></em><a class="headerlink" href="#mcpackutils.block.BoneVisabilityComponent.id" title="Link to this definition"></a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -821,7 +821,7 @@
 <dl class="py class">
 <dt class="sig sig-object py" id="mcpackutils.block.BooksStoredState">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mcpackutils.block.</span></span><span class="sig-name descname"><span class="pre">BooksStoredState</span></span><a class="headerlink" href="#mcpackutils.block.BooksStoredState" title="Link to this definition"></a></dt>
-<dd><p>Bases: <a class="reference internal" href="#mcpackutils.block.BlockState" title="mcpackutils.block.BlockState"><code class="xref py py-class docutils literal notranslate"><span class="pre">BlockState</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="#mcpackutils.block.BlockProperty" title="mcpackutils.block.BlockProperty"><code class="xref py py-class docutils literal notranslate"><span class="pre">BlockProperty</span></code></a></p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mcpackutils.block.BooksStoredState.id">
 <span class="sig-name descname"><span class="pre">id</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'minecraft:books_stored'</span></em><a class="headerlink" href="#mcpackutils.block.BooksStoredState.id" title="Link to this definition"></a></dt>
@@ -832,7 +832,7 @@
 <dl class="py class">
 <dt class="sig sig-object py" id="mcpackutils.block.BooleanState">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mcpackutils.block.</span></span><span class="sig-name descname"><span class="pre">BooleanState</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#mcpackutils.util.Identifier" title="mcpackutils.util.Identifier"><span class="pre">Identifier</span></a></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mcpackutils.block.BooleanState" title="Link to this definition"></a></dt>
-<dd><p>Bases: <a class="reference internal" href="#mcpackutils.block.BlockState" title="mcpackutils.block.BlockState"><code class="xref py py-class docutils literal notranslate"><span class="pre">BlockState</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="#mcpackutils.block.BlockProperty" title="mcpackutils.block.BlockProperty"><code class="xref py py-class docutils literal notranslate"><span class="pre">BlockProperty</span></code></a></p>
 </dd></dl>
 
 <dl class="py class">
@@ -913,7 +913,7 @@
 <dl class="py class">
 <dt class="sig sig-object py" id="mcpackutils.block.BrushedProgressState">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mcpackutils.block.</span></span><span class="sig-name descname"><span class="pre">BrushedProgressState</span></span><a class="headerlink" href="#mcpackutils.block.BrushedProgressState" title="Link to this definition"></a></dt>
-<dd><p>Bases: <a class="reference internal" href="#mcpackutils.block.BlockState" title="mcpackutils.block.BlockState"><code class="xref py py-class docutils literal notranslate"><span class="pre">BlockState</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="#mcpackutils.block.BlockProperty" title="mcpackutils.block.BlockProperty"><code class="xref py py-class docutils literal notranslate"><span class="pre">BlockProperty</span></code></a></p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mcpackutils.block.BrushedProgressState.id">
 <span class="sig-name descname"><span class="pre">id</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'minecraft:brushed_progress'</span></em><a class="headerlink" href="#mcpackutils.block.BrushedProgressState.id" title="Link to this definition"></a></dt>
@@ -999,7 +999,7 @@
 <dl class="py class">
 <dt class="sig sig-object py" id="mcpackutils.block.CandlesState">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mcpackutils.block.</span></span><span class="sig-name descname"><span class="pre">CandlesState</span></span><a class="headerlink" href="#mcpackutils.block.CandlesState" title="Link to this definition"></a></dt>
-<dd><p>Bases: <a class="reference internal" href="#mcpackutils.block.BlockState" title="mcpackutils.block.BlockState"><code class="xref py py-class docutils literal notranslate"><span class="pre">BlockState</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="#mcpackutils.block.BlockProperty" title="mcpackutils.block.BlockProperty"><code class="xref py py-class docutils literal notranslate"><span class="pre">BlockProperty</span></code></a></p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mcpackutils.block.CandlesState.id">
 <span class="sig-name descname"><span class="pre">id</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'minecraft:candles'</span></em><a class="headerlink" href="#mcpackutils.block.CandlesState.id" title="Link to this definition"></a></dt>
@@ -1010,7 +1010,7 @@
 <dl class="py class">
 <dt class="sig sig-object py" id="mcpackutils.block.CardinalDirectionState">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mcpackutils.block.</span></span><span class="sig-name descname"><span class="pre">CardinalDirectionState</span></span><a class="headerlink" href="#mcpackutils.block.CardinalDirectionState" title="Link to this definition"></a></dt>
-<dd><p>Bases: <a class="reference internal" href="#mcpackutils.block.BlockState" title="mcpackutils.block.BlockState"><code class="xref py py-class docutils literal notranslate"><span class="pre">BlockState</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="#mcpackutils.block.BlockProperty" title="mcpackutils.block.BlockProperty"><code class="xref py py-class docutils literal notranslate"><span class="pre">BlockProperty</span></code></a></p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mcpackutils.block.CardinalDirectionState.id">
 <span class="sig-name descname"><span class="pre">id</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'minecraft:cardinal_direction'</span></em><a class="headerlink" href="#mcpackutils.block.CardinalDirectionState.id" title="Link to this definition"></a></dt>
@@ -1043,7 +1043,7 @@
 <dl class="py class">
 <dt class="sig sig-object py" id="mcpackutils.block.CauldronLiquidState">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mcpackutils.block.</span></span><span class="sig-name descname"><span class="pre">CauldronLiquidState</span></span><a class="headerlink" href="#mcpackutils.block.CauldronLiquidState" title="Link to this definition"></a></dt>
-<dd><p>Bases: <a class="reference internal" href="#mcpackutils.block.BlockState" title="mcpackutils.block.BlockState"><code class="xref py py-class docutils literal notranslate"><span class="pre">BlockState</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="#mcpackutils.block.BlockProperty" title="mcpackutils.block.BlockProperty"><code class="xref py py-class docutils literal notranslate"><span class="pre">BlockProperty</span></code></a></p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mcpackutils.block.CauldronLiquidState.id">
 <span class="sig-name descname"><span class="pre">id</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'minecraft:cauldron_liquid'</span></em><a class="headerlink" href="#mcpackutils.block.CauldronLiquidState.id" title="Link to this definition"></a></dt>
@@ -1054,7 +1054,7 @@
 <dl class="py class">
 <dt class="sig sig-object py" id="mcpackutils.block.ChemistryTableTypeState">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mcpackutils.block.</span></span><span class="sig-name descname"><span class="pre">ChemistryTableTypeState</span></span><a class="headerlink" href="#mcpackutils.block.ChemistryTableTypeState" title="Link to this definition"></a></dt>
-<dd><p>Bases: <a class="reference internal" href="#mcpackutils.block.BlockState" title="mcpackutils.block.BlockState"><code class="xref py py-class docutils literal notranslate"><span class="pre">BlockState</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="#mcpackutils.block.BlockProperty" title="mcpackutils.block.BlockProperty"><code class="xref py py-class docutils literal notranslate"><span class="pre">BlockProperty</span></code></a></p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mcpackutils.block.ChemistryTableTypeState.id">
 <span class="sig-name descname"><span class="pre">id</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'minecraft:chemistry_table_type'</span></em><a class="headerlink" href="#mcpackutils.block.ChemistryTableTypeState.id" title="Link to this definition"></a></dt>
@@ -1065,7 +1065,7 @@
 <dl class="py class">
 <dt class="sig sig-object py" id="mcpackutils.block.ChiselTypeState">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mcpackutils.block.</span></span><span class="sig-name descname"><span class="pre">ChiselTypeState</span></span><a class="headerlink" href="#mcpackutils.block.ChiselTypeState" title="Link to this definition"></a></dt>
-<dd><p>Bases: <a class="reference internal" href="#mcpackutils.block.BlockState" title="mcpackutils.block.BlockState"><code class="xref py py-class docutils literal notranslate"><span class="pre">BlockState</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="#mcpackutils.block.BlockProperty" title="mcpackutils.block.BlockProperty"><code class="xref py py-class docutils literal notranslate"><span class="pre">BlockProperty</span></code></a></p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mcpackutils.block.ChiselTypeState.id">
 <span class="sig-name descname"><span class="pre">id</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'minecraft:chisel_type'</span></em><a class="headerlink" href="#mcpackutils.block.ChiselTypeState.id" title="Link to this definition"></a></dt>
@@ -1076,7 +1076,7 @@
 <dl class="py class">
 <dt class="sig sig-object py" id="mcpackutils.block.ClusterCountState">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mcpackutils.block.</span></span><span class="sig-name descname"><span class="pre">ClusterCountState</span></span><a class="headerlink" href="#mcpackutils.block.ClusterCountState" title="Link to this definition"></a></dt>
-<dd><p>Bases: <a class="reference internal" href="#mcpackutils.block.BlockState" title="mcpackutils.block.BlockState"><code class="xref py py-class docutils literal notranslate"><span class="pre">BlockState</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="#mcpackutils.block.BlockProperty" title="mcpackutils.block.BlockProperty"><code class="xref py py-class docutils literal notranslate"><span class="pre">BlockProperty</span></code></a></p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mcpackutils.block.ClusterCountState.id">
 <span class="sig-name descname"><span class="pre">id</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'minecraft:cluster_count'</span></em><a class="headerlink" href="#mcpackutils.block.ClusterCountState.id" title="Link to this definition"></a></dt>
@@ -1109,7 +1109,7 @@
 <dl class="py class">
 <dt class="sig sig-object py" id="mcpackutils.block.ColorState">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mcpackutils.block.</span></span><span class="sig-name descname"><span class="pre">ColorState</span></span><a class="headerlink" href="#mcpackutils.block.ColorState" title="Link to this definition"></a></dt>
-<dd><p>Bases: <a class="reference internal" href="#mcpackutils.block.BlockState" title="mcpackutils.block.BlockState"><code class="xref py py-class docutils literal notranslate"><span class="pre">BlockState</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="#mcpackutils.block.BlockProperty" title="mcpackutils.block.BlockProperty"><code class="xref py py-class docutils literal notranslate"><span class="pre">BlockProperty</span></code></a></p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mcpackutils.block.ColorState.id">
 <span class="sig-name descname"><span class="pre">id</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'minecraft:color'</span></em><a class="headerlink" href="#mcpackutils.block.ColorState.id" title="Link to this definition"></a></dt>
@@ -1131,7 +1131,7 @@
 <dl class="py class">
 <dt class="sig sig-object py" id="mcpackutils.block.CoralColorState">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mcpackutils.block.</span></span><span class="sig-name descname"><span class="pre">CoralColorState</span></span><a class="headerlink" href="#mcpackutils.block.CoralColorState" title="Link to this definition"></a></dt>
-<dd><p>Bases: <a class="reference internal" href="#mcpackutils.block.BlockState" title="mcpackutils.block.BlockState"><code class="xref py py-class docutils literal notranslate"><span class="pre">BlockState</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="#mcpackutils.block.BlockProperty" title="mcpackutils.block.BlockProperty"><code class="xref py py-class docutils literal notranslate"><span class="pre">BlockProperty</span></code></a></p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mcpackutils.block.CoralColorState.id">
 <span class="sig-name descname"><span class="pre">id</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'minecraft:coral_color'</span></em><a class="headerlink" href="#mcpackutils.block.CoralColorState.id" title="Link to this definition"></a></dt>
@@ -1142,7 +1142,7 @@
 <dl class="py class">
 <dt class="sig sig-object py" id="mcpackutils.block.CoralDirectionState">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mcpackutils.block.</span></span><span class="sig-name descname"><span class="pre">CoralDirectionState</span></span><a class="headerlink" href="#mcpackutils.block.CoralDirectionState" title="Link to this definition"></a></dt>
-<dd><p>Bases: <a class="reference internal" href="#mcpackutils.block.BlockState" title="mcpackutils.block.BlockState"><code class="xref py py-class docutils literal notranslate"><span class="pre">BlockState</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="#mcpackutils.block.BlockProperty" title="mcpackutils.block.BlockProperty"><code class="xref py py-class docutils literal notranslate"><span class="pre">BlockProperty</span></code></a></p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mcpackutils.block.CoralDirectionState.id">
 <span class="sig-name descname"><span class="pre">id</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'minecraft:coral_direction'</span></em><a class="headerlink" href="#mcpackutils.block.CoralDirectionState.id" title="Link to this definition"></a></dt>
@@ -1175,7 +1175,7 @@
 <dl class="py class">
 <dt class="sig sig-object py" id="mcpackutils.block.CrackedState">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mcpackutils.block.</span></span><span class="sig-name descname"><span class="pre">CrackedState</span></span><a class="headerlink" href="#mcpackutils.block.CrackedState" title="Link to this definition"></a></dt>
-<dd><p>Bases: <a class="reference internal" href="#mcpackutils.block.BlockState" title="mcpackutils.block.BlockState"><code class="xref py py-class docutils literal notranslate"><span class="pre">BlockState</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="#mcpackutils.block.BlockProperty" title="mcpackutils.block.BlockProperty"><code class="xref py py-class docutils literal notranslate"><span class="pre">BlockProperty</span></code></a></p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mcpackutils.block.CrackedState.id">
 <span class="sig-name descname"><span class="pre">id</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'minecraft:cracked_state'</span></em><a class="headerlink" href="#mcpackutils.block.CrackedState.id" title="Link to this definition"></a></dt>
@@ -1229,7 +1229,7 @@
 <dl class="py class">
 <dt class="sig sig-object py" id="mcpackutils.block.DamageState">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mcpackutils.block.</span></span><span class="sig-name descname"><span class="pre">DamageState</span></span><a class="headerlink" href="#mcpackutils.block.DamageState" title="Link to this definition"></a></dt>
-<dd><p>Bases: <a class="reference internal" href="#mcpackutils.block.BlockState" title="mcpackutils.block.BlockState"><code class="xref py py-class docutils literal notranslate"><span class="pre">BlockState</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="#mcpackutils.block.BlockProperty" title="mcpackutils.block.BlockProperty"><code class="xref py py-class docutils literal notranslate"><span class="pre">BlockProperty</span></code></a></p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mcpackutils.block.DamageState.id">
 <span class="sig-name descname"><span class="pre">id</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'minecraft:damage'</span></em><a class="headerlink" href="#mcpackutils.block.DamageState.id" title="Link to this definition"></a></dt>
@@ -1283,7 +1283,7 @@
 <dl class="py class">
 <dt class="sig sig-object py" id="mcpackutils.block.DirectionState">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mcpackutils.block.</span></span><span class="sig-name descname"><span class="pre">DirectionState</span></span><a class="headerlink" href="#mcpackutils.block.DirectionState" title="Link to this definition"></a></dt>
-<dd><p>Bases: <a class="reference internal" href="#mcpackutils.block.BlockState" title="mcpackutils.block.BlockState"><code class="xref py py-class docutils literal notranslate"><span class="pre">BlockState</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="#mcpackutils.block.BlockProperty" title="mcpackutils.block.BlockProperty"><code class="xref py py-class docutils literal notranslate"><span class="pre">BlockProperty</span></code></a></p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mcpackutils.block.DirectionState.id">
 <span class="sig-name descname"><span class="pre">id</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'minecraft:direction'</span></em><a class="headerlink" href="#mcpackutils.block.DirectionState.id" title="Link to this definition"></a></dt>
@@ -1294,7 +1294,7 @@
 <dl class="py class">
 <dt class="sig sig-object py" id="mcpackutils.block.DirtTypeState">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mcpackutils.block.</span></span><span class="sig-name descname"><span class="pre">DirtTypeState</span></span><a class="headerlink" href="#mcpackutils.block.DirtTypeState" title="Link to this definition"></a></dt>
-<dd><p>Bases: <a class="reference internal" href="#mcpackutils.block.BlockState" title="mcpackutils.block.BlockState"><code class="xref py py-class docutils literal notranslate"><span class="pre">BlockState</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="#mcpackutils.block.BlockProperty" title="mcpackutils.block.BlockProperty"><code class="xref py py-class docutils literal notranslate"><span class="pre">BlockProperty</span></code></a></p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mcpackutils.block.DirtTypeState.id">
 <span class="sig-name descname"><span class="pre">id</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'minecraft:dirt_type'</span></em><a class="headerlink" href="#mcpackutils.block.DirtTypeState.id" title="Link to this definition"></a></dt>
@@ -1354,7 +1354,7 @@
 <dl class="py class">
 <dt class="sig sig-object py" id="mcpackutils.block.DoublePlantTypeState">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mcpackutils.block.</span></span><span class="sig-name descname"><span class="pre">DoublePlantTypeState</span></span><a class="headerlink" href="#mcpackutils.block.DoublePlantTypeState" title="Link to this definition"></a></dt>
-<dd><p>Bases: <a class="reference internal" href="#mcpackutils.block.BlockState" title="mcpackutils.block.BlockState"><code class="xref py py-class docutils literal notranslate"><span class="pre">BlockState</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="#mcpackutils.block.BlockProperty" title="mcpackutils.block.BlockProperty"><code class="xref py py-class docutils literal notranslate"><span class="pre">BlockProperty</span></code></a></p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mcpackutils.block.DoublePlantTypeState.id">
 <span class="sig-name descname"><span class="pre">id</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'minecraft:double_plant_type'</span></em><a class="headerlink" href="#mcpackutils.block.DoublePlantTypeState.id" title="Link to this definition"></a></dt>
@@ -1376,7 +1376,7 @@
 <dl class="py class">
 <dt class="sig sig-object py" id="mcpackutils.block.DripstoneThicknessState">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mcpackutils.block.</span></span><span class="sig-name descname"><span class="pre">DripstoneThicknessState</span></span><a class="headerlink" href="#mcpackutils.block.DripstoneThicknessState" title="Link to this definition"></a></dt>
-<dd><p>Bases: <a class="reference internal" href="#mcpackutils.block.BlockState" title="mcpackutils.block.BlockState"><code class="xref py py-class docutils literal notranslate"><span class="pre">BlockState</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="#mcpackutils.block.BlockProperty" title="mcpackutils.block.BlockProperty"><code class="xref py py-class docutils literal notranslate"><span class="pre">BlockProperty</span></code></a></p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mcpackutils.block.DripstoneThicknessState.id">
 <span class="sig-name descname"><span class="pre">id</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'minecraft:dripstone_thickness'</span></em><a class="headerlink" href="#mcpackutils.block.DripstoneThicknessState.id" title="Link to this definition"></a></dt>
@@ -1409,7 +1409,7 @@
 <dl class="py class">
 <dt class="sig sig-object py" id="mcpackutils.block.FacingDirectionState">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mcpackutils.block.</span></span><span class="sig-name descname"><span class="pre">FacingDirectionState</span></span><a class="headerlink" href="#mcpackutils.block.FacingDirectionState" title="Link to this definition"></a></dt>
-<dd><p>Bases: <a class="reference internal" href="#mcpackutils.block.BlockState" title="mcpackutils.block.BlockState"><code class="xref py py-class docutils literal notranslate"><span class="pre">BlockState</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="#mcpackutils.block.BlockProperty" title="mcpackutils.block.BlockProperty"><code class="xref py py-class docutils literal notranslate"><span class="pre">BlockProperty</span></code></a></p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mcpackutils.block.FacingDirectionState.id">
 <span class="sig-name descname"><span class="pre">id</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'minecraft:facing_direction'</span></em><a class="headerlink" href="#mcpackutils.block.FacingDirectionState.id" title="Link to this definition"></a></dt>
@@ -1442,7 +1442,7 @@
 <dl class="py class">
 <dt class="sig sig-object py" id="mcpackutils.block.FillLevelState">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mcpackutils.block.</span></span><span class="sig-name descname"><span class="pre">FillLevelState</span></span><a class="headerlink" href="#mcpackutils.block.FillLevelState" title="Link to this definition"></a></dt>
-<dd><p>Bases: <a class="reference internal" href="#mcpackutils.block.BlockState" title="mcpackutils.block.BlockState"><code class="xref py py-class docutils literal notranslate"><span class="pre">BlockState</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="#mcpackutils.block.BlockProperty" title="mcpackutils.block.BlockProperty"><code class="xref py py-class docutils literal notranslate"><span class="pre">BlockProperty</span></code></a></p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mcpackutils.block.FillLevelState.id">
 <span class="sig-name descname"><span class="pre">id</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'minecraft:fill_level'</span></em><a class="headerlink" href="#mcpackutils.block.FillLevelState.id" title="Link to this definition"></a></dt>
@@ -1490,7 +1490,7 @@
 <dl class="py class">
 <dt class="sig sig-object py" id="mcpackutils.block.FlowerTypeState">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mcpackutils.block.</span></span><span class="sig-name descname"><span class="pre">FlowerTypeState</span></span><a class="headerlink" href="#mcpackutils.block.FlowerTypeState" title="Link to this definition"></a></dt>
-<dd><p>Bases: <a class="reference internal" href="#mcpackutils.block.BlockState" title="mcpackutils.block.BlockState"><code class="xref py py-class docutils literal notranslate"><span class="pre">BlockState</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="#mcpackutils.block.BlockProperty" title="mcpackutils.block.BlockProperty"><code class="xref py py-class docutils literal notranslate"><span class="pre">BlockProperty</span></code></a></p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mcpackutils.block.FlowerTypeState.id">
 <span class="sig-name descname"><span class="pre">id</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'minecraft:flower_type'</span></em><a class="headerlink" href="#mcpackutils.block.FlowerTypeState.id" title="Link to this definition"></a></dt>
@@ -1544,7 +1544,7 @@
 <dl class="py class">
 <dt class="sig sig-object py" id="mcpackutils.block.GroundSignDirectionState">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mcpackutils.block.</span></span><span class="sig-name descname"><span class="pre">GroundSignDirectionState</span></span><a class="headerlink" href="#mcpackutils.block.GroundSignDirectionState" title="Link to this definition"></a></dt>
-<dd><p>Bases: <a class="reference internal" href="#mcpackutils.block.BlockState" title="mcpackutils.block.BlockState"><code class="xref py py-class docutils literal notranslate"><span class="pre">BlockState</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="#mcpackutils.block.BlockProperty" title="mcpackutils.block.BlockProperty"><code class="xref py py-class docutils literal notranslate"><span class="pre">BlockProperty</span></code></a></p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mcpackutils.block.GroundSignDirectionState.id">
 <span class="sig-name descname"><span class="pre">id</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'minecraft:ground_sign_direction'</span></em><a class="headerlink" href="#mcpackutils.block.GroundSignDirectionState.id" title="Link to this definition"></a></dt>
@@ -1555,7 +1555,7 @@
 <dl class="py class">
 <dt class="sig sig-object py" id="mcpackutils.block.GrowthState">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mcpackutils.block.</span></span><span class="sig-name descname"><span class="pre">GrowthState</span></span><a class="headerlink" href="#mcpackutils.block.GrowthState" title="Link to this definition"></a></dt>
-<dd><p>Bases: <a class="reference internal" href="#mcpackutils.block.BlockState" title="mcpackutils.block.BlockState"><code class="xref py py-class docutils literal notranslate"><span class="pre">BlockState</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="#mcpackutils.block.BlockProperty" title="mcpackutils.block.BlockProperty"><code class="xref py py-class docutils literal notranslate"><span class="pre">BlockProperty</span></code></a></p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mcpackutils.block.GrowthState.id">
 <span class="sig-name descname"><span class="pre">id</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'minecraft:growth'</span></em><a class="headerlink" href="#mcpackutils.block.GrowthState.id" title="Link to this definition"></a></dt>
@@ -1588,7 +1588,7 @@
 <dl class="py class">
 <dt class="sig sig-object py" id="mcpackutils.block.HeightState">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mcpackutils.block.</span></span><span class="sig-name descname"><span class="pre">HeightState</span></span><a class="headerlink" href="#mcpackutils.block.HeightState" title="Link to this definition"></a></dt>
-<dd><p>Bases: <a class="reference internal" href="#mcpackutils.block.BlockState" title="mcpackutils.block.BlockState"><code class="xref py py-class docutils literal notranslate"><span class="pre">BlockState</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="#mcpackutils.block.BlockProperty" title="mcpackutils.block.BlockProperty"><code class="xref py py-class docutils literal notranslate"><span class="pre">BlockProperty</span></code></a></p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mcpackutils.block.HeightState.id">
 <span class="sig-name descname"><span class="pre">id</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'minecraft:height'</span></em><a class="headerlink" href="#mcpackutils.block.HeightState.id" title="Link to this definition"></a></dt>
@@ -1599,7 +1599,7 @@
 <dl class="py class">
 <dt class="sig sig-object py" id="mcpackutils.block.HugeMushroomBitsState">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mcpackutils.block.</span></span><span class="sig-name descname"><span class="pre">HugeMushroomBitsState</span></span><a class="headerlink" href="#mcpackutils.block.HugeMushroomBitsState" title="Link to this definition"></a></dt>
-<dd><p>Bases: <a class="reference internal" href="#mcpackutils.block.BlockState" title="mcpackutils.block.BlockState"><code class="xref py py-class docutils literal notranslate"><span class="pre">BlockState</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="#mcpackutils.block.BlockProperty" title="mcpackutils.block.BlockProperty"><code class="xref py py-class docutils literal notranslate"><span class="pre">BlockProperty</span></code></a></p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mcpackutils.block.HugeMushroomBitsState.id">
 <span class="sig-name descname"><span class="pre">id</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'minecraft:huge_mushroom_bit'</span></em><a class="headerlink" href="#mcpackutils.block.HugeMushroomBitsState.id" title="Link to this definition"></a></dt>
@@ -1632,7 +1632,7 @@
 <dl class="py class">
 <dt class="sig sig-object py" id="mcpackutils.block.IntegerState">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mcpackutils.block.</span></span><span class="sig-name descname"><span class="pre">IntegerState</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#mcpackutils.util.Identifier" title="mcpackutils.util.Identifier"><span class="pre">Identifier</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">stop</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mcpackutils.block.IntegerState" title="Link to this definition"></a></dt>
-<dd><p>Bases: <a class="reference internal" href="#mcpackutils.block.BlockState" title="mcpackutils.block.BlockState"><code class="xref py py-class docutils literal notranslate"><span class="pre">BlockState</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="#mcpackutils.block.BlockProperty" title="mcpackutils.block.BlockProperty"><code class="xref py py-class docutils literal notranslate"><span class="pre">BlockProperty</span></code></a></p>
 </dd></dl>
 
 <dl class="py class">
@@ -1703,7 +1703,7 @@
 <dl class="py class">
 <dt class="sig sig-object py" id="mcpackutils.block.LiquidDepthState">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mcpackutils.block.</span></span><span class="sig-name descname"><span class="pre">LiquidDepthState</span></span><a class="headerlink" href="#mcpackutils.block.LiquidDepthState" title="Link to this definition"></a></dt>
-<dd><p>Bases: <a class="reference internal" href="#mcpackutils.block.BlockState" title="mcpackutils.block.BlockState"><code class="xref py py-class docutils literal notranslate"><span class="pre">BlockState</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="#mcpackutils.block.BlockProperty" title="mcpackutils.block.BlockProperty"><code class="xref py py-class docutils literal notranslate"><span class="pre">BlockProperty</span></code></a></p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mcpackutils.block.LiquidDepthState.id">
 <span class="sig-name descname"><span class="pre">id</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'minecraft:liquid_depth'</span></em><a class="headerlink" href="#mcpackutils.block.LiquidDepthState.id" title="Link to this definition"></a></dt>
@@ -1803,7 +1803,7 @@
 <dl class="py class">
 <dt class="sig sig-object py" id="mcpackutils.block.MoisturizedAmountState">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mcpackutils.block.</span></span><span class="sig-name descname"><span class="pre">MoisturizedAmountState</span></span><a class="headerlink" href="#mcpackutils.block.MoisturizedAmountState" title="Link to this definition"></a></dt>
-<dd><p>Bases: <a class="reference internal" href="#mcpackutils.block.BlockState" title="mcpackutils.block.BlockState"><code class="xref py py-class docutils literal notranslate"><span class="pre">BlockState</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="#mcpackutils.block.BlockProperty" title="mcpackutils.block.BlockProperty"><code class="xref py py-class docutils literal notranslate"><span class="pre">BlockProperty</span></code></a></p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mcpackutils.block.MoisturizedAmountState.id">
 <span class="sig-name descname"><span class="pre">id</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'minecraft:moisturized_amount'</span></em><a class="headerlink" href="#mcpackutils.block.MoisturizedAmountState.id" title="Link to this definition"></a></dt>
@@ -1814,7 +1814,7 @@
 <dl class="py class">
 <dt class="sig sig-object py" id="mcpackutils.block.MonsterEggStoneTypeState">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mcpackutils.block.</span></span><span class="sig-name descname"><span class="pre">MonsterEggStoneTypeState</span></span><a class="headerlink" href="#mcpackutils.block.MonsterEggStoneTypeState" title="Link to this definition"></a></dt>
-<dd><p>Bases: <a class="reference internal" href="#mcpackutils.block.BlockState" title="mcpackutils.block.BlockState"><code class="xref py py-class docutils literal notranslate"><span class="pre">BlockState</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="#mcpackutils.block.BlockProperty" title="mcpackutils.block.BlockProperty"><code class="xref py py-class docutils literal notranslate"><span class="pre">BlockProperty</span></code></a></p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mcpackutils.block.MonsterEggStoneTypeState.id">
 <span class="sig-name descname"><span class="pre">id</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'minecraft:monster_egg_stone_type'</span></em><a class="headerlink" href="#mcpackutils.block.MonsterEggStoneTypeState.id" title="Link to this definition"></a></dt>
@@ -1825,7 +1825,7 @@
 <dl class="py class">
 <dt class="sig sig-object py" id="mcpackutils.block.NewLeafTypeState">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mcpackutils.block.</span></span><span class="sig-name descname"><span class="pre">NewLeafTypeState</span></span><a class="headerlink" href="#mcpackutils.block.NewLeafTypeState" title="Link to this definition"></a></dt>
-<dd><p>Bases: <a class="reference internal" href="#mcpackutils.block.BlockState" title="mcpackutils.block.BlockState"><code class="xref py py-class docutils literal notranslate"><span class="pre">BlockState</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="#mcpackutils.block.BlockProperty" title="mcpackutils.block.BlockProperty"><code class="xref py py-class docutils literal notranslate"><span class="pre">BlockProperty</span></code></a></p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mcpackutils.block.NewLeafTypeState.id">
 <span class="sig-name descname"><span class="pre">id</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'minecraft:new_leaf_type'</span></em><a class="headerlink" href="#mcpackutils.block.NewLeafTypeState.id" title="Link to this definition"></a></dt>
@@ -1836,7 +1836,7 @@
 <dl class="py class">
 <dt class="sig sig-object py" id="mcpackutils.block.NewLogTypeState">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mcpackutils.block.</span></span><span class="sig-name descname"><span class="pre">NewLogTypeState</span></span><a class="headerlink" href="#mcpackutils.block.NewLogTypeState" title="Link to this definition"></a></dt>
-<dd><p>Bases: <a class="reference internal" href="#mcpackutils.block.BlockState" title="mcpackutils.block.BlockState"><code class="xref py py-class docutils literal notranslate"><span class="pre">BlockState</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="#mcpackutils.block.BlockProperty" title="mcpackutils.block.BlockProperty"><code class="xref py py-class docutils literal notranslate"><span class="pre">BlockProperty</span></code></a></p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mcpackutils.block.NewLogTypeState.id">
 <span class="sig-name descname"><span class="pre">id</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'minecraft:new_log_type'</span></em><a class="headerlink" href="#mcpackutils.block.NewLogTypeState.id" title="Link to this definition"></a></dt>
@@ -1869,7 +1869,7 @@
 <dl class="py class">
 <dt class="sig sig-object py" id="mcpackutils.block.OldLeafTypeState">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mcpackutils.block.</span></span><span class="sig-name descname"><span class="pre">OldLeafTypeState</span></span><a class="headerlink" href="#mcpackutils.block.OldLeafTypeState" title="Link to this definition"></a></dt>
-<dd><p>Bases: <a class="reference internal" href="#mcpackutils.block.BlockState" title="mcpackutils.block.BlockState"><code class="xref py py-class docutils literal notranslate"><span class="pre">BlockState</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="#mcpackutils.block.BlockProperty" title="mcpackutils.block.BlockProperty"><code class="xref py py-class docutils literal notranslate"><span class="pre">BlockProperty</span></code></a></p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mcpackutils.block.OldLeafTypeState.id">
 <span class="sig-name descname"><span class="pre">id</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'minecraft:old_leaf_type'</span></em><a class="headerlink" href="#mcpackutils.block.OldLeafTypeState.id" title="Link to this definition"></a></dt>
@@ -1880,7 +1880,7 @@
 <dl class="py class">
 <dt class="sig sig-object py" id="mcpackutils.block.OldLogTypeState">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mcpackutils.block.</span></span><span class="sig-name descname"><span class="pre">OldLogTypeState</span></span><a class="headerlink" href="#mcpackutils.block.OldLogTypeState" title="Link to this definition"></a></dt>
-<dd><p>Bases: <a class="reference internal" href="#mcpackutils.block.BlockState" title="mcpackutils.block.BlockState"><code class="xref py py-class docutils literal notranslate"><span class="pre">BlockState</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="#mcpackutils.block.BlockProperty" title="mcpackutils.block.BlockProperty"><code class="xref py py-class docutils literal notranslate"><span class="pre">BlockProperty</span></code></a></p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mcpackutils.block.OldLogTypeState.id">
 <span class="sig-name descname"><span class="pre">id</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'minecraft:old_log_type'</span></em><a class="headerlink" href="#mcpackutils.block.OldLogTypeState.id" title="Link to this definition"></a></dt>
@@ -2027,7 +2027,7 @@
 
 <dl class="py class">
 <dt class="sig sig-object py" id="mcpackutils.block.PlacementDirectionTrait">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mcpackutils.block.</span></span><span class="sig-name descname"><span class="pre">PlacementDirectionTrait</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">enabled_states</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#mcpackutils.block.BlockState" title="mcpackutils.block.BlockState"><span class="pre">BlockState</span></a><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">[]</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y_rotation_offset</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mcpackutils.block.PlacementDirectionTrait" title="Link to this definition"></a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mcpackutils.block.</span></span><span class="sig-name descname"><span class="pre">PlacementDirectionTrait</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">enabled_states</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#mcpackutils.block.BlockProperty" title="mcpackutils.block.BlockProperty"><span class="pre">BlockProperty</span></a><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">[]</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y_rotation_offset</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mcpackutils.block.PlacementDirectionTrait" title="Link to this definition"></a></dt>
 <dd><p>Bases: <a class="reference internal" href="#mcpackutils.block.BlockTrait" title="mcpackutils.block.BlockTrait"><code class="xref py py-class docutils literal notranslate"><span class="pre">BlockTrait</span></code></a></p>
 <dl class="py method">
 <dt class="sig sig-object py" id="mcpackutils.block.PlacementDirectionTrait.all">
@@ -2082,7 +2082,7 @@
 
 <dl class="py class">
 <dt class="sig sig-object py" id="mcpackutils.block.PlacementPositionTrait">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mcpackutils.block.</span></span><span class="sig-name descname"><span class="pre">PlacementPositionTrait</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">enabled_states</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#mcpackutils.block.BlockState" title="mcpackutils.block.BlockState"><span class="pre">BlockState</span></a><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">[]</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mcpackutils.block.PlacementPositionTrait" title="Link to this definition"></a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mcpackutils.block.</span></span><span class="sig-name descname"><span class="pre">PlacementPositionTrait</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">enabled_states</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#mcpackutils.block.BlockProperty" title="mcpackutils.block.BlockProperty"><span class="pre">BlockProperty</span></a><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">[]</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mcpackutils.block.PlacementPositionTrait" title="Link to this definition"></a></dt>
 <dd><p>Bases: <a class="reference internal" href="#mcpackutils.block.BlockTrait" title="mcpackutils.block.BlockTrait"><code class="xref py py-class docutils literal notranslate"><span class="pre">BlockTrait</span></code></a></p>
 <dl class="py method">
 <dt class="sig sig-object py" id="mcpackutils.block.PlacementPositionTrait.all">
@@ -2112,7 +2112,7 @@
 <dl class="py class">
 <dt class="sig sig-object py" id="mcpackutils.block.PortalAxisState">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mcpackutils.block.</span></span><span class="sig-name descname"><span class="pre">PortalAxisState</span></span><a class="headerlink" href="#mcpackutils.block.PortalAxisState" title="Link to this definition"></a></dt>
-<dd><p>Bases: <a class="reference internal" href="#mcpackutils.block.BlockState" title="mcpackutils.block.BlockState"><code class="xref py py-class docutils literal notranslate"><span class="pre">BlockState</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="#mcpackutils.block.BlockProperty" title="mcpackutils.block.BlockProperty"><code class="xref py py-class docutils literal notranslate"><span class="pre">BlockProperty</span></code></a></p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mcpackutils.block.PortalAxisState.id">
 <span class="sig-name descname"><span class="pre">id</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'minecraft:portal_axis'</span></em><a class="headerlink" href="#mcpackutils.block.PortalAxisState.id" title="Link to this definition"></a></dt>
@@ -2182,7 +2182,7 @@
 <dl class="py class">
 <dt class="sig sig-object py" id="mcpackutils.block.RailDirectionState">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mcpackutils.block.</span></span><span class="sig-name descname"><span class="pre">RailDirectionState</span></span><a class="headerlink" href="#mcpackutils.block.RailDirectionState" title="Link to this definition"></a></dt>
-<dd><p>Bases: <a class="reference internal" href="#mcpackutils.block.BlockState" title="mcpackutils.block.BlockState"><code class="xref py py-class docutils literal notranslate"><span class="pre">BlockState</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="#mcpackutils.block.BlockProperty" title="mcpackutils.block.BlockProperty"><code class="xref py py-class docutils literal notranslate"><span class="pre">BlockProperty</span></code></a></p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mcpackutils.block.RailDirectionState.id">
 <span class="sig-name descname"><span class="pre">id</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'minecraft:rail_direction'</span></em><a class="headerlink" href="#mcpackutils.block.RailDirectionState.id" title="Link to this definition"></a></dt>
@@ -2209,7 +2209,7 @@
 <dl class="py class">
 <dt class="sig sig-object py" id="mcpackutils.block.RedstoneSignalState">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mcpackutils.block.</span></span><span class="sig-name descname"><span class="pre">RedstoneSignalState</span></span><a class="headerlink" href="#mcpackutils.block.RedstoneSignalState" title="Link to this definition"></a></dt>
-<dd><p>Bases: <a class="reference internal" href="#mcpackutils.block.BlockState" title="mcpackutils.block.BlockState"><code class="xref py py-class docutils literal notranslate"><span class="pre">BlockState</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="#mcpackutils.block.BlockProperty" title="mcpackutils.block.BlockProperty"><code class="xref py py-class docutils literal notranslate"><span class="pre">BlockProperty</span></code></a></p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mcpackutils.block.RedstoneSignalState.id">
 <span class="sig-name descname"><span class="pre">id</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'minecraft:redstone_signal'</span></em><a class="headerlink" href="#mcpackutils.block.RedstoneSignalState.id" title="Link to this definition"></a></dt>
@@ -2220,7 +2220,7 @@
 <dl class="py class">
 <dt class="sig sig-object py" id="mcpackutils.block.RepeaterDelayState">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mcpackutils.block.</span></span><span class="sig-name descname"><span class="pre">RepeaterDelayState</span></span><a class="headerlink" href="#mcpackutils.block.RepeaterDelayState" title="Link to this definition"></a></dt>
-<dd><p>Bases: <a class="reference internal" href="#mcpackutils.block.BlockState" title="mcpackutils.block.BlockState"><code class="xref py py-class docutils literal notranslate"><span class="pre">BlockState</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="#mcpackutils.block.BlockProperty" title="mcpackutils.block.BlockProperty"><code class="xref py py-class docutils literal notranslate"><span class="pre">BlockProperty</span></code></a></p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mcpackutils.block.RepeaterDelayState.id">
 <span class="sig-name descname"><span class="pre">id</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'minecraft:repeater_delay'</span></em><a class="headerlink" href="#mcpackutils.block.RepeaterDelayState.id" title="Link to this definition"></a></dt>
@@ -2231,7 +2231,7 @@
 <dl class="py class">
 <dt class="sig sig-object py" id="mcpackutils.block.SandStoneTypeState">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mcpackutils.block.</span></span><span class="sig-name descname"><span class="pre">SandStoneTypeState</span></span><a class="headerlink" href="#mcpackutils.block.SandStoneTypeState" title="Link to this definition"></a></dt>
-<dd><p>Bases: <a class="reference internal" href="#mcpackutils.block.BlockState" title="mcpackutils.block.BlockState"><code class="xref py py-class docutils literal notranslate"><span class="pre">BlockState</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="#mcpackutils.block.BlockProperty" title="mcpackutils.block.BlockProperty"><code class="xref py py-class docutils literal notranslate"><span class="pre">BlockProperty</span></code></a></p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mcpackutils.block.SandStoneTypeState.id">
 <span class="sig-name descname"><span class="pre">id</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'minecraft:sand_stone_type'</span></em><a class="headerlink" href="#mcpackutils.block.SandStoneTypeState.id" title="Link to this definition"></a></dt>
@@ -2242,7 +2242,7 @@
 <dl class="py class">
 <dt class="sig sig-object py" id="mcpackutils.block.SandTypeState">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mcpackutils.block.</span></span><span class="sig-name descname"><span class="pre">SandTypeState</span></span><a class="headerlink" href="#mcpackutils.block.SandTypeState" title="Link to this definition"></a></dt>
-<dd><p>Bases: <a class="reference internal" href="#mcpackutils.block.BlockState" title="mcpackutils.block.BlockState"><code class="xref py py-class docutils literal notranslate"><span class="pre">BlockState</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="#mcpackutils.block.BlockProperty" title="mcpackutils.block.BlockProperty"><code class="xref py py-class docutils literal notranslate"><span class="pre">BlockProperty</span></code></a></p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mcpackutils.block.SandTypeState.id">
 <span class="sig-name descname"><span class="pre">id</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'minecraft:sand_type'</span></em><a class="headerlink" href="#mcpackutils.block.SandTypeState.id" title="Link to this definition"></a></dt>
@@ -2264,7 +2264,7 @@
 <dl class="py class">
 <dt class="sig sig-object py" id="mcpackutils.block.SaplingTypeState">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mcpackutils.block.</span></span><span class="sig-name descname"><span class="pre">SaplingTypeState</span></span><a class="headerlink" href="#mcpackutils.block.SaplingTypeState" title="Link to this definition"></a></dt>
-<dd><p>Bases: <a class="reference internal" href="#mcpackutils.block.BlockState" title="mcpackutils.block.BlockState"><code class="xref py py-class docutils literal notranslate"><span class="pre">BlockState</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="#mcpackutils.block.BlockProperty" title="mcpackutils.block.BlockProperty"><code class="xref py py-class docutils literal notranslate"><span class="pre">BlockProperty</span></code></a></p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mcpackutils.block.SaplingTypeState.id">
 <span class="sig-name descname"><span class="pre">id</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'minecraft:sapling_type'</span></em><a class="headerlink" href="#mcpackutils.block.SaplingTypeState.id" title="Link to this definition"></a></dt>
@@ -2275,7 +2275,7 @@
 <dl class="py class">
 <dt class="sig sig-object py" id="mcpackutils.block.SculkSensorPhaseState">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mcpackutils.block.</span></span><span class="sig-name descname"><span class="pre">SculkSensorPhaseState</span></span><a class="headerlink" href="#mcpackutils.block.SculkSensorPhaseState" title="Link to this definition"></a></dt>
-<dd><p>Bases: <a class="reference internal" href="#mcpackutils.block.BlockState" title="mcpackutils.block.BlockState"><code class="xref py py-class docutils literal notranslate"><span class="pre">BlockState</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="#mcpackutils.block.BlockProperty" title="mcpackutils.block.BlockProperty"><code class="xref py py-class docutils literal notranslate"><span class="pre">BlockProperty</span></code></a></p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mcpackutils.block.SculkSensorPhaseState.id">
 <span class="sig-name descname"><span class="pre">id</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'minecraft:sculk_sensor_phase'</span></em><a class="headerlink" href="#mcpackutils.block.SculkSensorPhaseState.id" title="Link to this definition"></a></dt>
@@ -2286,7 +2286,7 @@
 <dl class="py class">
 <dt class="sig sig-object py" id="mcpackutils.block.SeaGrassTypeState">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mcpackutils.block.</span></span><span class="sig-name descname"><span class="pre">SeaGrassTypeState</span></span><a class="headerlink" href="#mcpackutils.block.SeaGrassTypeState" title="Link to this definition"></a></dt>
-<dd><p>Bases: <a class="reference internal" href="#mcpackutils.block.BlockState" title="mcpackutils.block.BlockState"><code class="xref py py-class docutils literal notranslate"><span class="pre">BlockState</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="#mcpackutils.block.BlockProperty" title="mcpackutils.block.BlockProperty"><code class="xref py py-class docutils literal notranslate"><span class="pre">BlockProperty</span></code></a></p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mcpackutils.block.SeaGrassTypeState.id">
 <span class="sig-name descname"><span class="pre">id</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'minecraft:sea_grass_type'</span></em><a class="headerlink" href="#mcpackutils.block.SeaGrassTypeState.id" title="Link to this definition"></a></dt>
@@ -2319,7 +2319,7 @@
 <dl class="py class">
 <dt class="sig sig-object py" id="mcpackutils.block.SpongeTypeState">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mcpackutils.block.</span></span><span class="sig-name descname"><span class="pre">SpongeTypeState</span></span><a class="headerlink" href="#mcpackutils.block.SpongeTypeState" title="Link to this definition"></a></dt>
-<dd><p>Bases: <a class="reference internal" href="#mcpackutils.block.BlockState" title="mcpackutils.block.BlockState"><code class="xref py py-class docutils literal notranslate"><span class="pre">BlockState</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="#mcpackutils.block.BlockProperty" title="mcpackutils.block.BlockProperty"><code class="xref py py-class docutils literal notranslate"><span class="pre">BlockProperty</span></code></a></p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mcpackutils.block.SpongeTypeState.id">
 <span class="sig-name descname"><span class="pre">id</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'minecraft:sponge_type'</span></em><a class="headerlink" href="#mcpackutils.block.SpongeTypeState.id" title="Link to this definition"></a></dt>
@@ -2341,7 +2341,7 @@
 <dl class="py class">
 <dt class="sig sig-object py" id="mcpackutils.block.StabilityState">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mcpackutils.block.</span></span><span class="sig-name descname"><span class="pre">StabilityState</span></span><a class="headerlink" href="#mcpackutils.block.StabilityState" title="Link to this definition"></a></dt>
-<dd><p>Bases: <a class="reference internal" href="#mcpackutils.block.BlockState" title="mcpackutils.block.BlockState"><code class="xref py py-class docutils literal notranslate"><span class="pre">BlockState</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="#mcpackutils.block.BlockProperty" title="mcpackutils.block.BlockProperty"><code class="xref py py-class docutils literal notranslate"><span class="pre">BlockProperty</span></code></a></p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mcpackutils.block.StabilityState.id">
 <span class="sig-name descname"><span class="pre">id</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'minecraft:stability'</span></em><a class="headerlink" href="#mcpackutils.block.StabilityState.id" title="Link to this definition"></a></dt>
@@ -2363,7 +2363,7 @@
 <dl class="py class">
 <dt class="sig sig-object py" id="mcpackutils.block.StoneBrickTypeState">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mcpackutils.block.</span></span><span class="sig-name descname"><span class="pre">StoneBrickTypeState</span></span><a class="headerlink" href="#mcpackutils.block.StoneBrickTypeState" title="Link to this definition"></a></dt>
-<dd><p>Bases: <a class="reference internal" href="#mcpackutils.block.BlockState" title="mcpackutils.block.BlockState"><code class="xref py py-class docutils literal notranslate"><span class="pre">BlockState</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="#mcpackutils.block.BlockProperty" title="mcpackutils.block.BlockProperty"><code class="xref py py-class docutils literal notranslate"><span class="pre">BlockProperty</span></code></a></p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mcpackutils.block.StoneBrickTypeState.id">
 <span class="sig-name descname"><span class="pre">id</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'minecraft:stone_brick_type'</span></em><a class="headerlink" href="#mcpackutils.block.StoneBrickTypeState.id" title="Link to this definition"></a></dt>
@@ -2374,7 +2374,7 @@
 <dl class="py class">
 <dt class="sig sig-object py" id="mcpackutils.block.StoneSlabType2State">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mcpackutils.block.</span></span><span class="sig-name descname"><span class="pre">StoneSlabType2State</span></span><a class="headerlink" href="#mcpackutils.block.StoneSlabType2State" title="Link to this definition"></a></dt>
-<dd><p>Bases: <a class="reference internal" href="#mcpackutils.block.BlockState" title="mcpackutils.block.BlockState"><code class="xref py py-class docutils literal notranslate"><span class="pre">BlockState</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="#mcpackutils.block.BlockProperty" title="mcpackutils.block.BlockProperty"><code class="xref py py-class docutils literal notranslate"><span class="pre">BlockProperty</span></code></a></p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mcpackutils.block.StoneSlabType2State.id">
 <span class="sig-name descname"><span class="pre">id</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'minecraft:stone_slab_type2'</span></em><a class="headerlink" href="#mcpackutils.block.StoneSlabType2State.id" title="Link to this definition"></a></dt>
@@ -2385,7 +2385,7 @@
 <dl class="py class">
 <dt class="sig sig-object py" id="mcpackutils.block.StoneSlabType3State">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mcpackutils.block.</span></span><span class="sig-name descname"><span class="pre">StoneSlabType3State</span></span><a class="headerlink" href="#mcpackutils.block.StoneSlabType3State" title="Link to this definition"></a></dt>
-<dd><p>Bases: <a class="reference internal" href="#mcpackutils.block.BlockState" title="mcpackutils.block.BlockState"><code class="xref py py-class docutils literal notranslate"><span class="pre">BlockState</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="#mcpackutils.block.BlockProperty" title="mcpackutils.block.BlockProperty"><code class="xref py py-class docutils literal notranslate"><span class="pre">BlockProperty</span></code></a></p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mcpackutils.block.StoneSlabType3State.id">
 <span class="sig-name descname"><span class="pre">id</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'minecraft:stone_slab_type3'</span></em><a class="headerlink" href="#mcpackutils.block.StoneSlabType3State.id" title="Link to this definition"></a></dt>
@@ -2396,7 +2396,7 @@
 <dl class="py class">
 <dt class="sig sig-object py" id="mcpackutils.block.StoneSlabType4State">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mcpackutils.block.</span></span><span class="sig-name descname"><span class="pre">StoneSlabType4State</span></span><a class="headerlink" href="#mcpackutils.block.StoneSlabType4State" title="Link to this definition"></a></dt>
-<dd><p>Bases: <a class="reference internal" href="#mcpackutils.block.BlockState" title="mcpackutils.block.BlockState"><code class="xref py py-class docutils literal notranslate"><span class="pre">BlockState</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="#mcpackutils.block.BlockProperty" title="mcpackutils.block.BlockProperty"><code class="xref py py-class docutils literal notranslate"><span class="pre">BlockProperty</span></code></a></p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mcpackutils.block.StoneSlabType4State.id">
 <span class="sig-name descname"><span class="pre">id</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'minecraft:stone_slab_type_4'</span></em><a class="headerlink" href="#mcpackutils.block.StoneSlabType4State.id" title="Link to this definition"></a></dt>
@@ -2407,7 +2407,7 @@
 <dl class="py class">
 <dt class="sig sig-object py" id="mcpackutils.block.StoneSlabTypeState">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mcpackutils.block.</span></span><span class="sig-name descname"><span class="pre">StoneSlabTypeState</span></span><a class="headerlink" href="#mcpackutils.block.StoneSlabTypeState" title="Link to this definition"></a></dt>
-<dd><p>Bases: <a class="reference internal" href="#mcpackutils.block.BlockState" title="mcpackutils.block.BlockState"><code class="xref py py-class docutils literal notranslate"><span class="pre">BlockState</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="#mcpackutils.block.BlockProperty" title="mcpackutils.block.BlockProperty"><code class="xref py py-class docutils literal notranslate"><span class="pre">BlockProperty</span></code></a></p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mcpackutils.block.StoneSlabTypeState.id">
 <span class="sig-name descname"><span class="pre">id</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'minecraft:stone_slab_type'</span></em><a class="headerlink" href="#mcpackutils.block.StoneSlabTypeState.id" title="Link to this definition"></a></dt>
@@ -2418,7 +2418,7 @@
 <dl class="py class">
 <dt class="sig sig-object py" id="mcpackutils.block.StoneTypeState">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mcpackutils.block.</span></span><span class="sig-name descname"><span class="pre">StoneTypeState</span></span><a class="headerlink" href="#mcpackutils.block.StoneTypeState" title="Link to this definition"></a></dt>
-<dd><p>Bases: <a class="reference internal" href="#mcpackutils.block.BlockState" title="mcpackutils.block.BlockState"><code class="xref py py-class docutils literal notranslate"><span class="pre">BlockState</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="#mcpackutils.block.BlockProperty" title="mcpackutils.block.BlockProperty"><code class="xref py py-class docutils literal notranslate"><span class="pre">BlockProperty</span></code></a></p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mcpackutils.block.StoneTypeState.id">
 <span class="sig-name descname"><span class="pre">id</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'minecraft:stone_type'</span></em><a class="headerlink" href="#mcpackutils.block.StoneTypeState.id" title="Link to this definition"></a></dt>
@@ -2440,7 +2440,7 @@
 <dl class="py class">
 <dt class="sig sig-object py" id="mcpackutils.block.StructureBlockTypeState">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mcpackutils.block.</span></span><span class="sig-name descname"><span class="pre">StructureBlockTypeState</span></span><a class="headerlink" href="#mcpackutils.block.StructureBlockTypeState" title="Link to this definition"></a></dt>
-<dd><p>Bases: <a class="reference internal" href="#mcpackutils.block.BlockState" title="mcpackutils.block.BlockState"><code class="xref py py-class docutils literal notranslate"><span class="pre">BlockState</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="#mcpackutils.block.BlockProperty" title="mcpackutils.block.BlockProperty"><code class="xref py py-class docutils literal notranslate"><span class="pre">BlockProperty</span></code></a></p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mcpackutils.block.StructureBlockTypeState.id">
 <span class="sig-name descname"><span class="pre">id</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'minecraft:structure_block_type'</span></em><a class="headerlink" href="#mcpackutils.block.StructureBlockTypeState.id" title="Link to this definition"></a></dt>
@@ -2451,7 +2451,7 @@
 <dl class="py class">
 <dt class="sig sig-object py" id="mcpackutils.block.StructureVoidTypeState">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mcpackutils.block.</span></span><span class="sig-name descname"><span class="pre">StructureVoidTypeState</span></span><a class="headerlink" href="#mcpackutils.block.StructureVoidTypeState" title="Link to this definition"></a></dt>
-<dd><p>Bases: <a class="reference internal" href="#mcpackutils.block.BlockState" title="mcpackutils.block.BlockState"><code class="xref py py-class docutils literal notranslate"><span class="pre">BlockState</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="#mcpackutils.block.BlockProperty" title="mcpackutils.block.BlockProperty"><code class="xref py py-class docutils literal notranslate"><span class="pre">BlockProperty</span></code></a></p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mcpackutils.block.StructureVoidTypeState.id">
 <span class="sig-name descname"><span class="pre">id</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'minecraft:structure_void_type'</span></em><a class="headerlink" href="#mcpackutils.block.StructureVoidTypeState.id" title="Link to this definition"></a></dt>
@@ -2473,7 +2473,7 @@
 <dl class="py class">
 <dt class="sig sig-object py" id="mcpackutils.block.TallGrassTypeState">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mcpackutils.block.</span></span><span class="sig-name descname"><span class="pre">TallGrassTypeState</span></span><a class="headerlink" href="#mcpackutils.block.TallGrassTypeState" title="Link to this definition"></a></dt>
-<dd><p>Bases: <a class="reference internal" href="#mcpackutils.block.BlockState" title="mcpackutils.block.BlockState"><code class="xref py py-class docutils literal notranslate"><span class="pre">BlockState</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="#mcpackutils.block.BlockProperty" title="mcpackutils.block.BlockProperty"><code class="xref py py-class docutils literal notranslate"><span class="pre">BlockProperty</span></code></a></p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mcpackutils.block.TallGrassTypeState.id">
 <span class="sig-name descname"><span class="pre">id</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'minecraft:tall_grass_type'</span></em><a class="headerlink" href="#mcpackutils.block.TallGrassTypeState.id" title="Link to this definition"></a></dt>
@@ -2517,7 +2517,7 @@
 <dl class="py class">
 <dt class="sig sig-object py" id="mcpackutils.block.TorchFacingDirectionState">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mcpackutils.block.</span></span><span class="sig-name descname"><span class="pre">TorchFacingDirectionState</span></span><a class="headerlink" href="#mcpackutils.block.TorchFacingDirectionState" title="Link to this definition"></a></dt>
-<dd><p>Bases: <a class="reference internal" href="#mcpackutils.block.BlockState" title="mcpackutils.block.BlockState"><code class="xref py py-class docutils literal notranslate"><span class="pre">BlockState</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="#mcpackutils.block.BlockProperty" title="mcpackutils.block.BlockProperty"><code class="xref py py-class docutils literal notranslate"><span class="pre">BlockProperty</span></code></a></p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mcpackutils.block.TorchFacingDirectionState.id">
 <span class="sig-name descname"><span class="pre">id</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'minecraft:torch_facing_direction'</span></em><a class="headerlink" href="#mcpackutils.block.TorchFacingDirectionState.id" title="Link to this definition"></a></dt>
@@ -2576,7 +2576,7 @@
 <dl class="py class">
 <dt class="sig sig-object py" id="mcpackutils.block.TurtleEggCountState">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mcpackutils.block.</span></span><span class="sig-name descname"><span class="pre">TurtleEggCountState</span></span><a class="headerlink" href="#mcpackutils.block.TurtleEggCountState" title="Link to this definition"></a></dt>
-<dd><p>Bases: <a class="reference internal" href="#mcpackutils.block.BlockState" title="mcpackutils.block.BlockState"><code class="xref py py-class docutils literal notranslate"><span class="pre">BlockState</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="#mcpackutils.block.BlockProperty" title="mcpackutils.block.BlockProperty"><code class="xref py py-class docutils literal notranslate"><span class="pre">BlockProperty</span></code></a></p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mcpackutils.block.TurtleEggCountState.id">
 <span class="sig-name descname"><span class="pre">id</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'minecraft:turtle_egg_count'</span></em><a class="headerlink" href="#mcpackutils.block.TurtleEggCountState.id" title="Link to this definition"></a></dt>
@@ -2631,7 +2631,7 @@
 <dl class="py class">
 <dt class="sig sig-object py" id="mcpackutils.block.VerticalHalfState">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mcpackutils.block.</span></span><span class="sig-name descname"><span class="pre">VerticalHalfState</span></span><a class="headerlink" href="#mcpackutils.block.VerticalHalfState" title="Link to this definition"></a></dt>
-<dd><p>Bases: <a class="reference internal" href="#mcpackutils.block.BlockState" title="mcpackutils.block.BlockState"><code class="xref py py-class docutils literal notranslate"><span class="pre">BlockState</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="#mcpackutils.block.BlockProperty" title="mcpackutils.block.BlockProperty"><code class="xref py py-class docutils literal notranslate"><span class="pre">BlockProperty</span></code></a></p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mcpackutils.block.VerticalHalfState.id">
 <span class="sig-name descname"><span class="pre">id</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'minecraft:vertical_half'</span></em><a class="headerlink" href="#mcpackutils.block.VerticalHalfState.id" title="Link to this definition"></a></dt>
@@ -2642,7 +2642,7 @@
 <dl class="py class">
 <dt class="sig sig-object py" id="mcpackutils.block.VineDirectionBitsState">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mcpackutils.block.</span></span><span class="sig-name descname"><span class="pre">VineDirectionBitsState</span></span><a class="headerlink" href="#mcpackutils.block.VineDirectionBitsState" title="Link to this definition"></a></dt>
-<dd><p>Bases: <a class="reference internal" href="#mcpackutils.block.BlockState" title="mcpackutils.block.BlockState"><code class="xref py py-class docutils literal notranslate"><span class="pre">BlockState</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="#mcpackutils.block.BlockProperty" title="mcpackutils.block.BlockProperty"><code class="xref py py-class docutils literal notranslate"><span class="pre">BlockProperty</span></code></a></p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mcpackutils.block.VineDirectionBitsState.id">
 <span class="sig-name descname"><span class="pre">id</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'minecraft:vine_direction_bits'</span></em><a class="headerlink" href="#mcpackutils.block.VineDirectionBitsState.id" title="Link to this definition"></a></dt>
@@ -2664,7 +2664,7 @@
 <dl class="py class">
 <dt class="sig sig-object py" id="mcpackutils.block.WallBlockTypeState">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mcpackutils.block.</span></span><span class="sig-name descname"><span class="pre">WallBlockTypeState</span></span><a class="headerlink" href="#mcpackutils.block.WallBlockTypeState" title="Link to this definition"></a></dt>
-<dd><p>Bases: <a class="reference internal" href="#mcpackutils.block.BlockState" title="mcpackutils.block.BlockState"><code class="xref py py-class docutils literal notranslate"><span class="pre">BlockState</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="#mcpackutils.block.BlockProperty" title="mcpackutils.block.BlockProperty"><code class="xref py py-class docutils literal notranslate"><span class="pre">BlockProperty</span></code></a></p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mcpackutils.block.WallBlockTypeState.id">
 <span class="sig-name descname"><span class="pre">id</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'minecraft:wall_block_type'</span></em><a class="headerlink" href="#mcpackutils.block.WallBlockTypeState.id" title="Link to this definition"></a></dt>
@@ -2675,7 +2675,7 @@
 <dl class="py class">
 <dt class="sig sig-object py" id="mcpackutils.block.WallConnectionTypEastState">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mcpackutils.block.</span></span><span class="sig-name descname"><span class="pre">WallConnectionTypEastState</span></span><a class="headerlink" href="#mcpackutils.block.WallConnectionTypEastState" title="Link to this definition"></a></dt>
-<dd><p>Bases: <a class="reference internal" href="#mcpackutils.block.BlockState" title="mcpackutils.block.BlockState"><code class="xref py py-class docutils literal notranslate"><span class="pre">BlockState</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="#mcpackutils.block.BlockProperty" title="mcpackutils.block.BlockProperty"><code class="xref py py-class docutils literal notranslate"><span class="pre">BlockProperty</span></code></a></p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mcpackutils.block.WallConnectionTypEastState.id">
 <span class="sig-name descname"><span class="pre">id</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'minecraft:wall_connection_type_east'</span></em><a class="headerlink" href="#mcpackutils.block.WallConnectionTypEastState.id" title="Link to this definition"></a></dt>
@@ -2686,7 +2686,7 @@
 <dl class="py class">
 <dt class="sig sig-object py" id="mcpackutils.block.WallConnectionTypeNorthState">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mcpackutils.block.</span></span><span class="sig-name descname"><span class="pre">WallConnectionTypeNorthState</span></span><a class="headerlink" href="#mcpackutils.block.WallConnectionTypeNorthState" title="Link to this definition"></a></dt>
-<dd><p>Bases: <a class="reference internal" href="#mcpackutils.block.BlockState" title="mcpackutils.block.BlockState"><code class="xref py py-class docutils literal notranslate"><span class="pre">BlockState</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="#mcpackutils.block.BlockProperty" title="mcpackutils.block.BlockProperty"><code class="xref py py-class docutils literal notranslate"><span class="pre">BlockProperty</span></code></a></p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mcpackutils.block.WallConnectionTypeNorthState.id">
 <span class="sig-name descname"><span class="pre">id</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'minecraft:wall_connection_type_north'</span></em><a class="headerlink" href="#mcpackutils.block.WallConnectionTypeNorthState.id" title="Link to this definition"></a></dt>
@@ -2697,7 +2697,7 @@
 <dl class="py class">
 <dt class="sig sig-object py" id="mcpackutils.block.WallConnectionTypeSouthState">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mcpackutils.block.</span></span><span class="sig-name descname"><span class="pre">WallConnectionTypeSouthState</span></span><a class="headerlink" href="#mcpackutils.block.WallConnectionTypeSouthState" title="Link to this definition"></a></dt>
-<dd><p>Bases: <a class="reference internal" href="#mcpackutils.block.BlockState" title="mcpackutils.block.BlockState"><code class="xref py py-class docutils literal notranslate"><span class="pre">BlockState</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="#mcpackutils.block.BlockProperty" title="mcpackutils.block.BlockProperty"><code class="xref py py-class docutils literal notranslate"><span class="pre">BlockProperty</span></code></a></p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mcpackutils.block.WallConnectionTypeSouthState.id">
 <span class="sig-name descname"><span class="pre">id</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'minecraft:wall_connection_type_south'</span></em><a class="headerlink" href="#mcpackutils.block.WallConnectionTypeSouthState.id" title="Link to this definition"></a></dt>
@@ -2708,7 +2708,7 @@
 <dl class="py class">
 <dt class="sig sig-object py" id="mcpackutils.block.WallConnectionTypeWestState">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mcpackutils.block.</span></span><span class="sig-name descname"><span class="pre">WallConnectionTypeWestState</span></span><a class="headerlink" href="#mcpackutils.block.WallConnectionTypeWestState" title="Link to this definition"></a></dt>
-<dd><p>Bases: <a class="reference internal" href="#mcpackutils.block.BlockState" title="mcpackutils.block.BlockState"><code class="xref py py-class docutils literal notranslate"><span class="pre">BlockState</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="#mcpackutils.block.BlockProperty" title="mcpackutils.block.BlockProperty"><code class="xref py py-class docutils literal notranslate"><span class="pre">BlockProperty</span></code></a></p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mcpackutils.block.WallConnectionTypeWestState.id">
 <span class="sig-name descname"><span class="pre">id</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'minecraft:wall_connection_type_west'</span></em><a class="headerlink" href="#mcpackutils.block.WallConnectionTypeWestState.id" title="Link to this definition"></a></dt>
@@ -2730,7 +2730,7 @@
 <dl class="py class">
 <dt class="sig sig-object py" id="mcpackutils.block.WeirdoDirectionState">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mcpackutils.block.</span></span><span class="sig-name descname"><span class="pre">WeirdoDirectionState</span></span><a class="headerlink" href="#mcpackutils.block.WeirdoDirectionState" title="Link to this definition"></a></dt>
-<dd><p>Bases: <a class="reference internal" href="#mcpackutils.block.BlockState" title="mcpackutils.block.BlockState"><code class="xref py py-class docutils literal notranslate"><span class="pre">BlockState</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="#mcpackutils.block.BlockProperty" title="mcpackutils.block.BlockProperty"><code class="xref py py-class docutils literal notranslate"><span class="pre">BlockProperty</span></code></a></p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mcpackutils.block.WeirdoDirectionState.id">
 <span class="sig-name descname"><span class="pre">id</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'minecraft:weirdo_direction'</span></em><a class="headerlink" href="#mcpackutils.block.WeirdoDirectionState.id" title="Link to this definition"></a></dt>
@@ -2741,7 +2741,7 @@
 <dl class="py class">
 <dt class="sig sig-object py" id="mcpackutils.block.WoodTypeState">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mcpackutils.block.</span></span><span class="sig-name descname"><span class="pre">WoodTypeState</span></span><a class="headerlink" href="#mcpackutils.block.WoodTypeState" title="Link to this definition"></a></dt>
-<dd><p>Bases: <a class="reference internal" href="#mcpackutils.block.BlockState" title="mcpackutils.block.BlockState"><code class="xref py py-class docutils literal notranslate"><span class="pre">BlockState</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="#mcpackutils.block.BlockProperty" title="mcpackutils.block.BlockProperty"><code class="xref py py-class docutils literal notranslate"><span class="pre">BlockProperty</span></code></a></p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mcpackutils.block.WoodTypeState.id">
 <span class="sig-name descname"><span class="pre">id</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'minecraft:wood_type'</span></em><a class="headerlink" href="#mcpackutils.block.WoodTypeState.id" title="Link to this definition"></a></dt>
@@ -3163,9 +3163,9 @@
 </dd></dl>
 
 <dl class="py class">
-<dt class="sig sig-object py" id="mcpackutils.event.DecrementBlockState">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mcpackutils.event.</span></span><span class="sig-name descname"><span class="pre">DecrementBlockState</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#mcpackutils.util.Identifier" title="mcpackutils.util.Identifier"><span class="pre">Identifier</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">amount</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mcpackutils.event.DecrementBlockState" title="Link to this definition"></a></dt>
-<dd><p>Bases: <a class="reference internal" href="#mcpackutils.event.SetBlockState" title="mcpackutils.event.SetBlockState"><code class="xref py py-class docutils literal notranslate"><span class="pre">SetBlockState</span></code></a></p>
+<dt class="sig sig-object py" id="mcpackutils.event.DecrementBlockProperty">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mcpackutils.event.</span></span><span class="sig-name descname"><span class="pre">DecrementBlockProperty</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#mcpackutils.util.Identifier" title="mcpackutils.util.Identifier"><span class="pre">Identifier</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">amount</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mcpackutils.event.DecrementBlockProperty" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#mcpackutils.event.SetBlockProperty" title="mcpackutils.event.SetBlockProperty"><code class="xref py py-class docutils literal notranslate"><span class="pre">SetBlockProperty</span></code></a></p>
 </dd></dl>
 
 <dl class="py class">
@@ -3207,9 +3207,9 @@
 </dd></dl>
 
 <dl class="py class">
-<dt class="sig sig-object py" id="mcpackutils.event.IncrementBlockState">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mcpackutils.event.</span></span><span class="sig-name descname"><span class="pre">IncrementBlockState</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#mcpackutils.util.Identifier" title="mcpackutils.util.Identifier"><span class="pre">Identifier</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">amount</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mcpackutils.event.IncrementBlockState" title="Link to this definition"></a></dt>
-<dd><p>Bases: <a class="reference internal" href="#mcpackutils.event.SetBlockState" title="mcpackutils.event.SetBlockState"><code class="xref py py-class docutils literal notranslate"><span class="pre">SetBlockState</span></code></a></p>
+<dt class="sig sig-object py" id="mcpackutils.event.IncrementBlockProperty">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mcpackutils.event.</span></span><span class="sig-name descname"><span class="pre">IncrementBlockProperty</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#mcpackutils.util.Identifier" title="mcpackutils.util.Identifier"><span class="pre">Identifier</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">amount</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mcpackutils.event.IncrementBlockProperty" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#mcpackutils.event.SetBlockProperty" title="mcpackutils.event.SetBlockProperty"><code class="xref py py-class docutils literal notranslate"><span class="pre">SetBlockProperty</span></code></a></p>
 </dd></dl>
 
 <dl class="py class">
@@ -3387,17 +3387,17 @@
 </dd></dl>
 
 <dl class="py class">
-<dt class="sig sig-object py" id="mcpackutils.event.SetBlockState">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mcpackutils.event.</span></span><span class="sig-name descname"><span class="pre">SetBlockState</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">states</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">{}</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">state</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mcpackutils.event.SetBlockState" title="Link to this definition"></a></dt>
+<dt class="sig sig-object py" id="mcpackutils.event.SetBlockProperty">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mcpackutils.event.</span></span><span class="sig-name descname"><span class="pre">SetBlockProperty</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">states</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">{}</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">state</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mcpackutils.event.SetBlockProperty" title="Link to this definition"></a></dt>
 <dd><p>Bases: <a class="reference internal" href="#mcpackutils.event.Event" title="mcpackutils.event.Event"><code class="xref py py-class docutils literal notranslate"><span class="pre">Event</span></code></a></p>
 <dl class="py attribute">
-<dt class="sig sig-object py" id="mcpackutils.event.SetBlockState.id">
-<span class="sig-name descname"><span class="pre">id</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'minecraft:set_block_state'</span></em><a class="headerlink" href="#mcpackutils.event.SetBlockState.id" title="Link to this definition"></a></dt>
+<dt class="sig sig-object py" id="mcpackutils.event.SetBlockProperty.id">
+<span class="sig-name descname"><span class="pre">id</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'minecraft:set_block_state'</span></em><a class="headerlink" href="#mcpackutils.event.SetBlockProperty.id" title="Link to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py property">
-<dt class="sig sig-object py" id="mcpackutils.event.SetBlockState.states">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">states</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#mcpackutils.event.SetBlockState.states" title="Link to this definition"></a></dt>
+<dt class="sig sig-object py" id="mcpackutils.event.SetBlockProperty.states">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">states</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#mcpackutils.event.SetBlockProperty.states" title="Link to this definition"></a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -3430,9 +3430,9 @@
 </dd></dl>
 
 <dl class="py class">
-<dt class="sig sig-object py" id="mcpackutils.event.SwitchBlockState">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mcpackutils.event.</span></span><span class="sig-name descname"><span class="pre">SwitchBlockState</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#mcpackutils.util.Identifier" title="mcpackutils.util.Identifier"><span class="pre">Identifier</span></a></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mcpackutils.event.SwitchBlockState" title="Link to this definition"></a></dt>
-<dd><p>Bases: <a class="reference internal" href="#mcpackutils.event.SetBlockState" title="mcpackutils.event.SetBlockState"><code class="xref py py-class docutils literal notranslate"><span class="pre">SetBlockState</span></code></a></p>
+<dt class="sig sig-object py" id="mcpackutils.event.SwitchBlockProperty">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mcpackutils.event.</span></span><span class="sig-name descname"><span class="pre">SwitchBlockProperty</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#mcpackutils.util.Identifier" title="mcpackutils.util.Identifier"><span class="pre">Identifier</span></a></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mcpackutils.event.SwitchBlockProperty" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#mcpackutils.event.SetBlockProperty" title="mcpackutils.event.SetBlockProperty"><code class="xref py py-class docutils literal notranslate"><span class="pre">SetBlockProperty</span></code></a></p>
 </dd></dl>
 
 <dl class="py class">
@@ -4695,8 +4695,8 @@
 <dd></dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="mcpackutils.util.Identifier.parse">
-<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">parse</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Self</span></span></span><a class="headerlink" href="#mcpackutils.util.Identifier.parse" title="Link to this definition"></a></dt>
+<dt class="sig sig-object py" id="mcpackutils.util.Identifier.of">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">parse</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Self</span></span></span><a class="headerlink" href="#mcpackutils.util.Identifier.of" title="Link to this definition"></a></dt>
 <dd><p>Parse this value as an identifier</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>

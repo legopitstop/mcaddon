@@ -1,0 +1,143 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "type": "object",
+  "required": ["format_version", "minecraft:single_block_feature"],
+  "properties": {
+    "format_version": { "type": "string" },
+    "minecraft:single_block_feature": {
+      "type": "object",
+      "required": ["description"],
+      "properties": {
+        "description": {
+          "type": "object",
+          "required": ["identifier"],
+          "properties": {
+            "identifier": {
+              "type": "string"
+            }
+          },
+          "additionalProperties": false
+        },
+        "places_block": {
+          "type": ["object", "string"],
+          "properties": {
+            "name": { "type": "string" },
+            "states": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          },
+          "additionalProperties": false
+        },
+        "enforce_placement_rule": { "type": "boolean" },
+        "enforce_survivability_rule": { "type": "boolean" },
+        "may_place_on": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "may_replace": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "may_attach_to": {
+          "type": "object",
+          "properties": {
+            "auto_rotate": { "type": "boolean" },
+            "min_sides_must_attach": { "type": "integer" },
+            "north": {
+              "type": ["array", "string"],
+              "items": {
+                "type": ["object", "string"],
+                "properties": {
+                  "name": { "type": "string" },
+                  "states": {
+                    "type": "object",
+                    "additionalProperties": true
+                  }
+                },
+                "additionalProperties": false
+              }
+            },
+            "south": {
+              "type": ["array", "string"],
+              "items": {
+                "type": ["object", "string"],
+                "properties": {
+                  "name": { "type": "string" },
+                  "states": {
+                    "type": "object",
+                    "additionalProperties": true
+                  }
+                },
+                "additionalProperties": false
+              }
+            },
+            "east": {
+              "type": ["array", "string"],
+              "items": {
+                "type": ["object", "string"],
+                "properties": {
+                  "name": { "type": "string" },
+                  "states": {
+                    "type": "object",
+                    "additionalProperties": true
+                  }
+                },
+                "additionalProperties": false
+              }
+            },
+            "west": {
+              "type": ["array", "string"],
+              "items": {
+                "type": ["object", "string"],
+                "properties": {
+                  "name": { "type": "string" },
+                  "states": {
+                    "type": "object",
+                    "additionalProperties": true
+                  }
+                },
+                "additionalProperties": false
+              }
+            },
+            "top": {
+              "type": ["array", "string"],
+              "items": {
+                "type": ["object", "string"],
+                "properties": {
+                  "name": { "type": "string" },
+                  "states": {
+                    "type": "object",
+                    "additionalProperties": true
+                  }
+                },
+                "additionalProperties": false
+              }
+            },
+            "bottom": {
+              "type": ["array", "string"],
+              "items": {
+                "type": ["object", "string"],
+                "properties": {
+                  "name": { "type": "string" },
+                  "states": {
+                    "type": "object",
+                    "additionalProperties": true
+                  }
+                },
+                "additionalProperties": false
+              }
+            }
+          },
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false
+}

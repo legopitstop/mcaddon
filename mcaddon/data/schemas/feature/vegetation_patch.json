@@ -1,0 +1,57 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "type": "object",
+  "required": ["format_version", "minecraft:vegetation_patch_feature"],
+  "properties": {
+    "format_version": { "type": "string" },
+    "minecraft:vegetation_patch_feature": {
+      "type": "object",
+      "required": ["description"],
+      "properties": {
+        "description": {
+          "type": "object",
+          "required": ["identifier"],
+          "properties": {
+            "identifier": {
+              "type": "string"
+            }
+          },
+          "additionalProperties": false
+        },
+        "replaceable_blocks": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "extra_deep_column_chance": {"type": "number"},
+        "ground_block": { "type": "string" },
+        "vegetation_feature": { "type": "string" },
+        "surface": { "type": "string" },
+        "depth": {
+          "type": ["object", "integer"],
+          "properties": {
+            "range_min": { "type": "integer" },
+            "range_max": { "type": "integer" }
+          },
+          "additionalProperties": false
+        },
+        "vertical_range": { "type": "integer" },
+        "vegetation_chance": { "type": "number" },
+        "horizontal_radius": {
+          "type": "object",
+          "properties": {
+            "range_min": { "type": "integer" },
+            "range_max": { "type": "integer" }
+          },
+          "additionalProperties": false
+        },
+        "extra_deep_block_chance": { "type": "number" },
+        "extra_edge_column_chance": { "type": "number" },
+        "waterlogged": { "type": "boolean" }
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false
+}

@@ -1,0 +1,76 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "type": "object",
+  "required": ["format_version", "minecraft:scatter_feature"],
+  "properties": {
+    "format_version": { "type": "string" },
+    "minecraft:scatter_feature": {
+      "type": "object",
+      "required": ["description"],
+      "properties": {
+        "description": {
+          "type": "object",
+          "required": ["identifier"],
+          "properties": {
+            "identifier": {
+              "type": "string"
+            }
+          },
+          "additionalProperties": false
+        },
+        "project_input_to_floor": { "type": "boolean" },
+        "places_feature": { "type": "string" },
+        "iterations": { "type": ["integer", "string"] },
+        "scatter_chance": { "type": "number" },
+        "coordinate_eval_order": { "type": "string" },
+        "x": {
+          "type": ["object", "integer"],
+          "properties": {
+            "distribution": { "type": "string" },
+            "extent": {
+              "type": "array",
+              "maxItems": 2,
+              "minItems": 2,
+              "items": {
+                "type": "integer"
+              }
+            }
+          },
+          "additionalProperties": false
+        },
+        "y": {
+          "type": ["object", "integer"],
+          "properties": {
+            "distribution": { "type": "string" },
+            "extent": {
+              "type": "array",
+              "maxItems": 2,
+              "minItems": 2,
+              "items": {
+                "type": "integer"
+              }
+            }
+          },
+          "additionalProperties": false
+        },
+        "z": {
+          "type": ["object", "integer"],
+          "properties": {
+            "distribution": { "type": "string" },
+            "extent": {
+              "type": "array",
+              "maxItems": 2,
+              "minItems": 2,
+              "items": {
+                "type": "integer"
+              }
+            }
+          },
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false
+}

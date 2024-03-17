@@ -1,0 +1,47 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "type": "object",
+  "required": ["format_version", "minecraft:search_feature"],
+  "properties": {
+    "format_version": { "type": "string" },
+    "minecraft:search_feature": {
+      "type": "object",
+      "required": ["description"],
+      "properties": {
+        "description": {
+          "type": "object",
+          "required": ["identifier"],
+          "properties": {
+            "identifier": {
+              "type": "string"
+            }
+          },
+          "additionalProperties": false
+        },
+        "places_feature": { "type": "string" },
+        "search_volume": {
+          "type": "object",
+          "properties": {
+            "min": {
+              "type": "array",
+              "maxItems": 3,
+              "minItems": 3,
+              "items": { "type": "integer" }
+            },
+            "max": {
+              "type": "array",
+              "maxItems": 3,
+              "minItems": 3,
+              "items": { "type": "integer" }
+            }
+          },
+          "additionalProperties": false
+        },
+        "search_axis": { "type": "string" },
+        "required_successes": { "type": "integer" }
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false
+}

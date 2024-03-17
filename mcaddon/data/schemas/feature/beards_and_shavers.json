@@ -1,0 +1,34 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "type": "object",
+  "required": ["format_version", "minecraft:beards_and_shavers_feature"],
+  "properties": {
+    "format_version": { "type": "string" },
+    "minecraft:beards_and_shavers_feature": {
+      "type": "object",
+      "required": ["description"],
+      "properties": {
+        "description": {
+          "type": "object",
+          "required": ["identifier"],
+          "properties": {
+            "identifier": {
+              "type": "string"
+            }
+          },
+          "additionalProperties": false
+        },
+        "places_feature": { "type": "string" },
+        "bounding_box_min": { "type": "array", "items": { "type": "integer" } },
+        "bounding_box_max": { "type": "array", "items": { "type": "integer" } },
+        "y_delta": {"type": "number"},
+        "surface_block_type": {"type": "string"},
+        "subsurface_block_type": {"type": "string"},
+        "beard_raggedness_min": {"type": "number"},
+        "beard_raggedness_max": {"type": "number"},
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false
+}

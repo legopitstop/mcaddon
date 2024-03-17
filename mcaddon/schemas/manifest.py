@@ -1,9 +1,16 @@
-from .. import Schema, Manifest, Header, Metadata, Module, Dependency
+import os
+
+from .. import __file__, Schema, Manifest, Header, Metadata, Module, Dependency
 
 
 class ManifestSchema1(Schema):
     def __init__(self):
-        Schema.__init__(self, "schema11.json")
+        Schema.__init__(
+            self,
+            os.path.join(
+                os.path.dirname(__file__), "data", "schemas", "manifest1.json"
+            ),
+        )
 
     def load(cls, self: Manifest, data: dict):
         if "header" in data:

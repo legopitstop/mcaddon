@@ -1,0 +1,32 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "type": "object",
+  "required": [
+    "format_version",
+    "minecraft:surface_relative_threshold_feature"
+  ],
+  "properties": {
+    "format_version": { "type": "string" },
+    "minecraft:surface_relative_threshold_feature": {
+      "type": "object",
+      "required": ["description"],
+      "properties": {
+        "description": {
+          "type": "object",
+          "required": ["identifier"],
+          "properties": {
+            "identifier": {
+              "type": "string"
+            }
+          },
+          "additionalProperties": false
+        },
+        "feature_to_place": { "type": "string" },
+        "feature_to_snap": { "type": "string" },
+        "minimum_distance_below_surface": { "type": "integer" }
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false
+}

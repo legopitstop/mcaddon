@@ -1,0 +1,31 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "type": "object",
+  "required": ["format_version", "minecraft:snap_to_surface_feature"],
+  "properties": {
+    "format_version": { "type": "string" },
+    "minecraft:snap_to_surface_feature": {
+      "type": "object",
+      "required": ["description"],
+      "properties": {
+        "description": {
+          "type": "object",
+          "required": ["identifier"],
+          "properties": {
+            "identifier": {
+              "type": "string"
+            }
+          },
+          "additionalProperties": false
+        },
+        "feature_to_snap": { "type": "string" },
+        "vertical_search_range": { "type": "integer" },
+        "surface": { "type": "string" },
+        "allow_air_placement": { "type": "boolean" },
+        "allow_underwater_placement": { "type": "boolean" }
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false
+}

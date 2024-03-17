@@ -3,14 +3,28 @@ from molang import Molang
 from dataclasses import dataclass
 
 from . import VERSION
+from .pack import behavior_pack, resource_pack, ResourcePack
 from .exception import ComponentNotFoundError
-from .item import ItemStack
 from .registry import INSTANCE, Registries
-from .constant import RenderMethod, BlockFace
+from .constant import RenderMethod, BlockFace, MapColor
 from .file import JsonFile, Loader
-from .util import getattr2, stringify, Box, Identifier, MenuCategory, Identifiable
+from .math import Vector3, Range
+from .util import (
+    getattr2,
+    setattr2,
+    stringify,
+    clearitems,
+    removeitem,
+    getitem,
+    additem,
+    Misc,
+    Box,
+    Identifier,
+    MenuCategory,
+    Identifiable,
+)
 from .state import (
-    BlockState,
+    BlockProperty,
     CardinalDirectionState,
     FacingDirectionState,
     BlockFaceState,
@@ -19,32 +33,59 @@ from .state import (
 from .event import *
 
 
-class BlockComponent:
+class BlockComponent(Misc):
     def __repr__(self):
-        return str(self)
-
-    def __str__(self) -> str:
         return "BlockComponent{" + str(self.id) + "}"
 
-    @classmethod
-    def from_dict(cls, data: dict) -> Self:
+    def __str__(self) -> str:
+        return str(self.id)
+
+    def __call__(self, ctx) -> int:
+        return self.execute(ctx)
+
+    @property
+    def id(self) -> Identifier:
+        return getattr(self, "_id")
+
+    @id.setter
+    def id(self, value: Identifier):
+        setattr(self, "_id", Identifier.of(value))
+
+    @staticmethod
+    def from_dict(data: dict) -> Self:
         raise NotImplementedError()
+
+    def execute(self, ctx) -> int:
+        return 0
+
+    def generate(self, ctx) -> None:
+        """
+        Called when this component is added to the Block
+
+        :type ctx: Block
+        """
+        ...
 
 
 class SimpleBlockComponent(BlockComponent):
     def __init__(self, value):
         self.value = value
 
-    @property
-    def __dict__(self):
+    def jsonify(self):
         data = self.value
         return data
 
-    @classmethod
-    def from_dict(cls, data) -> Self:
-        self = cls.__new__(cls)
-        self.value = data
-        return self
+    @staticmethod
+    def from_dict(data) -> Self:
+        return SimpleBlockComponent(data)
+
+    @property
+    def clazz(self):
+        return getattr(self, "_clazz", None)
+
+    @clazz.setter
+    def clazz(self, value):
+        setattr(self, "_clazz", value)
 
     @property
     def value(self):
@@ -52,10 +93,11 @@ class SimpleBlockComponent(BlockComponent):
 
     @value.setter
     def value(self, value):
-        if not isinstance(value, self.clazz):
+        if self.clazz is not None and not isinstance(value, self.clazz):
             raise TypeError(
                 f"Expected {self.clazz.__name__} but got '{value.__class__.__name__}' instead"
             )
+        self.on_update("value", value)
         setattr(self, "_value", value)
 
 
@@ -77,7 +119,7 @@ def block_component_type(cls):
 
 @block_component_type
 class OnFallOnComponent(Trigger, BlockComponent):
-    """Describes event for this block."""
+    """Describes event for this block. [MS Docs](https://learn.microsoft.com/en-us/minecraft/creator/reference/content/blockreference/examples/blocktriggers/minecraftblock_on_fall_on?view=minecraft-bedrock-stable)"""
 
     id = Identifier("on_fall_on")
 
@@ -91,19 +133,19 @@ class OnFallOnComponent(Trigger, BlockComponent):
         Trigger.__init__(self, event, condition, target)
         self.min_fall_distance = min_fall_distance
 
-    @property
-    def __dict__(self):
-        data = super().__dict__
+    def jsonify(self):
+        data = super().jsonify()
         if self.min_fall_distance is not None:
             data["min_fall_distance"] = self.min_fall_distance
         return data
 
-    @classmethod
-    def from_dict(cls, data: dict) -> Self:
-        self = super().from_dict(data)
-        if "min_fall_distance" in data:
-            self.min_fall_distance = data.pop("min_fall_distance")
-        return self
+    @staticmethod
+    def from_dict(data: dict) -> Self:
+        min_fall_distance = (
+            data.pop("min_fall_distance") if "min_fall_distance" in data else 0
+        )
+        tr = Trigger(**data)
+        return OnFallOnComponent(tr.event, min_fall_distance, tr.condition, tr.target)
 
     @property
     def min_fall_distance(self) -> float:
@@ -113,14 +155,14 @@ class OnFallOnComponent(Trigger, BlockComponent):
     @min_fall_distance.setter
     def min_fall_distance(self, value: float):
         if value is None:
-            setattr(self, "_min_fall_distance", None)
             return
+        self.on_update("min_fall_distance", float(value))
         setattr(self, "_min_fall_distance", float(value))
 
 
 @block_component_type
 class OnInteractComponent(Trigger, BlockComponent):
-    """Describes event for this block."""
+    """Describes event for this block. [MS Docs](https://learn.microsoft.com/en-us/minecraft/creator/reference/content/blockreference/examples/blocktriggers/minecraftblock_on_interact?view=minecraft-bedrock-stable)"""
 
     id = Identifier("on_interact")
 
@@ -132,7 +174,7 @@ class OnInteractComponent(Trigger, BlockComponent):
 
 @block_component_type
 class OnPlacedComponent(Trigger, BlockComponent):
-    """Describes event for this block."""
+    """Describes event for this block. [MS Docs](https://learn.microsoft.com/en-us/minecraft/creator/reference/content/blockreference/examples/blocktriggers/minecraftblock_on_placed?view=minecraft-bedrock-stable)"""
 
     id = Identifier("on_placed")
 
@@ -144,7 +186,7 @@ class OnPlacedComponent(Trigger, BlockComponent):
 
 @block_component_type
 class OnPlayerDestroyedComponent(Trigger, BlockComponent):
-    """Describes event for this block."""
+    """Describes event for this block. [MS Docs](https://learn.microsoft.com/en-us/minecraft/creator/reference/content/blockreference/examples/blocktriggers/minecraftblock_on_player_destroyed?view=minecraft-bedrock-stable)"""
 
     id = Identifier("on_player_destroyed")
 
@@ -159,7 +201,7 @@ class OnPlayerDestroyedComponent(Trigger, BlockComponent):
 
 @block_component_type
 class OnPlayerPlacingComponent(Trigger, BlockComponent):
-    """Describes event for this block."""
+    """Describes event for this block. [MS Docs](https://learn.microsoft.com/en-us/minecraft/creator/reference/content/blockreference/examples/blocktriggers/minecraftblock_on_player_placing?view=minecraft-bedrock-stable)"""
 
     id = Identifier("on_player_placing")
 
@@ -174,7 +216,7 @@ class OnPlayerPlacingComponent(Trigger, BlockComponent):
 
 @block_component_type
 class OnStepOffComponent(Trigger, BlockComponent):
-    """Describes event for this block."""
+    """Describes event for this block. [MS Docs](https://learn.microsoft.com/en-us/minecraft/creator/reference/content/blockreference/examples/blocktriggers/minecraftblock_on_step_off?view=minecraft-bedrock-stable)"""
 
     id = Identifier("on_step_off")
 
@@ -186,7 +228,7 @@ class OnStepOffComponent(Trigger, BlockComponent):
 
 @block_component_type
 class OnStepOnComponent(Trigger, BlockComponent):
-    """Describes event for this block."""
+    """Describes event for this block. [MS Docs](https://learn.microsoft.com/en-us/minecraft/creator/reference/content/blockreference/examples/blocktriggers/minecraftblock_on_step_on?view=minecraft-bedrock-stable)"""
 
     id = Identifier("on_step_on")
 
@@ -200,23 +242,20 @@ class OnStepOnComponent(Trigger, BlockComponent):
 class BoneVisabilityComponent(BlockComponent):
     """Tells whether the bone should be visible or not (value)."""
 
-    id = Identifier("bone_visability")
+    id = Identifier("bone_visibility")
 
     def __init__(self, bones: dict[str, Molang | bool] = None):
         self.bones = bones
 
-    @property
-    def __dict__(self) -> dict:
+    def jsonify(self) -> dict:
         data = {"bones": {}}
         for k, v in self.bones.items():
             data["bones"][k] = str(v)
         return data
 
-    @classmethod
-    def from_dict(cls, data: dict) -> Self:
-        self = cls.__new__(cls)
-        self.bones = data.pop("bones")
-        return self
+    @staticmethod
+    def from_dict(data: dict) -> Self:
+        return BoneVisabilityComponent(**data)
 
     @property
     def bones(self) -> dict[str, Molang | bool]:
@@ -224,131 +263,136 @@ class BoneVisabilityComponent(BlockComponent):
 
     @bones.setter
     def bones(self, value: dict[str, Molang | bool]):
-        if value is None:
-            self.bones = {}
-            return
-        if not isinstance(value, dict):
-            raise TypeError(
-                f"Expected dict[str, Molang|bool] but got '{value.__class__.__name__}' instead"
-            )
-        setattr(self, "_bones", value)
+        self.on_update("bones", value)
+        setattr2(self, "_bones", value, dict)
 
     def get_bone(self, bone: str) -> Molang | None:
-        return self.bones.get(bone)
+        return getitem(self, "bones", bone)
 
     def add_bone(self, bone: str, condition: Molang) -> Molang:
-        self.bones[bone] = Molang(condition)
-        return condition
+        return additem(self, "bones", Molang(condition), bone, Molang)
 
     def remove_bone(self, bone: str) -> Molang:
-        return self.bones.pop(bone)
+        return removeitem(self, "bones", bone)
 
     def clear_bones(self) -> Self:
-        self.bones = {}
-        return self
+        """Remove all bones"""
+        return clearitems(self, "bones")
 
 
 @block_component_type
 class BreathabilityComponent(SimpleBlockComponent):
+    """"""
+
     id = Identifier("breathability")
     clazz = str
 
 
 @block_component_type
 class CollisionBoxComponent(BlockComponent, Box):
-    """Defines the area of the block that collides with entities. If set to true, default values are used. If set to false, the block's collision with entities is disabled. If this component is omitted, default values are used."""
+    """Defines the area of the block that collides with entities. If set to true, default values are used. If set to false, the block's collision with entities is disabled. If this component is omitted, default values are used. [MS Docs](https://learn.microsoft.com/en-us/minecraft/creator/reference/content/blockreference/examples/blockcomponents/minecraftblock_collision_box?view=minecraft-bedrock-stable)"""
 
     id = Identifier("collision_box")
 
-    def __init__(self, origin: list | bool = None, size: list = None):
+    def __init__(
+        self,
+        origin: Vector3 | bool = Vector3(-8, 0 - 8),
+        size: Vector3 = Vector3(16, 16, 16),
+    ):
         if isinstance(origin, bool):
             if origin:
-                origin = [-8, 0, -8]
-                size = [16, 16, 16]
+                origin = Vector3(-8, 0, -8)
+                size = Vector3(16, 16, 16)
             else:
-                origin = [0, 0, 0]
-                size = [0, 0, 0]
+                origin = Vector3(0, 0, 0)
+                size = Vector3(0, 0, 0)
         Box.__init__(self, origin, size)
 
-    @property
-    def __dict__(self) -> dict:
-        data = super().__dict__
+    def jsonify(self) -> dict:
+        data = super().as_dict()
         if self.is_cube():
             return True
         elif self.is_none():
             return False
         return data
 
-    @classmethod
-    def from_dict(cls, data: dict) -> Self:
-        self = cls.__new__(cls)
+    @staticmethod
+    def from_dict(data: dict) -> Self:
         if isinstance(data, bool):
-            return cls.cube() if data else cls.none()
+            return (
+                CollisionBoxComponent.cube() if data else CollisionBoxComponent.none()
+            )
+        origin = None
         if "origin" in data:
-            self.origin = data.pop("origin")
+            origin = Vector3(*data.pop("origin"))
+        size = None
         if "size" in data:
-            self.size = data.pop("size")
-        return self
+            size = Vector3(*data.pop("size"))
+        return CollisionBoxComponent(origin, size)
 
 
 @block_component_type
 class SelectionBoxComponent(BlockComponent, Box):
-    """Defines the area of the block that is selected by the player's cursor. If set to true, default values are used. If set to false, this block is not selectable by the player's cursor. If this component is omitted, default values are used."""
+    """Defines the area of the block that is selected by the player's cursor. If set to true, default values are used. If set to false, this block is not selectable by the player's cursor. If this component is omitted, default values are used. [MS Docs](https://learn.microsoft.com/en-us/minecraft/creator/reference/content/blockreference/examples/blockcomponents/minecraftblock_selection_box?view=minecraft-bedrock-stable)"""
 
     id = Identifier("selection_box")
 
-    def __init__(self, origin: list | bool = None, size: list = None):
+    def __init__(
+        self,
+        origin: Vector3 | bool = Vector3(-8, 0, -8),
+        size: Vector3 = Vector3(16, 16, 16),
+    ):
         if isinstance(origin, bool):
             if origin:
-                origin = [-8, 0, -8]
-                size = [16, 16, 16]
+                origin = Vector3(-8, 0, -8)
+                size = Vector3(16, 16, 16)
             else:
-                origin = [0, 0, 0]
-                size = [0, 0, 0]
+                origin = Vector3(0, 0, 0)
+                size = Vector3(0, 0, 0)
         Box.__init__(self, origin, size)
 
-    @property
-    def __dict__(self) -> dict:
-        data = super().__dict__
+    def jsonify(self) -> dict:
+        data = super().as_dict()
         if self.is_cube():
             return True
         elif self.is_none():
             return False
         return data
 
-    @classmethod
-    def from_dict(cls, data: dict) -> Self:
-        self = cls.__new__(cls)
+    @staticmethod
+    def from_dict(data: dict) -> Self:
         if isinstance(data, bool):
-            return cls.cube() if data else cls.none()
+            return (
+                SelectionBoxComponent.cube() if data else SelectionBoxComponent.none()
+            )
+        origin = None
         if "origin" in data:
-            self.origin = data.pop("origin")
+            origin = Vector3(*data.pop("origin"))
+        size = None
         if "size" in data:
-            self.size = data.pop("size")
-        return self
+            size = Vector3(*data.pop("size"))
+        return SelectionBoxComponent(origin, size)
 
 
 @block_component_type
 class CraftingTableComponent(BlockComponent):
-    """Makes your block into a custom crafting table which enables the crafting table UI and the ability to craft recipes. This component supports only "recipe_shaped" and "recipe_shapeless" typed recipes and not others like "recipe_furnace" or "recipe_brewing_mix". If there are two recipes for one item, the recipe book will pick the first that was parsed. If two input recipes are the same, crafting may assert and the resulting item may vary."""
+    """Makes your block into a custom crafting table which enables the crafting table UI and the ability to craft recipes. This component supports only "recipe_shaped" and "recipe_shapeless" typed recipes and not others like "recipe_furnace" or "recipe_brewing_mix". If there are two recipes for one item, the recipe book will pick the first that was parsed. If two input recipes are the same, crafting may assert and the resulting item may vary. [MS Docs](https://learn.microsoft.com/en-us/minecraft/creator/reference/content/blockreference/examples/blockcomponents/minecraftblock_crafting_table?view=minecraft-bedrock-stable)"""
 
     id = Identifier("crafting_table")
 
-    def __init__(self, table_name: str, crafting_tags: list[str] = []):
+    def __init__(self, table_name: str, crafting_tags: list[str] = None):
         self.table_name = table_name
         self.crafting_tags = crafting_tags
 
-    @property
-    def __dict__(self) -> dict:
+    def jsonify(self) -> dict:
         data = {"crafting_tags": self.crafting_tags, "table_name": self.table_name}
         return data
 
-    @classmethod
-    def from_dict(cls, data: dict) -> Self:
-        self = cls.__new__(cls)
-        self.crafting_tags = data.pop("crafting_tags")
-        self.table_name = data.pop("table_name")
-        return self
+    @staticmethod
+    def from_dict(data: dict) -> Self:
+        table_name = data.pop("table_name")
+        crafting_tags = data.pop("crafting_tags")
+        return CraftingTableComponent(table_name, crafting_tags)
 
     @property
     def crafting_tags(self) -> list[str]:
@@ -357,14 +401,8 @@ class CraftingTableComponent(BlockComponent):
 
     @crafting_tags.setter
     def crafting_tags(self, value: list[str]):
-        if value is None:
-            self.crafting_tags = []
-            return
-        if not isinstance(value, list):
-            raise TypeError(
-                f"Expected list[str] but got '{value.__class__.__name__}' instead"
-            )
-        setattr(self, "_crafting_tags", value)
+        self.on_update("crafting_tags", value)
+        setattr2(self, "_crafting_tags", value, list)
 
     @property
     def table_name(self) -> str:
@@ -373,6 +411,7 @@ class CraftingTableComponent(BlockComponent):
 
     @table_name.setter
     def table_name(self, value: str):
+        self.on_update("table_name", str(value))
         setattr(self, "_table_name", str(value))
 
     def get_crafting_tag(self, index: int) -> str | None:
@@ -392,26 +431,20 @@ class CraftingTableComponent(BlockComponent):
 
 @block_component_type
 class DestructibleByExplosionComponent(BlockComponent):
-    """Describes the destructible by explosion properties for this block. If set to true, the block will have the default explosion resistance. If set to false, this block is indestructible by explosion. If the component is omitted, the block will have the default explosion resistance"""
+    """Describes the destructible by explosion properties for this block. If set to true, the block will have the default explosion resistance. If set to false, this block is indestructible by explosion. If the component is omitted, the block will have the default explosion resistance [MS Docs](https://learn.microsoft.com/en-us/minecraft/creator/reference/content/blockreference/examples/blockcomponents/minecraftblock_destructible_by_explosion?view=minecraft-bedrock-stable)"""
 
     id = Identifier("destructible_by_explosion")
 
     def __init__(self, explosion_resistance: float = None):
         self.explosion_resistance = explosion_resistance
 
-    @property
-    def __dict__(self) -> dict:
-        data = {}
-        if self.explosion_resistance is not None:
-            data["explosion_resistance"] = self.explosion_resistance
+    def jsonify(self) -> dict:
+        data = {"explosion_resistance": self.explosion_resistance}
         return data
 
-    @classmethod
-    def from_dict(cls, data: dict) -> Self:
-        self = cls.__new__(cls)
-        if "explosion_resistance" in data:
-            self.explosion_resistance = data.pop("explosion_resistance")
-        return self
+    @staticmethod
+    def from_dict(data: dict) -> Self:
+        return DestructibleByExplosionComponent(**data)
 
     @property
     def explosion_resistance(self) -> float:
@@ -421,37 +454,31 @@ class DestructibleByExplosionComponent(BlockComponent):
     @explosion_resistance.setter
     def explosion_resistance(self, value: float):
         if value is None:
-            setattr(self, "_explosion_resistance", value)
             return
         if not isinstance(value, (float, int)):
             raise TypeError(
                 f"Expected float but got '{value.__class__.__name__}' instead"
             )
+        self.on_update("explosion_resistance", value)
         setattr(self, "_explosion_resistance", value)
 
 
 @block_component_type
 class DestructibleByMiningComponent(BlockComponent):
-    """Describes the destructible by mining properties for this block. If set to true, the block will take the default number of seconds to destroy. If set to false, this block is indestructible by mining. If the component is omitted, the block will take the default number of seconds to destroy."""
+    """Describes the destructible by mining properties for this block. If set to true, the block will take the default number of seconds to destroy. If set to false, this block is indestructible by mining. If the component is omitted, the block will take the default number of seconds to destroy. [MS Docs](https://learn.microsoft.com/en-us/minecraft/creator/reference/content/blockreference/examples/blockcomponents/minecraftblock_destructible_by_mining?view=minecraft-bedrock-stable)"""
 
     id = Identifier("destructible_by_mining")
 
     def __init__(self, seconds_to_destroy: float = None):
         self.seconds_to_destroy = seconds_to_destroy
 
-    @property
-    def __dict__(self) -> dict:
-        data = {}
-        if self.seconds_to_destroy is not None:
-            data["seconds_to_destroy"] = self.seconds_to_destroy
+    def jsonify(self) -> dict:
+        data = {"seconds_to_destroy": self.seconds_to_destroy}
         return data
 
-    @classmethod
-    def from_dict(cls, data: dict) -> Self:
-        self = cls.__new__(cls)
-        if "seconds_to_destroy" in data:
-            self.seconds_to_destroy = data.pop("seconds_to_destroy")
-        return self
+    @staticmethod
+    def from_dict(data: dict) -> Self:
+        return DestructibleByMiningComponent(**data)
 
     @property
     def seconds_to_destroy(self) -> float:
@@ -461,18 +488,18 @@ class DestructibleByMiningComponent(BlockComponent):
     @seconds_to_destroy.setter
     def seconds_to_destroy(self, value: float):
         if value is None:
-            setattr(self, "_seconds_to_destroy", None)
             return
         if not isinstance(value, (float, int)):
             raise TypeError(
                 f"Expected float or int but got '{value.__class__.__name__}' instead"
             )
+        self.on_update("seconds_to_destroy", value)
         setattr(self, "_seconds_to_destroy", value)
 
 
 @block_component_type
 class BlockDisplayNameComponent(SimpleBlockComponent):
-    """Specifies the language file key that maps to what text will be displayed when you hover over the block in your inventory and hotbar. If the string given can not be resolved as a loc string, the raw string given will be displayed. If this component is omitted, the name of the block will be used as the display name."""
+    """Specifies the language file key that maps to what text will be displayed when you hover over the block in your inventory and hotbar. If the string given can not be resolved as a loc string, the raw string given will be displayed. If this component is omitted, the name of the block will be used as the display name. [MS Docs](https://learn.microsoft.com/en-us/minecraft/creator/reference/content/blockreference/examples/blockcomponents/minecraftblock_display_name?view=minecraft-bedrock-stable)"""
 
     id = Identifier("display_name")
     clazz = str
@@ -480,7 +507,7 @@ class BlockDisplayNameComponent(SimpleBlockComponent):
 
 @block_component_type
 class FlammableComponent(BlockComponent):
-    """Describes the flammable properties for this block. If set to true, default values are used. If set to false, or if this component is omitted, the block will not be able to catch on fire naturally from neighbors, but it can still be directly ignited."""
+    """Describes the flammable properties for this block. If set to true, default values are used. If set to false, or if this component is omitted, the block will not be able to catch on fire naturally from neighbors, but it can still be directly ignited. [MS Docs](https://learn.microsoft.com/en-us/minecraft/creator/reference/content/blockreference/examples/blockcomponents/minecraftblock_flammable?view=minecraft-bedrock-stable)"""
 
     id = Identifier("flammable")
 
@@ -490,8 +517,7 @@ class FlammableComponent(BlockComponent):
         self.catch_chance_modifier = catch_chance_modifier
         self.destroy_chance_modifier = destroy_chance_modifier
 
-    @property
-    def __dict__(self) -> dict:
+    def jsonify(self) -> dict:
         data = {}
         if self.catch_chance_modifier is not None:
             data["catch_chance_modifier"] = self.catch_chance_modifier
@@ -499,14 +525,15 @@ class FlammableComponent(BlockComponent):
             data["destroy_chance_modifier"] = self.destroy_chance_modifier
         return data
 
-    @classmethod
-    def from_dict(cls, data: dict) -> Self:
-        self = cls.__new__(cls)
+    @staticmethod
+    def from_dict(data: dict) -> Self:
+        catch_chance_modifier = None
+        destroy_chance_modifier = None
         if "catch_chance_modifier" in data:
-            self.catch_chance_modifier = data.pop("catch_chance_modifier")
+            catch_chance_modifier = data.pop("catch_chance_modifier")
         if "destroy_chance_modifier" in data:
-            self.destroy_chance_modifier = data.pop("destroy_chance_modifier")
-        return self
+            destroy_chance_modifier = data.pop("destroy_chance_modifier")
+        return FlammableComponent(catch_chance_modifier, destroy_chance_modifier)
 
     @property
     def catch_chance_modifier(self) -> int:
@@ -516,12 +543,12 @@ class FlammableComponent(BlockComponent):
     @catch_chance_modifier.setter
     def catch_chance_modifier(self, value: int):
         if value is None:
-            setattr(self, "_catch_chance_modifier", None)
             return
         if not isinstance(value, int):
             raise TypeError(
                 f"Expected int but got '{value.__class__.__name__}' instead"
             )
+        self.on_update("catch_chance_modifier", value)
         setattr(self, "_catch_chance_modifier", value)
 
     @property
@@ -532,18 +559,18 @@ class FlammableComponent(BlockComponent):
     @destroy_chance_modifier.setter
     def destroy_chance_modifier(self, value: int):
         if value is None:
-            setattr(self, "_destroy_chance_modifier", None)
             return
         if not isinstance(value, int):
             raise TypeError(
                 f"Expected int but got '{value.__class__.__name__}' instead"
             )
+        self.on_update("destroy_chance_modifier", value)
         setattr(self, "_destroy_chance_modifier", value)
 
 
 @block_component_type
 class FrictionComponent(BlockComponent):
-    """Describes the friction for this block in a range of (0.0-0.9). Friction affects an entity's movement speed when it travels on the block. Greater value results in more friction."""
+    """Describes the friction for this block in a range of (0.0-0.9). Friction affects an entity's movement speed when it travels on the block. Greater value results in more friction. [MS Docs](https://learn.microsoft.com/en-us/minecraft/creator/reference/content/blockreference/examples/blockcomponents/minecraftblock_friction?view=minecraft-bedrock-stable)"""
 
     id = Identifier("friction")
     clazz = float
@@ -551,14 +578,11 @@ class FrictionComponent(BlockComponent):
     def __init__(self, value: float):
         self.value = value
 
-    @classmethod
-    def from_dict(cls, data: dict) -> Self:
-        self = cls.__new__(cls)
-        self.value = data
-        return self
+    @staticmethod
+    def from_dict(data: dict) -> Self:
+        return FrictionComponent(data)
 
-    @property
-    def __dict__(self) -> int:
+    def jsonify(self) -> int:
         data = 0.4 if self.value is None else self.value
         return data
 
@@ -572,40 +596,49 @@ class FrictionComponent(BlockComponent):
             raise TypeError(
                 f"Expected float but got '{value.__class__.__name__}' instead"
             )
+        self.on_update("value", value)
         setattr(self, "_value", value)
 
 
 @block_component_type
 class GeometryComponent(BlockComponent):
-    """The description identifier of the geometry file to use to render this block. This identifier must match an existing geometry identifier in any of the currently loaded resource packs."""
+    """The description identifier of the geometry file to use to render this block. This identifier must match an existing geometry identifier in any of the currently loaded resource packs. [MS Docs](https://learn.microsoft.com/en-us/minecraft/creator/reference/content/blockreference/examples/blockcomponents/minecraftblock_geometry?view=minecraft-bedrock-stable)"""
 
     id = Identifier("geometry")
 
-    def __init__(self, geometry: str, bone_visability: dict[str, Molang | bool] = {}):
+    def __init__(
+        self,
+        geometry: str,
+        bone_visibility: dict[str, Molang | bool] = None,
+        culling: Identifiable = None,
+    ):
         self.geometry = geometry
-        self.bone_visability = bone_visability
+        self.bone_visibility = bone_visibility
+        self.culling = culling
 
-    @property
-    def __dict__(self) -> dict:
+    def jsonify(self) -> dict:
         data = {"identifier": self.geometry}
-        if self.bone_visability:
-            data["bone_visability"] = {}
-            for k, v in self.bone_visability.items():
-                data["bone_visability"][k] = str(v)
-        else:
+        if self.bone_visibility:
+            data["bone_visibility"] = {}
+            for k, v in self.bone_visibility.items():
+                data["bone_visibility"][k] = str(v)
+        if self.culling:
+            data["culling"] = str(self.culling)
+        if not self.bone_visibility and not self.culling:
             return str(self.geometry)
         return data
 
-    @classmethod
-    def from_dict(cls, data: dict) -> Self:
-        self = cls.__new__(cls)
+    @staticmethod
+    def from_dict(data: dict) -> Self:
         if isinstance(data, str):
-            self.geometry = data
+            return GeometryComponent(data)
         elif isinstance(data, dict):
-            self.geometry = data.pop("identifier")
-            if "bone_visability" in data:
-                self.bone_visability = data.pop("bone_visability")
-        return self
+            geometry = data.pop("identifier")
+            bone_visibility = (
+                data.pop("bone_visibility") if "bone_visibility" in data else {}
+            )
+            culling = data.pop("culling") if "culling" in data else None
+            return GeometryComponent(geometry, bone_visibility, culling)
 
     @property
     def geometry(self) -> str:
@@ -613,53 +646,54 @@ class GeometryComponent(BlockComponent):
 
     @geometry.setter
     def geometry(self, value: str):
+        self.on_update("geometry", str(value))
         setattr(self, "_geometry", str(value))
 
     @property
-    def bone_visability(self) -> dict[str, Molang | bool]:
-        return getattr(self, "_bone_visability", {})
+    def bone_visibility(self) -> dict[str, Molang | bool]:
+        return getattr(self, "_bone_visibility", {})
 
-    @bone_visability.setter
-    def bone_visability(self, value: dict[str, Molang | bool]):
-        if value is None:
-            self.bone_visability = {}
-            return
-        if not isinstance(value, dict):
-            raise TypeError(
-                f"Expected dict but got '{value.__class__.__name__}' instead"
-            )
-        setattr(self, "_bone_visability", value)
+    @bone_visibility.setter
+    def bone_visibility(self, value: dict[str, Molang | bool]):
+        self.on_update("bone_visibility", value)
+        setattr2(self, "_bone_visibility", value, dict)
+
+    @property
+    def culling(self) -> Identifier:
+        return getattr(self, "_culling")
+
+    @culling.setter
+    def culling(self, value: Identifiable):
+        setattr(self, "_culling", Identifiable.of(value))
 
 
 @block_component_type
 class LightDampeningComponent(SimpleBlockComponent):
-    """The amount that light will be dampened when it passes through the block, in a range (0-15). Higher value means the light will be dampened more."""
+    """The amount that light will be dampened when it passes through the block, in a range (0-15). Higher value means the light will be dampened more. [MS Docs](https://learn.microsoft.com/en-us/minecraft/creator/reference/content/blockreference/examples/blockcomponents/minecraftblock_light_dampening?view=minecraft-bedrock-stable)"""
 
     id = Identifier("light_dampening")
     clazz = int
 
-    @property
-    def __dict__(self) -> int:
+    def jsonify(self) -> int:
         data = 15 if self.value is None else self.value
         return data
 
 
 @block_component_type
 class LightEmissionComponent(SimpleBlockComponent):
-    """The amount of light this block will emit in a range (0-15). Higher value means more light will be emitted."""
+    """The amount of light this block will emit in a range (0-15). Higher value means more light will be emitted. [MS Docs](https://learn.microsoft.com/en-us/minecraft/creator/reference/content/blockreference/examples/blockcomponents/minecraftblock_light_emission?view=minecraft-bedrock-stable)"""
 
     id = Identifier("light_emission")
     clazz = int
 
-    @property
-    def __dict__(self) -> str:
+    def jsonify(self) -> str:
         data = 0 if self.value is None else self.value
         return data
 
 
 @block_component_type
 class LootComponent(SimpleBlockComponent):
-    """The path to the loot table, relative to the behavior pack. Path string is limited to 256 characters."""
+    """The path to the loot table, relative to the behavior pack. Path string is limited to 256 characters. [MS Docs](https://learn.microsoft.com/en-us/minecraft/creator/reference/content/blockreference/examples/blockcomponents/minecraftblock_loot?view=minecraft-bedrock-stable)"""
 
     id = Identifier("loot")
     clazz = str
@@ -670,20 +704,46 @@ class LootComponent(SimpleBlockComponent):
 
 
 @block_component_type
-class MapColorComponent(SimpleBlockComponent):
-    """Sets the color of the block when rendered to a map. The color is represented as a hex value in the format "#RRGGBB". May also be expressed as an array of [R, G, B] from 0 to 255. If this component is omitted, the block will not show up on the map."""
+class MapColorComponent(BlockComponent):
+    """Sets the color of the block when rendered to a map. The color is represented as a hex value in the format "#RRGGBB". May also be expressed as an array of [R, G, B] from 0 to 255. If this component is omitted, the block will not show up on the map. [MS Docs](https://learn.microsoft.com/en-us/minecraft/creator/reference/content/blockreference/examples/blockcomponents/minecraftblock_map_color?view=minecraft-bedrock-stable)"""
 
     id = Identifier("map_color")
-    clazz = str
+
+    def __init__(self, value: MapColor | int):
+        self.value = value
+
+    def jsonify(self) -> dict:
+        return hex(self.value).replace("0x", "#")
+
+    @staticmethod
+    def from_dict(data: dict) -> Self:
+        return MapColorComponent(data)
+
+    @property
+    def value(self) -> int:
+        return getattr(self, "_value")
+
+    @value.setter
+    def value(self, value: int | MapColor):
+        if isinstance(value, MapColor):
+            value = value._value_
+        if isinstance(value, str):
+            value = int(value.replace("#", "0x"), 16)
+        if not isinstance(value, int):
+            raise TypeError(
+                f"Expected int but got '{value.__class__.__name__}' instead"
+            )
+        self.on_update("value", value)
+        setattr(self, "_value", value)
 
 
-class Material:
+class Material(Misc):
     """A material instance definition to map to a material instance in a geometry file. The material instance "*" will be used for any materials that don't have a match."""
 
     def __init__(
         self,
-        texture: Identifier,
-        render_method: RenderMethod = RenderMethod.opaque,
+        texture: Identifiable,
+        render_method: RenderMethod = RenderMethod.OPAQUE,
         ambient_occlusion: bool = True,
         face_dimming: bool = True,
     ):
@@ -692,28 +752,19 @@ class Material:
         self.face_dimming = face_dimming
         self.render_method = render_method
 
-    @property
-    def __dict__(self) -> dict:
+    def jsonify(self) -> dict:
         data = {"texture": str(self.texture)}
-        if self.render_method not in [None, RenderMethod.opaque]:
-            data["render_method"] = self.render_method._value_
+        if self.render_method not in [None, RenderMethod.OPAQUE]:
+            data["render_method"] = self.render_method.jsonify()
         if self.ambient_occlusion not in [None, True]:
             data["ambient_occlusion"] = self.ambient_occlusion
         if self.face_dimming not in [None, True]:
             data["face_dimming"] = self.face_dimming
         return data
 
-    @classmethod
-    def from_dict(cls, data: dict) -> Self:
-        self = cls.__new__(cls)
-        self.texture = data.pop("texture")
-        if "ambient_occlusion" in data:
-            self.ambient_occlusion = data.pop("ambient_occlusion")
-        if "face_dimming" in data:
-            self.face_dimming = data.pop("face_dimming")
-        if "render_method" in data:
-            self.render_method = data.pop("render_method")
-        return self
+    @staticmethod
+    def from_dict(data: dict) -> Self:
+        return Material(**data)
 
     @property
     def texture(self) -> Identifier:
@@ -721,8 +772,10 @@ class Material:
         return getattr(self, "_texture")
 
     @texture.setter
-    def texture(self, value: Identifier):
-        setattr(self, "_texture", Identifier(value))
+    def texture(self, value: Identifiable):
+        id = Identifiable.of(value)
+        self.on_update("texture", id)
+        setattr(self, "_texture", id)
 
     @property
     def ambient_occlusion(self) -> bool:
@@ -738,6 +791,7 @@ class Material:
             raise TypeError(
                 f"Expected bool but got '{value.__class__.__name__}' instead"
             )
+        self.on_update("ambient_occlusion", value)
         setattr(self, "_ambient_occlusion", value)
 
     @property
@@ -754,6 +808,7 @@ class Material:
             raise TypeError(
                 f"Expected bool but got '{value.__class__.__name__}' instead"
             )
+        self.on_update("face_dimming", value)
         setattr(self, "_face_dimming", value)
 
     @property
@@ -774,36 +829,35 @@ class Material:
     @render_method.setter
     def render_method(self, value: RenderMethod):
         if value is None:
-            setattr(self, "_render_method", None)
             return
         if isinstance(value, RenderMethod):
+            self.on_update("render_method", value)
             setattr(self, "_render_method", value)
         else:
-            self.render_method = RenderMethod[str(value)]
+            self.render_method = RenderMethod.from_dict(value)
 
 
 @block_component_type
 class MaterialInstancesComponent(BlockComponent):
-    """The material instances for a block. Maps face or material_instance names in a geometry file to an actual material instance. You can assign a material instance object to any of these faces: "up", "down", "north", "south", "east", "west", or "*". You can also give an instance the name of your choosing such as "my_instance", and then assign it to a face by doing "north":"my_instance"."""
+    """The material instances for a block. Maps face or material_instance names in a geometry file to an actual material instance. You can assign a material instance object to any of these faces: "up", "down", "north", "south", "east", "west", or "*". You can also give an instance the name of your choosing such as "my_instance", and then assign it to a face by doing "north":"my_instance". [MS Docs](https://learn.microsoft.com/en-us/minecraft/creator/reference/content/blockreference/examples/blockcomponents/minecraftblock_material_instances?view=minecraft-bedrock-stable)"""
 
     id = Identifier("material_instances")
 
     def __init__(self, materials: dict[str, Material] = None):
-        self.materials = {}
+        self.materials = materials
 
-    @property
-    def __dict__(self) -> dict:
+    def jsonify(self) -> dict:
         data = {}
         for k, v in self.materials.items():
-            data[k] = v.__dict__
+            data[k] = v.jsonify()
         return data
 
-    @classmethod
-    def from_dict(cls, data: dict) -> Self:
-        self = cls.__new__(cls)
+    @staticmethod
+    def from_dict(data: dict) -> Self:
+        materials = {}
         for k, v in data.items():
-            self.materials[k] = Material.from_dict(v)
-        return self
+            materials[k] = Material.from_dict(v)
+        return MaterialInstancesComponent(materials)
 
     @property
     def materials(self) -> dict[str, Material]:
@@ -811,14 +865,8 @@ class MaterialInstancesComponent(BlockComponent):
 
     @materials.setter
     def materials(self, value: dict[str, Material]):
-        if value is None:
-            setattr(self, "_materials", {})
-            return
-        if not isinstance(value, dict):
-            raise TypeError(
-                f"Expected dict[str, Material] but got '{value.__class__.__name__}' instead"
-            )
-        setattr(self, "_materials", value)
+        self.on_update("materials", value)
+        setattr2(self, "_materials", value, dict)
 
     def get_material(self, instance_name: str) -> Material | None:
         return self.materials.get(instance_name)
@@ -841,14 +889,13 @@ class MaterialInstancesComponent(BlockComponent):
         return m
 
 
-class BlockDescriptor:
-    def __init__(self, name: str = None, states: list = None, tags: str = "1"):
+class BlockDescriptor(Misc):
+    def __init__(self, name: Identifiable = None, states: dict = None, tags: str = "1"):
         self.name = name
         self.states = states
         self.tags = tags
 
-    @property
-    def __dict__(self) -> dict:
+    def jsonify(self) -> dict:
         data = {}
         if self.name:
             data["name"] = str(self.name)
@@ -860,13 +907,9 @@ class BlockDescriptor:
             data = data["name"]
         return data
 
-    @classmethod
-    def from_dict(cls, data: dict) -> Self:
-        self = cls.__new__(cls)
-        self.name = data.pop("name")
-        self.states = data.pop("states")
-        self.tags = data.pop("tags")
-        return self
+    @staticmethod
+    def from_dict(data: dict) -> Self:
+        return BlockDescriptor(**data)
 
     @property
     def name(self) -> Identifier:
@@ -874,27 +917,20 @@ class BlockDescriptor:
         return getattr(self, "_name", None)
 
     @name.setter
-    def name(self, value: Identifier):
-        if value is None:
-            setattr(self, "_name", None)
-            return
-        setattr(self, "_name", Identifier(value))
+    def name(self, value: Identifiable):
+        id = Identifiable.of(value)
+        self.on_update("name", id)
+        setattr(self, "_name", id)
 
     @property
     def states(self) -> list:
         """The list of Vanilla block states and their values that the block can have, expressed in key/value pairs."""
-        return getattr2(self, "_states", [])
+        return getattr2(self, "_states", {})
 
     @states.setter
-    def states(self, value: list):
-        if value is None:
-            self.states = []
-            return
-        if not isinstance(value, list):
-            raise TypeError(
-                f"Expected list but got '{value.__class__.__name__}' instead"
-            )
-        setattr(self, "_states", value)
+    def states(self, value: dict):
+        self.on_update("states", value)
+        setattr2(self, "_states", value, dict)
 
     @property
     def tags(self) -> Molang:
@@ -906,10 +942,12 @@ class BlockDescriptor:
         if value is None:
             setattr(self, "_tags", None)
             return
-        setattr(self, "_tags", Molang(value))
+        v = Molang(value)
+        self.on_update("tags", v)
+        setattr(self, "_tags", v)
 
 
-class Filter:
+class BlockFilter(Misc):
     """Sets rules for under what conditions the block can be placed/survive"""
 
     def __init__(
@@ -920,23 +958,22 @@ class Filter:
         self.allowed_faces = allowed_faces
         self.block_filter = block_filter
 
-    @property
-    def __dict__(self) -> dict:
+    def jsonify(self) -> dict:
         data = {
-            "allowed_faces": [x._value_ for x in self.allowed_faces],
+            "allowed_faces": [x.jsonify() for x in self.allowed_faces],
             "block_filter": [],
         }
         for v in self.block_filter:
-            data["block_filter"].append(v.__dict__)
+            data["block_filter"].append(v.jsonify())
         return data
 
-    @classmethod
-    def from_dict(cls, data: dict) -> Self:
-        self = cls.__new__(cls)
-        self.allowed_faces = [BlockFace[x] for x in data.pop("allowed_faces")]
+    @staticmethod
+    def from_dict(data: dict) -> Self:
+        allowed_faces = [BlockFace.from_dict(x) for x in data.pop("allowed_faces")]
+        block_filter = []
         for f in data.pop("block_filter"):
-            self.block_filter.append(BlockDescriptor.from_dict(f))
-        return self
+            block_filter.append(BlockDescriptor.from_dict(f))
+        return BlockFilter(allowed_faces, block_filter)
 
     @property
     def allowed_faces(self) -> list[BlockFace]:
@@ -945,14 +982,8 @@ class Filter:
 
     @allowed_faces.setter
     def allowed_faces(self, value: list[BlockFace]):
-        if value is None:
-            setattr(self, "_allowed_faces", [])
-            return
-        if not isinstance(value, list):
-            raise TypeError(
-                f"Expected list[BlockFace] but got '{value.__class__.__name__}' instead"
-            )
-        setattr(self, "_allowed_faces", value)
+        self.on_update("allowed_faces", value)
+        setattr2(self, "_allowed_faces", value, list)
 
     @property
     def block_filter(self) -> list[BlockDescriptor]:
@@ -961,14 +992,8 @@ class Filter:
 
     @block_filter.setter
     def block_filter(self, value: list[BlockDescriptor]):
-        if value is None:
-            setattr(self, "_block_filter", [])
-            return
-        if not isinstance(value, list):
-            raise TypeError(
-                f"Expected list[BlockDescriptor] but got '{value.__class__.__name__}' instead"
-            )
-        setattr(self, "_block_filter", value)
+        self.on_update("block_filter", value)
+        setattr2(self, "_block_filter", value, list)
 
     # FACE
 
@@ -1013,58 +1038,51 @@ class Filter:
 
 @block_component_type
 class PlacementFilterComponent(BlockComponent):
-    """Sets rules for under what conditions the block can be placed/survive"""
+    """Sets rules for under what conditions the block can be placed/survive [MS Docs](https://learn.microsoft.com/en-us/minecraft/creator/reference/content/blockreference/examples/blockcomponents/minecraftblock_placement_filter?view=minecraft-bedrock-stable)"""
 
     id = Identifier("placement_filter")
 
-    def __init__(self, conditions: list[Filter] = None):
+    def __init__(self, conditions: list[BlockFilter] = None):
         self.conditions = conditions
 
     def __iter__(self):
         for i in self.conditions:
             yield i
 
-    @property
-    def __dict__(self) -> dict:
+    def jsonify(self) -> dict:
         data = {"conditions": []}
         for v in self.conditions:
-            data["conditions"].append(v.__dict__)
+            data["conditions"].append(v.jsonify())
         return data
 
-    @classmethod
-    def from_dict(cls, data: dict) -> Self:
-        self = cls.__new__(cls)
+    @staticmethod
+    def from_dict(data: dict) -> Self:
+        conditions = []
         for c in data.pop("conditions"):
-            self.conditions.append(Filter.from_dict(c))
-        return self
+            conditions.append(BlockFilter.from_dict(c))
+        return PlacementFilterComponent(conditions)
 
     @property
-    def conditions(self) -> list[Filter]:
+    def conditions(self) -> list[BlockFilter]:
         """List of conditions where the block can be placed/survive. Limited to 64 conditions."""
         return getattr2(self, "_conditions", [])
 
     @conditions.setter
-    def conditions(self, value: list[Filter]):
-        if value is None:
-            setattr(self, "_conditions", [])
-            return
-        if not isinstance(value, list):
-            raise TypeError(
-                f"Expected list but got '{value.__class__.__name__}' instead"
-            )
-        setattr(self, "_conditions", value)
+    def conditions(self, value: list[BlockFilter]):
+        self.on_update("conditions", value)
+        setattr2(self, "_conditions", value, list)
 
     # CONDITION
 
-    def add_condition(self, filter: Filter) -> Filter:
-        if not isinstance(filter, Filter):
+    def add_condition(self, filter: BlockFilter) -> BlockFilter:
+        if not isinstance(filter, BlockFilter):
             raise TypeError(
                 f"Expected Filter but got '{filter.__class__.__name__}' instead"
             )
         self.conditions.append(filter)
         return filter
 
-    def remove_condition(self, index: int) -> Filter:
+    def remove_condition(self, index: int) -> BlockFilter:
         return self.conditions.pop(index)
 
     def clear_conditions(self) -> Self:
@@ -1074,45 +1092,43 @@ class PlacementFilterComponent(BlockComponent):
 
 @block_component_type
 class QueuedTickingComponent(BlockComponent):
-    """Triggers the specified event, either once, or at a regular interval equal to a number of ticks randomly chosen from the interval_range provided"""
+    """Triggers the specified event, either once, or at a regular interval equal to a number of ticks randomly chosen from the interval_range provided [MS Docs](https://learn.microsoft.com/en-us/minecraft/creator/reference/content/blockreference/examples/blocktriggers/minecraftblock_queued_ticking?view=minecraft-bedrock-stable)"""
 
     id = Identifier("queued_ticking")
 
-    def __init__(
-        self, interval_range: list[int], on_tick: Trigger, looping: bool = None
-    ):
+    def __init__(self, interval_range: Range, on_tick: Trigger, looping: bool = None):
         self.interval_range = interval_range
         self.on_tick = on_tick
         self.looping = looping
 
-    @property
-    def __dict__(self) -> dict:
-        data = {"interval_range": self.interval_range, "on_tick": self.on_tick.__dict__}
+    def jsonify(self) -> dict:
+        data = {
+            "interval_range": self.interval_range.to_list(),
+            "on_tick": self.on_tick.jsonify(),
+        }
         if self.looping is not None:
             data["looping"] = self.looping
         return data
 
-    @classmethod
-    def from_dict(cls, data: dict) -> Self:
-        self = cls.__new__(cls)
-        self.interval_range = data.pop("interval_range")
-        self.on_tick = Trigger.from_dict(data.pop("on_tick"))
-        return self
+    @staticmethod
+    def from_dict(data: dict) -> Self:
+        interval_range = Range.from_dict(data.pop("interval_range"))
+        on_tick = Trigger.from_dict(data.pop("on_tick"))
+        looping = data.pop("looping") if "looping" in data else None
+        return QueuedTickingComponent(interval_range, on_tick, looping)
 
     @property
-    def interval_range(self) -> list[int]:
+    def interval_range(self) -> Range:
         """A range of values, specified in ticks, that will be used to decide the interval between times this event triggers. Each interval will be chosen randomly from the range, so the times between this event triggering will differ given an interval_range of two different values. If the values in the interval_range are the same, the event will always be triggered after that number of ticks."""
         return getattr(self, "_interval_range")
 
     @interval_range.setter
-    def interval_range(self, value: list[int]):
-        if isinstance(value, int):
-            self.interval_range = [value, value]
-            return
-        if not isinstance(value, list):
+    def interval_range(self, value: Range):
+        if not isinstance(value, Range):
             raise TypeError(
-                f"Expected list but got '{value.__class__.__name__}' instead"
+                f"Expected Range but got '{value.__class__.__name__}' instead"
             )
+        self.on_update("interval_range", value)
         setattr(self, "_interval_range", value)
 
     @property
@@ -1126,6 +1142,7 @@ class QueuedTickingComponent(BlockComponent):
             raise TypeError(
                 f"Expected Trigger but got '{value.__class__.__name__}' instead"
             )
+        self.on_update("on_tick", value)
         setattr(self, "_on_tick", value)
 
     @property
@@ -1136,34 +1153,32 @@ class QueuedTickingComponent(BlockComponent):
     @looping.setter
     def looping(self, value: bool):
         if value is None:
-            setattr(self, "_looping", None)
             return
         if not isinstance(value, bool):
             raise TypeError(
                 f"Expected bool but got '{value.__class__.__name__}' instead"
             )
+        self.on_update("looping", value)
         setattr(self, "_looping", value)
 
 
 @block_component_type
 class RandomTickingComponent(BlockComponent):
-    """Triggers the specified event randomly based on the random tick speed gamerule. The random tick speed determines how often blocks are updated. Some other examples of game mechanics that use random ticking are crop growth and fire spreading"""
+    """Triggers the specified event randomly based on the random tick speed gamerule. The random tick speed determines how often blocks are updated. Some other examples of game mechanics that use random ticking are crop growth and fire spreading [MS Docs](https://learn.microsoft.com/en-us/minecraft/creator/reference/content/blockreference/examples/blocktriggers/minecraftblock_random_ticking?view=minecraft-bedrock-stable)"""
 
     id = Identifier("random_ticking")
 
     def __init__(self, on_tick: Trigger):
         self.on_tick = on_tick
 
-    @property
-    def __dict__(self) -> dict:
-        data = {"on_tick": self.on_tick.__dict__}
+    def jsonify(self) -> dict:
+        data = {"on_tick": self.on_tick.jsonify()}
         return data
 
-    @classmethod
-    def from_dict(cls, data: dict) -> Self:
-        self = cls.__new__(cls)
-        self.on_tick = Trigger.from_dict(data.pop("on_tick"))
-        return self
+    @staticmethod
+    def from_dict(data: dict) -> Self:
+        on_tick = Trigger.from_dict(data.pop("on_tick"))
+        return RandomTickingComponent(on_tick)
 
     @property
     def on_tick(self) -> Trigger:
@@ -1176,20 +1191,21 @@ class RandomTickingComponent(BlockComponent):
             raise TypeError(
                 f"Expected Trigger but got '{value.__class__.__name__}' instead"
             )
+        self.on_update("on_tick", value)
         setattr(self, "_on_tick", value)
 
 
 @block_component_type
 class TransformationComponent(BlockComponent):
-    """The block's translation, rotation and scale with respect to the center of its world position"""
+    """The block's translation, rotation and scale with respect to the center of its world position [MS Docs](https://learn.microsoft.com/en-us/minecraft/creator/reference/content/blockreference/examples/blockcomponents/minecraftblock_transformation?view=minecraft-bedrock-stable)"""
 
     id = Identifier("transformation")
 
     def __init__(
         self,
-        rotation: list[float] = None,
-        translation: list[float] = None,
-        scale: list[float] = None,
+        rotation: Vector3 = None,
+        translation: Vector3 = None,
+        scale: Vector3 = None,
     ):
         self.rotation = rotation
         self.translation = translation
@@ -1198,86 +1214,90 @@ class TransformationComponent(BlockComponent):
     @classmethod
     def rotate(cls, x: int, y: int, z: int) -> Self:
         self = cls.__new__(cls)
-        self.rotation = [x, y, z]
+        self.rotation = Vector3(x, y, z)
         return self
 
     @classmethod
     def offset(cls, x: int, y: int, z: int) -> Self:
         self = cls.__new__(cls)
-        self.translation = [x, y, z]
+        self.translation = Vector3(x, y, z)
         return self
 
     @classmethod
     def scaled(cls, x: int, y: int, z: int) -> Self:
         self = cls.__new__(cls)
-        self.scale = [x, y, z]
+        self.scale = Vector3(x, y, z)
         return self
 
-    @property
-    def __dict__(self) -> dict:
+    def jsonify(self) -> dict:
         data = {}
         if self.rotation is not None:
-            data["rotation"] = self.rotation
+            data["rotation"] = self.rotation.jsonify()
         if self.translation is not None:
-            data["translation"] = self.translation
+            data["translation"] = self.translation.jsonify()
         if self.scale is not None:
-            data["scale"] = self.scale
+            data["scale"] = self.scale.jsonify()
         return data
 
-    @classmethod
-    def from_dict(cls, data: dict) -> Self:
-        self = cls.__new__(cls)
+    @staticmethod
+    def from_dict(data: dict) -> Self:
+        rotation = None
+        translation = None
+        scale = None
         if "rotation" in data:
-            self.rotation = data.pop("rotation")
+            rotation = Vector3.from_dict(data.pop("rotation"))
         if "translation" in data:
-            self.translation = data.pop("translation")
+            translation = Vector3.from_dict(data.pop("translation"))
         if "scale" in data:
-            self.scale = data.pop("scale")
-        return self
+            scale = Vector3.from_dict(data.pop("scale"))
+        return TransformationComponent(rotation, translation, scale)
 
     @property
-    def rotation(self) -> list[float]:
+    def rotation(self) -> Vector3:
         return getattr(self, "_rotation", None)
 
     @rotation.setter
-    def rotation(self, value: list[float]):
+    def rotation(self, value: Vector3):
         if value is None:
             setattr(self, "_rotation", None)
             return
-        if not isinstance(value, list):
+        if not isinstance(value, Vector3):
             raise TypeError(
-                f"Expected list but got '{value.__class__.__name__}' instead"
+                f"Expected Vector3 but got '{value.__class__.__name__}' instead"
             )
+        self.on_update("rotation", value)
         setattr(self, "_rotation", value)
 
     @property
-    def translation(self) -> list[float]:
+    def translation(self) -> Vector3:
         return getattr(self, "_translation", None)
 
     @translation.setter
-    def translation(self, value: list[float]):
+    def translation(self, value: Vector3):
         if value is None:
             setattr(self, "_translation", None)
             return
-        if not isinstance(value, list):
+        if not isinstance(value, Vector3):
             raise TypeError(
-                f"Expected list but got '{value.__class__.__name__}' instead"
+                f"Expected Vector3 but got '{value.__class__.__name__}' instead"
             )
+        self.on_update("translation", value)
         setattr(self, "_translation", value)
 
     @property
-    def scale(self) -> list[float]:
+    def scale(self) -> Vector3:
         return getattr(self, "_scale", None)
 
     @scale.setter
-    def scale(self, value: list[float]):
+    def scale(self, value: Vector3):
         if value is None:
             setattr(self, "_scale", None)
             return
-        if not isinstance(value, list):
+        if not isinstance(value, Vector3):
             raise TypeError(
-                f"Expected list but got '{value.__class__.__name__}' instead"
+                f"Expected Vector3 but got '{value.__class__.__name__}' instead"
             )
+        self.on_update("scale", value)
         setattr(self, "_scale", value)
 
 
@@ -1289,69 +1309,64 @@ class UnitCubeComponent(BlockComponent):
 
     def __init__(self): ...
 
-    @property
-    def __dict__(self) -> dict:
+    def jsonify(self) -> dict:
         return {}
 
-    @classmethod
-    def from_dict(cls, data: dict) -> Self:
-        self = cls.__new__(cls)
-        return self
+    @staticmethod
+    def from_dict(data: dict) -> Self:
+        return UnitCubeComponent()
 
 
 @block_component_type
 class BlockTagsComponent(BlockComponent):
+    """desc"""
+
     id = Identifier("tags")
 
     def __init__(self, tags: list[Identifier] = None):
         self.tags = tags
 
-    @property
-    def __dict__(self) -> dict:
+    def jsonify(self) -> dict:
         return [str(x) for x in self.tags]
 
-    @classmethod
-    def from_dict(cls, data: dict) -> Self:
-        self = cls.__new__(cls)
+    @staticmethod
+    def from_dict(data: dict) -> Self:
+        tags = []
         for tag in data:
-            self.tags.append(Identifier(tag))
-        return self
+            tags.append(tag)
+        return BlockTagsComponent(tags)
 
     @property
     def tags(self) -> list[Identifier]:
         return getattr2(self, "_tags", [])
 
     @tags.setter
-    def tags(self, value: list[Identifier]):
+    def tags(self, value: list[Identifiable]):
         if value is None:
-            self.tags = []
-            return
-        if not isinstance(value, list):
-            raise TypeError(
-                f"Expected list but got '{value.__class__.__name__}' instead"
-            )
-        setattr(self, "_tags", value)
+            value = []
+        ids = [Identifiable.of(x) for x in value]
+        self.on_update("tags", ids)
+        setattr2(self, "_tags", ids, list)
 
     def get_tag(self, index: int) -> Identifier | None:
-        return self.tags[index]
+        return getitem(self, "tags", index)
 
-    def add_tag(self, tag: Identifier) -> Self:
-        self.tags.append(Identifier(tag))
-        return self
+    def add_tag(self, tag: Identifiable) -> Self:
+        return additem(self, "tags", Identifiable.of(tag))
 
     def remove_tag(self, index: int) -> Identifier:
-        return self.tags.pop(index)
+        return removeitem(self, "tags", index)
 
     def clear_tags(self) -> Self:
-        self.tags = []
-        return self
+        """Remove all tags"""
+        return clearitems(self, "tags")
 
 
 # TRAITS
 
 
-class BlockTrait:
-    def __init__(self, enabled_states: list[BlockState]):
+class BlockTrait(Misc):
+    def __init__(self, enabled_states: list[BlockProperty]):
         self.enabled_states = enabled_states
 
     def __str__(self) -> str:
@@ -1365,8 +1380,7 @@ class BlockTrait:
     def __getitem__(self, index: int):
         return self.enabled_states[index]
 
-    @property
-    def __dict__(self) -> dict:
+    def jsonify(self) -> dict:
         data = {"enabled_states": [str(x.id) for x in self.enabled_states]}
         return data
 
@@ -1376,37 +1390,48 @@ class BlockTrait:
 
     @id.setter
     def id(self, value: Identifier):
-        setattr(self, "_id", Identifier(value))
+        id = Identifier.of(value)
+        self.on_update("id", id)
+        setattr(self, "_id", id)
 
     @property
-    def enabled_states(self) -> list[BlockState]:
+    def enabled_states(self) -> list[BlockProperty]:
         """Which states to enable. Must specify at least one."""
         return getattr(self, "_enabled_states", [])
 
     @enabled_states.setter
-    def enabled_states(self, value: list[BlockState]):
+    def enabled_states(self, value: list[BlockProperty]):
         if value is None:
             self.enabled_states = []
         elif isinstance(value, list):
             v = []
             for x in value:
-                if not issubclass(x, BlockState):
+                if not issubclass(x, BlockProperty):
                     raise TypeError(
-                        f"Expected BlockState but got '{x.__class__.__name__}' instead"
+                        f"Expected BlockProperty but got '{x.__class__.__name__}' instead"
                     )
                 v.append(x())
+            self.on_update("enabled_states", v)
             setattr(self, "_enabled_states", v)
         else:
             raise TypeError(
                 f"Expected list but got '{value.__class__.__name__}' instead"
             )
 
-    @classmethod
-    def from_dict(cls, data: dict) -> Self:
-        self = cls.__new__(cls)
+    @staticmethod
+    def from_dict(data: dict) -> Self:
+        enabled_states = None
         if "enabled_states" in data:
-            self.enabled_states = data.pop("enabled_states")
-        return self
+            enabled_states = data.pop("enabled_states")
+        return BlockTrait(enabled_states)
+
+    def generate(self, ctx) -> None:
+        """
+        Called when this trait is added to the Block
+
+        :type ctx: Block
+        """
+        ...
 
 
 INSTANCE.create_registry(Registries.BLOCK_TRAIT, BlockTrait)
@@ -1432,7 +1457,7 @@ class PlacementDirectionTrait(BlockTrait):
     id = Identifier("placement_direction")
 
     def __init__(
-        self, enabled_states: list[BlockState] = [], y_rotation_offset: float = 0.0
+        self, enabled_states: list[BlockProperty] = [], y_rotation_offset: float = 0.0
     ):
         for state in enabled_states:
             if not issubclass(state, (CardinalDirectionState, FacingDirectionState)):
@@ -1444,9 +1469,8 @@ class PlacementDirectionTrait(BlockTrait):
             raise ValueError(y_rotation_offset)
         self.y_rotation_offset = y_rotation_offset
 
-    @property
-    def __dict__(self) -> dict:
-        data = super().__dict__
+    def jsonify(self) -> dict:
+        data = super().jsonify()
         if self.y_rotation_offset != 0:
             data["y_rotation_offset"] = self.y_rotation_offset
         return data
@@ -1460,22 +1484,25 @@ class PlacementDirectionTrait(BlockTrait):
     def y_rotation_offset(self, value: float):
         if value is None:
             self.y_rotation_offset = 0.0
-        elif isinstance(value, float):
-            setattr(self, "_y_rotation_offset", value)
+        elif value in [0.0, 90.0, 180.0, 270.0, 0, 90, 180, 270]:
+            v = float(value)
+            self.on_update("y_rotation_offset", v)
+            setattr(self, "_y_rotation_offset", v)
         else:
             raise TypeError(
-                f"Expected float but got '{value.__class__.__name__}' instead"
+                f"Expected 0.0, 90.0, 180.0, 270.0 but got '{value.__class__.__name__}' instead"
             )
 
-    @classmethod
-    def from_dict(cls, data: dict) -> Self:
-        self = super().from_dict(data)
+    @staticmethod
+    def from_dict(data: dict) -> Self:
+        enabled_states = BlockTrait.from_dict(data)
+        y_rotation_offset = None
         if "y_rotation_offset" in data:
-            self.y_rotation_offset = data.pop("y_rotation_offset")
-        return self
+            y_rotation_offset = data.pop("y_rotation_offset")
+        return PlacementDirectionTrait(enabled_states, y_rotation_offset)
 
     @classmethod
-    def cardinal(cls) -> Self:
+    def cardinal(cls, y_rotation_offset: float = 0) -> Self:
         """
         Equivalent to: `PlacementPositionTrait([CardinalDirectionState])`
         states: ["north", "south", "east", "west"]
@@ -1483,11 +1510,11 @@ class PlacementDirectionTrait(BlockTrait):
         self = cls.__new__(cls)
         enabled_states = [CardinalDirectionState]
         BlockTrait.__init__(self, enabled_states)
-        self.y_rotation_offset = 0.0
+        self.y_rotation_offset = y_rotation_offset
         return self
 
     @classmethod
-    def facing(cls) -> Self:
+    def facing(cls, y_rotation_offset: float = 0) -> Self:
         """
         Equivalent to: `PlacementPositionTrait([FacingDirectionState])`
         states: ["down", "up", "north", "south", "east", "west"]
@@ -1495,28 +1522,28 @@ class PlacementDirectionTrait(BlockTrait):
         self = cls.__new__(cls)
         enabled_states = [FacingDirectionState]
         BlockTrait.__init__(self, enabled_states)
-        self.y_rotation_offset = 0.0
+        self.y_rotation_offset = y_rotation_offset
         return self
 
     @classmethod
-    def all(cls) -> Self:
+    def all(cls, y_rotation_offset: float = 0) -> Self:
         """
         Equivalent to: `PlacementPositionTrait([CardinalDirectionState, FacingDirectionState])`
         """
         self = cls.__new__(cls)
         enabled_states = [CardinalDirectionState, FacingDirectionState]
         BlockTrait.__init__(self, enabled_states)
-        self.y_rotation_offset = 0.0
+        self.y_rotation_offset = y_rotation_offset
         return self
 
 
 @block_trait
 class PlacementPositionTrait(BlockTrait):
-    """Adds the BlockFaceState and/or VerticalHalfState BlockStates. The value of these state(s) are set when the block is placed."""
+    """Adds the BlockFaceState and/or VerticalHalfState BlockPropertys. The value of these state(s) are set when the block is placed."""
 
     id = Identifier("placement_position")
 
-    def __init__(self, enabled_states: list[BlockState] = []):
+    def __init__(self, enabled_states: list[BlockProperty] = []):
         for state in enabled_states:
             if not issubclass(state, (BlockFaceState, VerticalHalfState)):
                 raise TypeError(
@@ -1560,11 +1587,11 @@ class PlacementPositionTrait(BlockTrait):
 # BLOCK
 
 
-class BlockPermutation:
+class BlockPermutation(Misc):
     def __init__(
         self,
         condition: Molang | str,
-        components: dict[Identifier, BlockComponent] = None,
+        components: dict[Identifiable, BlockComponent] = None,
     ):
         self.condition = Molang(condition)
         self.components: dict[Identifier, BlockComponent] = components
@@ -1572,23 +1599,42 @@ class BlockPermutation:
     def __str__(self) -> str:
         return stringify(self, ["condition"])
 
-    @classmethod
-    def from_dict(cls, data: dict) -> Self:
-        self = cls.__new__(cls)
-        self.condition = Molang(data.pop("condition"))
+    @staticmethod
+    def from_dict(data: dict) -> Self:
+        condition = Molang(data.pop("condition"))
+        components = {}
+        tags = BlockTagsComponent()
         for k, v in data.pop("components").items():
-            id = Identifier(k)
+            id = Identifiable.of(k)
+            if str(id).startswith("tag:"):
+                tags.add_tag(id.path)
+                continue
             clazz = INSTANCE.get_registry(Registries.BLOCK_COMPONENT_TYPE).get(id)
             if clazz is None:
                 raise ComponentNotFoundError(repr(id))
-            self.components[id] = clazz.from_dict(v)
-        return self
+            components[id] = clazz.from_dict(v)
 
-    @property
-    def __dict__(self) -> dict:
+        # Add tag
+        if len(tags.tags) >= 1:
+            components[Identifier("tags")] = tags
+        return BlockPermutation(condition, components)
+
+    @staticmethod
+    def blockstate(prop: BlockProperty | BlockTrait, value):
+        if not isinstance(prop, BlockProperty):
+            raise TypeError(
+                f"Expected BlockProperty but got '{prop.__class__.__name__}' instead"
+            )
+        return BlockPermutation(Molang(f"q.block_state('{prop.id}')=={repr(value)}"))
+
+    def jsonify(self) -> dict:
         data = {"condition": str(self.condition), "components": {}}
         for k, v in self.components.items():
-            data["components"][str(k)] = v.__dict__
+            if k == "minecraft:tags":  # Override BlockTagsComponent
+                for tag in v.tags:
+                    data["components"]["tag:" + str(tag)] = {}
+            else:
+                data["components"][str(k)] = v.jsonify()
         return data
 
     @property
@@ -1601,6 +1647,7 @@ class BlockPermutation:
             raise TypeError(
                 f"Expected Molang but got '{value.__class__.__name__}' instead"
             )
+        self.on_update("condition", value)
         setattr(self, "_condition", value)
 
     @property
@@ -1608,7 +1655,7 @@ class BlockPermutation:
         return getattr2(self, "_components", {})
 
     @components.setter
-    def components(self, value: dict[Identifier, BlockComponent]):
+    def components(self, value: dict[Identifiable, BlockComponent]):
         if value is None:
             self.components = {}
             return
@@ -1616,29 +1663,33 @@ class BlockPermutation:
             raise TypeError(
                 f"Expected dict but got '{value.__class__.__name__}' instead"
             )
-        setattr(self, "_components", value)
+        components = {}
+        for k, v in value.items():
+            components[Identifiable.of(k)] = v
+        self.on_update("components", components)
+        setattr(self, "_components", components)
 
     def add_component(self, component: BlockComponent) -> BlockComponent:
-        if not isinstance(component, BlockComponent):
-            raise TypeError(
-                f"Expected BlockComponent but got '{component.__class__.__name__}' instead"
-            )
-        self.components[component.id] = component
-        return component
+        component.generate(self)
+        return additem(self, "components", component, component.id, BlockComponent)
 
-    def get_component(self, id: Identifier | str) -> BlockComponent:
-        i = Identifier.parse(id)
-        return self.components[i]
+    def get_component(self, id: Identifiable) -> BlockComponent:
+        return getitem(self, "components", Identifiable.of(id))
 
-    def remove_component(self, id: Identifier | str) -> BlockComponent:
-        i = Identifier.parse(id)
-        e = self.components[i]
-        del self.components[i]
-        return e
+    def remove_component(self, id: Identifiable) -> BlockComponent:
+        return removeitem(self, "components", Identifiable.of(id))
 
     def clear_components(self) -> Self:
-        self.components = {}
-        return self
+        """Remove all components"""
+        return clearitems(self, "components")
+
+    def generate(self, ctx) -> None:
+        """
+        Called when this permutation is added to the Block
+
+        :type ctx: Block
+        """
+        ...
 
 
 @dataclass
@@ -1652,12 +1703,20 @@ class BlockSettings:
     resistance: float = None
     hardness: float = None
     slipperiness: float = None
-    loot_table: Identifier = None
+    loot_table: Identifiable = None
     burnable: bool = False
     luminance: int = None
-    map_color: str = None
+    map_color: int = None
 
-    def color(self, color: str) -> Self:
+    def color(self, color: int | MapColor) -> Self:
+        if isinstance(color, MapColor):
+            color = color._value_
+        if isinstance(color, str):
+            color = int(color.replace("#", "0x"), 16)
+        if not isinstance(color, int):
+            raise TypeError(
+                f"Expected int but got '{color.__class__.__name__}' instead"
+            )
         self.map_color = color
         return self
 
@@ -1706,26 +1765,223 @@ class BlockSettings:
         self.resistance = resistance
         return self
 
+    def build(self, block):
+        if self.collidable is not None:
+            block.add_component(CollisionBoxComponent(self.collidable))
 
+        if self.sound_group is not None:
+            block.sound_group = self.sound_group
+
+        if self.resistance is not None:
+            block.add_component(DestructibleByExplosionComponent(self.resistance))
+
+        if self.hardness is not None:
+            block.add_component(DestructibleByMiningComponent(self.hardness))
+
+        if self.slipperiness is not None:
+            block.add_component(FrictionComponent(self.slipperiness))
+
+        if self.loot_table is not None:
+            block.add_component(LootComponent(self.loot_table))
+
+        # use molang?
+        if self.luminance is not None:
+            block.add_component(LightEmissionComponent(self.luminance))
+
+        if self.map_color is not None:
+            block.add_component(MapColorComponent(self.map_color))
+
+        if self.burnable:
+            block.add_component(FlammableComponent(0, 0))
+        return block
+
+
+class BlockState(Misc):
+    """
+    Describes a placed block in the world
+    """
+
+    def __init__(self, name: Identifiable, states: dict = None):
+        self.name = name
+        self.states = states
+
+    def __str__(self) -> str:
+        return "BlockState{" + str(self.name) + "}"
+
+    @property
+    def name(self) -> Identifier:
+        return getattr(self, "_name")
+
+    @name.setter
+    def name(self, value: Identifiable):
+        id = Identifiable.of(value)
+        self.on_update("name", id)
+        setattr(self, "_name", id)
+
+    @property
+    def states(self) -> dict:
+        return getattr2(self, "_states", {})
+
+    @states.setter
+    def states(self, value: dict[Identifiable, str]):
+        if value is None:
+            value = {}
+        if not isinstance(value, dict):
+            raise TypeError(
+                f"Expected dict but got '{value.__class__.__name__}' instead"
+            )
+        states = {}
+        for k, v in value.items():
+            states[Identifiable.of(k)] = v
+        self.on_update("states", states)
+        setattr(self, "_states", states)
+
+    @staticmethod
+    def of(value) -> Self:
+        if isinstance(value, BlockState):
+            return value
+        elif isinstance(value, Block):
+            return value.defaultstate()
+        elif isinstance(value, dict):
+            return BlockState.from_dict(value)
+        return BlockState(value, {})
+
+    @staticmethod
+    def from_dict(data: dict) -> Self:
+        if isinstance(data, str):
+            return BlockState(data)
+        return BlockState(**data)
+
+    def jsonify(self) -> dict:
+        if not self.has_states():
+            return str(self.name)
+
+        states = {}
+        for k, v in self.states.items():
+            states[str(k)] = v
+        data = {"name": str(self.name), "states": states}
+        return data
+
+    def has_states(self) -> bool:
+        return len(self.states) >= 1
+
+
+class BlockPredicate(Misc):
+    """
+    Describes a block predicate that should match. Similar to BlockState but excepts "tags"
+    """
+
+    def __init__(self, name: str = None, states: dict = None, tags: Molang = None):
+        self.name = name
+        self.tags = tags
+        self.states = states
+
+    def __str__(self) -> str:
+        return "BlockPredicate{" + str(self.name) if self.name else self.tags + "}"
+
+    @property
+    def name(self) -> Identifier:
+        return getattr(self, "_name", None)
+
+    @name.setter
+    def name(self, value: Identifiable):
+        if value is None:
+            return
+        id = Identifiable.of(value)
+        self.on_update("name", id)
+        setattr(self, "_name", id)
+
+    @property
+    def states(self) -> dict:
+        return getattr2(self, "_states", {})
+
+    @states.setter
+    def states(self, value: dict[Identifiable, str]):
+        if value is None:
+            value = {}
+        if not isinstance(value, dict):
+            raise TypeError(
+                f"Expected dict but got '{value.__class__.__name__}' instead"
+            )
+        states = {}
+        for k, v in value.items():
+            states[Identifiable.of(k)] = v
+        self.on_update("states", states)
+        setattr(self, "_states", states)
+
+    @property
+    def tags(self) -> Molang:
+        return getattr(self, "_tags", None)
+
+    @tags.setter
+    def tags(self, value: Molang):
+        if value is None:
+            return
+        if not isinstance(value, (Molang, str)):
+            raise TypeError(
+                f"Expected Molang, str but got '{value.__class__.__name__}' instead"
+            )
+        v = Molang(value)
+        self.on_update("tags", v)
+        setattr(self, "_tags", v)
+
+    @staticmethod
+    def of(value) -> Self:
+        if isinstance(value, BlockPredicate):
+            return value
+        elif isinstance(value, BlockState):
+            return BlockPredicate(value.name, value.states)
+        elif isinstance(value, Block):
+            return BlockPredicate.of(value.defaultstate())
+        elif isinstance(value, Molang):
+            return BlockPredicate(tags=value)
+        elif isinstance(value, dict):
+            return BlockPredicate.from_dict(value)
+        return BlockPredicate(value, {})
+
+    @staticmethod
+    def from_dict(data: dict) -> Self:
+        if isinstance(data, str):
+            return BlockPredicate(data)
+        return BlockPredicate(**data)
+
+    def jsonify(self) -> dict:
+        if not self.has_states():
+            return str(self.name) if self.name else str(self.tags)
+
+        states = {}
+        for k, v in self.states.items():
+            states[str(k)] = v
+        data = {"states": states}
+        if self.name:
+            data["name"] = str(self.name)
+        else:
+            data["tags"] = str(self.tags)
+        return data
+
+    def has_states(self) -> bool:
+        return len(self.states) >= 1
+
+
+@resource_pack
+@behavior_pack
 class Block(JsonFile, Identifiable):
     """
-    Represents a Block.
+    Represents a data-driven Block. [MS Docs](https://learn.microsoft.com/en-us/minecraft/creator/reference/content/blockreference/examples/blockjsonfilestructure?view=minecraft-bedrock-stable)
     """
 
     id = Identifier("block")
-    EXTENSION = ".json"
-    FILENAME = "block"
-    DIRNAME = "blocks"
+    FILEPATH = "blocks/block.json"
 
     def __init__(
         self,
-        identifier: Identifier | str,
+        identifier: Identifiable,
         menu_category: MenuCategory = None,
         components: dict[str, BlockComponent] = None,
         permutations: list[BlockPermutation] = None,
-        events: dict[Identifier, Event] = None,
-        traits: dict[Identifier, BlockTrait] = None,
-        states: dict[Identifier, list[str]] = None,
+        events: dict[Identifiable, Event] = None,
+        traits: dict[Identifiable, BlockTrait] = None,
+        states: dict[Identifiable, list[str]] = None,
         sound_group: str = None,
     ):
         Identifiable.__init__(self, identifier)
@@ -1745,55 +2001,15 @@ class Block(JsonFile, Identifiable):
         if sel is not None:
             self.add_component(SelectionBoxComponent(*sel))
 
-    def __str__(self) -> str:
-        return "Block{" + str(self.identifier) + "}"
-
-    @property
-    def __dict__(self) -> dict:
-        block = {"description": {"identifier": str(self.identifier)}}
-        if self.menu_category:
-            block["description"]["menu_category"] = self.menu_category.__dict__
-
-        if self.traits:
-            block["description"]["traits"] = {}
-            for k, v in self.traits.items():
-                block["description"]["traits"][str(k)] = v.__dict__
-
-        if self.states:
-            block["description"]["states"] = {}
-            for k, v in self.states.items():
-                block["description"]["states"].update(v.__dict__)
-
-        if self.components:
-            block["components"] = {}
-            for k, v in self.components.items():
-                block["components"][str(k)] = v.__dict__
-
-        if self.permutations:
-            block["permutations"] = []
-            for v in self.permutations:
-                block["permutations"].append(v.__dict__)
-
-        if self.events:
-            block["events"] = {}
-            for key, events in self.events.items():
-                d = {}
-                for k, v in events.items():
-                    d[k.path] = v.__dict__
-                block["events"][str(key)] = d
-
-        data = {"format_version": VERSION["BLOCK"], str(self.id): block}
-        if self.type:
-            data["type"] = str(self.type)
-        return data
-
     @property
     def type(self) -> Identifier:
         return getattr(self, "_type", None)
 
     @type.setter
-    def type(self, value: Identifier):
-        setattr(self, "_type", Identifier(value))
+    def type(self, value: Identifiable):
+        id = Identifiable.of(value)
+        self.on_update("type", id)
+        setattr(self, "_type", id)
 
     @property
     def menu_category(self) -> MenuCategory:
@@ -1808,6 +2024,7 @@ class Block(JsonFile, Identifiable):
             raise TypeError(
                 f"Expected MenuCategory but got '{value.__class__.__name__}' instead"
             )
+        self.on_update("menu_category", value)
         setattr(self, "_menu_category", value)
 
     @property
@@ -1816,14 +2033,8 @@ class Block(JsonFile, Identifiable):
 
     @components.setter
     def components(self, value: dict[str, BlockComponent]):
-        if value is None:
-            self.components = {}
-            return
-        if not isinstance(value, dict):
-            raise TypeError(
-                f"Expected dict but got '{value.__class__.__name__}' instead"
-            )
-        setattr(self, "_components", value)
+        self.on_update("components", value)
+        setattr2(self, "_components", value, dict)
 
     @property
     def permutations(self) -> list[BlockPermutation]:
@@ -1831,21 +2042,15 @@ class Block(JsonFile, Identifiable):
 
     @permutations.setter
     def permutations(self, value: list[BlockPermutation]):
-        if value is None:
-            self.permutation = []
-            return
-        if not isinstance(value, list):
-            raise TypeError(
-                f"Expected list but got '{value.__class__.__name__}' instead"
-            )
-        setattr(self, "_permutations", value)
+        self.on_update("permutations", value)
+        setattr2(self, "_permutations", value, list)
 
     @property
     def events(self) -> dict[Identifier, Event]:
         return getattr2(self, "_events", {})
 
     @events.setter
-    def events(self, value: dict[Identifier, Event]):
+    def events(self, value: dict[Identifiable, Event]):
         if value is None:
             self.events = {}
             return
@@ -1853,14 +2058,18 @@ class Block(JsonFile, Identifiable):
             raise TypeError(
                 f"Expected dict but got '{value.__class__.__name__}' instead"
             )
-        setattr(self, "_events", value)
+        events = {}
+        for k, v in value.items():
+            events[Identifiable.of(k)] = v
+        self.on_update("events", events)
+        setattr(self, "_events", events)
 
     @property
-    def states(self) -> dict[Identifier, BlockState]:
+    def states(self) -> dict[Identifier, BlockProperty]:
         return getattr2(self, "_states", {})
 
     @states.setter
-    def states(self, value: dict[Identifier, BlockState]):
+    def states(self, value: dict[Identifiable, BlockProperty]):
         if value is None:
             self.states = {}
             return
@@ -1868,14 +2077,18 @@ class Block(JsonFile, Identifiable):
             raise TypeError(
                 f"Expected dict but got '{value.__class__.__name__}' instead"
             )
-        setattr(self, "_states", value)
+        states = {}
+        for k, v in value.items():
+            states[Identifiable.of(k)] = v
+        self.on_update("states", states)
+        setattr(self, "_states", states)
 
     @property
     def traits(self) -> dict[Identifier, BlockTrait]:
         return getattr2(self, "_traits", {})
 
     @traits.setter
-    def traits(self, value: dict[Identifier, BlockTrait]):
+    def traits(self, value: dict[Identifiable, BlockTrait]):
         if value is None:
             self.traits = {}
             return
@@ -1883,7 +2096,11 @@ class Block(JsonFile, Identifiable):
             raise TypeError(
                 f"Expected dict but got '{value.__class__.__name__}' instead"
             )
-        setattr(self, "_traits", value)
+        traits = {}
+        for k, v in value.items():
+            traits[Identifiable.of(k)] = v
+        self.on_update("traits", traits)
+        setattr(self, "_traits", traits)
 
     @property
     def sound_group(self) -> str | None:
@@ -1894,7 +2111,17 @@ class Block(JsonFile, Identifiable):
         if value is None:
             setattr(self, "_sound_group", None)
             return
-        setattr(self, "_sound_group", str(value))
+        v = str(value)
+        self.on_update("sound_group", v)
+        setattr(self, "_sound_group", v)
+
+    @property
+    def name(self) -> str | None:
+        return getattr(self, "_name", None)
+
+    @name.setter
+    def name(self, value: str):
+        setattr(self, "_name", str(value))
 
     # Read-Only
 
@@ -1912,19 +2139,19 @@ class Block(JsonFile, Identifiable):
     def map_color(self) -> str:
         return self.get_component("map_color")
 
-    @classmethod
-    def from_dict(cls, data: dict) -> Self:
+    @staticmethod
+    def from_dict(data: dict) -> Self:
         loader = BlockLoader()
         loader.validate(data)
         return loader.load(data)
 
     @classmethod
-    def from_settings(cls, identifier: Identifier, settings: BlockSettings) -> Self:
+    def from_settings(cls, identifier: Identifiable, settings: BlockSettings) -> Self:
         """
         Create a block using block settings
 
         :param identifier: The ID of the block
-        :type identifier: Identifier
+        :type identifier: Identifiable
         :param settings: The block settings
         :type settings: BlockSettings
         :rtype: Block
@@ -1935,41 +2162,76 @@ class Block(JsonFile, Identifiable):
             )
         self = cls.__new__(cls)
         self.identifier = identifier
+        return settings.build(self)
 
-        if settings.collidable is not None:
-            self.add_component(CollisionBoxComponent(settings.collidable))
+    def jsonify(self) -> dict:
+        block = {"description": {"identifier": str(self.identifier)}}
+        if self.menu_category:
+            block["description"]["menu_category"] = self.menu_category.jsonify()
 
-        if settings.sound_group is not None:
-            self.sound_group = settings.sound_group
+        if self.traits:
+            block["description"]["traits"] = {}
+            for k, v in self.traits.items():
+                block["description"]["traits"][str(k)] = v.jsonify()
 
-        if settings.resistance is not None:
-            self.add_component(DestructibleByExplosionComponent(settings.resistance))
+        if self.states:
+            block["description"]["states"] = {}
+            for k, v in self.states.items():
+                block["description"]["states"].update(v.jsonify())
 
-        if settings.hardness is not None:
-            self.add_component(DestructibleByMiningComponent(settings.hardness))
+        if self.components:
+            block["components"] = {}
+            for k, v in self.components.items():
+                if k == "minecraft:tags":  # Override BlockTagsComponent
+                    for tag in v.tags:
+                        block["components"]["tag:" + str(tag)] = {}
+                else:
+                    block["components"][str(k)] = v.jsonify()
 
-        if settings.slipperiness is not None:
-            self.add_component(FrictionComponent(settings.slipperiness))
+        if self.permutations:
+            block["permutations"] = []
+            for v in self.permutations:
+                block["permutations"].append(v.jsonify())
 
-        if settings.loot_table is not None:
-            self.add_component(LootComponent(settings.loot_table))
+        if self.events:
+            block["events"] = {}
+            for key, events in self.events.items():
+                d = {}
+                for k, v in events.items():
+                    d[k.path] = v.jsonify()
+                block["events"][str(key)] = d
 
-        # use molang?
-        if settings.luminance is not None:
-            self.add_component(LightEmissionComponent(settings.luminance))
+        data = {"format_version": VERSION["BLOCK"], str(self.id): block}
+        if self.type:
+            data["type"] = str(self.type)
+        return data
 
-        if settings.map_color is not None:
-            self.add_component(MapColorComponent(settings.map_color))
+    def display_name(self, text: str) -> Self:
+        """
+        The name of this block in-game.
 
-        if settings.burnable:
-            self.add_component(FlammableComponent(0, 0))
-
+        :rtype: Self
+        """
+        self.name = text
         return self
 
+    def defaultstate(self) -> BlockState:
+        """
+        This blocks default BlockState
+
+        :rtype: BlockState
+        """
+        states = {}
+        for id, state in self.states.items():
+            states[id] = state.default()
+        return BlockState(self.identifier, states)
+
     def translation_key(self) -> str:
-        return f"tile.{str(self.id)}.name"
+        return f"tile.{self.identifier}.name"
 
     def stack(self):
+        from .item import ItemStack
+
         return ItemStack(self.identifier)
 
     def get_collision_shape(self) -> tuple[list, list]:
@@ -1990,6 +2252,35 @@ class Block(JsonFile, Identifiable):
         """
         return None
 
+    def generate(self, ctx) -> None:
+        """
+        Called when this block is added to ResourcePack or BehaviorPack
+
+        :type ctx: ResourcePack | BehaviorPack
+        """
+        for e in self.events.values():
+            for et in e.values():
+                et.generate(ctx)
+        for t in self.traits.values():
+            t.generate(ctx)
+        for p in self.permutations:
+            p.generate(ctx)
+        for c in self.components.values():
+            c.generate(ctx)
+        if isinstance(ctx, ResourcePack) and self.name is not None:
+            ctx.texts[self.translation_key()] = self.name
+
+    def item(self, id: Identifiable, icon: Identifiable = None, *args, **kw):
+        from .item import BlockItem
+
+        return BlockItem(
+            self.identifier.replace("_block", "") if id is None else id,
+            self,
+            self.identifier if icon is None else icon,
+            *args,
+            **kw,
+        ).display_name(self.name)
+
     # COMPONENT
 
     def add_component(self, component: BlockComponent) -> BlockComponent:
@@ -1999,37 +2290,34 @@ class Block(JsonFile, Identifiable):
             )
         if isinstance(component, Trigger):
             component.event.namespace = self.identifier.namespace
+        component.generate(self)
         self.components[component.id] = component
-        return component
+        return additem(self, "components", component, component.id, BlockComponent)
 
-    def get_component(self, id: Identifier) -> BlockComponent:
-        x = id.id if isinstance(id, BlockComponent) else Identifier(id)
-        return self.components.get(x)
+    def get_component(self, id: Identifiable) -> BlockComponent:
+        return getitem(self, "components", Identifiable.of(id))
 
     def remove_component(self, id: str) -> BlockComponent:
-        x = id.id if isinstance(id, BlockComponent) else Identifier(id)
-        return self.components.pop(x)
+        return removeitem(self, "components", Identifiable.of(id))
 
     def clear_components(self) -> Self:
-        """
-        Removes all components
-        """
-        self.components.clear()
-        return self
+        """Removes all components"""
+        return clearitems(self, "components")
 
     # EVENT
     def _event_id(self, id: Identifier | str):
         if id is None:
-            return "default"
+            return Identifier("default")
         elif isinstance(id, Identifier):
             return id
         else:
             return self.identifier.copy_with_path(id)
 
-    def add_event(self, id: Identifier | str, event: Event) -> Event:
+    def add_event(self, id: Identifiable, event: Event) -> Event:
         if isinstance(event, Event):
             k = self._event_id(id)
             if k in self.events:
+                event.generate(self)
                 self.events[k][event.id] = event
                 return event
             self.events[k] = {}
@@ -2044,20 +2332,19 @@ class Block(JsonFile, Identifiable):
                 f"Expected BlockEvent but got '{event.__class__.__name__}' instead"
             )
 
-    def get_event(self, id: Identifier | str) -> Event:
+    def add_events(self, id: Identifiable, *events: Event) -> list[Event]:
+        return [self.add_event(id, e) for e in events]
+
+    def get_event(self, id: Identifiable) -> Event:
         k = self._event_id(id)
         return self.events.get(k)
 
-    def remove_event(self, id: Identifier | str) -> Event:
-        i = Identifier.parse(id)
-        return self.events.pop(i)
+    def remove_event(self, id: Identifiable) -> Event:
+        return removeitem(self, "events", Identifiable.of(id))
 
     def clear_events(self) -> Self:
-        """
-        Removes all events
-        """
-        self.events.clear()
-        return self
+        """Removes all events"""
+        return clearitems(self, "events")
 
     # PERMUTATION
 
@@ -2066,23 +2353,23 @@ class Block(JsonFile, Identifiable):
             raise TypeError(
                 f"Expected BlockPermutation but got '{permutation.__class__.__name__}' instead"
             )
-        self.permutations.append(permutation)
-        return permutation
+        permutation.generate(self)
+        return additem(self, "permutations", permutation)
+
+    def add_permutations(
+        self, *permutations: BlockPermutation
+    ) -> list[BlockPermutation]:
+        return [self.add_permutation(perm) for perm in permutations]
 
     def get_permutation(self, index: int) -> BlockPermutation:
         return self.permutations[index]
 
     def remove_permutation(self, index: int) -> BlockPermutation:
-        p = self.get_permutation(index)
-        del self.permutations[index]
-        return p
+        return removeitem(self, "permutations", index)
 
     def clear_permutation(self) -> Self:
-        """
-        Removes all permutations
-        """
-        self.permutations.clear()
-        return self
+        """Removes all permutations"""
+        return clearitems(self, "permutations")
 
     # TRAIT
 
@@ -2091,48 +2378,42 @@ class Block(JsonFile, Identifiable):
             raise TypeError(
                 f"Expected BlockTrait but got '{trait.__class__.__name__}' instead"
             )
+        trait.generate(self)
         self.traits[trait.id] = trait
         return trait
 
-    def get_trait(self, id: str) -> BlockTrait:
-        x = id.id if isinstance(id, BlockTrait) else Identifier(id)
-        return self.traits.get(x)
+    def add_traits(self, *traits: BlockTrait) -> list[BlockTrait]:
+        return [self.add_trait(trait) for trait in traits]
 
-    def remove_trait(self, id: str) -> BlockTrait:
-        x = id.id if isinstance(id, BlockTrait) else Identifier(id)
-        return self.traits.pop(x)
+    def get_trait(self, id: Identifiable) -> BlockTrait:
+        return getitem(self, "traits", Identifiable.of(id))
+
+    def remove_trait(self, id: Identifiable) -> BlockTrait:
+        return removeitem(self, "traits", Identifiable.of(id))
 
     def clear_trait(self) -> Self:
-        """
-        Removes all traits
-        """
-        self.traits.clear()
-        return self
+        """Removes all traits"""
+        return clearitems(self, "traits")
 
     # STATE
 
-    def add_state(self, state: BlockState) -> BlockState:
-        if not isinstance(state, BlockState):
+    def add_state(self, state: BlockProperty) -> BlockProperty:
+        if not isinstance(state, BlockProperty):
             raise TypeError(
-                f"Expected BlockState but got '{state.__class__.__name__}' instead"
+                f"Expected BlockProperty but got '{state.__class__.__name__}' instead"
             )
         self.states[state.id] = state
         return state
 
-    def get_state(self, id: Identifier | str) -> BlockState:
-        x = id.id if isinstance(id, BlockState) else Identifier(id)
-        return self.states.get(x)
+    def get_state(self, id: Identifiable) -> BlockProperty:
+        return getitem(self, "states", Identifiable.of(id))
 
-    def remove_state(self, id: Identifier | str) -> BlockState:
-        x = id.id if isinstance(id, BlockState) else Identifier(id)
-        return self.states.pop(x)
+    def remove_state(self, id: Identifiable) -> BlockProperty:
+        return removeitem(self, "states", Identifiable.of(id))
 
     def clear_state(self) -> Self:
-        """
-        Removes all states
-        """
-        self.states.clear()
-        return self
+        """Removes all states"""
+        return clearitems(self, "states")
 
 
 class BlockLoader(Loader):
@@ -2142,7 +2423,7 @@ class BlockLoader(Loader):
         from .schemas import BlockSchema1
 
         Loader.__init__(self, Block)
-        self.add_schema(BlockSchema1, "1.20.51")
+        self.add_schema(BlockSchema1, "1.20.50")
 
 
 # TYPES

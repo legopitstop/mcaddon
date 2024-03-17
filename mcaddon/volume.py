@@ -2,29 +2,60 @@ from typing import Self
 import json
 
 from . import VERSION
+from .pack import behavior_pack
 from .registry import INSTANCE, Registries
 from .event import Trigger, Event
 from .file import JsonFile, Loader
-from .util import getattr2, Identifier, Identifiable
+from .util import (
+    getattr2,
+    getitem,
+    additem,
+    removeitem,
+    clearitems,
+    Identifier,
+    Identifiable,
+    Misc,
+)
 
 
-class VolumeComponent:
+class VolumeComponent(Misc):
     def __repr__(self):
         return str(self)
 
     def __str__(self) -> str:
         return "VolumeComponent{" + str(self.id) + "}"
 
-    @property
-    def __dict__(self) -> dict:
+    def __call__(self, ctx) -> int:
+        return self.execute(ctx)
+
+    def jsonify(self) -> dict:
         raise NotImplementedError()
 
     def json(self) -> str:
-        return json.dumps(self.__dict__)
+        return json.dumps(self.jsonify())
 
     @classmethod
     def from_dict(cls, data: dict) -> Self:
         raise NotImplementedError()
+
+    @property
+    def id(self) -> Identifier:
+        return getattr(self, "_id")
+
+    @id.setter
+    def id(self, value: Identifier):
+        setattr(self, "_id", Identifier.of(value))
+
+    def execute(self, ctx) -> int:
+        return 0
+
+    def generate(self, ctx) -> None:
+        """
+        Called when this component is added to Volume or BehaviorPack
+
+        :type ctx: Volume | BehaviorPack
+        """
+        ...
 
 
 INSTANCE.create_registry(Registries.VOLUME_COMPONENT_TYPE, VolumeComponent)
@@ -49,19 +80,18 @@ class FogComponent(VolumeComponent):
 
     id = Identifier("fog")
 
-    def __init__(self, fog_identifier: Identifier, priority: int):
+    def __init__(self, fog_identifier: Identifiable, priority: int):
         self.fog_identifier = fog_identifier
         self.priority = priority
 
-    @property
-    def __dict__(self) -> dict:
+    def jsonify(self) -> dict:
         data = {"fog_identifier": str(self.fog_identifier), "priority": self.priority}
         return data
 
     @classmethod
     def from_dict(cls, data: dict) -> Self:
         self = cls.__new__(cls)
-        self.fog_identifier = Identifier(data.pop("fog_identifier"))
+        self.fog_identifier = data.pop("fog_identifier")
         self.priority = data.pop("priority")
         return self
 
@@ -71,8 +101,10 @@ class FogComponent(VolumeComponent):
         return getattr(self, "_fog_identifier")
 
     @fog_identifier.setter
-    def fog_identifier(self, value: Identifier | str):
-        setattr(self, "_fog_identifier", Identifier(value))
+    def fog_identifier(self, value: Identifiable):
+        id = Identifiable.of(value)
+        self.on_update("fog_identifier", id)
+        setattr(self, "_fog_identifier", id)
 
     @property
     def priority(self) -> int:
@@ -85,6 +117,7 @@ class FogComponent(VolumeComponent):
             raise TypeError(
                 f"Expected int but got '{value.__class__.__name__}' instead"
             )
+        self.on_update("priority", value)
         setattr(self, "_priority", value)
 
 
@@ -97,9 +130,8 @@ class OnActorEnterComponent(VolumeComponent):
     def __init__(self, on_enter: list[Trigger] = None):
         self.on_enter = on_enter
 
-    @property
-    def __dict__(self) -> dict:
-        data = {"on_enter": [x.__dict__ for x in self.on_enter]}
+    def jsonify(self) -> dict:
+        data = {"on_enter": [x.jsonify() for x in self.on_enter]}
         return data
 
     @property
@@ -116,6 +148,7 @@ class OnActorEnterComponent(VolumeComponent):
             raise TypeError(
                 f"Expected list but got '{value.__class__.__name__}' instead"
             )
+        self.on_update("on_enter", value)
         setattr(self, "_on_enter", value)
 
     @classmethod
@@ -125,18 +158,17 @@ class OnActorEnterComponent(VolumeComponent):
         return self
 
     def get_event(self, index: int) -> Trigger:
-        return self.on_enter[index]
+        return getitem(self, "on_enter", index)
 
     def add_event(self, event: Trigger) -> Trigger:
-        self.on_enter.append(event)
-        return event
+        return additem(self, "on_enter", event, type=Trigger)
 
     def remove_event(self, index: int) -> Trigger:
-        return self.on_enter.pop(index)
+        return removeitem(self, "on_enter", index)
 
     def clear_events(self) -> Self:
-        self.on_enter = []
-        return self
+        """Removes all on enter triggers"""
+        return clearitems(self, "on_enter")
 
 
 @volume_component_type
@@ -148,9 +180,8 @@ class OnActorLeaveComponent(VolumeComponent):
     def __init__(self, on_leave: list[Trigger]):
         self.on_leave = on_leave
 
-    @property
-    def __dict__(self) -> dict:
-        data = {"on_leave": [x.__dict__ for x in self.on_leave]}
+    def jsonify(self) -> dict:
+        data = {"on_leave": [x.jsonify() for x in self.on_leave]}
         return data
 
     @property
@@ -167,6 +198,7 @@ class OnActorLeaveComponent(VolumeComponent):
             raise TypeError(
                 f"Expected list but got '{value.__class__.__name__}' instead"
             )
+        self.on_update("on_leave", value)
         setattr(self, "_on_leave", value)
 
     @classmethod
@@ -176,33 +208,31 @@ class OnActorLeaveComponent(VolumeComponent):
         return self
 
     def get_event(self, index: int) -> Trigger:
-        return self.on_leave[index]
+        return getitem(self, "on_leave", index)
 
     def add_event(self, event: Trigger) -> Trigger:
-        self.on_leave.append(event)
-        return event
+        return additem(self, "on_leave", event, type=Trigger)
 
     def remove_event(self, index: int) -> Trigger:
-        return self.on_leave.pop(index)
+        return removeitem(self, "on_leave", index)
 
     def clear_events(self) -> Self:
-        self.on_leave = []
-        return self
+        """Remove all on leave triggers"""
+        return clearitems(self, "on_leave")
 
 
+@behavior_pack
 class Volume(JsonFile, Identifiable):
     """
-    Represents a Volume.
+    Represents a data-driven [Volume](https://bedrock.dev/docs/stable/Volumes).
     """
 
     id = Identifier("volume")
-    EXTENSION = ".json"
-    FILENAME = "volume"
-    DIRNAME = "volumes"
+    FILEPATH = "volumes/volume.json"
 
     def __init__(
         self,
-        identifier: Identifier | str,
+        identifier: Identifiable,
         components: dict[str, VolumeComponent] = None,
     ):
         Identifiable.__init__(self, identifier)
@@ -211,20 +241,19 @@ class Volume(JsonFile, Identifiable):
     def __str__(self) -> str:
         return "Volume{" + str(self.identifier) + "}"
 
-    @property
-    def __dict__(self) -> dict:
+    def jsonify(self) -> dict:
         volume = {"description": {"identifier": str(self.identifier)}}
         if self.components:
             volume["components"] = {}
             for k, v in self.components.items():
-                volume["components"][str(k)] = v.__dict__
+                volume["components"][str(k)] = v.jsonify()
 
         if self.events:
             volume["events"] = {}
             for key, events in self.events.items():
                 d = {}
                 for k, v in events.items():
-                    d[k.path] = v.__dict__
+                    d[k.path] = v.jsonify()
                 volume["events"][str(key)] = d
 
         data = {"format_version": VERSION["VOLUME"], str(self.id): volume}
@@ -250,6 +279,7 @@ class Volume(JsonFile, Identifiable):
             raise TypeError(
                 f"Expected dict but got '{value.__class__.__name__}' instead"
             )
+        self.on_update("components", value)
         setattr(self, "_components", value)
 
     @property
@@ -258,44 +288,57 @@ class Volume(JsonFile, Identifiable):
         return getattr2(self, "_events", {})
 
     @events.setter
-    def events(self, value: dict[Identifier, Event]):
+    def events(self, value: dict[Identifiable, Event]):
         if not isinstance(value, dict):
             raise TypeError(
                 f"Expected dict but got '{value.__class__.__name__}' instead"
             )
-        setattr(self, "_events", value)
+        events = {}
+        for k, v in value.items():
+            events[Identifiable.of(k)] = v
+        self.on_update("events", events)
+        setattr(self, "_events", events)
+
+    def generate(self, ctx) -> None:
+        """
+        Called when this item is added to ResourcePack or BehaviorPack
+
+        :type ctx: ResourcePack | BehaviorPack
+        """
+        for c in self.components.values():
+            c.generate(ctx)
+        for e in self.events.values():
+            e.generate(ctx)
 
     # COMPONENT
 
+    def get_component(self, id: Identifiable) -> VolumeComponent:
+        return getitem(self, "components", Identifiable.of(id))
+
     def add_component(self, component: VolumeComponent) -> VolumeComponent:
-        if not isinstance(component, VolumeComponent):
-            raise TypeError(
-                f"Expected VolumeComponent but got '{component.__class__.__name__}' instead"
-            )
-        self.components[component.id] = component
-        return component
+        component.generate(self)
+        return additem(self, "components", component, component.id, VolumeComponent)
 
-    def get_component(self, id: str) -> VolumeComponent:
-        x = id.id if isinstance(id, VolumeComponent) else id
-        return self.components.get(x)
-
-    def remove_component(self, id: str) -> VolumeComponent:
-        x = id.id if isinstance(id, VolumeComponent) else id
-        return self.components.pop(x)
+    def remove_component(self, id: Identifiable) -> VolumeComponent:
+        return removeitem(self, "components", Identifiable.of(id))
 
     def clear_components(self) -> Self:
-        self.components.clear()
-        return self
+        """Remove all components"""
+        return clearitems(self, "components")
 
     # EVENT
 
-    def add_event(self, id: Identifier | str, event: Event) -> Event:
+    def get_event(self, event: Identifiable) -> Event:
+        return getitem(self, "events", Identifiable.of(event))
+
+    def add_event(self, id: Identifiable, event: Event) -> Event:
         if not isinstance(event, Event):
             raise TypeError(
                 f"Expected Event but got '{event.__class__.__name__}' instead"
             )
-        i = Identifier.parse(id)
+        i = Identifier.of(id)
         if i in self.events:
+            event.generate(self)
             self.events[i][event.id] = event
             return event
         obj = {}
@@ -304,20 +347,19 @@ class Volume(JsonFile, Identifiable):
         event.id
         return event
 
-    def get_event(self, id: Identifier | str) -> Event:
-        i = Identifier.parse(id)
-        return self.events.get(i)
-
-    def remove_event(self, id: Identifier | str) -> Event:
-        i = Identifier.parse(id)
-        return self.events.pop(i)
+    def remove_event(self, event: Identifiable) -> Event:
+        return removeitem(self, "events", Identifiable.of(event))
 
     def clear_events(self) -> Self:
-        self.events.clear()
-        return self
+        """Remove all events"""
+        return clearitems(self, "events")
+
+    def generate(self, ctx) -> None: ...
 
 
 class VolumeLoader(Loader):
+    name = "Volume"
+
     def __init__(self):
         from .schemas import VolumeSchema1
 

@@ -1,0 +1,40 @@
+{
+  "format_version": "1.20.50",
+  "minecraft:volume": {
+    "description": {
+      "identifier": "test:volume"
+    },
+    "components": {
+      "minecraft:fog": {
+        "fog_identifier": "minecraft:fog_savanna",
+        "priority": 1
+      },
+      "minecraft:on_actor_enter": {
+        "on_enter": [
+          {
+            "event": "minecraft:on_enter"
+          }
+        ]
+      },
+      "minecraft:on_actor_leave": {
+        "on_leave": [
+          {
+            "event": "minecraft:on_leave"
+          }
+        ]
+      }
+    },
+    "events": {
+      "minecraft:on_enter": {
+        "run_command": {
+          "command": "say on_enter"
+        }
+      },
+      "minecraft:on_leave": {
+        "run_command": {
+          "command": "say on_leave"
+        }
+      }
+    }
+  }
+}

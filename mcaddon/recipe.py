@@ -1,26 +1,27 @@
 from typing import Self
 
-from .item import ItemStack
-from .exception import RecipeTypeNotFoundError
+from . import VERSION
+from .exception import TypeNotFoundError
 from .registry import INSTANCE, Registries
-from .constant import RecipeTag
-from .file import JsonFile, Loader
-from .util import getattr2, Identifier, Identifiable
+
+from .item import ItemStack
+from .pack import behavior_pack
+from .file import JsonFile, Loader, Misc
+from .util import (
+    getattr2,
+    getitem,
+    additem,
+    removeitem,
+    clearitems,
+    Identifier,
+    Identifiable,
+)
 
 
-class Ingredient:
-    def __init__(self, item: ItemStack = None, tag: Identifier = None):
+class Ingredient(Misc):
+    def __init__(self, item: ItemStack = None, tag: Identifiable = None):
         self.item = item
         self.tag = tag
-
-    @property
-    def __dict__(self) -> dict:
-        data = {}
-        if self.item:
-            data = self.item.__dict__
-        elif self.tag:
-            data["tag"] = str(self.tag)
-        return data
 
     @classmethod
     def from_dict(cls, data: dict) -> Self:
@@ -34,7 +35,7 @@ class Ingredient:
     @property
     def item(self) -> ItemStack:
         """Item used as input for the recipe."""
-        return getattr(self, "_item")
+        return getattr(self, "_item", None)
 
     @item.setter
     def item(self, value: ItemStack):
@@ -42,44 +43,52 @@ class Ingredient:
             raise TypeError(
                 f"Expected ItemStack but got '{value.__class__.__name__}' instead"
             )
+        self.on_update("item", value)
         setattr(self, "_item", value)
 
     @property
     def tag(self) -> Identifier:
         """Tag used as input for the recipe."""
-        return getattr(self, "_tag")
+        return getattr(self, "_tag", None)
 
     @tag.setter
-    def tag(self, value: Identifier):
-        if not isinstance(value, (Identifier, str)):
-            raise TypeError(
-                f"Expected Identifier but got '{value.__class__.__name__}' instead"
-            )
-        setattr(self, "_tag", Identifier(value))
+    def tag(self, value: Identifiable):
+        id = Identifiable.of(value)
+        self.on_update("tag", id)
+        setattr(self, "_tag", id)
+
+    def jsonify(self) -> dict:
+        data = {}
+        if self.item:
+            data = self.item.jsonify()
+        elif self.tag:
+            data["tag"] = str(self.tag)
+        return data
+
+    @staticmethod
+    def of(obj) -> Self:
+        if isinstance(obj, Ingredient):
+            return obj
+        elif isinstance(obj, ItemStack):
+            return Ingredient(obj)
+        res = str(obj)
+        if res.startswith("#"):
+            return Ingredient(tag=res.replace("#", "", 1))
+        return Ingredient(ItemStack(res))
 
 
 class Recipe(JsonFile, Identifiable):
-    EXTENSION = ".json"
-    FILENAME = "recipe"
-    DIRNAME = "recipes"
-
-    def __init__(self, identifier: Identifier | str, tags: list[RecipeTag] = None):
+    def __init__(self, identifier: Identifiable, tags: list[str] = []):
         Identifiable.__init__(self, identifier)
         self.tags = tags
 
     def __str__(self) -> str:
-        return "Recipe{" + str(self.identifier) + "}"
+        return self.__class__.__name__ + "{" + str(self.identifier) + "}"
 
-    @property
-    def __dict__(self) -> dict:
-        recipe = {
-            "tags": [
-                str(tag._value_) if isinstance(tag, RecipeTag) else str(tag)
-                for tag in self.tags
-            ]
-        }
+    def jsonify(self) -> dict:
+        recipe = {"tags": [str(tag) for tag in self.tags]}
         data = {
-            "format_version": "1.20.51",
+            "format_version": "1.20.50",
             str(self.id): {"description": {"identifier": str(self.identifier)}},
         }
         for k, v in recipe.items():
@@ -94,7 +103,7 @@ class Recipe(JsonFile, Identifiable):
                 dat = data.get(str(self.id))
                 self.identifier = dat["description"]["identifier"]
                 return self
-        raise RecipeTypeNotFoundError(data)
+        raise TypeNotFoundError(data)
 
     @property
     def id(self) -> Identifier:
@@ -102,15 +111,15 @@ class Recipe(JsonFile, Identifiable):
 
     @id.setter
     def id(self, value: Identifier):
-        setattr(self, "_id", Identifier(value))
+        setattr(self, "_id", Identifier.of(value))
 
     @property
-    def tags(self) -> list[RecipeTag]:
+    def tags(self) -> list[str]:
         """Item used in a Recipe."""
         return getattr2(self, "_tags", [])
 
     @tags.setter
-    def tags(self, value: list[RecipeTag]):
+    def tags(self, value: list[str]):
         if value is None:
             self.tags = []
             return
@@ -118,6 +127,7 @@ class Recipe(JsonFile, Identifiable):
             raise TypeError(
                 f"Expected list but got '{value.__class__.__name__}' instead"
             )
+        self.on_update("tags", value)
         setattr(self, "_tags", value)
 
     @property
@@ -134,23 +144,21 @@ class Recipe(JsonFile, Identifiable):
             raise TypeError(
                 f"Expected ItemStack but got '{value.__class__.__name__}' instead"
             )
+        self.on_update("result", value)
         setattr(self, "_result", value)
 
-    def add_tag(self, tag: RecipeTag | str) -> str:
-        if not isinstance(tag, (RecipeTag, str)):
-            raise TypeError(
-                f"Expected RecipeTag but got '{tag.__class__.__name__}' instead"
-            )
-        self.tags.append(tag)
-        return tag
+    def get_tag(self, index: int) -> str:
+        return getitem(self, "tags", index)
 
-    def remove_tag(self, tag: RecipeTag | str) -> Self:
-        self.tags.remove(tag)
-        return self
+    def add_tag(self, tag: str | str) -> str:
+        return additem(self, "tags", tag, type=str)
+
+    def remove_tag(self, index: int) -> Self:
+        return removeitem(self, "tags", index)
 
     def clear_tags(self) -> Self:
-        self.tags = []
-        return self
+        """Remove all tags"""
+        return clearitems(self, "tags")
 
 
 INSTANCE.create_registry(Registries.RECIPE_TYPE, Recipe)
@@ -168,23 +176,24 @@ def recipe_type(cls):
 
 
 @recipe_type
+@behavior_pack
 class FurnaceRecipe(Recipe):
-    """Represents a furnace recipe for a furnace.'Input' items will burn and transform into items specified in 'output'."""
+    """Represents a [furnace recipe](https://bedrock.dev/docs/stable/Recipes#Furnace%20Recipe) for a furnace.'Input' items will burn and transform into items specified in 'output'."""
 
     id = Identifier("recipe_furnace")
+    FILEPATH = "recipes/recipe_furnace.json"
 
     def __init__(
-        self, identifier: Identifier | str, input: ItemStack, output: ItemStack
+        self, identifier: Identifier | str, input: Ingredient, output: ItemStack
     ):
         Recipe.__init__(self, identifier)
         self.input = input
         self.output = output
-        self.add_tag(RecipeTag.furnace)
+        self.add_tag("furnace")
 
-    @property
-    def __dict__(self) -> dict:
-        data = super().__dict__
-        data[str(self.id)]["input"] = str(self.input.item)
+    def jsonify(self) -> dict:
+        data = super().jsonify()
+        data[str(self.id)]["input"] = self.input.item.jsonify()
         data[str(self.id)]["output"] = str(self.output.item)
         return data
 
@@ -205,6 +214,7 @@ class FurnaceRecipe(Recipe):
             raise TypeError(
                 f"Expected Ingredient but got '{value.__class__.__name__}' instead"
             )
+        self.on_update("input", value)
         setattr(self, "_input", value)
 
     @property
@@ -218,6 +228,7 @@ class FurnaceRecipe(Recipe):
             raise TypeError(
                 f"Expected ItemStack but got '{value.__class__.__name__}' instead"
             )
+        self.on_update("output", value)
         setattr(self, "_output", value)
 
 
@@ -230,14 +241,16 @@ class FurnaceRecipeLoader(Loader):
         Loader.__init__(self, FurnaceRecipe)
         self.add_schema(FurnaceSchem1, "1.12")
         self.add_schema(FurnaceSchem1, "1.20.10")
-        self.add_schema(FurnaceSchem1, "1.20.51")
+        self.add_schema(FurnaceSchem1, "1.20.50")
 
 
 @recipe_type
+@behavior_pack
 class BrewingContainerRecipe(Recipe):
-    """Represents a Potion Brewing Container Recipe."""
+    """Represents a [Potion Brewing Container Recipe](https://bedrock.dev/docs/stable/Recipes#Potion%20Brewing%20Container%20Recipe)."""
 
     id = Identifier("recipe_brewing_container")
+    FILEPATH = "recipes/recipe_brewing_container.json"
 
     def __init__(
         self,
@@ -250,11 +263,10 @@ class BrewingContainerRecipe(Recipe):
         self.input = input
         self.reagent = reagent
         self.output = output
-        self.add_tag(RecipeTag.brewing_stand)
+        self.add_tag("brewing_stand")
 
-    @property
-    def __dict__(self) -> dict:
-        data = super().__dict__
+    def jsonify(self) -> dict:
+        data = super().jsonify()
         data[str(self.id)]["input"] = str(self.input.item)
         data[str(self.id)]["reagent"] = str(self.reagent.item)
         data[str(self.id)]["output"] = str(self.output.item)
@@ -277,6 +289,7 @@ class BrewingContainerRecipe(Recipe):
             raise TypeError(
                 f"Expected ItemStack but got '{value.__class__.__name__}' instead"
             )
+        self.on_update("input", value)
         setattr(self, "_input", value)
 
     @property
@@ -290,6 +303,7 @@ class BrewingContainerRecipe(Recipe):
             raise TypeError(
                 f"Expected ItemStack but got '{value.__class__.__name__}' instead"
             )
+        self.on_update("reagent", value)
         setattr(self, "_reagent", value)
 
     @property
@@ -303,6 +317,7 @@ class BrewingContainerRecipe(Recipe):
             raise TypeError(
                 f"Expected ItemStack but got '{value.__class__.__name__}' instead"
             )
+        self.on_update("output", value)
         setattr(self, "_output", value)
 
 
@@ -315,13 +330,16 @@ class BrewingContainerRecipeLoader(Loader):
         Loader.__init__(self, BrewingContainerRecipe)
         self.add_schema(BrewingContainerSchem1, "1.12")
         self.add_schema(BrewingContainerSchem1, "1.20.10")
+        self.add_schema(BrewingContainerSchem1, "1.20.50")
 
 
 @recipe_type
+@behavior_pack
 class BrewingMixRecipe(Recipe):
-    """Represents a Potion Brewing Mix."""
+    """Represents a [Potion Brewing Mix](https://bedrock.dev/docs/stable/Recipes#Potion%20Brewing%20Mix)."""
 
     id = Identifier("recipe_brewing_mix")
+    FILEPATH = "recipes/recipe_brewing_mix.json"
 
     def __init__(
         self,
@@ -334,11 +352,10 @@ class BrewingMixRecipe(Recipe):
         self.input = input
         self.reagent = reagent
         self.output = output
-        self.add_tag(RecipeTag.brewing_stand)
+        self.add_tag("brewing_stand")
 
-    @property
-    def __dict__(self) -> dict:
-        data = super().__dict__
+    def jsonify(self) -> dict:
+        data = super().jsonify()
         data[str(self.id)]["input"] = str(self.input.item)
         data[str(self.id)]["reagent"] = str(self.reagent.item)
         data[str(self.id)]["output"] = str(self.output.item)
@@ -361,6 +378,7 @@ class BrewingMixRecipe(Recipe):
             raise TypeError(
                 f"Expected ItemStack but got '{value.__class__.__name__}' instead"
             )
+        self.on_update("input", value)
         setattr(self, "_input", value)
 
     @property
@@ -374,6 +392,7 @@ class BrewingMixRecipe(Recipe):
             raise TypeError(
                 f"Expected ItemStack but got '{value.__class__.__name__}' instead"
             )
+        self.on_update("reagent", value)
         setattr(self, "_reagent", value)
 
     @property
@@ -387,6 +406,7 @@ class BrewingMixRecipe(Recipe):
             raise TypeError(
                 f"Expected ItemStack but got '{value.__class__.__name__}' instead"
             )
+        self.on_update("output", value)
         setattr(self, "_output", value)
 
 
@@ -399,33 +419,41 @@ class BrewingMixRecipeLoader(Loader):
         Loader.__init__(self, BrewingMixRecipe)
         self.add_schema(BrewingMixSchem1, "1.12")
         self.add_schema(BrewingMixSchem1, "1.20.10")
+        self.add_schema(BrewingMixSchem1, "1.20.50")
 
 
 @recipe_type
+@behavior_pack
 class ShapedRecipe(Recipe):
     """
-    Represents a shaped crafting recipe for a crafting table.
+    Represents a [shaped crafting recipe](https://bedrock.dev/docs/stable/Recipes#Shaped%20Recipe) for a crafting table.
 
     The key used in the pattern may be any single character except the 'space' character, which is reserved for empty slots in a recipe.
     """
 
     id = Identifier("recipe_shaped")
+    FILEPATH = "recipes/recipe_shaped.json"
 
-    def __init__(self, identifier: Identifier, pattern: list[str], result: ItemStack):
+    def __init__(
+        self, identifier: Identifier, result: ItemStack, pattern: list[str] = []
+    ):
         Recipe.__init__(self, identifier)
         self.pattern = pattern
         self.key = {}
         self.result = result
-        self.add_tag(RecipeTag.crafting_table)
+        self.add_tag("crafting_table")
 
-    @property
-    def __dict__(self) -> dict:
-        data = super().__dict__
+    def jsonify(self) -> dict:
+        data = super().jsonify()
         data[str(self.id)]["pattern"] = self.pattern
         data[str(self.id)]["key"] = {}
         for k, v in self.key.items():
-            data[str(self.id)]["key"][k] = v.__dict__
-        data[str(self.id)]["result"] = self.result.__dict__
+            data[str(self.id)]["key"][k] = v.jsonify()
+
+        if isinstance(self.result, list):
+            data[str(self.id)]["result"] = [x.jsonify() for x in self.result]
+        else:
+            data[str(self.id)]["result"] = self.result.jsonify()
         return data
 
     @classmethod
@@ -448,6 +476,7 @@ class ShapedRecipe(Recipe):
             raise TypeError(
                 f"Expected list but got '{value.__class__.__name__}' instead"
             )
+        self.on_update("pattern", value)
         setattr(self, "_pattern", value)
 
     @property
@@ -464,6 +493,7 @@ class ShapedRecipe(Recipe):
             raise TypeError(
                 f"Expected dict but got '{value.__class__.__name__}' instead"
             )
+        self.on_update("key", value)
         setattr(self, "_key", value)
 
     def add_key(self, key: str, stack: ItemStack) -> ItemStack:
@@ -495,24 +525,29 @@ class ShapedRecipeLoader(Loader):
         self.add_schema(ShapedSchem1, "1.14")
         self.add_schema(ShapedSchem1, "1.16")
         self.add_schema(ShapedSchem1, "1.20.10")
-        self.add_schema(ShapedSchem1, "1.20.51")
+        self.add_schema(ShapedSchem1, "1.20.50")
 
 
 @recipe_type
+@behavior_pack
 class ShapelessRecipe(Recipe):
+    """
+    Represents a [shapeless crafting recipe](https://bedrock.dev/docs/stable/Recipes#Shapeless%20Recipe).
+    """
+
     id = Identifier("recipe_shapeless")
+    FILEPATH = "recipes/recipe_shapeless.json"
 
     def __init__(self, identifier: Identifier, result: ItemStack):
         Recipe.__init__(self, identifier)
         self.ingredients = []
         self.result = result
-        self.add_tag(RecipeTag.crafting_table)
+        self.add_tag("crafting_table")
 
-    @property
-    def __dict__(self) -> dict:
-        data = super().__dict__
-        data[str(self.id)]["ingredients"] = [x.__dict__ for x in self.ingredients]
-        data[str(self.id)]["result"] = self.result.__dict__
+    def jsonify(self) -> dict:
+        data = super().jsonify()
+        data[str(self.id)]["ingredients"] = [x.jsonify() for x in self.ingredients]
+        data[str(self.id)]["result"] = self.result.jsonify()
         return data
 
     @classmethod
@@ -522,12 +557,12 @@ class ShapelessRecipe(Recipe):
         return loader.load(data)
 
     @property
-    def ingredients(self) -> list[RecipeTag]:
+    def ingredients(self) -> list[str]:
         """items used as input (without a shape) for the recipe."""
         return getattr2(self, "_ingredients", [])
 
     @ingredients.setter
-    def ingredients(self, value: list[RecipeTag]):
+    def ingredients(self, value: list[str]):
         if value is None:
             self.ingredients = []
             return
@@ -535,6 +570,7 @@ class ShapelessRecipe(Recipe):
             raise TypeError(
                 f"Expected list but got '{value.__class__.__name__}' instead"
             )
+        self.on_update("ingredients", value)
         setattr(self, "_ingredients", value)
 
     def add_ingredient(self, stack: ItemStack) -> ItemStack:
@@ -561,18 +597,20 @@ class ShapelessRecipeLoader(Loader):
         self.add_schema(ShapelessSchem1, "1.16")
         self.add_schema(ShapelessSchem1, "1.19")
         self.add_schema(ShapelessSchem1, "1.20.10")
-        self.add_schema(ShapelessSchem1, "1.20.51")
+        self.add_schema(ShapelessSchem1, "1.20.50")
 
 
 @recipe_type
+@behavior_pack
 class SmithingTransformRecipe(Recipe):
     """
-    Represents a Smithing Transform Recipe for the Smithing Table.
+    Represents a [Smithing Transform Recipe](https://bedrock.dev/docs/stable/Recipes#Smithing%20Transform%20Recipe) for the Smithing Table.
 
     This recipe transforms an item into another one, while retaining its properties.
     """
 
     id = Identifier("recipe_smithing_transform")
+    FILEPATH = "recipes/recipe_smithing_transform.json"
 
     def __init__(
         self,
@@ -587,11 +625,10 @@ class SmithingTransformRecipe(Recipe):
         self.base = base
         self.addition = addition
         self.result = result
-        self.add_tag(RecipeTag.smithing_table)
+        self.add_tag("smithing_table")
 
-    @property
-    def __dict__(self) -> dict:
-        data = super().__dict__
+    def jsonify(self) -> dict:
+        data = super().jsonify()
         data[str(self.id)]["template"] = str(self.template.item)
         data[str(self.id)]["base"] = str(self.base.item)
         data[str(self.id)]["addition"] = str(self.addition.item)
@@ -615,6 +652,7 @@ class SmithingTransformRecipe(Recipe):
             raise TypeError(
                 f"Expected ItemStack but got '{value.__class__.__name__}' instead"
             )
+        self.on_update("template", value)
         setattr(self, "_template", value)
 
     @property
@@ -628,6 +666,7 @@ class SmithingTransformRecipe(Recipe):
             raise TypeError(
                 f"Expected ItemStack but got '{value.__class__.__name__}' instead"
             )
+        self.on_update("addition", value)
         setattr(self, "_addition", value)
 
     @property
@@ -641,6 +680,7 @@ class SmithingTransformRecipe(Recipe):
             raise TypeError(
                 f"Expected ItemStack but got '{value.__class__.__name__}' instead"
             )
+        self.on_update("base", value)
         setattr(self, "_base", value)
 
     @property
@@ -653,6 +693,7 @@ class SmithingTransformRecipe(Recipe):
             raise TypeError(
                 f"Expected ItemStack but got '{value.__class__.__name__}' instead"
             )
+        self.on_update("result", value)
         setattr(self, "_result", value)
 
 
@@ -665,38 +706,39 @@ class SmithingTransformRecipeLoader(Loader):
         Loader.__init__(self, SmithingTransformRecipe)
         self.add_schema(SmithingTransformSchem2, "1.12")
         self.add_schema(SmithingTransformSchem1, "1.20.10")
-        self.add_schema(SmithingTransformSchem1, "1.20.51")
+        self.add_schema(SmithingTransformSchem1, "1.20.50")
 
 
 @recipe_type
+@behavior_pack
 class SmithingTrimRecipe(Recipe):
     """
-    Represents a Smithing Trim Recipe for the Smithing Table.
+    Represents a [Smithing Trim Recipe](https://bedrock.dev/docs/stable/Recipes#Smithing%20Trim%20Recipe) for the Smithing Table.
 
     This recipe applies a colored trim pattern to an item, while preserving its other properties.
     """
 
     id = Identifier("recipe_smithing_trim")
+    FILEPATH = "recipes/recipe_smithing_trim.json"
 
     def __init__(
         self,
         identifier: Identifier,
-        template: ItemStack,
-        base: ItemStack,
-        addition: ItemStack,
+        template: Ingredient,
+        base: Ingredient,
+        addition: Ingredient,
     ):
         Recipe.__init__(self, identifier)
         self.template = template
         self.base = base
         self.addition = addition
-        self.add_tag(RecipeTag.smithing_table)
+        self.add_tag("smithing_table")
 
-    @property
-    def __dict__(self) -> dict:
-        data = super().__dict__
-        data[str(self.id)]["template"] = str(self.template.item)
-        data[str(self.id)]["base"] = str(self.base.item)
-        data[str(self.id)]["addition"] = str(self.addition.item)
+    def jsonify(self) -> dict:
+        data = super().jsonify()
+        data[str(self.id)]["template"] = self.template.item.jsonify()
+        data[str(self.id)]["base"] = self.base.item.jsonify()
+        data[str(self.id)]["addition"] = self.addition.item.jsonify()
         return data
 
     @classmethod
@@ -716,6 +758,7 @@ class SmithingTrimRecipe(Recipe):
             raise TypeError(
                 f"Expected Ingredient but got '{value.__class__.__name__}' instead"
             )
+        self.on_update("template", value)
         setattr(self, "_template", value)
 
     @property
@@ -729,6 +772,7 @@ class SmithingTrimRecipe(Recipe):
             raise TypeError(
                 f"Expected Ingredient but got '{value.__class__.__name__}' instead"
             )
+        self.on_update("base", value)
         setattr(self, "_base", value)
 
     @property
@@ -742,6 +786,7 @@ class SmithingTrimRecipe(Recipe):
             raise TypeError(
                 f"Expected Ingredient but got '{value.__class__.__name__}' instead"
             )
+        self.on_update("addition", value)
         setattr(self, "_addition", value)
 
 
@@ -754,26 +799,31 @@ class SmithingTrimRecipeLoader(Loader):
         Loader.__init__(self, SmithingTrimRecipe)
         self.add_schema(SmithingTrimSchem1, "1.12")
         self.add_schema(SmithingTrimSchem1, "1.20.10")
-        self.add_schema(SmithingTrimSchem1, "1.20.51")
+        self.add_schema(SmithingTrimSchem1, "1.20.50")
 
 
 @recipe_type
+@behavior_pack
 class MaterialReductionRecipe(Recipe):
+    """
+    Represents a Material Reduction Recipe for the Material Reducer.
+    """
+
     id = Identifier("recipe_material_reduction")
+    FILEPATH = "recipes/recipe_material_reduction.json"
 
     def __init__(
-        self, identifier: Identifier, input: ItemStack, output: list[ItemStack]
+        self, identifier: Identifier, input: Ingredient, output: list[ItemStack]
     ):
         Recipe.__init__(self, identifier)
         self.input = input
         self.output = output
-        self.add_tag(RecipeTag.material_reducer)
+        self.add_tag("material_reducer")
 
-    @property
-    def __dict__(self) -> dict:
-        data = super().__dict__
+    def jsonify(self) -> dict:
+        data = super().jsonify()
         data[str(self.id)]["input"] = str(self.input.item)
-        data[str(self.id)]["output"] = [str(x.item) for x in self.output]
+        data[str(self.id)]["output"] = [x.item.jsonify() for x in self.output]
         return data
 
     @classmethod
@@ -783,15 +833,16 @@ class MaterialReductionRecipe(Recipe):
         return loader.load(data)
 
     @property
-    def input(self) -> ItemStack:
+    def input(self) -> Ingredient:
         return getattr(self, "_input")
 
     @input.setter
-    def input(self, value: ItemStack):
-        if not isinstance(value, ItemStack):
+    def input(self, value: Ingredient):
+        if not isinstance(value, Ingredient):
             raise TypeError(
-                f"Expected ItemStack but got '{value.__class__.__name__}' instead"
+                f"Expected Ingredient but got '{value.__class__.__name__}' instead"
             )
+        self.on_update("input", value)
         setattr(self, "_input", value)
 
     @property
@@ -804,6 +855,7 @@ class MaterialReductionRecipe(Recipe):
             raise TypeError(
                 f"Expected list but got '{value.__class__.__name__}' instead"
             )
+        self.on_update("output", value)
         setattr(self, "_output", value)
 
 
@@ -818,8 +870,14 @@ class MaterialReductionRecipeLoader(Loader):
 
 
 # SHORTCUT
+
+
 class StonecuttingRecipe(ShapelessRecipe):
+    """
+    Represents a Shapeless Recipe for the Stonecutter.
+    """
+
     def __init__(self, identifier: Identifier, result: ItemStack):
         ShapelessRecipe.__init__(self, identifier, result)
         self.clear_tags()
-        self.add_tag(RecipeTag.stonecutter)
+        self.add_tag("stonecutter")

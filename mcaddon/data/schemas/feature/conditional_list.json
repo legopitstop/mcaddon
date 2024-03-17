@@ -1,0 +1,38 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "type": "object",
+  "required": ["format_version", "minecraft:conditional_list"],
+  "properties": {
+    "format_version": { "type": "string" },
+    "minecraft:conditional_list": {
+      "type": "object",
+      "required": ["description"],
+      "properties": {
+        "description": {
+          "type": "object",
+          "required": ["identifier"],
+          "properties": {
+            "identifier": {
+              "type": "string"
+            }
+          },
+          "additionalProperties": false
+        },
+        "conditional_features": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "places_feature": { "type": "string" },
+              "condition": { "type": "string" }
+            },
+            "additionalProperties": false
+          }
+        },
+        "early_out_scheme": { "type": "string" }
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false
+}

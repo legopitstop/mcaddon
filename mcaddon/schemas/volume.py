@@ -1,4 +1,7 @@
+import os
+
 from .. import (
+    __file__,
     INSTANCE,
     Schema,
     Identifier,
@@ -10,13 +13,13 @@ from .. import (
 
 class VolumeSchema1(Schema):
     def __init__(self):
-        Schema.__init__(self, "volume1.json")
+        Schema.__init__(
+            self,
+            os.path.join(os.path.dirname(__file__), "data", "schemas", "volume1.json"),
+        )
 
     def load(cls, self, data: dict):
-        if "description" in data:
-            desc = data["description"]
-            if "identifier" in desc:
-                self.identifier = desc["identifier"]
+        self.identifier = data["description"]["identifier"]
 
         if "components" in data:
             comp = data["components"]

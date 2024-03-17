@@ -1,5 +1,6 @@
 from typing import Self
 from zipfile import ZIP_DEFLATED, ZipFile
+from multiprocessing import Pool
 from io import BytesIO
 import mclang
 import os
@@ -12,16 +13,19 @@ from .exception import ManifestNotFoundError
 from .constant import Edition
 from .manifest import Manifest
 from .file import ArchiveFile, File, Importable
-from .util import getattr2, Identifier
-from .resrouce import ItemAtlas, TerrainAtlas
-from .recipe import Recipe
-from .block import Block
-from .item import Item
-from .volume import Volume
-from .loot import LootTable
+from .util import (
+    getattr2,
+    getitem,
+    additem,
+    clearitems,
+    Identifier,
+    Identifiable,
+)
+from .registry import INSTANCE, Registries, RegistryKey
 
 
-class Pack(Importable):
+# TODO: Instead of creating self.items, self.blocks, etc. add self.registry = {'item': RegistryKey()}
+class Pack(ArchiveFile, Importable):
     def __init__(
         self, manifest: Manifest = None, texts: mclang.Lang = None, filename: str = None
     ):
@@ -30,20 +34,48 @@ class Pack(Importable):
         if filename:
             self.filename = filename
 
+        self._methods = []
+
+    def __getstate__(self):
+        state = self.__dict__.copy()
+        for m in self._methods:
+            del state[m]
+        return state
+
+    def __setstate__(self, state):
+        self.__dict__.update(state)
+
+    def __repr__(self) -> str:
+        return str(self)
+
     def __str__(self) -> str:
         return self.__class__.__name__ + "{" + str(self.manifest.header.uuid) + "}"
 
-    @property
-    def file_types(self) -> list[File]:
-        return getattr(self, "_file_types")
+    def __iter__(self):
+        for reg in self.registry.keys():
+            for obj in getattr(self, reg.path + "s"):
+                yield obj
 
-    @file_types.setter
-    def file_types(self, value: list[File]):
-        if not isinstance(value, list):
+    @property
+    def id(self) -> Identifier:
+        return getattr(self, "_id")
+
+    @id.setter
+    def id(self, value: Identifier):
+        setattr(self, "_id", Identifier.of(value))
+
+    @property
+    def registry(self) -> RegistryKey:
+        return getattr(self, "_registry")
+
+    @registry.setter
+    def registry(self, value: RegistryKey):
+        if not isinstance(value, RegistryKey):
             raise TypeError(
-                f"Expected list but got '{value.__class__.__name__}' instead"
+                f"Expected RegistryKey but got '{value.__class__.__name__}' instead"
             )
-        setattr(self, "_file_types", value)
+        self.on_update("registry", value)
+        setattr(self, "_registry", value)
 
     @property
     def manifest(self) -> Manifest:
@@ -58,6 +90,7 @@ class Pack(Importable):
             raise TypeError(
                 f"Expected Manifest but got '{value.__class__.__name__}' instead"
             )
+        self.on_update("manifest", value)
         setattr(self, "_manifest", value)
 
     @property
@@ -73,6 +106,7 @@ class Pack(Importable):
             raise TypeError(
                 f"Expected mclang.Lang but got '{value.__class__.__name__}' instead"
             )
+        self.on_update("texts", value)
         setattr(self, "_texts", value)
 
     @property
@@ -94,6 +128,7 @@ class Pack(Importable):
 
     @name.setter
     def name(self, value: str):
+        self.on_update("name", value)
         self.manifest.name = value
 
     @property
@@ -102,6 +137,7 @@ class Pack(Importable):
 
     @description.setter
     def description(self, value: str):
+        self.on_update("description", value)
         self.manifest.description = value
 
     @property
@@ -110,62 +146,73 @@ class Pack(Importable):
 
     @versions.setter
     def versions(self, value: list[int]):
+        self.on_update("versions", value)
         self.manifest.header.version = value
         for m in self.manifest.modules:
             m.version = value
 
+    @classmethod
+    def load_archive(cls, zip: ZipFile) -> Self:
+        self = cls.__new__(cls)
+        self._create_file_methods()
+        return ArchiveFile.load_archive(zip)
+
+    @classmethod
+    def load_directory(cls, path: str) -> Self:
+        self = cls.__new__(cls)
+        self._create_file_methods()
+        manifest_path = os.path.join(path, "manifest.json")
+        if not os.path.isfile(manifest_path):
+            raise ManifestNotFoundError(manifest_path)
+
+        # Load Manifest
+        self.manifest = Manifest.open(manifest_path)
+
+        # Load registry files
+        for k, cls in self.registry.items():
+            obj = cls.__new__(cls)
+            start = os.path.join(path, obj.dirname)
+            if os.path.isdir(start):
+                for fp in glob.glob(start + "/**/*" + obj.extension, recursive=True):
+                    bl = obj.valid(fp)
+                    if bl:
+                        file = obj.open(fp, start)
+                        self.add(file)
+
+        return self
+
     def _create_file_methods(self):
-        for f in self.file_types:
-            setattr(self, f.dirname, {})
+        self._methods = []
+        for id in self.registry.keys():
+            name = id.path
+            objects = name + "s"
+            if not hasattr(self, objects):
+                setattr(self, objects, {})
+            setattr(self, "get_" + name, lambda i, l=objects: self._get_file(l, i))
             setattr(
-                self, "get_" + f.filename, lambda i, l=f.dirname: self.get_file(l, i)
+                self,
+                "add_" + name,
+                lambda obj, l=objects: self._add_file(l, obj),
             )
             setattr(
                 self,
-                "add_" + f.filename,
-                lambda obj, l=f.dirname: self.add_file(l, obj),
+                "remove_" + name,
+                lambda i, l=objects: self._remove_file(l, i),
             )
-            setattr(
-                self,
-                "remove_" + f.filename,
-                lambda i, l=f.dirname: self.remove_file(l, i),
-            )
-            setattr(
-                self, "clear_" + f.filename, lambda l=f.dirname: self.clear_files(l)
+            setattr(self, f"clear_{name}s", lambda l=objects: self._clear_files(l))
+
+            self._methods.extend(
+                ["get_" + name, "add_" + name, "remove_" + name, f"clear_{name}s"]
             )
 
-    def set_details(self, name: str, description: str) -> Self:
-        self.name = name
-        self.description = description
-        return self
-
-    def get_file(self, dirname: str, id: Identifier) -> File:
-        return getattr(self, dirname).get(id)
-
-    def add_file(self, dirname: str, obj: File) -> File:
-        getattr(self, dirname)[obj.identifier] = obj
-        return obj
-
-    def remove_file(self, dirname: str, id: Identifier) -> File:
-        return getattr(self, dirname).pop(id)
-
-    def clear_files(self, dirname: str) -> Self:
-        setattr(self, dirname, {})
-        return self
-
-    def set_uuids(self, header_uuid: str, *module_uuid: str) -> Self:
-        if self.manifest:
-            self.manifest.set_uuids(header_uuid, *module_uuid)
-        return self
-
-    def writedir(self, path: str) -> None:
-        props = {"indent": 2}
+    def dump_directory(self, path: str, indent: int = 2) -> None:
+        props = {"indent": indent}
 
         # MANIFEST
         fp = os.path.join(path, "manifest.json")
         os.makedirs(os.path.dirname(fp), exist_ok=True)
         with open(fp, "w") as f:
-            f.write(self.manifest.json(**props))
+            f.write(self.manifest.dumps(**props))
 
         # TEXTS
         name_key = self.manifest.header.name_key
@@ -180,23 +227,36 @@ class Pack(Importable):
         with open(fp, "w") as f:
             mclang.dump(self.texts, f)
 
+        # LANGUAGES.json
+        fp = os.path.join(path, "texts", "languages.json")
+        with open(fp, "w") as w:
+            json.dump(["en_US"], w)
+
         # FILES
-        for k in self.file_types:
-            v = getattr(self, k.dirname, {})
+        for k, cls in self.registry.items():
+            obj = cls.__new__(cls)
+            v = getattr(self, k.path + "s", {})
             if len(v) >= 1:
-                dirpath = os.path.join(path, k.dirname)
+                dirpath = os.path.join(path, obj.dirname)
                 os.makedirs(dirpath, exist_ok=True)
                 for id, itm in v.items():
                     fp = os.path.join(dirpath, itm.filename + itm.extension)
+                    fp_dir = os.path.dirname(fp)
+                    if dirpath != fp_dir:
+                        os.makedirs(fp_dir, exist_ok=True)
                     with open(fp, "w") as f:
-                        f.write(itm.json(**props))
+                        f.write(itm.dumps(**props))
 
-    def writezip(self, zip: ZipFile) -> None:
+    def dump_archive(self, zip: ZipFile) -> None:
+        if not isinstance(zip, ZipFile):
+            raise TypeError(
+                f"Expected zipfile.ZipFile but got '{zip.__class__.__name__}' instead"
+            )
         props = {"separators": (",", ":")}
         path = ""
 
         # MANIFEST
-        zip.writestr(os.path.join(path, "manfiest.json"), self.manifest.json(**props))
+        zip.writestr(os.path.join(path, "manfiest.json"), self.manifest.getvalue())
 
         # TEXTS
         name_key = self.manifest.header.name_key
@@ -209,57 +269,102 @@ class Pack(Importable):
             os.path.join(path, "texts", "en_US.lang"), mclang.dumps(self.texts)
         )
 
-        # FILES
-        # for k, v in self.files.items():
-        #     dirpath = os.path.join(path, k)
-        #     for id, itm in v.items():
-        #         fp = os.path.join(dirpath, itm.filename+itm.EXT)
-        #         zip.writestr(fp, itm.json(**props))
+        # LANGUAGES.json
+        zip.writestr(
+            os.path.join(path, "texts", "languages.json"), json.dumps(["en_US"])
+        )
 
-        for k in self.file_types:
-            dirpath = os.path.join(path, k.dirname)
-            v = getattr(self, k.dirname, {})
-            for id, itm in v.items():
-                fp = os.path.join(dirpath, itm.filename + itm.extension)
-                zip.writestr(fp, itm.json(**props))
+        # FILES
+        for k, cls in self.registry.items():
+            obj = cls.__new__(cls)
+            v = getattr(self, k.path + "s", {})
+            if len(v) >= 1:
+                dirpath = os.path.join(path, obj.dirname)
+                for id, itm in v.items():
+                    fp = os.path.join(dirpath, itm.filename + itm.extension)
+                    zip.writestr(fp, itm.getvalue())
+                    # with open(fp, "w") as f:
+                    #     f.write(itm.dumps(**props))
+        return self
+
+    def get_registry(self, registry: Identifiable):
+        path = Identifiable.of(registry).path + "s"
+        return getattr(self, path)
+
+    def add(self, obj) -> Self:
+        """
+        Add File to this pack
+
+        :param obj: The file to add
+        :type obj: File
+        """
+        for cls in self.registry:
+            if isinstance(obj, cls):
+                name = cls.id.path + "s"
+                getattr(self, name)[obj.identifier] = obj
+                obj.generate(self)
+                return self
+
+    def set_details(self, name: str, description: str) -> Self:
+        self.name = name
+        self.description = description
+        return self
+
+    def _get_file(self, dirname: str, id: Identifiable) -> File:
+        return getattr(self, dirname).get(Identifiable.of(id))
+
+    def _add_file(self, dirname: str, obj: File) -> File:
+        getattr(self, dirname)[obj.identifier] = obj
+        return obj
+
+    def _remove_file(self, dirname: str, id: Identifiable) -> File:
+        return getattr(self, dirname).pop(Identifiable.of(id))
+
+    def _clear_files(self, dirname: str) -> Self:
+        setattr(self, dirname, {})
+        return self
+
+    def set_uuids(self, header_uuid: str, *module_uuid: str) -> Self:
+        if self.manifest:
+            self.manifest.set_uuids(header_uuid, *module_uuid)
         return self
 
 
-class BehaviorPack(ArchiveFile, Pack):
+INSTANCE.create_registry(Registries.BEHAVIOR_PACK_FILE, File)
+
+
+def behavior_pack(cls):
+    """
+    Add this behavior pack file to the registry
+    """
+
+    def wrapper():
+        if not issubclass(cls, File):
+            raise TypeError(f"Expected File but got '{cls.__name__}' instead")
+        return INSTANCE.register(Registries.BEHAVIOR_PACK_FILE, cls.id, cls)
+
+    return wrapper()
+
+
+class BehaviorPack(Pack):
     """
     Represents a Behavior Pack.
     """
 
+    registry = INSTANCE.get_registry(Registries.BEHAVIOR_PACK_FILE)
     id = Identifier("data")
-    EXTENSION = ".mcpack"
-    FILENAME = "untitled"
-    DIRNAME = "behavior_packs"
+    FILEPATH = "behavior_packs/untitled.mcpack"
     suffix = "_BP"
 
     def __init__(
         self, manifest: Manifest = None, texts: mclang.Lang = None, filename: str = None
     ):
         Pack.__init__(self, manifest, texts, filename)
-        self.setup()
+        self._create_file_methods()
 
     @property
     def MANIFEST(self):
         return getattr2(self, "_MANIFEST", Manifest.behavior())
-
-    @classmethod
-    def load(cls, filename: str = None) -> Self:
-        self = super().load(filename)
-        return self
-
-    def setup(self):
-        self.file_types = [
-            Item.__new__(Item),
-            Block.__new__(Block),
-            Recipe.__new__(Recipe),
-            Volume.__new__(Volume),
-            LootTable.__new__(LootTable),
-        ]
-        self._create_file_methods()
 
     # UTIL
 
@@ -273,49 +378,12 @@ class BehaviorPack(ArchiveFile, Pack):
         self.recipes.update(other.recipes)
         return self
 
-    def add(self, obj) -> Self:
-        if isinstance(obj, Item):
-            return self.add_item(obj)
-        if isinstance(obj, Block):
-            return self.add_block(obj)
-        if isinstance(obj, Recipe):
-            return self.add_recipe(obj)
-        if isinstance(obj, Volume):
-            return self.add_volume(obj)
-        return self
-
     # FILE
 
-    @classmethod
-    def readzip(cls, zip: ZipFile) -> Self:
-        self = cls.__new__(cls)
-        self.setup()
-        return self
-
-    @classmethod
-    def readdir(cls, path: str) -> Self:
-        self = cls.__new__(cls)
-        self.setup()
-        manifest_path = os.path.join(path, "manifest.json")
-        if not os.path.isfile(manifest_path):
-            raise ManifestNotFoundError(manifest_path)
-
-        for v in self.file_types:
-            k_path = os.path.join(path, v.dirname)
-            if os.path.isdir(k_path):
-                for fp in glob.glob(k_path + "/**" + v.extension):
-                    self.add_file(v.dirname, v.load(fp))
-
-        return self
-
-    def writedir(self, path: str) -> None:
-        Pack.writedir(self, path)
-
-    def writezip(self, zip: ZipFile) -> None:
-        Pack.writezip(self, zip)
-
-    def import_to(self, edition: Edition = Edition.bedrock, dev: bool = True) -> str:
-        mojang = super().import_to(edition, dev)
+    def import_to(
+        self, name: str = None, edition: Edition = Edition.BEDROCK, dev: bool = True
+    ) -> str:
+        mojang = super().import_to(name, edition, dev)
         dirpath = (
             os.path.join(mojang, "development_behavior_packs")
             if dev
@@ -323,100 +391,51 @@ class BehaviorPack(ArchiveFile, Pack):
         )
         path = os.path.join(dirpath, self.filename + self.suffix)
         os.makedirs(path, exist_ok=True)
-        self.writedir(path)
+        self.save(path, zipped=False, overwrite=True)
         return path
 
-    # RECIPE
 
-    def get_recipe(self) -> Recipe | None: ...
-    def add_recipe(self, recipe: Recipe) -> Recipe: ...
-    def remove_recipe(self, identifier: Identifier | str) -> Recipe | None: ...
-    def clear_recipes(self) -> Self: ...
-
-    # BLOCK
-
-    def get_block(self) -> Block | None: ...
-    def add_block(self, block: Block) -> Block: ...
-    def remove_block(self, identifier: Identifier | str) -> Block | None: ...
-    def clear_blocks(self): ...
-
-    # ITEM
-
-    def get_item(self) -> Item | None: ...
-    def add_item(self, item: Item) -> Item: ...
-    def remove_item(self, identifier: Identifier | str) -> Item | None: ...
-    def clear_items(self) -> Self: ...
-
-    # VOLUME
-
-    def get_volume(self) -> Volume | None: ...
-    def add_volume(self, volume: Volume) -> Volume: ...
-    def remove_volume(self, identifier: Identifier | str) -> Item | None: ...
-    def clear_volumes(self) -> Self: ...
+INSTANCE.create_registry(Registries.RESOURCE_PACK_FILE, File)
 
 
-class ResourcePack(ArchiveFile, Pack):
+def resource_pack(cls):
+    """
+    Add this resource pack file to the registry
+    """
+
+    def wrapper():
+        if not issubclass(cls, File):
+            raise TypeError(f"Expected File but got '{cls.__name__}' instead")
+        return INSTANCE.register(Registries.RESOURCE_PACK_FILE, cls.id, cls)
+
+    return wrapper()
+
+
+class ResourcePack(Pack):
     """
     Represents a Resource Pack.
     """
 
+    registry = INSTANCE.get_registry(Registries.RESOURCE_PACK_FILE)
     id = Identifier("resources")
-    EXTENSION = ".mcpack"
-    FILENAME = "untitled"
-    DIRNAME = "resource_packs"
+    FILEPATH = "resource_packs/untitled.mcpack"
     suffix = "_RP"
 
     def __init__(
         self, manifest: Manifest = None, texts: mclang.Lang = None, filename: str = None
     ):
         Pack.__init__(self, manifest, texts, filename)
-        self.setup()
+        self._create_file_methods()
 
     @property
     def MANIFEST(self):
         return getattr2(self, "_MANIFEST", Manifest.resource())
 
-    @property
-    def blocks(self) -> dict[Identifier, Block]:
-        return getattr2(self, "_blocks", {})
-
-    @blocks.setter
-    def blocks(self, value: dict[Identifier, Block]):
-        if value is None:
-            self.blocks = {}
-            return
-        if not isinstance(value, dict):
-            raise TypeError(
-                f"Expected dict but got '{value.__class__.__name__}' instead"
-            )
-        setattr(self, "_blocks", value)
-
-    @property
-    def items(self) -> dict[Identifier, Item]:
-        return getattr2(self, "_items", {})
-
-    @items.setter
-    def items(self, value: dict[Identifier, Item]):
-        if value is None:
-            self.items = {}
-            return
-        if not isinstance(value, dict):
-            raise TypeError(
-                f"Expected dict but got '{value.__class__.__name__}' instead"
-            )
-        setattr(self, "_items", value)
-
-    @classmethod
-    def load(cls, filename: str = None) -> Self:
-        self = super().load(filename)
-        return self
-
-    def setup(self):
-        self.file_types = [
-            ItemAtlas.__new__(ItemAtlas),
-            TerrainAtlas.__new__(TerrainAtlas),
-        ]
-        self._create_file_methods()
+    # @classmethod
+    # def open(cls, filename: str = None) -> Self:
+    #     self = super().load(filename)
+    #     self.filename = os.path.basename(filename)
+    #     return self
 
     # UTIL
 
@@ -427,29 +446,15 @@ class ResourcePack(ArchiveFile, Pack):
             )
         return self
 
-    # SHORTHAND
-
-    def add(self, obj) -> Self:
-        if isinstance(obj, ItemAtlas):
-            return self.add_item_texture(obj)
-        if isinstance(obj, TerrainAtlas):
-            return self.add_terrain_texture(obj)
-        raise TypeError(obj)
-
     # FILE
 
     @classmethod
-    def readzip(cls, zip: ZipFile) -> Self:
+    def load_archive(cls, zip: ZipFile) -> Self:
         self = cls.__new__(cls)
+        self._create_file_methods()
         return self
 
-    @classmethod
-    def readdir(cls, path: str) -> Self:
-        self = cls.__new__(cls)
-        return self
-
-    def writedir(self, path: str) -> None:
-        Pack.writedir(self, path)
+    def dump_directory(self, path: str) -> None:
         props = {"indent": 2}
 
         v = getattr(self, "textures", {})
@@ -461,8 +466,10 @@ class ResourcePack(ArchiveFile, Pack):
                     fp = os.path.join(tpath, t.filename + t.extension)
                     t.save(fp)
 
+        # Blocks
         if len(self.blocks) >= 1:
             fp = os.path.join(path, "blocks.json")
+            os.makedirs(os.path.dirname(fp), exist_ok=True)
             data = {"format_version": VERSION["BLOCKS"]}
             for id, block in self.blocks.items():
                 b = {}
@@ -473,11 +480,22 @@ class ResourcePack(ArchiveFile, Pack):
             with open(fp, "w") as fd:
                 fd.write(json.dumps(data, **props))
 
-    def writezip(self, zip: ZipFile) -> None:
-        Pack.writezip(self, zip)
+        if hasattr(self, "clear_blocks"):
+            self.clear_blocks()
+        # self.clear_items()
+        Pack.dump_directory(self, path)
 
-    def import_to(self, edition: Edition = Edition.bedrock, dev: bool = True) -> str:
-        mojang = super().import_to(edition, dev)
+    # TODO: Write blocks and items
+    def dump_archive(self, zip: ZipFile) -> None:
+        if hasattr(self, "clear_blocks"):
+            self.clear_blocks()
+        # self.clear_items()
+        Pack.dump_archive(self, zip)
+
+    def import_to(
+        self, name: str = None, edition: Edition = Edition.BEDROCK, dev: bool = True
+    ) -> str:
+        mojang = super().import_to(name, edition, dev)
         dirpath = (
             os.path.join(mojang, "development_resource_packs")
             if dev
@@ -485,56 +503,18 @@ class ResourcePack(ArchiveFile, Pack):
         )
         path = os.path.join(dirpath, self.filename + self.suffix)
         os.makedirs(path, exist_ok=True)
-        self.writedir(path)
+        self.save(path, zipped=False, overwrite=True)
         return path
 
-    # BLOCK
 
-    def get_block(self, identifier) -> Block | None:
-        return self.blocks.get(identifier)
-
-    def add_block(self, block: Block) -> Block:
-        self.blocks[block.identifier] = block
-        return block
-
-    def remove_block(self, identifier: Block | str) -> Block | None:
-        return self.blocks.pop(identifier)
-
-    def clear_block(self) -> Self:
-        self.blocks = {}
-        return self
-
-    # ITEM
-
-    def get_item(self, identifier) -> Item | None:
-        return self.items.get(identifier)
-
-    def add_item(self, item: Item) -> Item:
-        self.items[item.identifier] = item
-        return item
-
-    def remove_item(self, identifier: Item | str) -> Item | None:
-        return self.items.pop(identifier)
-
-    def clear_item(self) -> Self:
-        self.items = {}
-        return self
-
-    # ITEM ATLAS
-
-    def get_item_texture(self, identifier) -> ItemAtlas | None: ...
-    def add_item_texture(self, atlas: ItemAtlas) -> ItemAtlas: ...
-    def remove_item_texture(self, identifier: ItemAtlas | str) -> ItemAtlas | None: ...
-    def clear_item_texture(self) -> Self: ...
-
-    # TERRAIN ATLAS
-
-    def get_terrain_texture(self, identifier) -> TerrainAtlas | None: ...
-    def add_terrain_texture(self, atlas: TerrainAtlas) -> TerrainAtlas: ...
-    def remove_terrain_texture(
-        self, identifier: TerrainAtlas | str
-    ) -> TerrainAtlas | None: ...
-    def clear_terrain_texture(self) -> Self: ...
+def job(args):
+    cls, manifest, pack_path = args
+    if manifest.has_behavior():
+        cls.add_pack(BehaviorPack.open(pack_path))
+    elif manifest.has_resource():
+        cls.add_pack(ResourcePack.open(pack_path))
+    else:
+        raise TypeError(f'Unknown pack type "{manifest}"')
 
 
 class Addon(ArchiveFile, Importable):
@@ -543,20 +523,21 @@ class Addon(ArchiveFile, Importable):
     """
 
     id = Identifier("addon")
-    EXTENSION = ".mcaddon"
-    FILENAME = "untitled"
+    FILEPATH = "untitled.mcaddon"
 
-    def __init__(self):
+    def __init__(self, filename: str = None):
+        if filename is not None:
+            self.filename = filename
         self.setup()
 
     def __iter__(self):
         for i in self.packs:
             yield i
 
-    def __getitem__(self, item: Identifier | str | int):
+    def __getitem__(self, item: Identifiable | int):
         if isinstance(item, int):
             return self.packs[item]
-        id = Identifier(item)
+        id = Identifiable.of(item)
         for p in self.packs:
             if p.id == id:
                 return p
@@ -577,6 +558,7 @@ class Addon(ArchiveFile, Importable):
             raise TypeError(
                 f"Expected list but got '{value.__class__.__name__}' instead"
             )
+        self.on_update("packs", value)
         setattr(self, "_packs", value)
 
     @property
@@ -584,128 +566,110 @@ class Addon(ArchiveFile, Importable):
         return [p.manifest for p in self]
 
     @classmethod
-    def readzip(cls, zip: ZipFile) -> Self:
-        self = cls.__new__(cls)
-        return self
+    def load_archive(cls, zip: ZipFile, *args, **kw) -> Self:
+        raise NotImplementedError()
+        # self = cls.__new__(cls)
+        # return self
 
     @classmethod
-    def readdir(cls, path: str) -> Self:
+    def load_directory(cls, path: str, multiprocess: bool = False) -> Self:
+
         self = cls.__new__(cls)
         self.clear_packs()
-        for fp in glob.glob(path + "/**/manifest.json"):
-            manifest = Manifest.load(fp)
-            pack_path = os.path.dirname(fp)
+        packs = [
+            (self, Manifest.open(fp), os.path.dirname(fp))
+            for fp in glob.glob(path + "/**/manifest.json")
+        ]
 
-            # print(manifest.pack())
+        if multiprocess:
+            # with Pool(20) as p:
+            #     packs = p.map(job, packs)
+            raise NotImplementedError("multiprocess not implemented yet!")
+        else:
+            for a in packs:
+                job(a)
         return self
 
     def setup(self):
         # name = os.path.basename(self.filename)
         self.packs = [ResourcePack(), BehaviorPack()]
 
-    def get(self, identifier: Identifier, default=None):
+    def get(self, identifier: Identifiable, default=None):
         try:
-            return self[identifier]
+            return self[Identifiable.of(identifier)]
         except (KeyError, IndexError):
             return default
 
     # PACK
 
-    def get_pack(self, identifier: Identifier) -> Pack | None:
-        return self.get(identifier)
-
-    def add_pack(self, pack: Pack) -> Pack:
+    def append(self, pack: Pack) -> None:
         if not isinstance(pack, Pack):
             raise TypeError(
                 f"Expected Pack but got '{pack.__class__.__name__}' instead"
             )
         self.packs.append(pack)
-        return pack
 
-    def remove_pack(self, identifier: Identifier) -> Pack:
+    def extend(self, packs: list[Pack]) -> None:
+        self.packs.extend(packs)
+
+    def get_pack(self, identifier: Identifiable) -> Pack | None:
+        return getitem(self, "packs", Identifiable.of(identifier))
+
+    def add_pack(self, pack: Pack) -> Pack:
+        return additem(self, "packs", pack, type=Pack)
+
+    def remove_pack(self, identifier: Identifiable) -> Pack:
+        id = Identifiable.of(identifier)
         for i, p in enumerate(self.packs):
-            if p.id == identifier:
+            if p.id == id:
                 p2 = self.packs[i]
                 del self.packs[i]
                 return p2
         return None
 
     def clear_packs(self) -> Self:
-        self.packs = []
-        return self
+        """Remove all packs"""
+        return clearitems(self, "packs")
 
-    # ADD
+    def add(self, obj) -> File:
+        """
+        Add File to this addon
 
-    def add(self, obj) -> Self:
-        if isinstance(obj, Item):
-            return self.add_item(obj)
-        if isinstance(obj, Block):
-            return self.add_block(obj)
-        if isinstance(obj, Recipe):
-            return self.add_recipe(obj)
-        if isinstance(obj, Volume):
-            return self.add_volume(obj)
-        if isinstance(obj, LootTable):
-            return self.add_loot_table(obj)
-        if isinstance(obj, ItemAtlas):
-            return self.add_item_texture(obj)
-        if isinstance(obj, TerrainAtlas):
-            return self.add_terrain_texture(obj)
-        raise TypeError(obj)
-
-    def add_recipe(self, recipe: Recipe) -> Recipe:
-        self["data"].add_recipe(recipe)
-        return recipe
-
-    def add_block(self, block: Block) -> Block:
-        self["data"].add_block(block)
-        self["resources"].add_block(block)
-        return block
-
-    def add_item(self, item: Item) -> Item:
-        self["data"].add_item(item)
-        self["resources"].add_item(item)
-        return item
-
-    def add_volume(self, volume: Volume) -> Volume:
-        self["data"].add_volume(volume)
-        return volume
-
-    def add_loot_table(self, loot_table: LootTable) -> LootTable:
-        self["data"].add_loot_table(loot_table)
-        return loot_table
-
-    def add_item_texture(self, atlas: ItemAtlas) -> ItemAtlas:
-        self["resources"].add_item_texture(atlas)
-        return atlas
-
-    def add_terrain_texture(self, atlas: TerrainAtlas) -> TerrainAtlas:
-        self["resources"].add_terrain_texture(atlas)
-        return atlas
+        :param obj: The file to add
+        :type obj: File
+        """
+        try:
+            for pack in self.packs:
+                pack.add(obj)
+        except TypeError as err:
+            pass
+        return obj
 
     # FILE
 
-    def writedir(self, path: str) -> Self:
-        name = os.path.basename(path)
+    def dump_directory(self, path: str) -> Self:
         for p in self.packs:
-            filename = p.filename
-            if not p.has_filename():
-                filename = name + p.suffix
-            p.writedir(os.path.join(path, os.path.basename(filename)))
+            p.dump_directory(
+                os.path.join(path, os.path.basename(self.filename + p.suffix))
+            )
         return self
 
-    def writezip(self, zip: ZipFile) -> Self:
+    def dump_archive(self, zip: ZipFile) -> Self:
         for p in self.packs:
             file_buffer = BytesIO()
             with ZipFile(file_buffer, "a", ZIP_DEFLATED, False) as zip_file:
-                p.writezip(zip_file)
-            fp = os.path.basename(p.filename)
-            if p.suffix != "":
-                fp += p.suffix
-            zip.writestr(fp + ".mcpack", file_buffer.getvalue())
+                p.dump_archive(zip_file)
+            zip.writestr(
+                (
+                    self.filename + p.suffix + p.extension
+                    if p.suffix != ""
+                    else self.filename + p.extension
+                ),
+                file_buffer.getvalue(),
+            )
         return self
 
     def import_to(
-        self, edition: Edition = Edition.bedrock, dev: bool = True
+        self, name: str = None, edition: Edition = Edition.BEDROCK, dev: bool = True
     ) -> list[str]:
-        return [pack.import_to(edition, dev) for pack in self]
+        return [pack.import_to(name, edition, dev) for pack in self]

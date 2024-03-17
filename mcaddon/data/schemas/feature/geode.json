@@ -1,0 +1,62 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "type": "object",
+  "required": ["format_version", "minecraft:geode_feature"],
+  "properties": {
+    "format_version": { "type": "string" },
+    "minecraft:geode_feature": {
+      "type": "object",
+      "required": ["description"],
+      "properties": {
+        "description": {
+          "type": "object",
+          "required": ["identifier"],
+          "properties": {
+            "identifier": {
+              "type": "string"
+            }
+          },
+          "additionalProperties": false
+        },
+        "filler": { "type": "string" },
+        "inner_layer": { "type": "string" },
+        "alternate_inner_layer": { "type": "string" },
+        "middle_layer": { "type": "string" },
+        "outer_layer": { "type": "string" },
+        "inner_placements": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string"
+              },
+              "states": {
+                "type": "object",
+                "additionalProperties": true
+              }
+            },
+            "additionalProperties": false
+          }
+        },
+        "min_outer_wall_distance": { "type": "integer" },
+        "max_outer_wall_distance": { "type": "integer" },
+        "min_distribution_points": { "type": "integer" },
+        "max_distribution_points": { "type": "integer" },
+        "min_point_offset": { "type": "integer" },
+        "max_point_offset": { "type": "integer" },
+        "max_radius": { "type": "integer" },
+        "crack_point_offset": { "type": "integer" },
+        "generate_crack_chance": { "type": "number" },
+        "base_crack_size": { "type": "number" },
+        "noise_multiplier": { "type": "number" },
+        "use_potential_placements_chance": { "type": "number" },
+        "use_alternate_layer0_chance": { "type": "number" },
+        "placements_require_layer0_alternate": { "type": "boolean" },
+        "invalid_blocks_threshold": { "type": "integer" }
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false
+}

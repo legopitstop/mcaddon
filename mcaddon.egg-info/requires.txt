@@ -4,3 +4,6 @@ commentjson
 jsonschema
 chevron
 Pillow
+numpy
+PyGLM
+watchdog

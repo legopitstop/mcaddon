@@ -5,7 +5,7 @@ Minecraft: Bedrock Edition development kit
 import os
 import sys
 
-__version__ = "0.0.2"
+__version__ = "0.0.4"
 
 # Unused for now
 if sys.platform == "win32":
@@ -33,11 +33,17 @@ else:
     EDU_APPDATA_PATH = None
 
 VERSION = {
-    "MANIFEST": 1,
-    "BLOCK": "1.20.51",
+    "MANIFEST": 2,
+    "BLOCK": "1.20.50",
+    "BLOCK_CULLING_RULES": "1.20.60",
     "BLOCKS": "1.16.220",
-    "ITEM": "1.20.51",
+    "ITEM": "1.20.50",
     "VOLUME": "1.20.50",
+    "CAMERA": "1.20.50",
+    "RECIPE": "1.20.50",
+    "FEATURE": "1.16.0",
+    "FEATURE_RULE": "1.12",
+    "GEOMETRY": "1.12.0",
     "MIN_ENGINE_VERSION": [1, 20, 51],
 }
 
@@ -45,25 +51,49 @@ from .exception import *
 from .registry import *
 from .constant import *
 from .file import *
+from .math import *
 from .util import *
+from .predicate import *
 
-from .manifest import *
-from .resrouce import *
 from .pack import *
+from .text import *
+from .resrouce import *
+from .manifest import *
+
+# ResourcePack
+from .geometry import *
+
+# from .client_entity import *
+# from .particle import *
+# from .material import *
+# from .render_controller import *
+# from .ui import *
+# from .client_item import *
+# from .piece import *
+# from .animation_controllers import *
+# from .animation import *
+# from .camera_entity import *
+# from . import *
+# from . import *
+
+# BehaviorPack
 from .event import *
 from .loot import *
-from .block import *
 from .state import *
+from .block import *
+from .block_culling import *
 from .item import *
 from .recipe import *
 from .volume import *
 from .camera import *
+from .trading import *
+from .feature import *
+from .feature_rule import *
 
-# from .animation import *
-# from .biome import *
 # from .entity import *
-# from .feature import *
-# from .fog import *
-# from .particle import *
-# from .texture_set import *
-# from .volume import *
+# from .behavior_tree import *
+# from .spawn_rule import *
+# from .structure import *
+
+# SkinPack
+# from .skin import *

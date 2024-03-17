@@ -1,15 +1,17 @@
-from .. import INSTANCE, Schema, CameraPreset
+import os
+
+from .. import __file__, INSTANCE, Schema, CameraPreset
 
 
 class CameraPresetSchem1(Schema):
     def __init__(self):
-        Schema.__init__(self, "camera1.json")
+        Schema.__init__(
+            self,
+            os.path.join(os.path.dirname(__file__), "data", "schemas", "camera1.json"),
+        )
 
     def load(cls, self: CameraPreset, data: dict):
-        if "description" in data:
-            desc = data["description"]
-            if "identifier" in desc:
-                self.identifier = desc["identifier"]
+        self.identifier = data["identifier"]
 
         if "inherit_from" in data:
             self.inherit_from = data.pop("inherit_from")

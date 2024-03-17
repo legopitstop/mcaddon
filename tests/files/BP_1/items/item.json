@@ -1,0 +1,112 @@
+{
+  "format_version": "1.20.50",
+  "minecraft:item": {
+    "description": {
+      "identifier": "test:item"
+    },
+    "components": {
+      "minecraft:ignores_permission": true,
+      "minecraft:allow_off_hand": true,
+      "minecraft:block_placer": {
+        "block": "minecraft:stone"
+      },
+      "minecraft:can_destroy_in_creative": true,
+      "minecraft:cooldown": {
+        "category": "",
+        "duration": 1.0
+      },
+      "minecraft:damage": {
+        "value": 1
+      },
+      "minecraft:display_name": {
+        "value": "item.ITEM"
+      },
+      "minecraft:durability": {
+        "damage_chance": 1.0,
+        "max_durability": 1
+      },
+      "minecraft:enchantable": {
+        "slot": "chestplate",
+        "value": 1
+      },
+      "minecraft:entity_placer": {
+        "entity": "minecraft:armor_stand"
+      },
+      "minecraft:food": {
+        "nutrition": 1,
+        "saturation_modifier": 1.0
+      },
+      "minecraft:fuel": {
+        "duration": 1.0
+      },
+      "minecraft:glint": true,
+      "minecraft:hand_equipped": true,
+      "minecraft:hover_text_color": {
+        "value": "red"
+      },
+      "minecraft:icon": {
+        "texture": "minecraft:apple"
+      },
+      "minecraft:interact_button": {
+        "value": "test"
+      },
+      "minecraft:item_storage": {
+        "capacity": 1
+      },
+      "minecraft:liquid_clipped": {
+        "value": true
+      },
+      "minecraft:max_stack_size": 16,
+      "minecraft:projectile": {
+        "projectile_entity": "minecraft:arrow",
+        "minimum_critical_power": 1.0
+      },
+      "minecraft:record": {
+        "comparator_signal": 1,
+        "duration": 1.0,
+        "sound_event": "minecraft:cat"
+      },
+      "minecraft:repairable": {
+        "repair_items": []
+      },
+      "minecraft:shooter": {
+        "ammunition": [
+          "minecraft:arrow"
+        ],
+        "charge_on_draw": true,
+        "max_draw_duration": 1.0,
+        "scale_power_by_draw_duration": true
+      },
+      "minecraft:should_despawn": {
+        "value": true
+      },
+      "minecraft:stacked_by_data": true,
+      "minecraft:tags": {
+        "tags": [
+          "minecraft:paper"
+        ]
+      },
+      "minecraft:throwable": {
+        "do_swing_animation": true,
+        "launch_power_scale": 1,
+        "max_draw_duration": 1.0,
+        "max_launch_power": 1.0,
+        "min_draw_duration": 1.0,
+        "scale_power_by_draw_duration": true
+      },
+      "minecraft:use_animation": "eat",
+      "minecraft:use_modifiers": {
+        "movement_modifier": 1.0,
+        "use_duration": 1.0
+      },
+      "minecraft:wearable": {
+        "protection": 1,
+        "slot": 1
+      },
+      "minecraft:digger": {
+        "destroy_speeds": [],
+        "use_efficiency": true
+      }
+    }
+  }
+}

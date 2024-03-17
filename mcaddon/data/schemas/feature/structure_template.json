@@ -1,0 +1,58 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "type": "object",
+  "required": ["format_version", "minecraft:structure_template_feature"],
+  "properties": {
+    "format_version": { "type": "string" },
+    "minecraft:structure_template_feature": {
+      "type": "object",
+      "required": ["description"],
+      "properties": {
+        "description": {
+          "type": "object",
+          "required": ["identifier"],
+          "properties": {
+            "identifier": {
+              "type": "string"
+            }
+          },
+          "additionalProperties": false
+        },
+        "structure_name": { "type": "string" },
+        "adjustment_radius": { "type": "integer" },
+        "facing_direction": { "type": "string" },
+        "constraints": {
+          "type": "object",
+          "properties": {
+            "unburied": {
+              "type": "object",
+              "properties": {},
+              "additionalProperties": false
+            },
+            "block_intersection": {
+              "type": "object",
+              "properties": {
+                "block_allowlist": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "block_denylist": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              },
+              "additionalProperties": false
+            }
+          },
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false
+}

@@ -1,0 +1,36 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "type": "object",
+  "required": ["format_version", "minecraft:multiface_feature"],
+  "properties": {
+    "format_version": { "type": "string" },
+    "minecraft:multiface_feature": {
+      "type": "object",
+      "required": ["description"],
+      "properties": {
+        "description": {
+          "type": "object",
+          "required": ["identifier"],
+          "properties": {
+            "identifier": {
+              "type": "string"
+            }
+          },
+          "additionalProperties": false
+        },
+        "places_block": { "type": "string" },
+        "search_range": { "type": "integer" },
+        "can_place_on_floor": { "type": "boolean" },
+        "can_place_on_ceiling": { "type": "boolean" },
+        "can_place_on_wall": { "type": "boolean" },
+        "chance_of_spreading": { "type": "number" },
+        "can_place_on": {
+          "type": "array",
+          "items": { "type": "string" }
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false
+}

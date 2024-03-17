@@ -1,0 +1,48 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "type": "object",
+  "required": ["format_version", "minecraft:sculk_patch_feature"],
+  "properties": {
+    "format_version": { "type": "string" },
+    "minecraft:sculk_patch_feature": {
+      "type": "object",
+      "required": ["description"],
+      "properties": {
+        "description": {
+          "type": "object",
+          "required": ["identifier"],
+          "properties": {
+            "identifier": {
+              "type": "string"
+            }
+          },
+          "additionalProperties": false
+        },
+
+        "can_place_sculk_patch_on": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "central_block": { "type": "string" },
+        "central_block_placement_chance": { "type": "number" },
+        "charge_amount": { "type": "integer" },
+        "cursor_count": { "type": "integer" },
+        "growth_rounds": { "type": "integer" },
+        "spread_attempts": { "type": "integer" },
+        "spread_rounds": { "type": "integer" },
+        "extra_growth_chance": {
+          "type": "object",
+          "properties": {
+            "range_min": { "type": "integer" },
+            "range_max": { "type": "integer" }
+          },
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false
+}

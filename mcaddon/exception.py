@@ -16,7 +16,13 @@ class EventNotFoundError(Error): ...
 class SchemaNotFoundError(Error): ...
 
 
+class TypeNotFoundError(Error): ...
+
+
 class SyntaxError(Error): ...
+
+
+class ManifestNotFoundError(Error): ...
 
 
 class MinecraftNotFoundError(Error):
@@ -26,13 +32,3 @@ class MinecraftNotFoundError(Error):
                 f"Expected Edition but got '{edition.__class__.__name__}' instead"
             )
         Error.__init__(self, repr(edition._value_))
-
-
-# remove
-class RecipeTypeNotFoundError(Error): ...
-
-
-class ManifestNotFoundError(Error): ...
-
-
-class TypeNotFoundError(Error): ...

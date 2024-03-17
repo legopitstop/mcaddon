@@ -4,22 +4,22 @@ from . import VERSION
 from .constant import CameraListener
 from .file import JsonFile, Loader
 from .util import Identifier, Identifiable
+from .pack import behavior_pack
 
 
+@behavior_pack
 class CameraPreset(JsonFile, Identifiable):
     """
     Represents a Camera Preset.
     """
 
     id = Identifier("camera_preset")
-    EXTENSION = ".json"
-    FILENAME = "camera_preset"
-    DIRNAME = "cameras"
+    FILEPATH = "cameras/presets/camera_preset.json"
 
     def __init__(
         self,
-        identifier: Identifier | str,
-        inherit_from: Identifier = None,
+        identifier: Identifiable,
+        inherit_from: Identifiable = None,
         player_effects: bool = False,
         pos_x: int = None,
         pos_y: int = None,
@@ -42,41 +42,16 @@ class CameraPreset(JsonFile, Identifiable):
         return "CameraPreset{" + str(self.identifier) + "}"
 
     @property
-    def __dict__(self) -> dict:
-        camera = {"description": {"identifier": str(self.identifier)}}
-        if self.inherit_from:
-            camera["inherit_from"] = self.inherit_from
-        if self.player_effects:
-            camera["player_effects"] = self.player_effects
-        if self.pos_x:
-            camera["pos_x"] = self.pos_x
-        if self.pos_y:
-            camera["pos_y"] = self.pos_y
-        if self.pos_z:
-            camera["pos_z"] = self.pos_z
-        if self.rot_x:
-            camera["rot_x"] = self.rot_x
-        if self.rot_y:
-            camera["rot_y"] = self.rot_y
-        if self.listener not in [None, CameraListener.none]:
-            camera["listener"] = self.listener._value_
-        data = {"format_version": VERSION["ITEM"], str(self.id): camera}
-        return data
-
-    @property
     def inherit_from(self) -> Identifier:
         return getattr(self, "_inherit_from", None)
 
     @inherit_from.setter
-    def inherit_from(self, value: Identifier):
+    def inherit_from(self, value: Identifiable):
         if value is None:
             setattr(self, "_inherit_from", None)
             return
-        if not isinstance(value, Identifier):
-            raise TypeError(
-                f"Expected Identifier but got '{value.__class__.__name__}' instead"
-            )
-        setattr(self, "_inherit_from", value)
+        self.on_update("inherit_from", value)
+        setattr(self, "_inherit_from", Identifiable.of(value))
 
     @property
     def player_effects(self) -> bool:
@@ -91,6 +66,7 @@ class CameraPreset(JsonFile, Identifiable):
             raise TypeError(
                 f"Expected bool but got '{value.__class__.__name__}' instead"
             )
+        self.on_update("player_effects", value)
         setattr(self, "_player_effects", value)
 
     @property
@@ -106,6 +82,7 @@ class CameraPreset(JsonFile, Identifiable):
             raise TypeError(
                 f"Expected int but got '{value.__class__.__name__}' instead"
             )
+        self.on_update("pos_x", value)
         setattr(self, "_pos_x", value)
 
     @property
@@ -121,6 +98,7 @@ class CameraPreset(JsonFile, Identifiable):
             raise TypeError(
                 f"Expected int but got '{value.__class__.__name__}' instead"
             )
+        self.on_update("pos_y", value)
         setattr(self, "_pos_y", value)
 
     @property
@@ -136,6 +114,7 @@ class CameraPreset(JsonFile, Identifiable):
             raise TypeError(
                 f"Expected int but got '{value.__class__.__name__}' instead"
             )
+        self.on_update("pos_z", value)
         setattr(self, "_pos_z", value)
 
     @property
@@ -151,6 +130,7 @@ class CameraPreset(JsonFile, Identifiable):
             raise TypeError(
                 f"Expected int but got '{value.__class__.__name__}' instead"
             )
+        self.on_update("rot_x", value)
         setattr(self, "_rot_x", value)
 
     @property
@@ -166,26 +146,60 @@ class CameraPreset(JsonFile, Identifiable):
             raise TypeError(
                 f"Expected int but got '{value.__class__.__name__}' instead"
             )
+        self.on_update("rot_y", value)
         setattr(self, "_rot_y", value)
 
     @property
     def listener(self) -> CameraListener:
-        return getattr(self, "_listener", CameraListener.none)
+        return getattr(self, "_listener", CameraListener.NONE)
 
     @listener.setter
     def listener(self, value: CameraListener):
         if value is None:
-            self.listener = CameraListener.none
+            self.listener = CameraListener.NONE
         elif isinstance(value, CameraListener):
+            self.on_update("listener", value)
             setattr(self, "_listener", value)
         else:
-            self.listener = CameraListener[value]
+            self.listener = CameraListener(value)
 
     @classmethod
     def from_dict(cls, data: dict) -> Self:
         loader = CameraPresetLoader()
         loader.validate(data)
         return loader.load(data)
+
+    def jsonify(self) -> dict:
+        camera = {"identifier": str(self.identifier)}
+        if self.inherit_from is not None:
+            camera["inherit_from"] = str(self.inherit_from)
+        if self.player_effects is not None:
+            camera["player_effects"] = self.player_effects
+        if self.pos_x is not None:
+            camera["pos_x"] = self.pos_x
+        if self.pos_y is not None:
+            camera["pos_y"] = self.pos_y
+        if self.pos_z is not None:
+            camera["pos_z"] = self.pos_z
+        if self.rot_x is not None:
+            camera["rot_x"] = self.rot_x
+        if self.rot_y is not None:
+            camera["rot_y"] = self.rot_y
+        if self.listener not in [None, CameraListener.NONE]:
+            camera["listener"] = self.listener.jsonify()
+        data = {"format_version": VERSION["CAMERA"], str(self.id): camera}
+        return data
+
+    def position(self, x: int = 0, y: int = 0, z: int = 0) -> Self:
+        self.pos_x = x
+        self.pos_y = y
+        self.pos_z = z
+        return self
+
+    def rotation(self, x: int = 0, y: int = 0) -> Self:
+        self.rot_x = x
+        self.rot_y = y
+        return self
 
 
 class CameraPresetLoader(Loader):
@@ -195,4 +209,5 @@ class CameraPresetLoader(Loader):
         from .schemas import CameraPresetSchem1
 
         Loader.__init__(self, CameraPreset)
-        self.add_schema(CameraPresetSchem1, "1.20.51")
+        self.add_schema(CameraPresetSchem1, "1.20.50")
+        self.add_schema(CameraPresetSchem1, "1.19.50")

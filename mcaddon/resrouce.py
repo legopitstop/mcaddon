@@ -2,8 +2,17 @@ from typing import Self
 from PIL import Image, ImageFile
 import os
 
-from .util import getattr2, Identifier, Identifiable
+from .util import (
+    getattr2,
+    getitem,
+    additem,
+    removeitem,
+    clearitems,
+    Identifier,
+    Identifiable,
+)
 from .file import JsonFile, PngFile
+from .pack import resource_pack
 
 
 class Texture(PngFile):
@@ -11,9 +20,8 @@ class Texture(PngFile):
     Represents a Texture.
     """
 
-    FILENAME = "texture"
-    EXTENSION = ".png"
-    DIRNAME = "textures"
+    id = Identifier("texture")
+    FILEPATH = "textures/texture.png"
 
     def __init__(self, path: str, image: ImageFile.ImageFile):
         self.path = path
@@ -25,8 +33,7 @@ class Texture(PngFile):
     def __str__(self) -> str:
         return "Texture{" + repr(self.filename + self.extension) + "}"
 
-    @property
-    def __dict__(self) -> str:
+    def jsonify(self) -> str:
         return os.path.join(
             "textures", self.path, self.filename + self.extension
         ).replace("\\", "/")
@@ -37,7 +44,9 @@ class Texture(PngFile):
 
     @path.setter
     def path(self, value: str):
-        setattr(self, "_path", str(value))
+        v = str(value)
+        self.on_update("path", v)
+        setattr(self, "_path", v)
 
     @classmethod
     def load(cls, filename: str, path: str) -> Self:
@@ -52,7 +61,7 @@ class Texture(PngFile):
 
 
 class _TextureDef(Identifiable):
-    def __init__(self, identifier: Identifier, textures: list[Texture]):
+    def __init__(self, identifier: Identifiable, textures: list[Texture]):
         Identifiable.__init__(self, identifier)
         self.textures = textures
 
@@ -66,13 +75,12 @@ class _TextureDef(Identifiable):
     def __str__(self) -> str:
         return "TextureDef{" + str(self.identifier) + "}"
 
-    @property
-    def __dict__(self) -> dict:
+    def jsonify(self) -> dict:
         data = {}
         if len(self.textures) == 1:
-            data["textures"] = self.textures[0].__dict__
+            data["textures"] = self.textures[0].jsonify()
         else:
-            data["textures"] = [t.__dict__ for t in self.textures]
+            data["textures"] = [t.jsonify() for t in self.textures]
         return data
 
     @property
@@ -85,7 +93,21 @@ class _TextureDef(Identifiable):
             raise TypeError(
                 f"Expected list but got '{value.__class__.__name__}' instead"
             )
+        self.on_update("textures", value)
         setattr(self, "_textures", value)
+
+    def get_texture(self, index: int) -> Texture:
+        return getitem(self, "textures", index)
+
+    def add_texture(self, texture: Texture) -> Texture:
+        return additem(self, "textures", texture, type=Texture)
+
+    def remove_texture(self, index: int) -> Texture:
+        return removeitem(self, "textures", index)
+
+    def clear_textures(self) -> Self:
+        """Remove all textures"""
+        return clearitems(self, "textures")
 
 
 class ItemTexture(_TextureDef):
@@ -111,7 +133,7 @@ class FlipbookTexture(Identifiable):
 
     def __init__(
         self,
-        identifier: Identifier,
+        identifier: Identifiable,
         flipbook_texture: Texture,
         atlas_tile: int = None,
         atlas_index: int = None,
@@ -131,8 +153,7 @@ class FlipbookTexture(Identifiable):
         self.replicate = replicate
         self.blend_frames = blend_frames
 
-    @property
-    def __dict__(self) -> dict:
+    def jsonify(self) -> dict:
         data = {"flipbook_texture": self.flipbook_texture.path}
         if self.atlas_tile:
             data["atlas_tile"] = self.atlas_tile
@@ -159,7 +180,9 @@ class FlipbookTexture(Identifiable):
         if value is None:
             setattr(self, "_atlas_tile", None)
             return
-        setattr(self, "_atlas_tile", str(value))
+        v = str(value)
+        self.on_update("atlas_tile", v)
+        setattr(self, "_atlas_tile", v)
 
     @property
     def atlas_index(self) -> int:
@@ -174,6 +197,7 @@ class FlipbookTexture(Identifiable):
             raise TypeError(
                 f"Expected int but got '{value.__class__.__name__}' instead"
             )
+        self.on_update("atlas_index", value)
         setattr(self, "_atlas_index", value)
 
     @property
@@ -189,6 +213,7 @@ class FlipbookTexture(Identifiable):
             raise TypeError(
                 f"Expected int but got '{value.__class__.__name__}' instead"
             )
+        self.on_update("atlas_tile_variant", value)
         setattr(self, "_atlas_tile_variant", value)
 
     @property
@@ -204,6 +229,7 @@ class FlipbookTexture(Identifiable):
             raise TypeError(
                 f"Expected int but got '{value.__class__.__name__}' instead"
             )
+        self.on_update("ticks_per_frame", value)
         setattr(self, "_ticks_per_frame", value)
 
     @property
@@ -219,6 +245,7 @@ class FlipbookTexture(Identifiable):
             raise TypeError(
                 f"Expected list but got '{value.__class__.__name__}' instead"
             )
+        self.on_update("frames", value)
         setattr(self, "_frames", value)
 
     @property
@@ -234,6 +261,7 @@ class FlipbookTexture(Identifiable):
             raise TypeError(
                 f"Expected int but got '{value.__class__.__name__}' instead"
             )
+        self.on_update("replicate", value)
         setattr(self, "_replicate", value)
 
     @property
@@ -249,6 +277,7 @@ class FlipbookTexture(Identifiable):
             raise TypeError(
                 f"Expected bool but got '{value.__class__.__name__}' instead"
             )
+        self.on_update("blend_frames", value)
         setattr(self, "_blend_frames", value)
 
 
@@ -257,7 +286,7 @@ class _Atlas(JsonFile):
         self,
         resource_pack_name: str = None,
         texture_name: str = None,
-        texture_data: dict[Identifier, dict] = None,
+        texture_data: dict[Identifiable, dict] = None,
     ):
         self.resource_pack_name = resource_pack_name
         self.texture_name = texture_name
@@ -267,8 +296,7 @@ class _Atlas(JsonFile):
         for t in self.texture_data.values():
             yield t
 
-    @property
-    def __dict__(self) -> dict:
+    def jsonify(self) -> dict:
         data = {
             "resource_pack_name": self.resource_pack_name,
             "texture_name": self.texture_name,
@@ -276,7 +304,7 @@ class _Atlas(JsonFile):
         }
         for k, v in self.texture_data.items():
             key = k.path if k.namespace == "minecraft" else k
-            data["texture_data"][str(key)] = v.__dict__
+            data["texture_data"][str(key)] = v.jsonify()
         return data
 
     @property
@@ -288,7 +316,9 @@ class _Atlas(JsonFile):
         if value is None:
             self.resource_pack_name = "vanilla"
             return
-        setattr(self, "_resource_pack_name", str(value))
+        v = str(value)
+        self.on_update("resource_pack_name", v)
+        setattr(self, "_resource_pack_name", v)
 
     @property
     def texture_name(self) -> str:
@@ -299,14 +329,16 @@ class _Atlas(JsonFile):
         if value is None:
             self.texture_name = "atlas.terrain"
             return
-        setattr(self, "_texture_name", str(value))
+        v = str(value)
+        self.on_update("texture_name", v)
+        setattr(self, "_texture_name", v)
 
     @property
     def texture_data(self) -> dict[Identifier, dict]:
         return getattr2(self, "_texture_data", {})
 
     @texture_data.setter
-    def texture_data(self, value: dict[Identifier, dict]):
+    def texture_data(self, value: dict[Identifiable, dict]):
         if value is None:
             self.texture_data = {}
             return
@@ -314,39 +346,44 @@ class _Atlas(JsonFile):
             raise TypeError(
                 f"Expected dict but got '{value.__class__.__name__}' instead"
             )
-        setattr(self, "_texture_data", value)
+        data = {}
+        for k, v in value.items():
+            data[Identifiable.of(k)] = v
+        self.on_update("texture_data", data)
+        setattr(self, "_texture_data", data)
 
-    def get_texture(self, identifier: Identifier) -> dict | None:
-        return self.texture_data.get(identifier)
+    @property
+    def id(self) -> Identifier:
+        return getattr(self, "_id")
 
-    def add_texture(self, texture: _TextureDef) -> _TextureDef:
-        if not isinstance(texture, _TextureDef):
-            raise TypeError(
-                f"Expected _TextureDef but got '{texture.__class__.__name__}' instead"
-            )
-        self.texture_data[texture.identifier] = texture
-        return texture
+    @id.setter
+    def id(self, value: Identifier):
+        setattr(self, "_id", Identifier.of(value))
 
-    def remove_texture(self, identifier: Identifier) -> dict | None:
-        return self.texture_data.pop(identifier)
+    def get_texture_data(self, identifier: Identifiable) -> dict | None:
+        return getitem(self, "texture_data", Identifiable.of(identifier))
 
-    def clear_textures(self) -> Self:
-        self.texture_data = {}
-        return self
+    def add_texture_data(self, texture: _TextureDef) -> _TextureDef:
+        return additem(self, "texture_data", texture, texture.identifier)
+
+    def remove_texture_data(self, texture: Identifiable) -> dict | None:
+        return removeitem(self, "texture_data", Identifiable.of(texture))
+
+    def clear_texture_data(self) -> Self:
+        return clearitems(self, "texture_data")
 
     def items(self):
         return self.texture_data.items()
 
 
+@resource_pack
 class TerrainAtlas(_Atlas):
     """
     Represents a Terrain Textures Atlas.
     """
 
-    identifier = Identifier("terrain_texture")
-    FILENAME = "terrain_texture"
-    EXTENSION = ".json"
-    DIRNAME = "textures"
+    id = Identifier("terrain_texture")
+    FILEPATH = "textures/terrain_texture.json"
 
     def __init__(
         self,
@@ -354,15 +391,14 @@ class TerrainAtlas(_Atlas):
         texture_name: str = None,
         padding: int = None,
         num_mip_levels: int = None,
-        texture_data: dict[Identifier, dict] = None,
+        texture_data: dict[Identifiable, dict] = None,
     ):
         _Atlas.__init__(self, resource_pack_name, texture_name, texture_data)
         self.padding = padding
         self.num_mip_levels = num_mip_levels
 
-    @property
-    def __dict__(self) -> dict:
-        data = super().__dict__
+    def jsonify(self) -> dict:
+        data = super().jsonify()
         data["padding"] = self.padding
         data["num_mip_levels"] = self.num_mip_levels
         return data
@@ -379,6 +415,7 @@ class TerrainAtlas(_Atlas):
             raise TypeError(
                 f"Expected int but got '{value.__class__.__name__}' instead"
             )
+        self.on_update("padding", value)
         setattr(self, "_padding", value)
 
     @property
@@ -394,28 +431,27 @@ class TerrainAtlas(_Atlas):
             raise TypeError(
                 f"Expected int but got '{value.__class__.__name__}' instead"
             )
+        self.on_update("num_mip_levels", value)
         setattr(self, "_num_mip_levels", value)
 
 
+@resource_pack
 class ItemAtlas(_Atlas):
     """
     Represents a Item Textures Atlas.
     """
 
-    identifier = Identifier("item_texture")
-    FILENAME = "item_texture"
-    EXTENSION = ".json"
-    DIRNAME = "textures"
+    id = Identifier("item_texture")
+    FILEPATH = "textures/item_texture.json"
 
     def __init__(
         self,
         resource_pack_name: str = None,
         texture_name: str = None,
-        texture_data: dict[Identifier, dict] = None,
+        texture_data: dict[Identifiable, dict] = None,
     ):
         _Atlas.__init__(self, resource_pack_name, texture_name, texture_data)
 
-    @property
-    def __dict__(self) -> dict:
-        data = super().__dict__
+    def jsonify(self) -> dict:
+        data = super().jsonify()
         return data

@@ -1,43 +1,46 @@
-from typing import Self
+from typing import Self, Any
 
 from .registry import INSTANCE, Registries
-from .util import Identifier
+from .util import (
+    getitem,
+    additem,
+    removeitem,
+    clearitems,
+    Identifier,
+    Identifiable,
+    Misc,
+)
 
 
-class BlockState:
-    def __init__(self, *values: str, id: Identifier | str = None):
+class BlockProperty(Misc):
+    def __init__(self, *values: str, id: Identifiable = None):
         """
         Base state class for blocks
 
         :param id: The identifier of this blockstate, defaults to None
-        :type id: Identifier | str, optional
+        :type id: Identifiable, optional
         """
         if id:
-            self.id = Identifier(id)
+            self.id = id
         self.values = list(values)
 
     def __repr__(self) -> str:
-        return str(self)
+        return "BlockProperty{" + str(self.id) + "}"
 
     def __str__(self) -> str:
-        return "BlockState{" + str(self.id) + "}"
+        return str(self.id)
 
     def __iter__(self):
         for v in self.values:
             yield v
 
     @property
-    def __dict__(self) -> list:
-        data = {str(self.id): [x for x in self.values]}
-        return data
-
-    @property
     def id(self) -> Identifier:
         return getattr(self, "_id")
 
     @id.setter
-    def id(self, value: Identifier):
-        setattr(self, "_id", Identifier(value))
+    def id(self, value: Identifiable):
+        setattr(self, "_id", Identifiable.of(value))
 
     @property
     def values(self) -> list:
@@ -57,21 +60,45 @@ class BlockState:
             self.values = []
         elif isinstance(value, list):
             v = [_default(x) for x in value]
+            self.on_update("values", v)
             setattr(self, "_values", v)
         else:
             raise TypeError(
                 f"Expected list but got '{value.__class__.__name__}' instead"
             )
 
+    def get_value(self, index: int) -> Any:
+        return getitem(self, "values", index)
+
+    def add_value(self, value: Any) -> Any:
+        return additem(self, "values", value)
+
+    def remove_value(self, index: int) -> Any:
+        return removeitem(self, "values", index)
+
+    def clear_values(self) -> Self:
+        """Remove all values"""
+        return clearitems(self, "values")
+
     @classmethod
     def from_dict(cls, data: list) -> Self:
         self = cls.__new__(cls)
         return self
 
+    def jsonify(self) -> list:
+        data = {str(self.id): [x for x in self.values]}
+        return data
+
+    def default(self) -> str | int:
+        """
+        Get the default value for this block property
+        """
+        return self.values[0]
+
 
 # STATES
 
-INSTANCE.create_registry(Registries.BLOCK_STATE, BlockState)
+INSTANCE.create_registry(Registries.BLOCK_STATE, BlockProperty)
 
 
 def state(cls):
@@ -80,8 +107,8 @@ def state(cls):
     """
 
     def wrapper():
-        if not issubclass(cls, BlockState):
-            raise TypeError(f"Expected BlockState but got '{cls.__name__}' instead")
+        if not issubclass(cls, BlockProperty):
+            raise TypeError(f"Expected BlockProperty but got '{cls.__name__}' instead")
         return INSTANCE.register(Registries.BLOCK_STATE, cls.id, cls)
 
     return wrapper()
@@ -90,22 +117,22 @@ def state(cls):
 # BASES
 
 
-class BooleanState(BlockState):
-    def __init__(self, id: Identifier = None, default: bool = False):
+class BooleanState(BlockProperty):
+    def __init__(self, id: Identifiable = None, default: bool = False):
         """
         True or False blockstate
 
         :param id: The identifier of this blockstate, defaults to None
-        :type id: Identifier, optional
+        :type id: Identifiable, optional
         :param default: The default value, defaults to None
         :type default: bool, optional
         """
         values = [True, False] if default else [False, True]
-        BlockState.__init__(self, *values, id=id)
+        BlockProperty.__init__(self, *values, id=id)
 
 
-class IntegerState(BlockState):
-    def __init__(self, stop: int, start: int = 0, id: Identifier = None):
+class IntegerState(BlockProperty):
+    def __init__(self, stop: int, start: int = 0, id: Identifiable = None):
         """
         Integer blockstate from START to END
 
@@ -114,56 +141,56 @@ class IntegerState(BlockState):
         :param start: The minimum value, defaults to 0
         :type start: int, optional
         :param id: The identifier of this blockstate, defaults to None
-        :type id: Identifier, optional
+        :type id: Identifiable, optional
         """
-        BlockState.__init__(self, *range(start, stop + 1), id=id)
+        BlockProperty.__init__(self, *range(start, stop + 1), id=id)
 
 
 # VANILLA
 
 
 @state
-class BlockFaceState(BlockState):
+class BlockFaceState(BlockProperty):
     id = Identifier("block_face")
 
     def __init__(self):
         """
         States: ["down", "up", "north", "south", "east", "west"]
         """
-        BlockState.__init__(self, "down", "up", "north", "south", "east", "west")
+        BlockProperty.__init__(self, "down", "up", "north", "south", "east", "west")
 
 
 @state
-class VerticalHalfState(BlockState):
+class VerticalHalfState(BlockProperty):
     id = Identifier("vertical_half")
 
     def __init__(self):
         """
         States: ["bottom", "up"]
         """
-        BlockState.__init__(self, "bottom", "up")
+        BlockProperty.__init__(self, "bottom", "up")
 
 
 @state
-class CardinalDirectionState(BlockState):
+class CardinalDirectionState(BlockProperty):
     id = Identifier("cardinal_direction")
 
     def __init__(self):
         """
         States: ["north", "south", "east", "west"]
         """
-        BlockState.__init__(self, "north", "south", "east", "west")
+        BlockProperty.__init__(self, "north", "south", "east", "west")
 
 
 @state
-class FacingDirectionState(BlockState):
+class FacingDirectionState(BlockProperty):
     id = Identifier("facing_direction")
 
     def __init__(self):
         """
         States: ["down", "up", "north", "south", "east", "west"]
         """
-        BlockState.__init__(self, "down", "up", "north", "south", "east", "west")
+        BlockProperty.__init__(self, "down", "up", "north", "south", "east", "west")
 
 
 @state
@@ -207,35 +234,35 @@ class AttachedBitState(BooleanState):
 
 
 @state
-class AttachmentState(BlockState):
+class AttachmentState(BlockProperty):
     id = Identifier("attachment")
 
     def __init__(self):
-        BlockState.__init__(self, "standing", "hanging", "side", "multiple")
+        BlockProperty.__init__(self, "standing", "hanging", "side", "multiple")
 
 
 @state
-class BambooLeafSizeState(BlockState):
+class BambooLeafSizeState(BlockProperty):
     id = Identifier("bamboo_leaf_size")
 
     def __init__(self):
-        BlockState.__init__(self, "no_leaves", "small_leaves", "large_leaves")
+        BlockProperty.__init__(self, "no_leaves", "small_leaves", "large_leaves")
 
 
 @state
-class BambooStalkThicknessState(BlockState):
+class BambooStalkThicknessState(BlockProperty):
     id = Identifier("bamboo_stalk")
 
     def __init__(self):
-        BlockState.__init__(self, "thin", "thick")
+        BlockProperty.__init__(self, "thin", "thick")
 
 
 @state
-class BigDripleafTiltState(BlockState):
+class BigDripleafTiltState(BlockProperty):
     id = Identifier("bigt_dripleaf_tilt")
 
     def __init__(self):
-        BlockState.__init__(self, "none", "unstable", "partial_tilt", "full_tilt")
+        BlockProperty.__init__(self, "none", "unstable", "partial_tilt", "full_tilt")
 
 
 @state
@@ -303,19 +330,19 @@ class CandlesState(IntegerState):
 
 
 @state
-class CauldronLiquidState(BlockState):
+class CauldronLiquidState(BlockProperty):
     id = Identifier("cauldron_liquid")
 
     def __init__(self):
-        BlockState.__init__(self, "water", "lava")
+        BlockProperty.__init__(self, "water", "lava")
 
 
 @state
-class ChemistryTableTypeState(BlockState):
+class ChemistryTableTypeState(BlockProperty):
     id = Identifier("chemistry_table_type")
 
     def __init__(self):
-        BlockState.__init__(
+        BlockProperty.__init__(
             self,
             "compound_creator",
             "material_reducer",
@@ -325,11 +352,11 @@ class ChemistryTableTypeState(BlockState):
 
 
 @state
-class ChiselTypeState(BlockState):
+class ChiselTypeState(BlockProperty):
     id = Identifier("chisel_type")
 
     def __init__(self):
-        BlockState.__init__(self, "default", "chiseled", "lines", "smooth")
+        BlockProperty.__init__(self, "default", "chiseled", "lines", "smooth")
 
 
 @state
@@ -341,11 +368,11 @@ class ClusterCountState(IntegerState):
 
 
 @state
-class ColorState(BlockState):
+class ColorState(BlockProperty):
     id = Identifier("color")
 
     def __init__(self):
-        BlockState.__init__(
+        BlockProperty.__init__(
             self,
             "white",
             "orange",
@@ -383,11 +410,11 @@ class ConditionalBitState(BooleanState):
 
 
 @state
-class CoralColorState(BlockState):
+class CoralColorState(BlockProperty):
     id = Identifier("coral_color")
 
     def __init__(self):
-        BlockState.__init__(
+        BlockProperty.__init__(
             self,
             "blue",
             "pink",
@@ -427,11 +454,11 @@ class CoveredBitState(BooleanState):
 
 
 @state
-class CrackedState(BlockState):
+class CrackedState(BlockProperty):
     id = Identifier("cracked_state")
 
     def __init__(self):
-        BlockState.__init__(self, "no_cracks", "cracked", "max_cracked")
+        BlockProperty.__init__(self, "no_cracks", "cracked", "max_cracked")
 
 
 @state
@@ -443,11 +470,11 @@ class CraftingState(BooleanState):
 
 
 @state
-class DamageState(BlockState):
+class DamageState(BlockProperty):
     id = Identifier("damage")
 
     def __init__(self):
-        BlockState.__init__(
+        BlockProperty.__init__(
             self, "undamaged", "slightly_damaged", "very_damaged", "broken"
         )
 
@@ -469,11 +496,11 @@ class DirectionState(IntegerState):
 
 
 @state
-class DirtTypeState(BlockState):
+class DirtTypeState(BlockProperty):
     id = Identifier("dirt_type")
 
     def __init__(self):
-        BlockState.__init__(self, "normal", "coarse")
+        BlockProperty.__init__(self, "normal", "coarse")
 
 
 @state
@@ -493,11 +520,11 @@ class DoorHingeBitState(BooleanState):
 
 
 @state
-class DoublePlantTypeState(BlockState):
+class DoublePlantTypeState(BlockProperty):
     id = Identifier("double_plant_type")
 
     def __init__(self):
-        BlockState.__init__(
+        BlockProperty.__init__(
             self, "sunflower", "syringa", "grass", "fern", "rose", "paeonia"
         )
 
@@ -511,11 +538,11 @@ class DragDownState(BooleanState):
 
 
 @state
-class DripstoneThicknessState(BlockState):
+class DripstoneThicknessState(BlockProperty):
     id = Identifier("dripstone_thickness")
 
     def __init__(self):
-        BlockState.__init__(self, "tip", "frustum", "base", "middle", "merge")
+        BlockProperty.__init__(self, "tip", "frustum", "base", "middle", "merge")
 
 
 @state
@@ -543,11 +570,11 @@ class FillLevelState(IntegerState):
 
 
 @state
-class FlowerTypeState(BlockState):
+class FlowerTypeState(BlockProperty):
     id = Identifier("flower_type")
 
     def __init__(self):
-        BlockState.__init__(
+        BlockProperty.__init__(
             self,
             "poppy",
             "orchid",
@@ -660,11 +687,11 @@ class MoisturizedAmountState(IntegerState):
 
 
 @state
-class MonsterEggStoneTypeState(BlockState):
+class MonsterEggStoneTypeState(BlockProperty):
     id = Identifier("monster_egg_stone_type")
 
     def __init__(self):
-        BlockState.__init__(
+        BlockProperty.__init__(
             self,
             "stone",
             "cobblestone",
@@ -676,19 +703,19 @@ class MonsterEggStoneTypeState(BlockState):
 
 
 @state
-class NewLeafTypeState(BlockState):
+class NewLeafTypeState(BlockProperty):
     id = Identifier("new_leaf_type")
 
     def __init__(self):
-        BlockState.__init__(self, "acacia", "dark_oak")
+        BlockProperty.__init__(self, "acacia", "dark_oak")
 
 
 @state
-class NewLogTypeState(BlockState):
+class NewLogTypeState(BlockProperty):
     id = Identifier("new_log_type")
 
     def __init__(self):
-        BlockState.__init__(self, "acacia", "dark_oak")
+        BlockProperty.__init__(self, "acacia", "dark_oak")
 
 
 @state
@@ -708,19 +735,19 @@ class OccupiedBitState(BooleanState):
 
 
 @state
-class OldLeafTypeState(BlockState):
+class OldLeafTypeState(BlockProperty):
     id = Identifier("old_leaf_type")
 
     def __init__(self):
-        BlockState.__init__(self, "oak", "spruce", "birch", "jungle")
+        BlockProperty.__init__(self, "oak", "spruce", "birch", "jungle")
 
 
 @state
-class OldLogTypeState(BlockState):
+class OldLogTypeState(BlockProperty):
     id = Identifier("old_log_type")
 
     def __init__(self):
-        BlockState.__init__(self, "oak", "spruce", "birch", "jungle")
+        BlockProperty.__init__(self, "oak", "spruce", "birch", "jungle")
 
 
 @state
@@ -764,11 +791,11 @@ class PersistentBitState(BooleanState):
 
 
 @state
-class PortalAxisState(BlockState):
+class PortalAxisState(BlockProperty):
     id = Identifier("portal_axis")
 
     def __init__(self):
-        BlockState.__init__(self, "unknown", "x", "z")
+        BlockProperty.__init__(self, "unknown", "x", "z")
 
 
 @state
@@ -812,53 +839,53 @@ class RepeaterDelayState(IntegerState):
 
 
 @state
-class SandStoneTypeState(BlockState):
+class SandStoneTypeState(BlockProperty):
     id = Identifier("sand_stone_type")
 
     def __init__(self):
-        BlockState.__init__(self, "default", "heiroglyphs", "cut", "smooth")
+        BlockProperty.__init__(self, "default", "heiroglyphs", "cut", "smooth")
 
 
 @state
-class SandTypeState(BlockState):
+class SandTypeState(BlockProperty):
     id = Identifier("sand_type")
 
     def __init__(self):
-        BlockState.__init__(self, "normal", "type")
+        BlockProperty.__init__(self, "normal", "type")
 
 
 @state
-class SaplingTypeState(BlockState):
+class SaplingTypeState(BlockProperty):
     id = Identifier("sapling_type")
 
     def __init__(self):
-        BlockState.__init__(
+        BlockProperty.__init__(
             self, "evergreen", "birch", "jungle", "acacia", "roofed_oak"
         )
 
 
 @state
-class SculkSensorPhaseState(BlockState):
+class SculkSensorPhaseState(BlockProperty):
     id = Identifier("sculk_sensor_phase")
 
     def __init__(self):
-        BlockState.__init__(self, "inactive", "active", "cooldown")
+        BlockProperty.__init__(self, "inactive", "active", "cooldown")
 
 
 @state
-class SeaGrassTypeState(BlockState):
+class SeaGrassTypeState(BlockProperty):
     id = Identifier("sea_grass_type")
 
     def __init__(self):
-        BlockState.__init__(self, "default", "double_top", "double_bot")
+        BlockProperty.__init__(self, "default", "double_top", "double_bot")
 
 
 @state
-class SpongeTypeState(BlockState):
+class SpongeTypeState(BlockProperty):
     id = Identifier("sponge_type")
 
     def __init__(self):
-        BlockState.__init__(self, "dry", "wet")
+        BlockProperty.__init__(self, "dry", "wet")
 
 
 @state
@@ -878,19 +905,21 @@ class StabilityCheckState(BooleanState):
 
 
 @state
-class StoneBrickTypeState(BlockState):
+class StoneBrickTypeState(BlockProperty):
     id = Identifier("stone_brick_type")
 
     def __init__(self):
-        BlockState.__init__(self, "default", "mossy", "cracked", "chiseled", "smooth")
+        BlockProperty.__init__(
+            self, "default", "mossy", "cracked", "chiseled", "smooth"
+        )
 
 
 @state
-class StoneSlabTypeState(BlockState):
+class StoneSlabTypeState(BlockProperty):
     id = Identifier("stone_slab_type")
 
     def __init__(self):
-        BlockState.__init__(
+        BlockProperty.__init__(
             self,
             "smooth_stone",
             "sandstone",
@@ -904,11 +933,11 @@ class StoneSlabTypeState(BlockState):
 
 
 @state
-class StoneSlabType2State(BlockState):
+class StoneSlabType2State(BlockProperty):
     id = Identifier("stone_slab_type2")
 
     def __init__(self):
-        BlockState.__init__(
+        BlockProperty.__init__(
             self,
             "red_sandstone",
             "purpur",
@@ -922,11 +951,11 @@ class StoneSlabType2State(BlockState):
 
 
 @state
-class StoneSlabType3State(BlockState):
+class StoneSlabType3State(BlockProperty):
     id = Identifier("stone_slab_type3")
 
     def __init__(self):
-        BlockState.__init__(
+        BlockProperty.__init__(
             self,
             "end_stone_brick",
             "smooth_red_sandstone",
@@ -940,11 +969,11 @@ class StoneSlabType3State(BlockState):
 
 
 @state
-class StoneSlabType4State(BlockState):
+class StoneSlabType4State(BlockProperty):
     id = Identifier("stone_slab_type_4")
 
     def __init__(self):
-        BlockState.__init__(
+        BlockProperty.__init__(
             self,
             "mossy_stone_brick",
             "smooth_quartz",
@@ -955,11 +984,11 @@ class StoneSlabType4State(BlockState):
 
 
 @state
-class StoneTypeState(BlockState):
+class StoneTypeState(BlockProperty):
     id = Identifier("stone_type")
 
     def __init__(self):
-        BlockState.__init__(
+        BlockProperty.__init__(
             self,
             "stone",
             "granite",
@@ -980,19 +1009,21 @@ class StrippedBitState(BooleanState):
 
 
 @state
-class StructureBlockTypeState(BlockState):
+class StructureBlockTypeState(BlockProperty):
     id = Identifier("structure_block_type")
 
     def __init__(self):
-        BlockState.__init__(self, "data", "save", "load", "corner", "invalid", "export")
+        BlockProperty.__init__(
+            self, "data", "save", "load", "corner", "invalid", "export"
+        )
 
 
 @state
-class StructureVoidTypeState(BlockState):
+class StructureVoidTypeState(BlockProperty):
     id = Identifier("structure_void_type")
 
     def __init__(self):
-        BlockState.__init__(self, "void", "air")
+        BlockProperty.__init__(self, "void", "air")
 
 
 @state
@@ -1004,11 +1035,11 @@ class SuspendedBitState(BooleanState):
 
 
 @state
-class TallGrassTypeState(BlockState):
+class TallGrassTypeState(BlockProperty):
     id = Identifier("tall_grass_type")
 
     def __init__(self):
-        BlockState.__init__(self, "default", "tall", "fern", "snow")
+        BlockProperty.__init__(self, "default", "tall", "fern", "snow")
 
 
 @state
@@ -1028,11 +1059,11 @@ class TopSlotBitState(BooleanState):
 
 
 @state
-class TorchFacingDirectionState(BlockState):
+class TorchFacingDirectionState(BlockProperty):
     id = Identifier("torch_facing_direction")
 
     def __init__(self):
-        BlockState.__init__(self, "unknown", "west", "east", "north", "south", "top")
+        BlockProperty.__init__(self, "unknown", "west", "east", "north", "south", "top")
 
 
 @state
@@ -1044,11 +1075,11 @@ class TriggedBitState(BooleanState):
 
 
 @state
-class TurtleEggCountState(BlockState):
+class TurtleEggCountState(BlockProperty):
     id = Identifier("turtle_egg_count")
 
     def __init__(self):
-        BlockState.__init__(self, "one_egg", "two_egg", "three_egg", "four_egg")
+        BlockProperty.__init__(self, "one_egg", "two_egg", "three_egg", "four_egg")
 
 
 @state
@@ -1084,11 +1115,11 @@ class VineDirectionBitsState(IntegerState):
 
 
 @state
-class WallBlockTypeState(BlockState):
+class WallBlockTypeState(BlockProperty):
     id = Identifier("wall_block_type")
 
     def __init__(self):
-        BlockState.__init__(
+        BlockProperty.__init__(
             self,
             "cobblestone",
             "mossy_cobblestone",
@@ -1108,35 +1139,35 @@ class WallBlockTypeState(BlockState):
 
 
 @state
-class WallConnectionTypEastState(BlockState):
+class WallConnectionTypEastState(BlockProperty):
     id = Identifier("wall_connection_type_east")
 
     def __init__(self):
-        BlockState.__init__(self, "none", "short", "tall")
+        BlockProperty.__init__(self, "none", "short", "tall")
 
 
 @state
-class WallConnectionTypeNorthState(BlockState):
+class WallConnectionTypeNorthState(BlockProperty):
     id = Identifier("wall_connection_type_north")
 
     def __init__(self):
-        BlockState.__init__(self, "none", "short", "tall")
+        BlockProperty.__init__(self, "none", "short", "tall")
 
 
 @state
-class WallConnectionTypeSouthState(BlockState):
+class WallConnectionTypeSouthState(BlockProperty):
     id = Identifier("wall_connection_type_south")
 
     def __init__(self):
-        BlockState.__init__(self, "none", "short", "tall")
+        BlockProperty.__init__(self, "none", "short", "tall")
 
 
 @state
-class WallConnectionTypeWestState(BlockState):
+class WallConnectionTypeWestState(BlockProperty):
     id = Identifier("wall_connection_type_west")
 
     def __init__(self):
-        BlockState.__init__(self, "none", "short", "tall")
+        BlockProperty.__init__(self, "none", "short", "tall")
 
 
 @state
@@ -1156,10 +1187,10 @@ class WeirdoDirectionState(IntegerState):
 
 
 @state
-class WoodTypeState(BlockState):
+class WoodTypeState(BlockProperty):
     id = Identifier("wood_type")
 
     def __init__(self):
-        BlockState.__init__(
+        BlockProperty.__init__(
             self, "oak", "spruce", "birch", "jungle", "acacia", "dark_oak"
         )

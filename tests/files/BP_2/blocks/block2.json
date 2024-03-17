@@ -1,0 +1,87 @@
+{
+  "format_version": "1.20.50",
+  "minecraft:block": {
+    "description": {
+      "identifier": "test:block2"
+    },
+    "components": {
+      "minecraft:on_interact": {
+        "event": "test:on_interact"
+      },
+      "minecraft:on_placed": {
+        "event": "test:on_placed"
+      },
+      "minecraft:on_player_destroyed": {
+        "event": "test:on_player_destroyed"
+      },
+      "minecraft:on_player_placing": {
+        "event": "test:on_player_placing"
+      },
+      "minecraft:on_step_off": {
+        "event": "test:on_step_off"
+      },
+      "minecraft:on_step_on": {
+        "event": "test:on_step_on"
+      },
+      "minecraft:bone_visibility": {
+        "bones": {
+          "bone": "false"
+        }
+      },
+      "minecraft:breathability": "air",
+      "minecraft:collision_box": true,
+      "minecraft:selection_box": true,
+      "minecraft:crafting_table": {
+        "crafting_tags": [
+          "crafting_table"
+        ],
+        "table_name": "container.crafting_table"
+      },
+      "minecraft:display_name": "tile.BLOCK.name",
+      "minecraft:destructible_by_explosion": {
+        "explosion_resistance": 0
+      },
+      "minecraft:destructible_by_mining": {
+        "seconds_to_destroy": 0
+      },
+      "minecraft:flammable": {},
+      "minecraft:friction": 0.5,
+      "minecraft:geometry": "geometry.full_cube",
+      "minecraft:light_dampening": 0,
+      "minecraft:light_emission": 0,
+      "minecraft:loot": "",
+      "minecraft:map_color": "#f80",
+      "minecraft:material_instances": {
+        "*": {
+          "texture": "minecraft:stone"
+        }
+      },
+      "minecraft:placement_filter": {
+        "conditions": []
+      },
+      "minecraft:queued_ticking": {
+        "interval_range": [
+          1,
+          1
+        ],
+        "on_tick": {
+          "event": "minecraft:queued_ticking"
+        }
+      },
+      "minecraft:random_ticking": {
+        "on_tick": {
+          "event": "minecraft:random_ticking"
+        }
+      },
+      "minecraft:transformation": {
+        "rotation": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "minecraft:unit_cube": {},
+      "tag:minecraft:stone": {}
+    }
+  }
+}

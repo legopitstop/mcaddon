@@ -1,15 +1,28 @@
 from typing import Self
+import os
 
+from .pack import behavior_pack
 from .exception import TypeNotFoundError
-from .constant import Destination, LootContextType
+from .constant import Destination
 from .registry import INSTANCE, Registries
 from .file import JsonFile
-from .util import getattr2, Identifier, Identifiable
+from .util import (
+    getattr2,
+    getitem,
+    removeitem,
+    clearitems,
+    additem,
+    Identifier,
+    Identifiable,
+    Misc,
+)
 from .block import Block
 from .item import Item
 
+# TODO: Needs get, add, remove, and clear methods
 
-class LootNumberProvider:
+
+class LootNumberProvider(Misc):
     def __init__(self, min: float, max: float = None):
         """
         :param min: the minimum value
@@ -20,8 +33,7 @@ class LootNumberProvider:
         self.min = min
         self.max = max
 
-    @property
-    def __dict__(self) -> dict:
+    def jsonify(self) -> dict:
         data = {}
         if self.min:
             data["min"] = self.min
@@ -51,7 +63,9 @@ class LootNumberProvider:
             raise TypeError(
                 f"Expected float but got '{value.__class__.__name__}' instead"
             )
-        setattr(self, "_min", float(value))
+        v = float(value)
+        self.on_update("min", v)
+        setattr(self, "_min", v)
 
     @property
     def max(self) -> float:
@@ -66,28 +80,31 @@ class LootNumberProvider:
             raise TypeError(
                 f"Expected float but got '{value.__class__.__name__}' instead"
             )
-        setattr(self, "_max", float(value))
+        v = float(value)
+        self.on_update("max", v)
+        setattr(self, "_max", v)
 
 
-class Enchant:
-    def __init__(self, id: Identifier, levels: LootNumberProvider):
+class Enchant(Misc):
+    def __init__(self, id: Identifiable, levels: LootNumberProvider):
         """
         An enchantment
 
         :param id: an enchantment ID
-        :type id: Identifier
+        :type id: Identifiable
         :param levels: the level of the enchantment
         :type levels: LootNumberProvider
         """
         self.id = id
         self.levels = levels
 
-    @property
-    def __dict__(self) -> dict:
-        data = {
-            "id": str(self.id),
-            "levels": {"range_min": self.levels.min, "range_max": self.levels.max},
-        }
+    def jsonify(self) -> dict:
+        data = {"id": str(self.id)}
+        if self.levels:
+            data["levels"] = {
+                "range_min": self.levels.min,
+                "range_max": self.levels.max,
+            }
         return data
 
     @classmethod
@@ -99,14 +116,50 @@ class Enchant:
             self.levels = LootNumberProvider.from_dict(data.pop("levels"))
         return self
 
+    @property
+    def id(self) -> Identifier:
+        return getattr(self, "_id")
+
+    @id.setter
+    def id(self, value: Identifiable):
+        id = Identifiable.of(value)
+        self.on_update("id", id)
+        setattr(self, "_id", id)
+
+    @property
+    def levels(self) -> LootNumberProvider:
+        return getattr(self, "_levels", None)
+
+    @levels.setter
+    def levels(self, value: LootNumberProvider):
+        if not isinstance(value, LootNumberProvider):
+            raise TypeError(
+                f"Expected LootNumberProvider but got '{value.__class__.__name__}' instead"
+            )
+        self.on_update("levels", value)
+        setattr(self, "_levels", value)
+
 
 # CONDITIONS
 #  https://learn.microsoft.com/en-us/minecraft/creator/documents/loottableconditions?view=minecraft-bedrock-stable
 
 
-class LootCondition:
+class LootCondition(Misc):
+    def __call__(self, ctx) -> int:
+        return self.execute(ctx)
+
     @property
-    def __dict__(self) -> dict:
+    def id(self) -> Identifier:
+        return getattr(self, "_id")
+
+    @id.setter
+    def id(self, value: Identifier):
+        setattr(self, "_id", Identifier.of(value))
+
+    def execute(self, ctx) -> int:
+        return 0
+
+    def jsonify(self) -> dict:
         data = {"condition": str(self.id)}
         return data
 
@@ -128,7 +181,7 @@ def loot_condition(cls):
 
 
 @loot_condition
-class HasMarkvariantLootCondition(LootCondition):
+class HasMarkVariantLootCondition(LootCondition):
     id = Identifier("has_mark_variant")
 
     def __init__(self, value: int):
@@ -137,9 +190,8 @@ class HasMarkvariantLootCondition(LootCondition):
         """
         self.value = value
 
-    @property
-    def __dict__(self) -> dict:
-        data = super().__dict__
+    def jsonify(self) -> dict:
+        data = super().jsonify()
         data["value"] = self.value
         return data
 
@@ -159,6 +211,42 @@ class HasMarkvariantLootCondition(LootCondition):
             raise TypeError(
                 f"Expected int but got '{value.__class__.__name__}' instead"
             )
+        self.on_update("value", value)
+        setattr(self, "_value", value)
+
+
+@loot_condition
+class HasVariantLootCondition(LootCondition):
+    id = Identifier("has_variant")
+
+    def __init__(self, value: int):
+        """
+        Specifies that there are different variations for the loot
+        """
+        self.value = value
+
+    def jsonify(self) -> dict:
+        data = super().jsonify()
+        data["value"] = self.value
+        return data
+
+    @classmethod
+    def from_dict(cls, data: dict) -> Self:
+        self = cls.__new__(cls)
+        self.value = data.pop("value")
+        return self
+
+    @property
+    def value(self) -> int:
+        return getattr(self, "_value")
+
+    @value.setter
+    def value(self, value: int):
+        if not isinstance(value, int):
+            raise TypeError(
+                f"Expected int but got '{value.__class__.__name__}' instead"
+            )
+        self.on_update("value", value)
         setattr(self, "_value", value)
 
 
@@ -188,9 +276,8 @@ class RandomChanceLootCondition(LootCondition):
         """
         self.chance = chance
 
-    @property
-    def __dict__(self) -> dict:
-        data = super().__dict__
+    def jsonify(self) -> dict:
+        data = super().jsonify()
         data["chance"] = self.chance
         return data
 
@@ -210,7 +297,9 @@ class RandomChanceLootCondition(LootCondition):
             raise TypeError(
                 f"Expected float but got '{value.__class__.__name__}' instead"
             )
-        setattr(self, "_chance", float(value))
+        v = float(value)
+        self.on_update("chance", v)
+        setattr(self, "_chance", v)
 
 
 @loot_condition
@@ -224,9 +313,8 @@ class RandomChanceWithLootingLootCondition(LootCondition):
         self.chance = chance
         self.looting_multiplier = looting_multiplier
 
-    @property
-    def __dict__(self) -> dict:
-        data = super().__dict__
+    def jsonify(self) -> dict:
+        data = super().jsonify()
         data["chance"] = self.chance
         data["looting_multiplier"] = self.looting_multiplier
         return data
@@ -248,7 +336,9 @@ class RandomChanceWithLootingLootCondition(LootCondition):
             raise TypeError(
                 f"Expected float but got '{value.__class__.__name__}' instead"
             )
-        setattr(self, "_chance", float(value))
+        v = float(value)
+        self.on_update("chance", v)
+        setattr(self, "_chance", v)
 
     @property
     def looting_multiplier(self) -> float:
@@ -260,7 +350,9 @@ class RandomChanceWithLootingLootCondition(LootCondition):
             raise TypeError(
                 f"Expected float but got '{value.__class__.__name__}' instead"
             )
-        setattr(self, "_looting_multiplier", float(value))
+        v = float(value)
+        self.on_update("looting_multiplier", v)
+        setattr(self, "_looting_multiplier", v)
 
 
 @loot_condition
@@ -275,9 +367,8 @@ class RandomDifficultyChanceLootCondition(LootCondition):
         self.peaceful = peaceful
         self.hard = hard
 
-    @property
-    def __dict__(self) -> dict:
-        data = super().__dict__
+    def jsonify(self) -> dict:
+        data = super().jsonify()
         data["default_chance"] = self.default_chance
         if self.peaceful:
             data["peaceful"] = self.peaceful
@@ -305,11 +396,13 @@ class RandomDifficultyChanceLootCondition(LootCondition):
             raise TypeError(
                 f"Expected float but got '{value.__class__.__name__}' instead"
             )
-        setattr(self, "_default_chance", float(value))
+        v = float(value)
+        self.on_update("default_chance", v)
+        setattr(self, "_default_chance", v)
 
     @property
     def peaceful(self) -> float:
-        return getattr(self, "_peaceful")
+        return getattr(self, "_peaceful", None)
 
     @peaceful.setter
     def peaceful(self, value: float):
@@ -317,11 +410,13 @@ class RandomDifficultyChanceLootCondition(LootCondition):
             raise TypeError(
                 f"Expected float but got '{value.__class__.__name__}' instead"
             )
-        setattr(self, "_peaceful", float(value))
+        v = float(value)
+        self.on_update("peaceful", v)
+        setattr(self, "_peaceful", v)
 
     @property
     def hard(self) -> float:
-        return getattr(self, "_hard")
+        return getattr(self, "_hard", None)
 
     @hard.setter
     def hard(self, value: float):
@@ -329,7 +424,9 @@ class RandomDifficultyChanceLootCondition(LootCondition):
             raise TypeError(
                 f"Expected float but got '{value.__class__.__name__}' instead"
             )
-        setattr(self, "_hard", float(value))
+        v = float(value)
+        self.on_update("hard", v)
+        setattr(self, "_hard", v)
 
 
 @loot_condition
@@ -342,9 +439,8 @@ class RandomRegionalDifficultyChanceLootCondition(LootCondition):
         """
         self.max_chance = max_chance
 
-    @property
-    def __dict__(self) -> dict:
-        data = super().__dict__
+    def jsonify(self) -> dict:
+        data = super().jsonify()
         data["max_chance"] = self.max_chance
         return data
 
@@ -364,7 +460,9 @@ class RandomRegionalDifficultyChanceLootCondition(LootCondition):
             raise TypeError(
                 f"Expected float but got '{value.__class__.__name__}' instead"
             )
-        setattr(self, "_max_chance", float(value))
+        v = float(value)
+        self.on_update("max_chance", v)
+        setattr(self, "_max_chance", v)
 
 
 @loot_condition
@@ -373,7 +471,7 @@ class MatchToolLootCondition(LootCondition):
 
     def __init__(
         self,
-        item: Identifier,
+        item: Identifiable,
         count: LootNumberProvider,
         durability: LootNumberProvider,
         enchantments: list[Enchant],
@@ -382,7 +480,7 @@ class MatchToolLootCondition(LootCondition):
         Checks whether the tool (or weapon/item the player is using) used to make the loot drop matches the modifier conditions provided. The predicates used are: count, durability, enchantments, and item
 
         :param item: An item ID
-        :type item: Identifier
+        :type item: Identifiable
         :param count: amount of the item
         :type count: LootNumberProvider
         :param durability: the durability of the item
@@ -395,9 +493,8 @@ class MatchToolLootCondition(LootCondition):
         self.durability = durability
         self.enchantments = enchantments
 
-    @property
-    def __dict__(self) -> dict:
-        data = super().__dict__
+    def jsonify(self) -> dict:
+        data = super().jsonify()
         if self.item:
             data["item"] = str(self.item)
         if self.count:
@@ -408,7 +505,7 @@ class MatchToolLootCondition(LootCondition):
                 "range_max": self.durability.max,
             }
         if self.enchantments:
-            data["enchantments"] = [x.__dict__ for x in self.enchantments]
+            data["enchantments"] = [x.jsonify() for x in self.enchantments]
         return data
 
     @classmethod
@@ -429,12 +526,10 @@ class MatchToolLootCondition(LootCondition):
         return getattr(self, "_item")
 
     @item.setter
-    def item(self, value: Identifier):
-        if not isinstance(value, Identifier):
-            raise TypeError(
-                f"Expected Identifier but got '{value.__class__.__name__}' instead"
-            )
-        setattr(self, "_item", value)
+    def item(self, value: Identifiable):
+        id = Identifiable.of(value)
+        self.on_update("item", id)
+        setattr(self, "_item", id)
 
     @property
     def count(self) -> LootNumberProvider:
@@ -446,6 +541,7 @@ class MatchToolLootCondition(LootCondition):
             raise TypeError(
                 f"Expected LootNumberProvider but got '{value.__class__.__name__}' instead"
             )
+        self.on_update("count", value)
         setattr(self, "_count", value)
 
     @property
@@ -458,6 +554,7 @@ class MatchToolLootCondition(LootCondition):
             raise TypeError(
                 f"Expected LootNumberProvider but got '{value.__class__.__name__}' instead"
             )
+        self.on_update("durability", value)
         setattr(self, "_durability", value)
 
     @property
@@ -470,19 +567,32 @@ class MatchToolLootCondition(LootCondition):
             raise TypeError(
                 f"Expected list but got '{value.__class__.__name__}' instead"
             )
+        self.on_update("enchantments", value)
         setattr(self, "_enchantments", value)
+
+    def get_enchantment(self, index: int) -> Enchant:
+        return getitem(self, "enchantments", index)
+
+    def add_enchantment(self, enchant: Enchant) -> Enchant:
+        return additem(self, "enchantments", enchant)
+
+    def remove_enchantment(self, index: int) -> Enchant:
+        return removeitem(self, "enchantments", index)
+
+    def clear_enchantments(self) -> Self:
+        """Remove all enchantments"""
+        return clearitems(self, "enchantments")
 
 
 @loot_condition
 class KilledByEntityLootCondition(LootCondition):
     id = Identifier("killed_by_entity")
 
-    def __init__(self, entity_type: Identifier):
+    def __init__(self, entity_type: Identifiable):
         self.entity_type = entity_type
 
-    @property
-    def __dict__(self) -> dict:
-        data = super().__dict__
+    def jsonify(self) -> dict:
+        data = super().jsonify()
         data["entity_type"] = str(self.entity_type)
         return data
 
@@ -497,12 +607,39 @@ class KilledByEntityLootCondition(LootCondition):
         return getattr(self, "_entity_type")
 
     @entity_type.setter
-    def entity_type(self, value: Identifier):
-        if not isinstance(value, Identifier):
-            raise TypeError(
-                f"Expected Identifier but got '{value.__class__.__name__}' instead"
-            )
-        setattr(self, "_entity_type", value)
+    def entity_type(self, value: Identifiable):
+        id = Identifiable.of(value)
+        self.on_update("entity_type", id)
+        setattr(self, "_entity_type", id)
+
+
+@loot_condition
+class EntityKilledLootCondition(LootCondition):
+    id = Identifier("entity_killed")
+
+    def __init__(self, entity_type: Identifiable):
+        self.entity_type = entity_type
+
+    def jsonify(self) -> dict:
+        data = super().jsonify()
+        data["entity_type"] = str(self.entity_type)
+        return data
+
+    @classmethod
+    def from_dict(cls, data: dict) -> Self:
+        self = cls.__new__(cls)
+        self.entity_type = data.pop("entity_type")
+        return self
+
+    @property
+    def entity_type(self) -> Identifier:
+        return getattr(self, "_entity_type")
+
+    @entity_type.setter
+    def entity_type(self, value: Identifiable):
+        id = Identifiable.of(value)
+        self.on_update("entity_type", id)
+        setattr(self, "_entity_type", id)
 
 
 @loot_condition
@@ -522,11 +659,25 @@ class KilledByPlayerLootCondition(LootCondition):
 #  https://learn.microsoft.com/en-us/minecraft/creator/documents/lootandtradetablefunctions?view=minecraft-bedrock-stable
 
 
-class LootFunction:
+class LootFunction(Misc):
+
+    def __call__(self, ctx) -> int:
+        return self.execute(ctx)
+
     @property
-    def __dict__(self) -> dict:
+    def id(self) -> Identifier:
+        return getattr(self, "_id")
+
+    @id.setter
+    def id(self, value: Identifier):
+        setattr(self, "_id", Identifier.of(value))
+
+    def jsonify(self) -> dict:
         data = {"function": str(self.id)}
         return data
+
+    def execute(self, ctx) -> int:
+        return 0
 
 
 INSTANCE.create_registry(Registries.LOOT_FUNCTION_TYPE, LootFunction)
@@ -565,9 +716,8 @@ class EnchantBookForTradingLootFunction(LootFunction):
         self.per_level_random_cost = per_level_random_cost
         self.per_level_cost = per_level_cost
 
-    @property
-    def __dict__(self) -> dict:
-        data = super().__dict__
+    def jsonify(self) -> dict:
+        data = super().jsonify()
         data["base_cost"] = self.base_cost
         data["base_random_cost"] = self.base_random_cost
         data["per_level_random_cost"] = self.per_level_random_cost
@@ -593,6 +743,7 @@ class EnchantBookForTradingLootFunction(LootFunction):
             raise TypeError(
                 f"Expected int but got '{value.__class__.__name__}' instead"
             )
+        self.on_update("base_cost", value)
         setattr(self, "_base_cost", value)
 
     @property
@@ -605,6 +756,7 @@ class EnchantBookForTradingLootFunction(LootFunction):
             raise TypeError(
                 f"Expected int but got '{value.__class__.__name__}' instead"
             )
+        self.on_update("base_random_cost", value)
         setattr(self, "_base_random_cost", value)
 
     @property
@@ -617,6 +769,7 @@ class EnchantBookForTradingLootFunction(LootFunction):
             raise TypeError(
                 f"Expected int but got '{value.__class__.__name__}' instead"
             )
+        self.on_update("per_level_random_cost", value)
         setattr(self, "_per_level_random_cost", value)
 
     @property
@@ -629,7 +782,70 @@ class EnchantBookForTradingLootFunction(LootFunction):
             raise TypeError(
                 f"Expected int but got '{value.__class__.__name__}' instead"
             )
+        self.on_update("per_level_cost", value)
         setattr(self, "_per_level_cost", value)
+
+
+class StewEffect:
+    def __init__(self, id: int):
+        self.id = id
+
+    @classmethod
+    def from_dict(cls, data: dict) -> Self:
+        self = cls.__new__(cls)
+        self.id = data["id"]
+        return self
+
+    def jsonify(self) -> dict:
+        data = {"id": self.id}
+        return data
+
+
+@loot_function
+class SetStewEffectLootFunction(LootFunction):
+    id = Identifier("set_stew_effect")
+
+    def __init__(self, effects: list[StewEffect]):
+        """
+        This function sets stew effects on a suspicious_stew item.
+        """
+        self.effects = effects
+
+    def jsonify(self) -> dict:
+        data = super().jsonify()
+        data["effects"] = [x.jsonify() for x in self.effects]
+        return data
+
+    @classmethod
+    def from_dict(cls, data: dict) -> Self:
+        self = cls.__new__(cls)
+        self.effects = [StewEffect.from_dict(x) for x in data.pop("effects")]
+        return self
+
+    @property
+    def effects(self) -> list[StewEffect]:
+        return getattr(self, "_effects")
+
+    @effects.setter
+    def effects(self, value: list[StewEffect]):
+        if not isinstance(value, list):
+            raise TypeError(
+                f"Expected list but got '{value.__class__.__name__}' instead"
+            )
+        self.on_update("effects", value)
+        setattr(self, "_effects", value)
+
+    def get_effect(self, index: int) -> StewEffect:
+        return getitem(self, "effects", index)
+
+    def add_effect(self, effect: StewEffect) -> StewEffect:
+        return additem(self, "effects", effect, type=StewEffect)
+
+    def remove_effect(self, index: int) -> StewEffect:
+        return removeitem(self, "effects", index)
+
+    def clear_effects(self) -> Self:
+        return clearitems(self, "effects")
 
 
 @loot_function
@@ -642,9 +858,8 @@ class EnchantRandomGearLootFunction(LootFunction):
         """
         self.chance = chance
 
-    @property
-    def __dict__(self) -> dict:
-        data = super().__dict__
+    def jsonify(self) -> dict:
+        data = super().jsonify()
         data["chance"] = self.chance
         return data
 
@@ -664,7 +879,9 @@ class EnchantRandomGearLootFunction(LootFunction):
             raise TypeError(
                 f"Expected float but got '{value.__class__.__name__}' instead"
             )
-        setattr(self, "_chance", float(value))
+        v = float(value)
+        self.on_update("chance", v)
+        setattr(self, "_chance", v)
 
 
 @loot_function
@@ -677,21 +894,21 @@ class EnchantRandomlyLootFunction(LootFunction):
         """
         self.treasure = treasure
 
-    @property
-    def __dict__(self) -> dict:
-        data = super().__dict__
+    def jsonify(self) -> dict:
+        data = super().jsonify()
         data["treasure"] = self.treasure
         return data
 
     @classmethod
     def from_dict(cls, data: dict) -> Self:
         self = cls.__new__(cls)
-        self.treasure = data.pop("treasure")
+        if "treasure" in data:
+            self.treasure = data.pop("treasure")
         return self
 
     @property
     def treasure(self) -> bool:
-        return getattr(self, "_treasure")
+        return getattr(self, "_treasure", False)
 
     @treasure.setter
     def treasure(self, value: bool):
@@ -699,6 +916,7 @@ class EnchantRandomlyLootFunction(LootFunction):
             raise TypeError(
                 f"Expected bool but got '{value.__class__.__name__}' instead"
             )
+        self.on_update("treasure", value)
         setattr(self, "_treasure", value)
 
 
@@ -713,11 +931,10 @@ class EnchantWithLevelsLootFunction(LootFunction):
         self.treasure = treasure
         self.levels = levels
 
-    @property
-    def __dict__(self) -> dict:
-        data = super().__dict__
+    def jsonify(self) -> dict:
+        data = super().jsonify()
         data["treasure"] = self.treasure
-        data["levels"] = self.levels.__dict__
+        data["levels"] = self.levels.jsonify()
         return data
 
     @classmethod
@@ -737,6 +954,7 @@ class EnchantWithLevelsLootFunction(LootFunction):
             raise TypeError(
                 f"Expected bool but got '{value.__class__.__name__}' instead"
             )
+        self.on_update("treasure", value)
         setattr(self, "_treasure", value)
 
     @property
@@ -749,6 +967,7 @@ class EnchantWithLevelsLootFunction(LootFunction):
             raise TypeError(
                 f"Expected LootNumberProvider but got '{value.__class__.__name__}' instead"
             )
+        self.on_update("levels", value)
         setattr(self, "_levels", value)
 
 
@@ -756,16 +975,15 @@ class EnchantWithLevelsLootFunction(LootFunction):
 class SpecificEnchantsLootFunction(LootFunction):
     id = Identifier("specific_enchants")
 
-    def __init__(self, enchants: list[Identifier | Enchant]):
+    def __init__(self, enchants: list[Enchant] = []):
         """
         This function allows you to set a list of specific enchantments on an item. It also allows you to apply enchantments to items that wouldn't normally be enchantable in-game.
         """
         self.enchants = enchants
 
-    @property
-    def __dict__(self) -> dict:
-        data = super().__dict__
-        data["enchants"] = [x.__dict__ for x in self.enchants]
+    def jsonify(self) -> dict:
+        data = super().jsonify()
+        data["enchants"] = [x.jsonify() for x in self.enchants]
         return data
 
     @classmethod
@@ -775,16 +993,30 @@ class SpecificEnchantsLootFunction(LootFunction):
         return self
 
     @property
-    def enchantments(self) -> list[Identifier | Enchant]:
+    def enchantments(self) -> list[Enchant]:
         return getattr(self, "_enchantments")
 
     @enchantments.setter
-    def enchantments(self, value: list[Identifier | Enchant]):
+    def enchantments(self, value: list[Enchant]):
         if not isinstance(value, list):
             raise TypeError(
                 f"Expected list but got '{value.__class__.__name__}' instead"
             )
+        self.on_update("enchantments", value)
         setattr(self, "_enchantments", value)
+
+    def get_enchantment(self, index: int) -> Enchant:
+        return getitem(self, "enchantments", index)
+
+    def add_enchantment(self, enchant: Enchant) -> Enchant:
+        return additem(self, "enchantments", enchant)
+
+    def remove_enchantment(self, index: int) -> Enchant:
+        return removeitem(self, "enchantments", index)
+
+    def clear_enchantments(self) -> Self:
+        """Remove all enchantments"""
+        return clearitems(self, "enchantments")
 
 
 # loot table only
@@ -798,10 +1030,9 @@ class LootingEnchantLootFunction(LootFunction):
         """
         self.count = count
 
-    @property
-    def __dict__(self) -> dict:
-        data = super().__dict__
-        data["count"] = self.count.__dict__
+    def jsonify(self) -> dict:
+        data = super().jsonify()
+        data["count"] = self.count.jsonify()
         return data
 
     @classmethod
@@ -820,6 +1051,7 @@ class LootingEnchantLootFunction(LootFunction):
             raise TypeError(
                 f"Expected LootNumberProvider but got '{value.__class__.__name__}' instead"
             )
+        self.on_update("count", value)
         setattr(self, "_count", value)
 
 
@@ -833,10 +1065,9 @@ class RandomAuxValueLootFunction(LootFunction):
         """
         self.values = values
 
-    @property
-    def __dict__(self) -> dict:
-        data = super().__dict__
-        data["values"] = self.values.__dict__
+    def jsonify(self) -> dict:
+        data = super().jsonify()
+        data["values"] = self.values.jsonify()
         return data
 
     @classmethod
@@ -855,25 +1086,25 @@ class RandomAuxValueLootFunction(LootFunction):
             raise TypeError(
                 f"Expected LootNumberProvider but got '{value.__class__.__name__}' instead"
             )
+        self.on_update("values", value)
         setattr(self, "_values", value)
 
 
 @loot_function
-class RandomBlockStateLootFunction(LootFunction):
+class RandomBlockPropertyLootFunction(LootFunction):
     id = Identifier("random_block_state")
 
-    def __init__(self, block_state: Identifier, values: LootNumberProvider):
+    def __init__(self, block_state: Identifiable, values: LootNumberProvider):
         """
         This allows you to randomize the block state of the resulting item. For instance, the following example code can drop stone (0), granite (1), polished granite (2), diorite (3), polished diorite (4), or andesite (5).
         """
         self.block_state = block_state
         self.values = values
 
-    @property
-    def __dict__(self) -> dict:
-        data = super().__dict__
+    def jsonify(self) -> dict:
+        data = super().jsonify()
         data["block_state"] = str(self.block_state)
-        data["values"] = self.values.__dict__
+        data["values"] = self.values.jsonify()
         return data
 
     @classmethod
@@ -888,12 +1119,10 @@ class RandomBlockStateLootFunction(LootFunction):
         return getattr(self, "_block_state")
 
     @block_state.setter
-    def block_state(self, value: Identifier):
-        if not isinstance(value, (Identifier, str)):
-            raise TypeError(
-                f"Expected Identifier but got '{value.__class__.__name__}' instead"
-            )
-        setattr(self, "_block_state", Identifier(value))
+    def block_state(self, value: Identifiable):
+        id = Identifiable.of(value)
+        self.on_update("block_state", id)
+        setattr(self, "_block_state", id)
 
     @property
     def values(self) -> LootNumberProvider:
@@ -905,6 +1134,7 @@ class RandomBlockStateLootFunction(LootFunction):
             raise TypeError(
                 f"Expected LootNumberProvider but got '{value.__class__.__name__}' instead"
             )
+        self.on_update("values", value)
         setattr(self, "_values", value)
 
 
@@ -928,15 +1158,14 @@ class RandomDyeLootFunction(LootFunction):
 class SetActorIdLootFunction(LootFunction):
     id = Identifier("set_actor_id")
 
-    def __init__(self, actor_id: Identifier):
+    def __init__(self, actor_id: Identifiable):
         """
         This function only works with a spawn egg and is used to set the entity ID of that spawn egg.
         """
         self.actor_id = actor_id
 
-    @property
-    def __dict__(self) -> dict:
-        data = super().__dict__
+    def jsonify(self) -> dict:
+        data = super().jsonify()
         data["id"] = str(self.actor_id)
         return data
 
@@ -951,12 +1180,10 @@ class SetActorIdLootFunction(LootFunction):
         return getattr(self, "_actor_id")
 
     @actor_id.setter
-    def actor_id(self, value: Identifier):
-        if not isinstance(value, (Identifier, str)):
-            raise TypeError(
-                f"Expected Identifier but got '{value.__class__.__name__}' instead"
-            )
-        setattr(self, "_actor_id", Identifier(value))
+    def actor_id(self, value: Identifiable):
+        id = Identifiable.of(value)
+        self.on_update("actor_id", id)
+        setattr(self, "_actor_id", id)
 
 
 @loot_function
@@ -969,9 +1196,8 @@ class SetBannerDetailsLootFunction(LootFunction):
         """
         self.type = type
 
-    @property
-    def __dict__(self) -> dict:
-        data = super().__dict__
+    def jsonify(self) -> dict:
+        data = super().jsonify()
         data["type"] = self.type
         return data
 
@@ -991,6 +1217,7 @@ class SetBannerDetailsLootFunction(LootFunction):
             raise TypeError(
                 f"Expected int but got '{value.__class__.__name__}' instead"
             )
+        self.on_update("type", value)
         setattr(self, "_type", value)
 
 
@@ -1006,9 +1233,8 @@ class SetBookContentsLootFunction(LootFunction):
         self.title = title
         self.pages = pages
 
-    @property
-    def __dict__(self) -> dict:
-        data = super().__dict__
+    def jsonify(self) -> dict:
+        data = super().jsonify()
         data["author"] = self.author
         data["title"] = self.title
         data["pages"] = self.pages
@@ -1028,7 +1254,9 @@ class SetBookContentsLootFunction(LootFunction):
 
     @author.setter
     def author(self, value: str):
-        setattr(self, "_author", str(value))
+        v = str(value)
+        self.on_update("author", v)
+        setattr(self, "_author", v)
 
     @property
     def title(self) -> str:
@@ -1036,7 +1264,9 @@ class SetBookContentsLootFunction(LootFunction):
 
     @title.setter
     def title(self, value: str):
-        setattr(self, "_title", str(value))
+        v = str(value)
+        self.on_update("title", v)
+        setattr(self, "_title", v)
 
     @property
     def pages(self) -> list[str]:
@@ -1048,7 +1278,21 @@ class SetBookContentsLootFunction(LootFunction):
             raise TypeError(
                 f"Expected list but got '{value.__class__.__name__}' instead"
             )
+        self.on_update("pages", value)
         setattr(self, "_pages", value)
+
+    def get_page(self, index: int) -> str:
+        return getitem(self, "pages", index)
+
+    def add_page(self, page: str):
+        return additem(self, "pages", str(page))
+
+    def remove_page(self, index: int) -> str:
+        return removeitem(self, "pages", index)
+
+    def clear_pages(self) -> Self:
+        """Remove all pages"""
+        return clearitems(self, "pages")
 
 
 @loot_function
@@ -1061,10 +1305,9 @@ class SetCountLootFunction(LootFunction):
         """
         self.count = count
 
-    @property
-    def __dict__(self) -> dict:
-        data = super().__dict__
-        data["count"] = self.count.__dict__
+    def jsonify(self) -> dict:
+        data = super().jsonify()
+        data["count"] = self.count.jsonify()
         return data
 
     @classmethod
@@ -1083,6 +1326,7 @@ class SetCountLootFunction(LootFunction):
             raise TypeError(
                 f"Expected LootNumberProvider but got '{value.__class__.__name__}' instead"
             )
+        self.on_update("count", value)
         setattr(self, "_count", value)
 
 
@@ -1096,10 +1340,9 @@ class SetDamageLootFunction(LootFunction):
         """
         self.damage = damage
 
-    @property
-    def __dict__(self) -> dict:
-        data = super().__dict__
-        data["damage"] = self.damage.__dict__
+    def jsonify(self) -> dict:
+        data = super().jsonify()
+        data["damage"] = self.damage.jsonify()
         return data
 
     @classmethod
@@ -1118,6 +1361,7 @@ class SetDamageLootFunction(LootFunction):
             raise TypeError(
                 f"Expected LootNumberProvider but got '{value.__class__.__name__}' instead"
             )
+        self.on_update("damage", value)
         setattr(self, "_damage", value)
 
 
@@ -1131,9 +1375,8 @@ class SetDataLootFunction(LootFunction):
         """
         self.data = data
 
-    @property
-    def __dict__(self) -> dict:
-        data = super().__dict__
+    def jsonify(self) -> dict:
+        data = super().jsonify()
         data["data"] = self.data
         return data
 
@@ -1149,10 +1392,11 @@ class SetDataLootFunction(LootFunction):
 
     @data.setter
     def data(self, value: int):
-        if not isinstance(value, int):
+        if not isinstance(value, (int, dict)):
             raise TypeError(
                 f"Expected int but got '{value.__class__.__name__}' instead"
             )
+        self.on_update("data", value)
         setattr(self, "_data", value)
 
 
@@ -1176,15 +1420,14 @@ class SetDataFromColorIndexLootFunction(LootFunction):
 class SetLoreLootFunction(LootFunction):
     id = Identifier("set_lore")
 
-    def __init__(self, lore: list[str]):
+    def __init__(self, lore: list[str] = []):
         """
         This function allows you to set the lore of an item. Each line within the lore object represents a single line of text. There's currently no support for rawtext.
         """
         self.lore = lore
 
-    @property
-    def __dict__(self) -> dict:
-        data = super().__dict__
+    def jsonify(self) -> dict:
+        data = super().jsonify()
         data["lore"] = self.lore
         return data
 
@@ -1204,7 +1447,21 @@ class SetLoreLootFunction(LootFunction):
             raise TypeError(
                 f"Expected list but got '{value.__class__.__name__}' instead"
             )
+        self.on_update("lore", value)
         setattr(self, "_lore", value)
+
+    def get_lore(self, index: int) -> str:
+        return getitem(self, "lore", index)
+
+    def add_lore(self, text: str) -> str:
+        return additem(self, "lore", str(text))
+
+    def remove_lore(self, index: int) -> str:
+        return removeitem(self, "lore", index)
+
+    def clear_lores(self) -> Self:
+        """Remove all lore"""
+        return clearitems(self, "lore")
 
 
 @loot_function
@@ -1217,9 +1474,8 @@ class SetNameLootFunction(LootFunction):
         """
         self.name = name
 
-    @property
-    def __dict__(self) -> dict:
-        data = super().__dict__
+    def jsonify(self) -> dict:
+        data = super().jsonify()
         data["name"] = self.name
         return data
 
@@ -1235,7 +1491,9 @@ class SetNameLootFunction(LootFunction):
 
     @name.setter
     def name(self, value: str):
-        setattr(self, "_name", str(value))
+        v = str(value)
+        self.on_update("name", v)
+        setattr(self, "_name", v)
 
 
 @loot_function
@@ -1248,16 +1506,15 @@ class ExplorationMapLootFunction(LootFunction):
         """
         self.destination = destination
 
-    @property
-    def __dict__(self) -> dict:
-        data = super().__dict__
-        data["destination"] = self.destination._value_
+    def jsonify(self) -> dict:
+        data = super().jsonify()
+        data["destination"] = self.destination.jsonify()
         return data
 
     @classmethod
     def from_dict(cls, data: dict) -> Self:
         self = cls.__new__(cls)
-        self.destination = Destination[data.pop("destination")]
+        self.destination = Destination.from_dict(data.pop("destination"))
         return self
 
     @property
@@ -1270,6 +1527,7 @@ class ExplorationMapLootFunction(LootFunction):
             raise TypeError(
                 f"Expected Destination but got '{value.__class__.__name__}' instead"
             )
+        self.on_update("destination", value)
         setattr(self, "_destination", value)
 
 
@@ -1285,9 +1543,8 @@ class FillContainerLootFunction(LootFunction):
         """
         self.loot_table = loot_table
 
-    @property
-    def __dict__(self) -> dict:
-        data = super().__dict__
+    def jsonify(self) -> dict:
+        data = super().jsonify()
         data["loot_table"] = self.loot_table
         return data
 
@@ -1303,7 +1560,9 @@ class FillContainerLootFunction(LootFunction):
 
     @loot_table.setter
     def loot_table(self, value: str):
-        setattr(self, "_loot_table", str(value))
+        v = str(value)
+        self.on_update("loot_table", v)
+        setattr(self, "_loot_table", v)
 
 
 # loot table only
@@ -1342,16 +1601,23 @@ class TraderMaterialTypeLootFunction(LootFunction):
 # ENTRY
 
 
-class LootPoolEntry:
-    def __init__(self, conditions: list[LootCondition] = None):
+class LootPoolEntry(Misc):
+    def __init__(self, conditions: list[LootCondition] = []):
         self.conditions = conditions
 
-    @property
-    def __dict__(self) -> dict:
+    def jsonify(self) -> dict:
         data = {"type": str(self.id.path)}
         if self.conditions:
-            data["conditions"] = [x.__dict__ for x in self.conditions]
+            data["conditions"] = [x.jsonify() for x in self.conditions]
         return data
+
+    @property
+    def id(self) -> Identifier:
+        return getattr(self, "_id")
+
+    @id.setter
+    def id(self, value: Identifier):
+        setattr(self, "_id", Identifier.of(value))
 
     @property
     def conditions(self) -> list[LootCondition]:
@@ -1366,19 +1632,8 @@ class LootPoolEntry:
             raise TypeError(
                 f"Expected list but got '{value.__class__.__name__}' instead"
             )
+        self.on_update("conditions", value)
         setattr(self, "_conditions", value)
-
-    @property
-    def id(self) -> Identifier:
-        return getattr(self, "_id")
-
-    @id.setter
-    def id(self, value: Identifier):
-        if not isinstance(value, Identifier):
-            raise TypeError(
-                f"Expected Identifier but got '{value.__class__.__name__}' instead"
-            )
-        setattr(self, "_id", value)
 
     @classmethod
     def from_dict(cls, data: dict) -> Self:
@@ -1393,6 +1648,18 @@ class LootPoolEntry:
                 v.append(clazz.from_dict(x))
             self.conditions = v
         return self
+
+    def get_condition(self, index: int) -> LootCondition:
+        return getitem(self, "conditions", index)
+
+    def add_condition(self, condition: LootCondition) -> LootCondition:
+        return additem(self, "conditions", condition, type=LootCondition)
+
+    def remove_condition(self, index: int) -> LootCondition:
+        return removeitem(self, "conditions", index)
+
+    def clear_conditions(self) -> Self:
+        return clearitems(self, "conditions")
 
 
 INSTANCE.create_registry(Registries.POOL_ENTRY_TYPE, LootPoolEntry)
@@ -1416,23 +1683,22 @@ class LeafEntry(LootPoolEntry):
         self,
         weight: int = None,
         quality: int = None,
-        conditions: list[LootCondition] = None,
-        functions: list[LootFunction] = None,
+        conditions: list[LootCondition] = [],
+        functions: list[LootFunction] = [],
     ):
         LootPoolEntry.__init__(self, conditions)
         self.weight = weight
         self.quality = quality
         self.functions = functions
 
-    @property
-    def __dict__(self) -> dict:
-        data = super().__dict__
+    def jsonify(self) -> dict:
+        data = super().jsonify()
         if self.weight not in [None, 1]:
             data["weight"] = self.weight
         if self.quality not in [None, 1]:
             data["quality"] = self.quality
         if self.functions:
-            data["functions"] = [x.__dict__ for x in self.functions]
+            data["functions"] = [x.jsonify() for x in self.functions]
         return data
 
     @property
@@ -1448,6 +1714,7 @@ class LeafEntry(LootPoolEntry):
             raise TypeError(
                 f"Expected int but got '{value.__class__.__name__}' instead"
             )
+        self.on_update("weight", value)
         setattr(self, "_weight", value)
 
     @property
@@ -1463,6 +1730,7 @@ class LeafEntry(LootPoolEntry):
             raise TypeError(
                 f"Expected int but got '{value.__class__.__name__}' instead"
             )
+        self.on_update("quality", value)
         setattr(self, "_quality", value)
 
     @property
@@ -1478,6 +1746,7 @@ class LeafEntry(LootPoolEntry):
             raise TypeError(
                 f"Expected list but got '{value.__class__.__name__}' instead"
             )
+        self.on_update("functions", value)
         setattr(self, "_functions", value)
 
     @classmethod
@@ -1499,41 +1768,18 @@ class LeafEntry(LootPoolEntry):
             self.functions = v
         return self
 
-    def get_condition(self, index: int) -> LootCondition:
-        return self.conditions[index]
-
-    def add_condition(self, condition: LootCondition) -> LootCondition:
-        if not isinstance(condition, LootCondition):
-            raise TypeError(
-                f"Expected LootCondition but got '{function.__class__.__name__}' instead"
-            )
-        self.conditions.append(condition)
-        return condition
-
-    def remove_condition(self, index: int) -> LootCondition:
-        return self.conditions.pop(index)
-
-    def clear_conditions(self) -> Self:
-        self.conditions = []
-        return self
-
     def get_function(self, index: int) -> LootFunction:
-        return self.functions[index]
+        return getitem(self, "functions", index)
 
     def add_function(self, function: LootFunction) -> LootFunction:
-        if not isinstance(function, LootFunction):
-            raise TypeError(
-                f"Expected LootFunction but got '{function.__class__.__name__}' instead"
-            )
-        self.functions.append(function)
-        return function
+        return additem(self, "functions", function, type=LootFunction)
 
     def remove_function(self, index: int) -> LootFunction:
-        return self.functions.pop(index)
+        return removeitem(self, "functions", index)
 
     def clear_functions(self) -> Self:
-        self.functions = []
-        return self
+        """Remove all functions"""
+        return clearitems(self, "functions")
 
 
 @pool_entry
@@ -1542,11 +1788,11 @@ class ItemEntry(LeafEntry):
 
     def __init__(
         self,
-        name: Identifier,
+        name: Identifiable,
         weight: int = None,
         quality: int = None,
-        conditions: list[LootCondition] = None,
-        functions: list[LootFunction] = None,
+        conditions: list[LootCondition] = [],
+        functions: list[LootFunction] = [],
     ):
         LeafEntry.__init__(self, weight, quality, conditions, functions)
         self.name = name
@@ -1554,9 +1800,8 @@ class ItemEntry(LeafEntry):
     def __str__(self) -> str:
         return "ItemEntry{" + str(self.item) + "}"
 
-    @property
-    def __dict__(self) -> dict:
-        data = super().__dict__
+    def jsonify(self) -> dict:
+        data = super().jsonify()
         data["name"] = str(self.name)
         return data
 
@@ -1565,12 +1810,10 @@ class ItemEntry(LeafEntry):
         return getattr(self, "_name")
 
     @name.setter
-    def name(self, value: Identifier):
-        if not isinstance(value, (Identifier, str)):
-            raise TypeError(
-                f"Expected Identifier but got '{value.__class__.__name__}' instead"
-            )
-        setattr(self, "_name", Identifier(value))
+    def name(self, value: Identifiable):
+        id = Identifiable.of(value)
+        self.on_update("name", id)
+        setattr(self, "_name", id)
 
     @classmethod
     def from_dict(cls, data: dict) -> Self:
@@ -1589,8 +1832,8 @@ class LootEntry(LeafEntry):
         name: str,
         weight: int = None,
         quality: int = None,
-        conditions: list[LootCondition] = None,
-        functions: list[LootFunction] = None,
+        conditions: list[LootCondition] = [],
+        functions: list[LootFunction] = [],
     ):
         LeafEntry.__init__(self, weight, quality, conditions, functions)
         self.name = name
@@ -1598,9 +1841,8 @@ class LootEntry(LeafEntry):
     def __str__(self) -> str:
         return "LootEntry{" + repr(self.name) + "}"
 
-    @property
-    def __dict__(self) -> dict:
-        data = super().__dict__
+    def jsonify(self) -> dict:
+        data = super().jsonify()
         data["name"] = self.name
         return data
 
@@ -1610,7 +1852,9 @@ class LootEntry(LeafEntry):
 
     @name.setter
     def name(self, value: str):
-        setattr(self, "_name", str(value))
+        v = str(value)
+        self.on_update("name", v)
+        setattr(self, "_name", v)
 
     @classmethod
     def from_dict(cls, data: dict) -> Self:
@@ -1620,30 +1864,45 @@ class LootEntry(LeafEntry):
         return self
 
 
+@pool_entry
+class EmptyEntry(LeafEntry):
+    id = Identifier("empty")
+
+    def __init__(
+        self,
+        weight: int = None,
+        quality: int = None,
+        conditions: list[LootCondition] = [],
+        functions: list[LootFunction] = [],
+    ):
+        LeafEntry.__init__(self, weight, quality, conditions, functions)
+
+
 # MISC
 
 
-class LootTiers:
+class LootTiers(Misc):
     def __init__(self, initial_range: int, bonus_rolls: int, bonus_chance: float):
         self.initial_range = initial_range
         self.bonus_rolls = bonus_rolls
         self.bonus_chance = bonus_chance
 
-    @property
-    def __dict__(self) -> dict:
-        data = {
-            "initial_range": self.initial_range,
-            "bonus_rolls": self.bonus_rolls,
-            "bonus_chance": self.bonus_chance,
-        }
+    def jsonify(self) -> dict:
+        data = {"initial_range": self.initial_range}
+        if self.bonus_rolls:
+            data["bonus_rolls"] = self.bonus_rolls
+        if self.bonus_chance:
+            data["bonus_chance"] = self.bonus_chance
         return data
 
     @classmethod
     def from_dict(cls, data: dict) -> Self:
         self = cls.__new__(cls)
         self.initial_range = data.pop("initial_range")
-        self.bonus_rolls = data.pop("bonus_rolls")
-        self.bonus_chance = data.pop("bonus_chance")
+        if "bonus_rolls" in data:
+            self.bonus_rolls = data.pop("bonus_rolls")
+        if "bonus_chance" in data:
+            self.bonus_chance = data.pop("bonus_chance")
         return self
 
     @property
@@ -1656,11 +1915,12 @@ class LootTiers:
             raise TypeError(
                 f"Expected int but got '{value.__class__.__name__}' instead"
             )
+        self.on_update("initial_range", value)
         setattr(self, "_initial_range", value)
 
     @property
     def bonus_rolls(self) -> int:
-        return getattr(self, "_bonus_rolls")
+        return getattr(self, "_bonus_rolls", None)
 
     @bonus_rolls.setter
     def bonus_rolls(self, value: int):
@@ -1668,11 +1928,12 @@ class LootTiers:
             raise TypeError(
                 f"Expected int but got '{value.__class__.__name__}' instead"
             )
+        self.on_update("bonus_rolls", value)
         setattr(self, "_bonus_rolls", value)
 
     @property
     def bonus_chance(self) -> float:
-        return getattr(self, "_bonus_chance")
+        return getattr(self, "_bonus_chance", None)
 
     @bonus_chance.setter
     def bonus_chance(self, value: float):
@@ -1680,18 +1941,20 @@ class LootTiers:
             raise TypeError(
                 f"Expected float but got '{value.__class__.__name__}' instead"
             )
-        setattr(self, "_bonus_chance", float(value))
+        v = float(value)
+        self.on_update("bonus_chance", v)
+        setattr(self, "_bonus_chance", v)
 
 
-class LootPool:
+class LootPool(Misc):
     def __init__(
         self,
         rolls: LootNumberProvider = None,
         bonus_rolls: LootNumberProvider = None,
         tiers: LootTiers = None,
-        entries: list[LootPoolEntry] = None,
-        conditions: list[LootCondition] = None,
-        functions: list[LootFunction] = None,
+        entries: list[LootPoolEntry] = [],
+        conditions: list[LootCondition] = [],
+        functions: list[LootFunction] = [],
     ):
         self.rolls = rolls
         self.bonus_rolls = bonus_rolls
@@ -1707,19 +1970,18 @@ class LootPool:
     def __getitem__(self, index: int) -> LootPoolEntry:
         return self.entries[index]
 
-    @property
-    def __dict__(self) -> dict:
-        data = {"entries": [x.__dict__ for x in self.entries]}
+    def jsonify(self) -> dict:
+        data = {"entries": [x.jsonify() for x in self.entries]}
         if self.tiers:
-            data["tiers"] = self.tiers.__dict__
+            data["tiers"] = self.tiers.jsonify()
         if self.conditions:
-            data["conditions"] = [x.__dict__ for x in self.conditions]
+            data["conditions"] = [x.jsonify() for x in self.conditions]
         if self.functions:
-            data["functions"] = [x.__dict__ for x in self.functions]
+            data["functions"] = [x.jsonify() for x in self.functions]
         if self.rolls not in [None, 1.0]:
-            data["rolls"] = self.rolls.__dict__
+            data["rolls"] = self.rolls.jsonify()
         if self.bonus_rolls not in [None, 1.0]:
-            data["bonus_rolls"] = self.bonus_rolls.__dict__
+            data["bonus_rolls"] = self.bonus_rolls.jsonify()
         return data
 
     @property
@@ -1735,6 +1997,7 @@ class LootPool:
             raise TypeError(
                 f"Expected LootTiers but got '{value.__class__.__name__}' instead"
             )
+        self.on_update("tiers", value)
         setattr(self, "_tiers", value)
 
     @property
@@ -1750,6 +2013,7 @@ class LootPool:
             raise TypeError(
                 f"Expected list but got '{value.__class__.__name__}' instead"
             )
+        self.on_update("entries", value)
         setattr(self, "_entries", value)
 
     @property
@@ -1765,6 +2029,7 @@ class LootPool:
             raise TypeError(
                 f"Expected list but got '{value.__class__.__name__}' instead"
             )
+        self.on_update("conditions", value)
         setattr(self, "_conditions", value)
 
     @property
@@ -1780,6 +2045,7 @@ class LootPool:
             raise TypeError(
                 f"Expected list but got '{value.__class__.__name__}' instead"
             )
+        self.on_update("functions", value)
         setattr(self, "_functions", value)
 
     @property
@@ -1798,6 +2064,7 @@ class LootPool:
             raise TypeError(
                 f"Expected LootNumberProvider but got '{value.__class__.__name__}' instead"
             )
+        self.on_update("rolls", value)
         setattr(self, "_rolls", value)
 
     @property
@@ -1813,6 +2080,7 @@ class LootPool:
             raise TypeError(
                 f"Expected LootNumberProvider but got '{value.__class__.__name__}' instead"
             )
+        self.on_update("bonus_rolls", value)
         setattr(self, "_bonus_rolls", value)
 
     @classmethod
@@ -1857,75 +2125,66 @@ class LootPool:
         return self
 
     def get_entry(self, index: int) -> LootPoolEntry:
-        return self.entries[index]
+        return getitem(self, "entries", index)
 
-    def add_entry(self, function: LootPoolEntry) -> LootPoolEntry:
-        if not isinstance(function, LootPoolEntry):
-            raise TypeError(
-                f"Expected LootPoolEntry but got '{function.__class__.__name__}' instead"
-            )
-        self.entries.append(function)
-        return function
+    def add_entry(self, entry: LootPoolEntry) -> LootPoolEntry:
+        return additem(self, "entries", entry, type=LootPoolEntry)
 
     def remove_entry(self, index: int) -> LootPoolEntry:
-        return self.entries.pop(index)
+        return removeitem(self, "entries", index)
 
     def clear_entries(self) -> Self:
-        self.entries = []
-        return self
+        """Remove all entries"""
+        return clearitems(self, "entries")
 
     def get_condition(self, index: int) -> LootCondition:
-        return self.conditions[index]
+        return getitem(self, "entries", index)
 
-    def add_condition(self, function: LootCondition) -> LootCondition:
-        if not isinstance(function, LootCondition):
-            raise TypeError(
-                f"Expected LootCondition but got '{function.__class__.__name__}' instead"
-            )
-        self.conditions.append(function)
-        return function
+    def add_condition(self, condition: LootCondition) -> LootCondition:
+        return additem(self, "conditions", condition, type=LootCondition)
 
     def remove_condition(self, index: int) -> LootCondition:
-        return self.conditions.pop(index)
+        return removeitem(self, "conditions", index)
 
     def clear_conditions(self) -> Self:
-        self.conditions = []
-        return self
+        """Remove all conditions"""
+        return clearitems(self, "conditions")
 
     def get_function(self, index: int) -> LootFunction:
-        return self.functions[index]
+        return getitem(self, "functions", index)
 
     def add_function(self, function: LootFunction) -> LootFunction:
-        if not isinstance(function, LootFunction):
-            raise TypeError(
-                f"Expected LootFunction but got '{function.__class__.__name__}' instead"
-            )
-        self.functions.append(function)
-        return function
+        return additem(self, "functions", function, type=LootFunction)
 
     def remove_function(self, index: int) -> LootFunction:
-        return self.functions.pop(index)
+        return removeitem(self, "functions", index)
 
     def clear_functions(self) -> Self:
-        self.functions = []
-        return self
+        """Remove all functions"""
+        return clearitems(self, "functions")
 
 
+@behavior_pack
 class LootTable(JsonFile, Identifiable):
-    extension = ".json"
-    filename = "loot_table"
-    dirname = "loot_tables"
+    """
+    Represents a Loot Table.
+    """
+
+    id = Identifier("loot_table")
+    FILEPATH = "loot_tables/loot_table.json"
 
     def __init__(
         self,
-        type: LootContextType = None,
+        identifier: Identifiable = None,
         pools: list[LootPool] = None,
         functions: list[LootFunction] = None,
     ):
-        Identifiable.__init__(self, "empty.json")
-        self.type = type
+        Identifiable.__init__(self, identifier)
         self.pools = pools
         self.functions = functions
+
+    def __str__(self) -> str:
+        return "LootTable{" + repr(self.identifier.path) + "}"
 
     def __iter__(self):
         for pool in self.pools:
@@ -1934,29 +2193,11 @@ class LootTable(JsonFile, Identifiable):
     def __getitem__(self, index: int) -> LootPool:
         return self.pools[index]
 
-    @property
-    def __dict__(self) -> dict:
-        data = {"pools": [x.__dict__ for x in self.pools]}
-        if self.type not in [None, LootContextType.empty]:
-            data["type"] = self.type._value_
+    def jsonify(self) -> dict:
+        data = {"pools": [x.jsonify() for x in self.pools]}
         if self.functions:
-            data["functions"] = [x.__dict__ for x in self.functions]
+            data["functions"] = [x.jsonify() for x in self.functions]
         return data
-
-    @property
-    def type(self) -> LootContextType:
-        return getattr2(self, "_type", LootContextType.empty)
-
-    @type.setter
-    def type(self, value: LootContextType):
-        if value is None:
-            self.type = LootContextType.empty
-            return
-        if not isinstance(value, LootContextType):
-            raise TypeError(
-                f"Expected LootContextType but got '{value.__class__.__name__}' instead"
-            )
-        setattr(self, "_type", value)
 
     @property
     def pools(self) -> list[LootPool]:
@@ -1971,6 +2212,7 @@ class LootTable(JsonFile, Identifiable):
             raise TypeError(
                 f"Expected list but got '{value.__class__.__name__}' instead"
             )
+        self.on_update("pools", value)
         setattr(self, "_pools", value)
 
     @property
@@ -1986,14 +2228,14 @@ class LootTable(JsonFile, Identifiable):
             raise TypeError(
                 f"Expected list but got '{value.__class__.__name__}' instead"
             )
+        self.on_update("functions", value)
         setattr(self, "_functions", value)
 
     @classmethod
     def from_dict(cls, data: dict) -> Self:
         self = cls.__new__(cls)
-        self.pools = [LootPool.from_dict(x) for x in data.pop("pools")]
-        if "type" in data:
-            self.type = LootContextType[data.pop("type")]
+        if "pools" in data:
+            self.pools = [LootPool.from_dict(x) for x in data.pop("pools")]
 
         if "functions" in data:
             v = []
@@ -2007,18 +2249,14 @@ class LootTable(JsonFile, Identifiable):
         return self
 
     @classmethod
-    def block(cls, obj: Item | Block | Identifier | str):
+    def block(cls, obj: Identifiable):
         if not isinstance(obj, (Item, Block, Identifier, str)):
             raise TypeError(
                 f"Expected Item, Block, or Identifier but got '{obj.__class__.__name__}' instead"
             )
-        id = None
-        if isinstance(obj, (Block, Item)):
-            id = obj.id
-        if isinstance(obj, (Identifier, str)):
-            id = Identifier(obj)
+        id = Identifiable.of(obj)
         self = cls.__new__(cls)
-        self.identifier = Identifier("blocks/" + id.path)
+        self.identifier = Identifier.of("blocks/" + id.path)
         self.filename = id.path
         pool = LootPool()
         pool.add_entry(ItemEntry(id))
@@ -2026,37 +2264,37 @@ class LootTable(JsonFile, Identifiable):
         return self
 
     def get_pool(self, index: int) -> LootPool:
-        return self.pools[index]
+        return getitem(self, "pools", index)
 
     def add_pool(self, pool: LootPool) -> LootPool:
-        if not isinstance(pool, LootPool):
-            raise TypeError(
-                f"Expected LootPool but got '{pool.__class__.__name__}' instead"
-            )
-        self.pools.append(pool)
-        return pool
+        return additem(self, "pools", pool, type=LootPool)
 
     def remove_pool(self, index: int) -> LootPool:
-        return self.pools.pop(index)
+        return removeitem(self, "pools", index)
 
     def clear_pools(self) -> Self:
-        self.pools = []
-        return self
+        """Remove all pools"""
+        return clearitems(self, "pools")
 
     def get_function(self, index: int) -> LootFunction:
-        return self.functions[index]
+        return getitem(self, "functions", index)
 
     def add_function(self, function: LootFunction) -> LootFunction:
-        if not isinstance(function, LootFunction):
-            raise TypeError(
-                f"Expected LootFunction but got '{function.__class__.__name__}' instead"
-            )
-        self.functions.append(function)
-        return function
+        return additem(self, "functions", function, type=LootFunction)
 
     def remove_function(self, index: int) -> LootFunction:
-        return self.functions.pop(index)
+        return removeitem(self, "functions", index)
 
     def clear_functions(self) -> Self:
-        self.functions = []
-        return self
+        """Remove all functions"""
+        return clearitems(self, "functions")
+
+    def valid(self, fp: str) -> bool:
+        return True
+
+    @classmethod
+    def open(cls, fp: str, start):
+        with open(fp, "r") as fd:
+            self = cls.load(fd)
+            self.identifier = os.path.relpath(fp, start).replace("\\", "/")
+            return self

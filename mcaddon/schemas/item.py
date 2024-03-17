@@ -1,4 +1,7 @@
+import os
+
 from .. import (
+    __file__,
     INSTANCE,
     Schema,
     Identifier,
@@ -11,13 +14,13 @@ from .. import (
 
 class ItemSchema1(Schema):
     def __init__(self):
-        Schema.__init__(self, "item1.json")
+        Schema.__init__(
+            self,
+            os.path.join(os.path.dirname(__file__), "data", "schemas", "item1.json"),
+        )
 
     def load(cls, self: Item, data: dict):
-        if "description" in data:
-            desc = data["description"]
-            if "identifier" in desc:
-                self.identifier = desc["identifier"]
+        self.identifier = data["description"]["identifier"]
 
         if "components" in data:
             comp = data["components"]
@@ -26,7 +29,10 @@ class ItemSchema1(Schema):
                 clazz = INSTANCE.get_registry(Registries.ITEM_COMPONENT_TYPE).get(id)
                 if clazz is None:
                     raise ComponentNotFoundError(repr(id))
-                self.components[id] = clazz.from_dict(v)
+                obj = clazz.from_dict(v)
+                if obj is None:
+                    raise ValueError(id, v)
+                self.components[id] = obj
 
         if "events" in data:
             for k, v in data["events"].items():
@@ -43,7 +49,10 @@ class ItemSchema1(Schema):
 
 class ItemSchema2(Schema):
     def __init__(self):
-        Schema.__init__(self, "item2.json")
+        Schema.__init__(
+            self,
+            os.path.join(os.path.dirname(__file__), "data", "schemas", "item2.json"),
+        )
 
     def load(cls, self: Item, data: dict):
         if "description" in data:
@@ -58,4 +67,7 @@ class ItemSchema2(Schema):
                 clazz = INSTANCE.get_registry(Registries.ITEM_COMPONENT_TYPE).get(id)
                 if clazz is None:
                     raise ComponentNotFoundError(repr(id))
-                self.components[id] = clazz.from_dict(v)
+                obj = clazz.from_dict(v)
+                if obj is None:
+                    raise ValueError(id, v)
+                self.components[id] = obj

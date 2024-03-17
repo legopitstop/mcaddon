@@ -1,0 +1,28 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema",
+    "type": "object",
+    "required": ["format_version", "minecraft:scan_surface"],
+    "properties": {
+      "format_version": { "type": "string" },
+      "minecraft:scan_surface": {
+        "type": "object",
+        "required": ["description"],
+        "properties": {
+          "description": {
+            "type": "object",
+            "required": ["identifier"],
+            "properties": {
+              "identifier": {
+                "type": "string"
+              }
+            },
+            "additionalProperties": false
+          },
+          "scan_surface_feature": {"type": "string"}
+        },
+        "additionalProperties": false
+      }
+    },
+    "additionalProperties": false
+  }
+  

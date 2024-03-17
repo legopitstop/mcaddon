@@ -1,0 +1,128 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "type": "object",
+  "required": ["format_version", "minecraft:tree_feature"],
+  "properties": {
+    "format_version": { "type": "string" },
+    "minecraft:tree_feature": {
+      "type": "object",
+      "required": ["description"],
+      "properties": {
+        "description": {
+          "type": "object",
+          "required": ["identifier"],
+          "properties": {
+            "identifier": {
+              "type": "string"
+            }
+          },
+          "additionalProperties": false
+        },
+        "base_block": {
+          "type": ["array", "string"],
+          "items": {
+            "type": ["object", "string"],
+            "properties": {
+              "tags": { "type": "string" },
+              "name": { "type": "string" },
+              "states": {
+                "type": "object",
+                "additionalProperties": true
+              }
+            },
+            "additionalProperties": false
+          }
+        },
+        "base_cluster": {
+          "type": "object",
+          "properties": {
+            "cluster_radius": { "type": "integer" },
+            "num_clusters": { "type": "integer" },
+            "may_replace": {
+              "type": "array",
+              "items": {
+                "type": ["object", "string"],
+                "properties": {
+                  "tags": { "type": "string" },
+                  "name": { "type": "string" },
+                  "states": {
+                    "type": "object",
+                    "additionalProperties": true
+                  }
+                },
+                "additionalProperties": false
+              }
+            }
+          },
+          "additionalProperties": false
+        },
+        "may_grow_on": {
+          "type": "array",
+          "items": {
+            "type": ["object", "string"],
+            "properties": {
+              "tags": { "type": "string" },
+              "name": { "type": "string" },
+              "states": {
+                "type": "object",
+                "additionalProperties": true
+              }
+            },
+            "additionalProperties": false
+          }
+        },
+        "may_replace": {
+          "type": "array",
+          "items": {
+            "type": ["object", "string"],
+            "properties": {
+              "tags": { "type": "string" },
+              "name": { "type": "string" },
+              "states": {
+                "type": "object",
+                "additionalProperties": true
+              }
+            },
+            "additionalProperties": false
+          }
+        },
+        "may_grow_through": {
+          "type": "array",
+          "items": {
+            "type": ["object", "string"],
+            "properties": {
+              "tags": { "type": "string" },
+              "name": { "type": "string" },
+              "states": {
+                "type": "object",
+                "additionalProperties": true
+              }
+            },
+            "additionalProperties": false
+          }
+        },
+        "trunk": {},
+        "acacia_trunk": {},
+        "cherry_trunk": {},
+        "fallen_trunk": {},
+        "fancy_trunk": {},
+        "mangrove_trunk": {},
+        "mega_trunk": {},
+        "canopy": {},
+        "acacia_canopy": {},
+        "cherry_canopy": {},
+        "fancy_canopy": {},
+        "mangrove_canopy": {},
+        "mega_canopy": {},
+        "mega_pine_canopy": {},
+        "pine_canopy": {},
+        "roofed_canopy": {},
+        "spruce_canopy": {},
+        "random_spread_canopy": {},
+        "mangrove_roots": {}
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false
+}

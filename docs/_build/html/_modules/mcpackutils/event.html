@@ -687,10 +687,10 @@
         <span class="nb">setattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;_transform&#39;</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="SetBlockState">
-<a class="viewcode-back" href="../../mcpackutils.html#mcpackutils.event.SetBlockState">[docs]</a>
+<div class="viewcode-block" id="SetBlockProperty">
+<a class="viewcode-back" href="../../mcpackutils.html#mcpackutils.event.SetBlockProperty">[docs]</a>
 <span class="nd">@event</span><span class="p">(</span><span class="s1">&#39;set_block_state&#39;</span><span class="p">)</span>
-<span class="k">class</span> <span class="nc">SetBlockState</span><span class="p">(</span><span class="n">Event</span><span class="p">):</span>
+<span class="k">class</span> <span class="nc">SetBlockProperty</span><span class="p">(</span><span class="n">Event</span><span class="p">):</span>
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">states</span><span class="p">:</span><span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]</span><span class="o">=</span><span class="p">{},</span> <span class="o">**</span><span class="n">state</span><span class="p">:</span><span class="nb">str</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Sets a block state on this block</span>
@@ -876,9 +876,9 @@
 
 <span class="c1"># CUSTOM</span>
 
-<div class="viewcode-block" id="IncrementBlockState">
-<a class="viewcode-back" href="../../mcpackutils.html#mcpackutils.event.IncrementBlockState">[docs]</a>
-<span class="k">class</span> <span class="nc">IncrementBlockState</span><span class="p">(</span><span class="n">SetBlockState</span><span class="p">):</span>
+<div class="viewcode-block" id="IncrementBlockProperty">
+<a class="viewcode-back" href="../../mcpackutils.html#mcpackutils.event.IncrementBlockProperty">[docs]</a>
+<span class="k">class</span> <span class="nc">IncrementBlockProperty</span><span class="p">(</span><span class="n">SetBlockProperty</span><span class="p">):</span>
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span><span class="n">Identifier</span><span class="p">,</span> <span class="n">amount</span><span class="p">:</span><span class="nb">int</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Increase a block state on this block</span>
@@ -889,12 +889,12 @@
 <span class="sd">        :type amount: int, optional</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="nb">id</span> <span class="o">=</span> <span class="n">Identifier</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
-        <span class="n">SetBlockState</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="p">{</span><span class="nb">id</span><span class="p">:</span> <span class="sa">f</span><span class="s2">&quot;q.block_state(&#39;</span><span class="si">{</span><span class="nb">id</span><span class="si">}</span><span class="s2">&#39;)+</span><span class="si">{</span><span class="n">amount</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">})</span></div>
+        <span class="n">SetBlockProperty</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="p">{</span><span class="nb">id</span><span class="p">:</span> <span class="sa">f</span><span class="s2">&quot;q.block_state(&#39;</span><span class="si">{</span><span class="nb">id</span><span class="si">}</span><span class="s2">&#39;)+</span><span class="si">{</span><span class="n">amount</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">})</span></div>
 
 
-<div class="viewcode-block" id="DecrementBlockState">
-<a class="viewcode-back" href="../../mcpackutils.html#mcpackutils.event.DecrementBlockState">[docs]</a>
-<span class="k">class</span> <span class="nc">DecrementBlockState</span><span class="p">(</span><span class="n">SetBlockState</span><span class="p">):</span>
+<div class="viewcode-block" id="DecrementBlockProperty">
+<a class="viewcode-back" href="../../mcpackutils.html#mcpackutils.event.DecrementBlockProperty">[docs]</a>
+<span class="k">class</span> <span class="nc">DecrementBlockProperty</span><span class="p">(</span><span class="n">SetBlockProperty</span><span class="p">):</span>
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span><span class="n">Identifier</span><span class="p">,</span> <span class="n">amount</span><span class="p">:</span><span class="nb">int</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Decrease a block state on this block</span>
@@ -905,12 +905,12 @@
 <span class="sd">        :type amount: int, optional</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="nb">id</span> <span class="o">=</span> <span class="n">Identifier</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
-        <span class="n">SetBlockState</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="p">{</span><span class="nb">id</span><span class="p">:</span> <span class="sa">f</span><span class="s2">&quot;q.block_state(&#39;</span><span class="si">{</span><span class="nb">id</span><span class="si">}</span><span class="s2">&#39;)-</span><span class="si">{</span><span class="n">amount</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">})</span></div>
+        <span class="n">SetBlockProperty</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="p">{</span><span class="nb">id</span><span class="p">:</span> <span class="sa">f</span><span class="s2">&quot;q.block_state(&#39;</span><span class="si">{</span><span class="nb">id</span><span class="si">}</span><span class="s2">&#39;)-</span><span class="si">{</span><span class="n">amount</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">})</span></div>
 
 
-<div class="viewcode-block" id="SwitchBlockState">
-<a class="viewcode-back" href="../../mcpackutils.html#mcpackutils.event.SwitchBlockState">[docs]</a>
-<span class="k">class</span> <span class="nc">SwitchBlockState</span><span class="p">(</span><span class="n">SetBlockState</span><span class="p">):</span>
+<div class="viewcode-block" id="SwitchBlockProperty">
+<a class="viewcode-back" href="../../mcpackutils.html#mcpackutils.event.SwitchBlockProperty">[docs]</a>
+<span class="k">class</span> <span class="nc">SwitchBlockProperty</span><span class="p">(</span><span class="n">SetBlockProperty</span><span class="p">):</span>
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span><span class="n">Identifier</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Switch a boolean block state on this block. (true = false, false = true)</span>
@@ -919,7 +919,7 @@
 <span class="sd">        :type name: Identifier</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="nb">id</span> <span class="o">=</span> <span class="n">Identifier</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
-        <span class="n">SetBlockState</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="p">{</span><span class="nb">id</span><span class="p">:</span> <span class="sa">f</span><span class="s2">&quot;!q.block_state(&#39;</span><span class="si">{</span><span class="nb">id</span><span class="si">}</span><span class="s2">&#39;)&quot;</span><span class="p">})</span></div>
+        <span class="n">SetBlockProperty</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="p">{</span><span class="nb">id</span><span class="p">:</span> <span class="sa">f</span><span class="s2">&quot;!q.block_state(&#39;</span><span class="si">{</span><span class="nb">id</span><span class="si">}</span><span class="s2">&#39;)&quot;</span><span class="p">})</span></div>
 
 
 </pre></div>

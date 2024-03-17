@@ -1,0 +1,2 @@
+class TextureSet:
+    pass

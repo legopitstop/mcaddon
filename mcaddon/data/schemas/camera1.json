@@ -1,0 +1,24 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "type": "object",
+  "properties": {
+    "format_version": { "type": "string" },
+    "minecraft:camera_preset": {
+      "type": "object",
+      "required": ["identifier"],
+      "properties": {
+        "identifier": { "type": "string" },
+        "inherit_from": { "type": "string" },
+        "pos_x": { "type": "integer" },
+        "pos_y": { "type": "integer" },
+        "pos_z": { "type": "integer" },
+        "rot_x": { "type": "integer" },
+        "rot_y": { "type": "integer" },
+        "player_effects": { "type": "boolean" },
+        "listener": { "type": "string" }
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false
+}
