@@ -1,0 +1,16 @@
+{
+    "format_version": "1.21.80",
+    "minecraft:recipe_furnace": {
+        "description": {
+            "identifier": "lpsm_morefood:tortilla_chips"
+        },
+        "tags": [
+            "campfire",
+            "soul_campfire",
+            "furnace",
+            "smoker"
+        ],
+        "input": "lpsm_morefood:tortilla",
+        "output": "lpsm_morefood:tortilla_chips"
+    }
+}

@@ -1,5 +1,6 @@
 # mcaddon
 
+![Tests](https://github.com/legopitstop/mcaddon/actions/workflows/tests.yml/badge.svg)
 [![PyPI](https://img.shields.io/pypi/v/mcaddon)](https://pypi.org/project/mcaddon/)
 [![Python](https://img.shields.io/pypi/pyversions/mcaddon)](https://www.python.org/downloads//)
 ![Downloads](https://img.shields.io/pypi/dm/mcaddon)
@@ -7,9 +8,7 @@
 [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/ambv/black)
 [![Issues](https://img.shields.io/github/issues/legopitstop/mcaddon)](https://github.com/legopitstop/mcaddon/issues)
 
-Utility functions for creating Minecraft Bedrock Add-Ons.
-
-Documentation: https://mcaddon.readthedocs.io/
+Template python package.
 
 ## Installation
 
@@ -23,110 +22,58 @@ Update existing installation: `pip3 install mcaddon --upgrade`
 
 ## Requirements
 
-| Name | Description |
-|--|--|
-| [`mclang`](https://pypi.org/project/mclang/) | Read and write to .lang files. |
-| [`molang`](https://pypi.org/project/molang/) | Molang to Python Translator & interpreter written in pure Python. |
-| [`commentjson`](https://pypi.org/project/commentjson/) | Add Python and JavaScript style comments in your JSON files. |
-| [`jsonschema`](https://pypi.org/project/jsonschema/) | An implementation of JSON Schema validation for Python |
-| [`chevron`](https://pypi.org/project/chevron/) | Mustache templating language renderer |
-| [`Pillow`](https://pypi.org/project/pillow/) | Python Imaging Library (Fork) |
-| [`numpy`](https://pypi.org/project/numpy/) | Fundamental package for array computing in Python |
-| [`PyGLM`](https://pypi.org/project/PyGLM/) | OpenGL Mathematics library for Python |
-
-## Our Goal?
-
-Our goal is to create a library that can create a mcaddon or mcpack from the ground up using Python.
+| Name                                                 | Description                  |
+| ---------------------------------------------------- | ---------------------------- |
+| [`mini-racer`](https://pypi.org/project/mini-racer/) | JavaScript engine for Python |
+| [`pillow`](https://pypi.org/project/pillow/)         | For handling images          |
+| [`nbtlib`](https://pypi.org/project/nbtlib/)         | For reading/writing NBT      |
 
 ## Features
-- Load packs from any format version.
-- Supports [mustache](https://mustache.github.io/) logic-less templates.
+
+-
 
 ## Examples
 
 ### Block
 
-```Python
+```py
 from mcaddon import *
 
-blk = Block('test:on_interact_change_state_block')
-blk.add_component(OnInteractComponent(event='test_event'))
-blk.add_event('test_event', SetBlockProperty({'custom:direction': "1"}))
-blk.save('block.json')
+block = Block()
+block.description.identifier = "test:on_interact_change_state_block"
+block.components.add(BlockGeometryComponent())
+block.components.add(
+    BlockMaterialInstancesComponent().add(MaterialInstance(texture="stone"))
+)
+block.components.add(BlockCollisionBoxComponent())
+block.components.add(BlockSelectionBoxComponent())
+block.save("block.json")
 ```
 
 ### Item
 
-```Python
+```py
 from mcaddon import *
 
-blk = Item('minecraft:blaze_rod')
-blk.add_component(FuelComponent(12.0))
-blk.add_component(MaxStackSizeComponent(64))
-blk.add_component(IconComponent('blaze_rod'))
-blk.add_component(HandEquippedComponent(True))
-blk.add_component(DisplayNameComponent('Blaze Rod'))
-blk.save('item.json')
+item = Item()
+item.description.identifier = "minecraft:blaze_rod"
+item.components.add(ItemFuelComponent(duration=12))
+item.components.add(ItemMaxStackSizeComponent(value=64))
+item.components.add(ItemIconComponent().add("blaze_rod"))
+item.components.add(ItemHandEquippedComponent())
+item.components.add(ItemDisplayNameComponent(value="Blaze Rod"))
+item.save("item.json")
 ```
 
 ## Command-line interface
+
 ```
-usage: mcaddon [-h] [-V] [-W [<file>]]
+usage: mcaddon [-h] [-V]
+
+Description
 
 options:
-  -h, --help            show this help message and exit
-  -V, --version         print the mcaddon version number and exit.
-  -W [<file>], --watch [<file>]
-                        Watches this Python file for changes.
+  -h, --help     show this help message and exit
+  -V, --version  print the mcaddon version number and exit.
+
 ```
-
-## Road map
-
-- Resource packs
-  - [ ] animation_controllers
-  - [ ] animations
-  - [ ] attachables
-  - [ ] biomes_client.json
-  - [ ] block models
-  - [ ] entity
-  - [ ] flipbook_textures.json
-  - [ ] font
-  - [ ] materials
-  - [ ] particles
-  - [ ] pieces
-  - [ ] render_controllers
-  - [ ] sounds
-  - [ ] sounds.json
-  - [ ] texture set
-  - [ ] ui
-  - [x] blocks.json
-  - [x] entity models
-  - [x] item_textures.json
-  - [x] terrain_textures.json
-  - [x] texts
-  - [x] textures
-- Behavior packs
-  - [ ] entities
-  - [ ] spawn_rules
-  - [ ] structures
-  - [x] blocks
-  - [x] cameras
-  - [x] feature_rules
-  - [x] features
-  - [x] items
-  - [x] loot_tables
-  - [x] recipes
-  - [x] texts
-  - [x] trading
-  - [x] volume
-  - [x] block_culling
-- Skin packs
-- [x] Addons
-- contents.json
-- cli
-   - update mcaddon/mcpack
-- [x] Support to load all format versions. (At least all versions that are used in vanilla packs)
-- Support to import packs. (for both singleplayer and on dedicated server)
-- Make Model and Texture support common 3D rendering libraries; pygame, moderngl, etc
-- Toolchain to load packs
-- scripting - Convert Python to the Official Minecraft [Scripting and API](https://learn.microsoft.com/en-us/minecraft/creator/scriptapi/minecraft/server/minecraft-server?view=minecraft-bedrock-stable).

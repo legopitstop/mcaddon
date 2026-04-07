@@ -1,0 +1,10 @@
+__all__ = ["ShapelessRecipe"]
+
+from typing import List, Optional
+from mcaddon.core.base import ItemLike, Ingredient
+from .base import BaseRecipe
+
+class ShapelessRecipe(BaseRecipe):
+    result: ItemLike | List[ItemLike] = ...
+    ingredients: List[Ingredient] = ...
+    priority: Optional[int] = ...

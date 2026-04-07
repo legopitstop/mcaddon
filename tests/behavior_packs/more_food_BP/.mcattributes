@@ -1,0 +1,3 @@
+diagnostic.disable.resourcepack.model.missing=true
+
+diagnostic.disable.behaviorpack.block.components.texture_not_found=true

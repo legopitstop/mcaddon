@@ -1,0 +1,16 @@
+{
+    "format_version": "1.21.80",
+    "minecraft:recipe_furnace": {
+        "description": {
+            "identifier": "lpsm_morefood:baked_sweet_potato"
+        },
+        "tags": [
+            "campfire",
+            "soul_campfire",
+            "smoker",
+            "furnace"
+        ],
+        "input": "lpsm_morefood:sweet_potato",
+        "output": "lpsm_morefood:baked_sweet_potato"
+    }
+}

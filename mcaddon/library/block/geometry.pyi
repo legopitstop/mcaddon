@@ -1,0 +1,16 @@
+from .component import BlockComponent
+from mcaddon.core.base import ValueComponent
+from molang.dsl import MolangExpr
+
+__all__ = ["BlockGeometryComponent"]
+
+class BlockGeometryComponent(ValueComponent, BlockComponent):
+    """
+    [Info](https://learn.microsoft.com/en-us/minecraft/creator/reference/content/blockreference/examples/blockcomponents/minecraftblock_geometry)
+    """
+
+    identifier: str = ...
+    bone_visibility: dict[str, bool | MolangExpr] = ...
+    culling: str | None = ...
+    culling_layer: str | None = ...
+    uv_lock: bool | None = ...

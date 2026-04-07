@@ -1,0 +1,66 @@
+gui.choose=Choose
+gui.clear=Clear
+gui.cut=Cut
+gui.copy=Copy
+gui.paste=Paste
+
+cli.mcaddon=Description
+cli.mcaddon.version=print the mcaddon version number and exit.
+cli.mcaddon.show=Shows a GUI for cli tools
+cli.mcaddon.package=Package a pack or world
+
+cli.mcaddon.package.output=the resulting file
+cli.mcaddon.package.resourcePacks=add resource pack to output file (repeatable)
+cli.mcaddon.package.behaviorPacks=add behavior pack to output file (repeatable)
+cli.mcaddon.package.skinPacks=add skin pack to output file (repeatable)
+cli.mcaddon.package.marketingArt=add marketing art to output file (repeatable)
+cli.mcaddon.package.storeArt=add store art to output file (repeatable)
+cli.mcaddon.package.world=add world to output file
+cli.mcaddon.package.config=Load config from file
+cli.mcaddon.package.format=how to format the output file
+cli.mcaddon.package.minify=minify JSON files
+cli.mcaddon.package.flatten=remove unnecassary folder nesting
+cli.mcaddon.package.bump=Bump manfiest versions
+cli.mcaddon.package.verify=validates all resources
+
+menu.mcaddon:log_viewer=Log Viewer
+menu.mcaddon:log_viewer.no_results=No results
+menu.mcaddon:log_viewer.results=%s of %s
+
+menu.mcaddon:pack_chooser=Select Pack
+menu.mcaddon:pack_chooser.prompt=Select a pack
+menu.mcaddon:world_chooser=Select World
+menu.mcaddon:world_chooser.prompt=Select a world
+
+menu.mcaddon:packager=MCADDON Packager
+menu.mcaddon:packager.package=Package
+menu.mcaddon:packager.content=Content
+menu.mcaddon:packager.marketing=Marketing
+menu.mcaddon:packager.options=Options
+
+options.mcaddon:output=Output
+options.mcaddon:output.desc=The packaged file location.
+options.mcaddon:world=World
+options.mcaddon:world.desc=Select a world.
+options.mcaddon:resourcePacks=Resource Packs
+options.mcaddon:resourcePacks.desc=Select resource pack(s) to package.
+options.mcaddon:behaviorPacks=Behavior Packs
+options.mcaddon:behaviorPacks.desc=Select behavior pack(s) to package.
+options.mcaddon:skinPacks=Skin Packs
+options.mcaddon:skinPacks.desc=Select skin pack(s) to package.
+options.mcaddon:format=Format
+options.mcaddon:format.desc=How to format the package.
+options.mcaddon:minify=Minify
+options.mcaddon:minify.desc=Minify JSON files.
+options.mcaddon:flatten=Flatten
+options.mcaddon:flatten.desc=Remove unnecassary folder nesting.
+options.mcaddon:bump=Bump
+options.mcaddon:bump.desc=Bump manifest version.
+options.mcaddon:verify=Verify
+options.mcaddon:verify.desc=Validates all resources.
+
+options.mcaddon:marketingArt=Marketing Art
+options.mcaddon:marketingArt.desc=Add marketing art to package.
+
+options.mcaddon:storeArt=Store Art
+options.mcaddon:storeArt.desc=Add store art to package.

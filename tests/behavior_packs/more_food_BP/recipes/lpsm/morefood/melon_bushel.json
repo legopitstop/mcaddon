@@ -1,0 +1,32 @@
+{
+    "format_version": "1.21.80",
+    "minecraft:recipe_shaped": {
+        "description": {
+            "identifier": "lpsm_morefood:melon_bushel"
+        },
+        "tags": [
+            "crafting_table"
+        ],
+        "pattern": [
+            "###",
+            "###",
+            "###"
+        ],
+        "key": {
+            "#": {
+                "item": "minecraft:melon"
+            }
+        },
+        "result": [
+            {
+                "item": "lpsm_morefood:melon_bushel",
+                "count": 1
+            }
+        ],
+        "unlock": [
+            {
+                "item": "minecraft:melon"
+            }
+        ]
+    }
+}

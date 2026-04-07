@@ -1,0 +1,25 @@
+{
+  "format_version": "1.21.60",
+  "minecraft:entity": {
+    "description": {
+      "identifier": "wiki:all",
+      "animations": {
+        "short_name": "animation.test"
+      },
+      "is_experimental": false,
+      "is_spawnable": false,
+      "is_summonable": true,
+      "runtime_identifier": "",
+      "scripts": {
+        "animate": [
+            "animation.test"
+        ]
+      },
+      "spawn_category": "ambient",
+      "properties": {}
+    },
+    "component_groups": {},
+    "components": {},
+    "events": {}
+  }
+}

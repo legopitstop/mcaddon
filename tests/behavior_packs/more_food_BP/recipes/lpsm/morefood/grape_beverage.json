@@ -1,0 +1,30 @@
+{
+    "format_version": "1.21.80",
+    "minecraft:recipe_shapeless": {
+        "description": {
+            "identifier": "lpsm_morefood:grape_beverage"
+        },
+        "tags": [
+            "crafting_table"
+        ],
+        "ingredients": [
+            {
+                "item": "lpsm_morefood:grape_beverage_powder"
+            },
+            {
+                "item": "minecraft:potion",
+                "data": 0
+            }
+        ],
+        "result": "lpsm_morefood:grape_beverage",
+        "unlock": [
+            {
+                "item": "lpsm_morefood:grape_beverage_powder"
+            },
+            {
+                "item": "minecraft:potion",
+                "data": 0
+            }
+        ]
+    }
+}

@@ -1,2 +1,0 @@
-class Biome:
-    pass

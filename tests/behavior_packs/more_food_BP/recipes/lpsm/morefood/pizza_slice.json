@@ -1,0 +1,28 @@
+{
+    "format_version": "1.21.80",
+    "minecraft:recipe_shaped": {
+        "description": {
+            "identifier": "lpsm_morefood:pizza_slice"
+        },
+        "tags": [
+            "crafting_table"
+        ],
+        "pattern": [
+            "#"
+        ],
+        "key": {
+            "#": {
+                "item": "lpsm_morefood:pizza"
+            }
+        },
+        "result": {
+            "item": "lpsm_morefood:pizza_slice",
+            "count": 6
+        },
+        "unlock": [
+            {
+                "item": "lpsm_morefood:pizza"
+            }
+        ]
+    }
+}

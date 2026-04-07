@@ -1,11 +1,27 @@
-from mcaddon import *
+from mcaddon import BlockCulling, __format_version__
+from conftest import BedrockSamples
 
-blkcull = BlockCullingRules("test:sushi_cull")
-blkcull.add_rule(
-    CullingRule(Direction.NORTH, GeometryPart("bb_main", 0, Direction.NORTH))
-)
-blkcull.add_rule(
-    CullingRule(Direction.SOUTH, GeometryPart("bb_main", 0, Direction.SOUTH))
-)
-blkcull.add_rule(CullingRule(Direction.EAST, GeometryPart("bb_main")))
-blkcull.save("build/")
+
+def test_dump_block_culling():
+    result = {
+        "format_version": __format_version__,
+        "minecraft:block_culling_rules": {
+            "description": {
+                "identifier": "minecraft:test",
+            },
+            "rules": [],
+        },
+    }
+    obj = BlockCulling()
+    assert obj.model_dump() == result, obj.model_dump()
+
+
+def test_open_block_cullings(bedrock_samples: BedrockSamples):
+    for file in bedrock_samples.bp.glob("*/block_culling/*.json"):
+        print(file)
+        with BlockCulling.open(file) as culling:
+            print(culling.id)
+
+            data = culling.model_dump()
+            result = BlockCulling.model_validate(data)
+            assert data == result.model_dump()

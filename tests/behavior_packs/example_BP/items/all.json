@@ -1,0 +1,170 @@
+{
+  "format_version": "1.21.60",
+  "minecraft:item": {
+    "description": {
+      "identifier": "wiki:all",
+      "is_experimental": false,
+      "menu_category": {
+        "category": "construction",
+        "group": "minecraft:itemGroup.name.paper",
+        "is_hidden_in_commands": false
+      }
+    },
+    "components": {
+      "minecraft:allow_off_hand": true,
+      "minecraft:glint": true,
+      "minecraft:hand_equipped": true,
+      "minecraft:icon": "stick",
+      "minecraft:liquid_clipped": true,
+      "minecraft:max_stack_size": 1,
+      "minecraft:should_despawn": true,
+      "minecraft:stacked_by_data": true,
+      "minecraft:can_destroy_in_creative": true,
+      "minecraft:use_animation": "eat",
+      "minecraft:block_placer": {
+        "block": "",
+        "replace_block_item": false,
+        "use_on": []
+      },
+      "minecraft:bundle_interaction": {
+        "num_viewable_slots": 10
+      },
+      "minecraft:compostable": {
+        "composting_chance": 100
+      },
+      "minecraft:cooldown": {
+        "category": "attack",
+        "duration": 0.2
+      },
+      "minecraft:custom_components": ["wiki:test"],
+      "minecraft:damage": {
+        "value": 7
+      },
+      "minecraft:damage_absorption": {
+        "absorbable_causes": ["all"]
+      },
+      "minecraft:digger": {
+        "destroy_speeds": [
+          {
+            "block": "stone",
+            "speed": 0
+          },
+          {
+            "block": { "tags": "q.any_tag('test')" },
+            "speed": 0
+          }
+        ],
+        "use_efficiency": false
+      },
+      "minecraft:display_name": {
+        "value": "secret_weapon"
+      },
+      "minecraft:durability": {
+        "damage_chance": {
+          "min": 10,
+          "max": 50
+        },
+        "max_durability": 36
+      },
+      "minecraft:durability_sensor": {
+        "durability": 0,
+        "particle_type": "",
+        "sound_event": "add.chest"
+      },
+      "minecraft:dyeable": {
+        "default_color": "#FFFFFF"
+      },
+      "minecraft:enchantable": {
+        "slot": "all",
+        "value": 0
+      },
+      "minecraft:entity_placer": {
+        "dispense_on": ["minecraft:stone"],
+        "entity": "wiki:test",
+        "use_on": []
+      },
+      "minecraft:fire_resistant": {
+        "value": true
+      },
+      "minecraft:food": {
+        "can_always_eat": false,
+        "nutrition": 0,
+        "saturation_modifier": 0.6,
+        "using_converts_to": "bowl"
+      },
+      "minecraft:fuel": {
+        "duration": 3
+      },
+      "minecraft:projectile": {
+        "minimum_critical_power": 1.25,
+        "projectile_entity": "arrow"
+      },
+      "minecraft:rarity": {
+        "value": "common"
+      },
+      "minecraft:record": {
+        "comparator_signal": 1,
+        "duration": 0,
+        "sound_event": ""
+      },
+      "minecraft:repairable": {
+        "repair_items": [
+          {
+            "items": ["paper", { "item": "paper" }, { "tag": "q.any_tag('test')" }],
+            "repair_amount": 1.0
+          }
+        ]
+      },
+      "minecraft:shooter": {
+        "ammunition": [
+          {
+            "item": "custom_projectile",
+            "use_offhand": true,
+            "search_inventory": true,
+            "use_in_creative": true
+          }
+        ],
+        "max_draw_duration": 1,
+        "scale_power_by_draw_duration": true,
+        "charge_on_draw": false
+      },
+      "minecraft:storage_item": {
+        "allow_nested_storage_items": true,
+        "allowed_items": ["paper"],
+        "banned_items": ["paper"],
+        "max_slots": 64
+      },
+      "minecraft:storage_weight_limit": {
+        "max_weight_limit": 64
+      },
+      "minecraft:storage_weight_modifier": {
+        "weight_in_storage_item": 4
+      },
+      "minecraft:swing_duration": {
+        "value": 0.3
+      },
+      "minecraft:tags": {
+        "tags": ["papers"]
+      },
+      "minecraft:throwable": {
+        "do_swing_animation": false,
+        "min_draw_duration": 0,
+        "max_draw_duration": 1,
+        "launch_power_scale": 1,
+        "max_launch_power": 2,
+        "scale_power_by_draw_duration": false
+      },
+      "minecraft:use_modifiers": {
+        "emit_vibrations": true,
+        "movement_modifier": 0,
+        "use_duration": 0
+      },
+      "minecraft:wearable": {
+        "dispensable": true,
+        "hides_player_location": false,
+        "protection": 0,
+        "slot": "none"
+      }
+    }
+  }
+}

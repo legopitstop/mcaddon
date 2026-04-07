@@ -1,51 +1,144 @@
-from mcaddon import *
-
-rpe1 = FurnaceRecipe(
-    "furnace_beef", Ingredient(ItemStack("beef")), ItemStack("cooked_beef")
+from mcaddon import (
+    Recipe,
+    FurnaceRecipe,
+    BaseDescription,
+    PotionBrewingMixRecipe,
+    PotionBrewingRecipe,
+    ShapedRecipe,
+    ShapelessRecipe,
+    SmithingTransformRecipe,
+    SmithingTrimRecipe,
 )
+from conftest import BedrockSamples
 
-rpe2 = BrewingContainerRecipe(
-    "brew_potion_sulphur",
-    ItemStack("potion"),
-    ItemStack("gunpowder"),
-    ItemStack("splash_potion"),
-)
 
-rpe3 = BrewingMixRecipe(
-    "brew_awkward_blaze_powder",
-    ItemStack("potion_type"),
-    ItemStack("blaze_powder"),
-    ItemStack("potion_type"),
-)
+def test_dump_recipe():
+    format_version = "1.20.10"
+    result = {
+        "format_version": format_version,
+        "minecraft:recipe_brewing_container": {
+            "description": {"identifier": "minecraft:brewing_container"},
+            "input": "",
+            "reagent": "",
+            "output": "",
+            "tags": ["brewing_stand"],
+        },
+    }
+    obj = PotionBrewingRecipe(
+        description=BaseDescription(identifier="minecraft:brewing_container"),
+        input="",
+        reagent="",
+        output="",
+    )
+    assert obj.model_dump() == result, obj.model_dump()
 
-rpe4 = ShapedRecipe("acacia_boat", ItemStack("boat", data=4), ["#P#", "###"])
-rpe4.add_key("#", ItemStack("planks"))
-rpe4.add_key("P", ItemStack("wooden_shovel"))
+    result = {
+        "format_version": format_version,
+        "minecraft:recipe_brewing_mix": {
+            "description": {"identifier": "minecraft:brewing_mix"},
+            "input": "",
+            "reagent": "",
+            "output": "",
+            "tags": ["brewing_stand"],
+        },
+    }
+    obj = PotionBrewingMixRecipe(
+        description=BaseDescription(identifier="minecraft:brewing_mix"),
+        input="",
+        reagent="",
+        output="",
+    )
+    assert obj.model_dump() == result, obj.model_dump()
 
-rpe5 = ShapelessRecipe("firecharge_coal_sulphur", ItemStack("blaze_powder", data=4))
-rpe5.add_ingredient(ItemStack("fireball", 4, 0))
+    result = {
+        "format_version": format_version,
+        "minecraft:recipe_furnace": {
+            "description": {"identifier": "minecraft:beef_furnance"},
+            "input": "beef",
+            "output": "cooked_beef",
+            "tags": ["furnace"],
+        },
+    }
+    obj = FurnaceRecipe(
+        description=BaseDescription(identifier="minecraft:beef_furnance"),
+        input="beef",
+        output="cooked_beef",
+    )
+    assert obj.model_dump() == result, obj.model_dump()
 
-rpe6 = SmithingTransformRecipe(
-    "smithing_netherite_boots",
-    ItemStack("netherite_upgrade_smithing_template"),
-    ItemStack("diamond_boots"),
-    ItemStack("netherite_ingot"),
-    ItemStack("netherite_boots"),
-)
+    result = {
+        "format_version": format_version,
+        "minecraft:recipe_shaped": {
+            "description": {"identifier": "minecraft:shaped"},
+            "result": "",
+            "pattern": [],
+            "key": {},
+            "tags": ["crafting_table"],
+        },
+    }
+    obj = ShapedRecipe(
+        description=BaseDescription(identifier="minecraft:shaped"), result=""
+    )
+    assert obj.model_dump() == result, obj.model_dump()
 
-rpe7 = SmithingTrimRecipe(
-    "smithing_diamond_boots_jungle_quartz_trim",
-    Ingredient(ItemStack("jungle_temple_smithing_template")),
-    Ingredient(ItemStack("diamond_boots")),
-    Ingredient(ItemStack("quartz")),
-)
+    result = {
+        "format_version": format_version,
+        "minecraft:recipe_shapeless": {
+            "description": {"identifier": "minecraft:shapeless"},
+            "result": "",
+            "ingredients": [],
+            "tags": ["crafting_table"],
+        },
+    }
+    obj = ShapelessRecipe(
+        description=BaseDescription(identifier="minecraft:shapeless"), result=""
+    )
+    assert obj.model_dump() == result, obj.model_dump()
 
-rpe1.save("build/")
-rpe2.save("build/")
-rpe3.save("build/")
-rpe4.save("build/")
-rpe5.save("build/")
-rpe6.save("build/")
-rpe7.save("build/")
+    result = {
+        "format_version": format_version,
+        "minecraft:recipe_smithing_transform": {
+            "description": {"identifier": "minecraft:smithing_transform"},
+            "template": "",
+            "base": "",
+            "addition": "",
+            "result": "",
+            "tags": ["smithing_table"],
+        },
+    }
+    obj = SmithingTransformRecipe(
+        description=BaseDescription(identifier="minecraft:smithing_transform"),
+        addition="",
+        base="",
+        result="",
+        template="",
+    )
+    assert obj.model_dump() == result, obj.model_dump()
 
-recipes = [rpe1, rpe2, rpe3, rpe4, rpe5, rpe6, rpe7]
+    result = {
+        "format_version": format_version,
+        "minecraft:recipe_smithing_trim": {
+            "description": {"identifier": "minecraft:smithing_trim"},
+            "template": "",
+            "base": "",
+            "addition": "",
+            "tags": ["smithing_table"],
+        },
+    }
+    obj = SmithingTrimRecipe(
+        description=BaseDescription(identifier="minecraft:smithing_trim"),
+        addition="",
+        base="",
+        template="",
+    )
+    assert obj.model_dump() == result, obj.model_dump()
+
+
+def test_open_recipes(bedrock_samples: BedrockSamples):
+    for file in bedrock_samples.bp.glob("*/recipes/*.json"):
+        print(file)
+        with Recipe.open(file) as recipe:
+            print(recipe.__class__.__name__)
+            data = recipe.model_dump()
+            result = Recipe.model_validate(data)
+            assert data == result.model_dump()

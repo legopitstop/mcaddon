@@ -1,0 +1,25 @@
+{
+    "format_version": "1.21.80",
+    "minecraft:recipe_shaped": {
+        "description": {
+            "identifier": "lpsm_morefood:blueberry_seeds_from_blueberries"
+        },
+        "tags": [
+            "crafting_table"
+        ],
+        "pattern": [
+            "C"
+        ],
+        "key": {
+            "C": {
+                "item": "lpsm_morefood:blueberries"
+            }
+        },
+        "result": "lpsm_morefood:blueberry_seeds",
+        "unlock": [
+            {
+                "item": "lpsm_morefood:blueberries"
+            }
+        ]
+    }
+}

@@ -1,0 +1,25 @@
+{
+    "format_version": "1.21.80",
+    "minecraft:recipe_shaped": {
+        "description": {
+            "identifier": "lpsm_morefood:oat_seeds_from_oats"
+        },
+        "tags": [
+            "crafting_table"
+        ],
+        "pattern": [
+            "C"
+        ],
+        "key": {
+            "C": {
+                "item": "lpsm_morefood:oats"
+            }
+        },
+        "result": "lpsm_morefood:oat_seeds",
+        "unlock": [
+            {
+                "item": "lpsm_morefood:oats"
+            }
+        ]
+    }
+}

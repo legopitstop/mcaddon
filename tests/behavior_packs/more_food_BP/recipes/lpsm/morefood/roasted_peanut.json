@@ -1,0 +1,16 @@
+{
+    "format_version": "1.21.80",
+    "minecraft:recipe_furnace": {
+        "description": {
+            "identifier": "lpsm_morefood:roasted_peanut"
+        },
+        "tags": [
+            "campfire",
+            "soul_campfire",
+            "smoker",
+            "furnace"
+        ],
+        "input": "lpsm_morefood:peanut",
+        "output": "lpsm_morefood:roasted_peanut"
+    }
+}

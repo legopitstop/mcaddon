@@ -1,0 +1,167 @@
+{
+  "format_version": "1.21.100",
+  "minecraft:block": {
+    "description": {
+      "identifier": "wiki:all",
+      "menu_category": {
+        "category": "construction",
+        "group": "minecraft:itemGroup.name.slabs",
+        "is_hidden_in_commands": false
+      },
+      "states": {
+        "wiki:test": [true, false]
+      },
+      "traits": {
+        "minecraft:placement_direction": {
+          "enabled_states": ["minecraft:cardinal_direction", "minecraft:facing_direction"],
+          "y_rotation_offset": 0
+        },
+        "minecraft:placement_position": {
+          "enabled_states": ["minecraft:block_face", "minecraft:vertical_half"]
+        }
+      }
+    },
+    "components": {
+      "minecraft:custom_components": ["wiki:test"],
+      "minecraft:collision_box": {
+        "size": [16, 16, 16],
+        "origin": [-8, 0, -8]
+      },
+      "minecraft:crafting_table": {
+        "crafting_tags": [],
+        "table_name": "name"
+      },
+      "minecraft:destructible_by_explosion": {
+        "explosion_resistance": 0
+      },
+      "minecraft:destructible_by_mining": {
+        "item_specific_speeds": [
+          {
+            "destroy_speed": 0,
+            "item": "stick"
+          }
+        ],
+        "seconds_to_destroy": 0
+      },
+      "minecraft:destruction_particles": {
+        "particle_count": 100,
+        "texture": "",
+        "tint_method": "grass"
+      },
+      "minecraft:display_name": "test",
+      "minecraft:embedded_visual": {
+        "geometry": "geometry.test",
+        "material_instances": {
+          "*": {
+            "texture": "test",
+            "alpha_masked_tint": false,
+            "ambient_occlusion": false,
+            "emissive": false,
+            "face_dimming": true,
+            "isotropic": false,
+            "render_method": "alpha_test",
+            "tint_method": "birch_foliage"
+          }
+        }
+      },
+      "minecraft:entity_fall_on": {
+        "min_fall_distance": 0
+      },
+      "minecraft:flammable": {
+        "catch_chance_modifier": 5,
+        "destroy_chance_modifier": 20
+      },
+      "minecraft:flower_pottable": {},
+      "minecraft:friction": 0.4,
+      "minecraft:geometry": {
+        "bone_visibility": {
+          "*": true
+        },
+        "culling": "wiki:all",
+        "culling_layer": "minecraft:culling_layer.leaves",
+        "identifier": "geometry.test",
+        "uv_lock": false
+      },
+      "minecraft:item_visual": {
+        "geometry": "geometry.test",
+        "material_instances": {
+          "*": {
+            "texture": "test",
+            "alpha_masked_tint": false,
+            "ambient_occlusion": false,
+            "emissive": false,
+            "face_dimming": true,
+            "isotropic": false,
+            "render_method": "alpha_test",
+            "tint_method": "birch_foliage"
+          }
+        }
+      },
+      "minecraft:light_dampening": 15,
+      "minecraft:light_emission": 15,
+      "minecraft:liquid_detection": {
+        "detection_rules": [
+          {
+            "can_contain_liquid": false,
+            "liquid_type": "water",
+            "on_liquid_touches": "blocking",
+            "stops_liquid_flowing_from_direction": ["all"]
+          }
+        ]
+      },
+      "minecraft:loot": "loot_tables/blocks/all.json",
+      "minecraft:map_color": "#FFFFFF",
+      "minecraft:material_instances": {
+        "*": {
+          "texture": "test",
+          "alpha_masked_tint": false,
+          "ambient_occlusion": false,
+          "emissive": false,
+          "face_dimming": true,
+          "isotropic": false,
+          "render_method": "alpha_test",
+          "tint_method": "birch_foliage"
+        }
+      },
+      "minecraft:movable": {
+        "movement_type": "immovable",
+        "sticky": "same"
+      },
+      "minecraft:placement_filter": {
+        "conditions": [
+          {
+            "allowed_faces": ["up"],
+            "block_filter": ["grass"]
+          }
+        ]
+      },
+      "minecraft:precipitation_interactions": {
+        "precipitation_behavior": "none"
+      },
+      "minecraft:random_offset": {},
+      "minecraft:redstone_conductivity": {},
+      "minecraft:redstone_producer": {
+        "connected_faces": ["north"],
+        "strongly_powered_face": "north",
+        "power": 0,
+        "transform_relative": false
+      },
+      "minecraft:replaceable": {},
+      "minecraft:selection_box": {
+        "size": [16, 16, 16],
+        "origin": [-8, 0, -8]
+      },
+      "minecraft:tick": {
+        "interval_range": [0, 0],
+        "looping": true
+      },
+      "minecraft:transformation": {
+        "rotation": [0, 0, 0],
+        "rotation_pivot": [0, 0, 0],
+        "scale": [0, 0, 0],
+        "scale_pivot": [0, 0, 0],
+        "translation": [0, 0, 0]
+      }
+    }
+  }
+}

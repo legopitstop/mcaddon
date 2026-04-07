@@ -1,0 +1,16 @@
+{
+    "format_version": "1.21.80",
+    "minecraft:recipe_furnace": {
+        "description": {
+            "identifier": "lpsm_morefood:smoked_almonds"
+        },
+        "tags": [
+            "campfire",
+            "soul_campfire",
+            "smoker",
+            "furnace"
+        ],
+        "input": "lpsm_morefood:almonds",
+        "output": "lpsm_morefood:smoked_almonds"
+    }
+}

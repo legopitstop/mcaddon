@@ -1,0 +1,23 @@
+from .component import ItemComponent
+from mcaddon.core.base import ComponentSet
+from mcaddon.core.file import ResourceFile
+from mcaddon.library.common import BaseDescription, MenuCategory
+
+__all__ = ["Item", "ItemDescription"]
+
+class ItemDescription(BaseDescription):
+    menu_category: MenuCategory | None = ...
+    category: str | None = ...
+    is_experimental: bool | None = ...
+
+class Item(ResourceFile):
+    """
+    Defines an item.
+    """
+
+    description: ItemDescription = ...
+    components: ComponentSet[ItemComponent] = ...
+
+    @property
+    def id(self) -> str: ...
+    def get_tags(self) -> list[str]: ...

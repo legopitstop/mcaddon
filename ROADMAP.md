@@ -1,0 +1,59 @@
+# Road map
+
+- Resource packs
+  - [x] animation_controllers
+  - [x] animations
+  - [x] attachables
+  - [ ] geometry
+    - [ ] block
+    - [ ] entities
+  - [x] entity
+  - [x] particles
+  - [x] render_controllers
+  - [x] texture set
+  - [x] texts
+  - [x] textures
+  - [ ] font
+  - [ ] materials
+  - [ ] pieces
+  - [ ] sounds
+  - [ ] ui
+  - [ ] biomes_client.json
+  - [ ] flipbook_textures.json
+  - [ ] sounds.json
+  - [ ] blocks.json
+  - [ ] item_textures.json
+  - [ ] terrain_textures.json
+- Behavior packs
+  - [x] entities
+  - [x] spawn_rules
+  - [x] blocks
+  - [x] items
+  - [x] loot_tables
+  - [x] recipes
+  - [x] texts
+  - [x] trading
+  - [ ] structures
+  - [ ] voxel shapes
+  - [ ] cameras
+  - [ ] feature_rules
+  - [ ] features
+  - [ ] volume
+  - [ ] block_culling
+  - [ ] worldgen
+    - [x] processor
+    - [ ] jigsaw
+    - [x] structure set
+    - [x] template pool
+- [ ] Skin packs
+- [ ] Addons (.mcaddon)
+- [ ] contents.json
+- [ ] cli
+  - [ ] package content
+    - [ ] add support for full path to resources.
+  - [ ] update content
+- [ ] Support to load all format versions. (At least all versions that are used in vanilla packs)
+- [ ] Support to import packs. (for both singleplayer and on dedicated server)
+- [ ] Make Model and Texture support common 3D rendering libraries; pygame, moderngl, etc
+- [ ] Toolchain to load packs
+- [ ] scripting - Convert Python to the Minecraft Scripting and API.

@@ -1,2 +1,0 @@
-class RenderController:
-    pass

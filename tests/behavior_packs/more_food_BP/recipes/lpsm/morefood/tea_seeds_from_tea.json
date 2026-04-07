@@ -1,0 +1,25 @@
+{
+    "format_version": "1.21.80",
+    "minecraft:recipe_shaped": {
+        "description": {
+            "identifier": "lpsm_morefood:tea_seeds_from_tea"
+        },
+        "tags": [
+            "crafting_table"
+        ],
+        "pattern": [
+            "C"
+        ],
+        "key": {
+            "C": {
+                "item": "lpsm_morefood:tea_leaves"
+            }
+        },
+        "result": "lpsm_morefood:tea_seeds",
+        "unlock": [
+            {
+                "item": "lpsm_morefood:tea_leaves"
+            }
+        ]
+    }
+}

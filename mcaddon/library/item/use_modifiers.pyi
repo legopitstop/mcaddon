@@ -1,0 +1,13 @@
+from .component import ItemComponent
+
+__all__ = ["ItemUseModifiersComponent"]
+
+class ItemUseModifiersComponent(ItemComponent):
+    """
+    [Info](https://learn.microsoft.com/en-us/minecraft/creator/reference/content/itemreference/examples/itemcomponents/minecraft_use_modifiers)
+    """
+
+    emit_vibrations: bool = ...
+    movement_modifier: float | None = ...
+    use_duration: float = ...
+    start_sound: str | None = ...

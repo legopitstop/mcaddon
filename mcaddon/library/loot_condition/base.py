@@ -1,0 +1,57 @@
+__all__ = ["LootCondition", "BaseLootCondition"]
+
+from abc import ABC
+from typing import ClassVar, Dict, Type, Any
+
+from pydantic_core import core_schema
+from mcaddon.core.base import BaseModel
+from mcaddon.core.utils import namespaced
+
+
+class BaseLootCondition(ABC, BaseModel):
+    TYPE_ID: ClassVar[str] = "unknown"
+    condition: str = TYPE_ID
+
+    def __hash__(self) -> int:
+        return hash(self.TYPE_ID)
+
+
+class LootCondition(ABC, BaseModel):
+    __all__: ClassVar[Dict[str, Type["LootCondition"]]] = {}
+
+    def __init_subclass__(cls, **kwargs):
+        super().__init_subclass__(**kwargs)
+        cls.__all__ = {}
+
+    @classmethod
+    def register(cls, clazz: Type["BaseLootCondition"]) -> Type["BaseLootCondition"]:
+        def wrapper() -> Type["BaseLootCondition"]:
+            if hasattr(cls, "__all__"):
+                all = getattr(cls, "__all__")
+                if clazz.TYPE_ID in all:
+                    msg = f"{cls.__name__} '{clazz.TYPE_ID}' was already registered!"
+                    raise Exception(msg)
+                all[clazz.TYPE_ID] = clazz
+            return clazz
+
+        return wrapper()
+
+    @classmethod
+    def __get_pydantic_core_schema__(cls, source: Any, handler):
+        choices = {}
+
+        for id, c in cls.__all__.items():
+            choices[namespaced(id)] = handler(c)
+        union = core_schema.tagged_union_schema(
+            choices=choices,
+            discriminator="condition",
+        )
+
+        return core_schema.chain_schema(
+            [
+                core_schema.no_info_plain_validator_function(
+                    lambda e: namespaced(e, "condition")
+                ),
+                union,
+            ]
+        )

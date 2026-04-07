@@ -1,39 +1,25 @@
-from mcaddon import *
+from mcaddon import Item, __format_version__
+from conftest import BedrockSamples
 
-itm = Item("test:blaze_rod")
-itm.add_component(IgnoresPermissionComponent(True))
-itm.add_component(AllowOffHandComponent(True))
-itm.add_component(BlockPlacerComponent("stone"))
-itm.add_component(CanDestroyInCreativeComponent(True))
-itm.add_component(CooldownComponent("", 1))
-itm.add_component(DamageComponent(1))
-itm.add_component(ItemDisplayNameComponent("item.ITEM"))
-itm.add_component(DurabilityComponent(1, 1))
-itm.add_component(EnchantableComponent("chestplate", 1))
-itm.add_component(EntityPlacerComponent("armor_stand"))
-itm.add_component(FoodComponent(1, 1))
-itm.add_component(FuelComponent(1))
-itm.add_component(GlintComponent(True))
-itm.add_component(HandEquippedComponent(True))
-itm.add_component(HoverTextColorComponent("red"))
-itm.add_component(IconComponent("apple"))
-itm.add_component(InteractButtonComponent("test"))
-itm.add_component(ItemStorageComponent(1))
-itm.add_component(LiquidClippedComponent(True))
-itm.add_component(MaxStackSizeComponent(16))
-itm.add_component(ProjectileComponent("arrow", 1))
-itm.add_component(RecordComponent(1, 1, "cat"))
-itm.add_component(RepairableComponent())
-sc = ShooterComponent(True, 1, True)
-sc.add_ammunition("arrow")
-itm.add_component(sc)
-itm.add_component(ShouldDespawnComponent(True))
-itm.add_component(StackedByDataComponent(True))
-itm.add_component(ItemTagsComponent())
-itm.add_component(ThrowableComponent(True, True, 1, 1, 1, True))
-itm.add_component(UseAnimationComponent(UseAnimation.EAT))
-itm.add_component(UseModifiersComponent(1, 1))
-itm.add_component(WearableComponent(1, 1))
-itm.add_component(DiggerComponent(True))
 
-itm.save("build/")
+def test_dump_item():
+    result = {
+        "format_version": __format_version__,
+        "minecraft:item": {
+            "components": {},
+            "description": {"identifier": "minecraft:air"},
+        },
+    }
+    obj = Item()
+    assert obj.model_dump() == result, obj.model_dump()
+
+
+def test_parse_items(bedrock_samples: BedrockSamples):
+    for file in bedrock_samples.bp.glob("*/items/*.json"):
+        print(file)
+        with Item.open(file) as item:
+            print(item.id)
+
+            data = item.model_dump()
+            result = Item.model_validate(data)
+            assert data == result.model_dump()
