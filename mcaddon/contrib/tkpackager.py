@@ -21,7 +21,7 @@ from tkinter import (
 from tkinter.ttk import Notebook
 from mclang import tl
 
-from mcaddon import PackageFormat, VersionBump
+from mcaddon import __version__, PackageFormat, VersionBump
 from mcaddon.toolchain import PackagerConfig, Packager
 
 from .tkchooser import askpack, askworld
@@ -33,7 +33,7 @@ class TkPackager(Tk):
         self.pconfig = config or PackagerConfig.from_file()
         self.api = Packager()
 
-        self.title(tl("menu.mcaddon:packager"))
+        self.title(tl("menu.mcaddon:packager", __version__))
         # self.geometry('600x500')
 
         self.package_tool()

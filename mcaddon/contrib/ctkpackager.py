@@ -5,11 +5,11 @@ Packager GUI for Minecraft Add-ons using customtkinter.
 __all__ = ["CTkPackager"]
 
 from typing import Optional
-from tkinter import Menu, StringVar, BooleanVar
+from tkinter import Menu
 from customtkinter import CTk, CTkTabview, CTkLabel
 from mclang import tl
 
-from mcaddon import PackageFormat, VersionBump
+from mcaddon import __version__
 from mcaddon.toolchain import PackagerConfig, Packager
 
 
@@ -19,7 +19,7 @@ class CTkPackager(CTk):
         self.pconfig = config or PackagerConfig()
         self.api = Packager()
 
-        self.title(tl("menu.mcaddon:packager"))
+        self.title(tl("menu.mcaddon:packager", __version__))
 
         self.package_tool()
 

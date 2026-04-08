@@ -32,7 +32,7 @@ menu.mcaddon:pack_chooser.prompt=Select a pack
 menu.mcaddon:world_chooser=Select World
 menu.mcaddon:world_chooser.prompt=Select a world
 
-menu.mcaddon:packager=MCADDON Packager
+menu.mcaddon:packager=MCADDON Packager [%s]
 menu.mcaddon:packager.package=Package
 menu.mcaddon:packager.content=Content
 menu.mcaddon:packager.marketing=Marketing
