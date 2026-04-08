@@ -8,7 +8,7 @@
 [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/ambv/black)
 [![Issues](https://img.shields.io/github/issues/legopitstop/mcaddon)](https://github.com/legopitstop/mcaddon/issues)
 
-Template python package.
+Utility functions for creating Minecraft Bedrock Add-Ons.
 
 ## Installation
 
@@ -22,15 +22,30 @@ Update existing installation: `pip3 install mcaddon --upgrade`
 
 ## Requirements
 
-| Name                                                 | Description                  |
-| ---------------------------------------------------- | ---------------------------- |
-| [`mini-racer`](https://pypi.org/project/mini-racer/) | JavaScript engine for Python |
-| [`pillow`](https://pypi.org/project/pillow/)         | For handling images          |
-| [`nbtlib`](https://pypi.org/project/nbtlib/)         | For reading/writing NBT      |
+| Name                                                   | Usage                              |
+| ------------------------------------------------------ | ---------------------------------- |
+| [`mini-racer`](https://pypi.org/project/mini-racer/)   | JavaScript engine for Python       |
+| [`pillow`](https://pypi.org/project/pillow/)           | Handling images                    |
+| [`rapidnbt`](https://pypi.org/project/rapidnbt/)       | Reading/writing NBT                |
+| [`pydantic`](https://pypi.org/project/pydantic/)       | Data validation                    |
+| [`mcpath`](https://pypi.org/project/mcpath/)           | Paths to Minecraft bedrock folders |
+| [`mclang`](https://pypi.org/project/mclang/)           | Read/write to .lang files          |
+| [`molang`](https://pypi.org/project/molang/)           | Molang translator & interpreter    |
+| [`commentjson`](https://pypi.org/project/commentjson/) | Reading JSON files with comments   |
+| [`watchdog`](https://pypi.org/project/watchdog/)       | Monitor file system changes        |
+| [`Deprecated`](https://pypi.org/project/Deprecated/)   | Deprecated files and functions     |
 
 ## Features
 
--
+- Create Minecraft Bed rock add-ons with Python.
+- Build behavior packs and resource packs.
+- Define custom blocks and items.
+- Use a modular, component based system.
+- Export to Minecraft JSON files.
+- Load and edit existing packs.
+- Generate content with templates.
+- Tools for managing and packaging add-ons.
+- Optional scripting and integrations.
 
 ## Examples
 
@@ -68,12 +83,16 @@ item.save("item.json")
 ## Command-line interface
 
 ```
-usage: mcaddon [-h] [-V]
+usage: mcaddon [-h] [-V] {show,package} ...
 
 Description
 
-options:
-  -h, --help     show this help message and exit
-  -V, --version  print the mcaddon version number and exit.
+positional arguments:
+  {show,package}
+    show                Shows a GUI for cli tools
+    package             Package a pack or world
 
+options:
+  -h, --help            show this help message and exit
+  -V, --version         print the mcaddon version number and exit.
 ```
