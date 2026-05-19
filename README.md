@@ -1,12 +1,12 @@
 # mcaddon
 
-![Tests](https://github.com/legopitstop/mcaddon/actions/workflows/tests.yml/badge.svg)
+![Tests](https://github.com/legopitstop/mcaddon-py/actions/workflows/tests.yml/badge.svg)
 [![PyPI](https://img.shields.io/pypi/v/mcaddon)](https://pypi.org/project/mcaddon/)
 [![Python](https://img.shields.io/pypi/pyversions/mcaddon)](https://www.python.org/downloads//)
 ![Downloads](https://img.shields.io/pypi/dm/mcaddon)
 ![Status](https://img.shields.io/pypi/status/mcaddon)
 [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/ambv/black)
-[![Issues](https://img.shields.io/github/issues/legopitstop/mcaddon)](https://github.com/legopitstop/mcaddon/issues)
+[![Issues](https://img.shields.io/github/issues/legopitstop/mcaddon-py)](https://github.com/legopitstop/mcaddon-py/issues)
 
 Utility functions for creating Minecraft Bedrock Add-Ons.
 
