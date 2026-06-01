@@ -1,6 +1,4 @@
-__all__ = [
-    "BlockLiquidDetectionComponent",
-]
+__all__ = ["BlockLiquidDetectionComponent", "ItemDetectionRule"]
 
 from typing import List, ClassVar, Optional
 from pydantic import Field
@@ -9,7 +7,7 @@ from mcaddon.library.constants import LiquidTouchBehavior, DirectionAll
 from .component import BlockComponent
 
 
-class DetectionRule(BaseModel):
+class ItemDetectionRule(BaseModel):
     can_contain_liquid: bool = False
     on_liquid_touches: Optional[LiquidTouchBehavior] = None
     stops_liquid_flowing_from_direction: List[DirectionAll] = Field(
@@ -17,7 +15,7 @@ class DetectionRule(BaseModel):
     )
     liquid_type: str = "water"
 
-    def add(self, direction: DirectionAll) -> "DetectionRule":
+    def add(self, direction: DirectionAll) -> "ItemDetectionRule":
         self.stops_liquid_flowing_from_direction.append(direction)
         return self
 
@@ -30,8 +28,8 @@ class BlockLiquidDetectionComponent(BlockComponent):
 
     COMPONENT_ID: ClassVar[str] = "minecraft:liquid_detection"
 
-    detection_rules: List[DetectionRule] = Field(default_factory=list)
+    detection_rules: List[ItemDetectionRule] = Field(default_factory=list)
 
-    def add(self, detection_rule: DetectionRule) -> "BlockLiquidDetectionComponent":
+    def add(self, detection_rule: ItemDetectionRule) -> "BlockLiquidDetectionComponent":
         self.detection_rules.append(detection_rule)
         return self

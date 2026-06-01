@@ -1,6 +1,4 @@
-__all__ = [
-    "BiomeReplaceBiomesComponent",
-]
+__all__ = ["BiomeReplaceBiomesComponent", "BiomeReplacement"]
 
 from typing import List, ClassVar
 from pydantic import Field

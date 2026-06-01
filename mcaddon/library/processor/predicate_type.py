@@ -1,4 +1,9 @@
-__all__ = ["BaseInputPredicate", "InputPredicate"]
+__all__ = [
+    "BaseInputPredicate",
+    "InputPredicate",
+    "RandomBlockMatchInputPredicate",
+    "BlockMatchInputPredicate",
+]
 
 from typing import ClassVar, Any, Type, Dict
 from pydantic_core import core_schema

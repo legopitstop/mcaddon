@@ -1,6 +1,4 @@
-__all__ = [
-    "BiomeMapTintsComponent",
-]
+__all__ = ["BiomeMapTintsComponent", "GrassTint", "TintGrassMap", "NoiseGrassMap"]
 
 from typing import Tuple, ClassVar
 from mcaddon.core.base import BaseTypedModel, TypedModel

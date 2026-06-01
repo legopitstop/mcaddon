@@ -1,4 +1,9 @@
-__all__ = ["StructureSet"]
+__all__ = [
+    "StructureSet",
+    "StructureSetPlacement",
+    "RandomSpreadPlacement",
+    "StructureSetStructure",
+]
 
 from typing import List, cast
 from pydantic import Field
@@ -9,11 +14,11 @@ from mcaddon.library.common import BaseDescription
 from mcaddon.library.pack import behaviorpack
 
 
-class Placement(BaseTypedModel):
+class StructureSetPlacement(BaseTypedModel):
     pass
 
 
-@Placement.register
+@StructureSetPlacement.register
 class RandomSpreadPlacement(TypedModel):
     TYPE_ID = "minecraft:random_spread"
     type: str = TYPE_ID
@@ -24,7 +29,7 @@ class RandomSpreadPlacement(TypedModel):
     spread_type: str = "linear"
 
 
-class Structure(BaseModel):
+class StructureSetStructure(BaseModel):
     structure: str
     weight: int
 
@@ -35,8 +40,10 @@ class StructureSet(ResourceFile):
 
     description: BaseDescription = BaseDescription(identifier="minecraft:structure_set")
 
-    placement: Placement = cast(Placement, RandomSpreadPlacement())
-    structures: List[Structure] = Field(default_factory=list)
+    placement: StructureSetPlacement = cast(
+        StructureSetPlacement, RandomSpreadPlacement()
+    )
+    structures: List[StructureSetStructure] = Field(default_factory=list)
 
     @property
     def id(self) -> str:

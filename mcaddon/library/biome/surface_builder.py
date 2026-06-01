@@ -1,4 +1,13 @@
-__all__ = ["BiomeSurfaceBuilderComponent", "SurfaceBuilder"]
+__all__ = [
+    "BiomeSurfaceBuilderComponent",
+    "SurfaceBuilder",
+    "OverworldSurfaceBuilder",
+    "CappedSurfaceBuilder",
+    "FrozenOceanSurfaceBuilder",
+    "MesaSurfaceBuilder",
+    "SwampSurfaceBuilder",
+    "TheEndSurfaceBuilder",
+]
 
 from typing import List, ClassVar
 from pydantic import Field

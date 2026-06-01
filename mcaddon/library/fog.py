@@ -7,6 +7,10 @@ __all__ = [
     "InitFog",
     "FogDensity",
     "MediaCoefficients",
+    "FogDensityItem",
+    "MediaCoefficientsItem",
+    "HenyeyGreensteinGItem",
+    "HenyeyGreensteinG",
 ]
 
 from pydantic import field_validator, Field

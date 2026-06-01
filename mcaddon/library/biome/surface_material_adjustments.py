@@ -1,5 +1,7 @@
 __all__ = [
     "BiomeSurfaceMaterialAdjustmentsComponent",
+    "BiomeSurfaceMaterials",
+    "BiomeSurfaceAdjustment",
 ]
 
 from typing import List, Optional, Tuple, ClassVar
@@ -9,7 +11,7 @@ from mcaddon.core.base import BlockLike, NumberRange, BaseModel
 from .component import BiomeComponent
 
 
-class Materials(BaseModel):
+class BiomeSurfaceMaterials(BaseModel):
     foundation_material: Optional[BlockLike] = None
     mid_material: Optional[BlockLike] = None
     sea_floor_material: Optional[BlockLike] = None
@@ -17,8 +19,8 @@ class Materials(BaseModel):
     top_material: Optional[BlockLike] = None
 
 
-class Adjustment(BaseModel):
-    materials: Materials
+class BiomeSurfaceAdjustment(BaseModel):
+    materials: BiomeSurfaceMaterials
     noise_range: NumberRange
     height_range: Optional[MolangExpr | Tuple[MolangExpr, MolangExpr]] = None
     noise_frequency_scale: Optional[float] = None
@@ -32,7 +34,7 @@ class BiomeSurfaceMaterialAdjustmentsComponent(BiomeComponent):
 
     COMPONENT_ID: ClassVar[str] = "minecraft:surface_material_adjustments"
 
-    adjustments: List[Adjustment] = Field(default_factory=list)
+    adjustments: List[BiomeSurfaceAdjustment] = Field(default_factory=list)
     foundation_material: Optional[BlockLike] = None
     mid_material: Optional[BlockLike] = None
     sea_floor_material: Optional[BlockLike] = None

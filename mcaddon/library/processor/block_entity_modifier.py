@@ -1,4 +1,4 @@
-__all__ = ["BlockEntityModifier"]
+__all__ = ["BlockEntityModifier", "AppendLootBlockEntityModifier"]
 
 from mcaddon.core.base import BaseTypedModel, TypedModel
 

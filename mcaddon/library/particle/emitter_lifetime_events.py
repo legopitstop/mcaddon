@@ -1,4 +1,4 @@
-__all__ = ["EmitterLifetimeEventsComponent", "TravelDistanceEffect"]
+__all__ = ["EmitterLifetimeEventsComponent", "ParticleTravelDistanceEffect"]
 
 
 from typing import Dict, List, ClassVar
@@ -7,7 +7,7 @@ from mcaddon.core.base import BaseModel
 from .component import ParticleComponent
 
 
-class TravelDistanceEffect(BaseModel):
+class ParticleTravelDistanceEffect(BaseModel):
     distance: float
     effects: List[str] = Field(default_factory=list)
 
@@ -24,6 +24,6 @@ class EmitterLifetimeEventsComponent(ParticleComponent):
     expiration_event: List[str] | str = Field(default_factory=list)
     timeline: Dict[str, List[str] | str] = Field(default_factory=dict)
     travel_distance_events: Dict[str, List[str] | str] = Field(default_factory=dict)
-    looping_travel_distance_events: List[TravelDistanceEffect] = Field(
+    looping_travel_distance_events: List[ParticleTravelDistanceEffect] = Field(
         default_factory=list
     )

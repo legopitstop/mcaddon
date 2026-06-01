@@ -1,4 +1,4 @@
-__all__ = ["ItemFoodComponent", "FoodEffect"]
+__all__ = ["ItemFoodComponent", "ItemFoodEffect"]
 
 from typing import List, Optional, ClassVar
 from pydantic import Field
@@ -8,7 +8,7 @@ from mcaddon.library.constants import SaturationModifierType
 from .component import ItemComponent
 
 
-class FoodEffect(BaseModel):
+class ItemFoodEffect(BaseModel):
     name: str
     amplifier: float
     duration: float
@@ -28,7 +28,7 @@ class ItemFoodComponent(ItemComponent):
     can_always_eat: bool = False
     cooldown_time: Optional[float] = None
     cooldown_type: Optional[str] = None
-    effects: List[FoodEffect] = Field(default_factory=list)
+    effects: List[ItemFoodEffect] = Field(default_factory=list)
     is_meat: Optional[bool] = None
     remove_effects: List[str] = Field(default_factory=list)
     using_converts_to: Optional[ItemLike] = None

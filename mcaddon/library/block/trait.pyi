@@ -14,6 +14,7 @@ __all__ = [
     "BlockPlacementDirectionTrait",
     "BlockPlacementPositionTrait",
     "BlockConnectionTrait",
+    "BlockMultiBlockTrait",
 ]
 
 class BlockTrait(ABC, BaseComponent): ...

@@ -1,13 +1,14 @@
 __all__ = ["EntityPropertiesCondition"]
 
-from typing import Dict
+from typing import Dict, ClassVar
 from pydantic import Field
+
 from .base import LootCondition, BaseLootCondition
 
 
 @LootCondition.register
 class EntityPropertiesCondition(BaseLootCondition):
-    TYPE_ID = "minecraft:entity_properties"
+    TYPE_ID: ClassVar[str] = "minecraft:entity_properties"
     condition: str = TYPE_ID
 
     entity: str

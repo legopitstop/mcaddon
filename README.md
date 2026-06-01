@@ -22,18 +22,19 @@ Update existing installation: `pip3 install mcaddon --upgrade`
 
 ## Requirements
 
-| Name                                                   | Usage                              |
-| ------------------------------------------------------ | ---------------------------------- |
-| [`mini-racer`](https://pypi.org/project/mini-racer/)   | JavaScript engine for Python       |
-| [`pillow`](https://pypi.org/project/pillow/)           | Handling images                    |
-| [`rapidnbt`](https://pypi.org/project/rapidnbt/)       | Reading/writing NBT                |
-| [`pydantic`](https://pypi.org/project/pydantic/)       | Data validation                    |
-| [`mcpath`](https://pypi.org/project/mcpath/)           | Paths to Minecraft bedrock folders |
-| [`mclang`](https://pypi.org/project/mclang/)           | Read/write to .lang files          |
-| [`molang`](https://pypi.org/project/molang/)           | Molang translator & interpreter    |
-| [`commentjson`](https://pypi.org/project/commentjson/) | Reading JSON files with comments   |
-| [`watchdog`](https://pypi.org/project/watchdog/)       | Monitor file system changes        |
-| [`Deprecated`](https://pypi.org/project/Deprecated/)   | Deprecated files and functions     |
+| Name                                                     | Usage                                         |
+| -------------------------------------------------------- | --------------------------------------------- |
+| [`mini-racer`](https://pypi.org/project/mini-racer/)     | JavaScript engine for Python                  |
+| [`pillow`](https://pypi.org/project/pillow/)             | Handling images                               |
+| [`rapidnbt`](https://pypi.org/project/rapidnbt/)         | Reading/writing NBT                           |
+| [`pydantic`](https://pypi.org/project/pydantic/)         | Data validation                               |
+| [`mcpath`](https://pypi.org/project/mcpath/)             | Paths to Minecraft bedrock folders            |
+| [`mclang`](https://pypi.org/project/mclang/)             | Read/write to .lang files                     |
+| [`molang`](https://pypi.org/project/molang/)             | Molang translator & interpreter               |
+| [`commentjson`](https://pypi.org/project/commentjson/)   | Reading JSON files with comments              |
+| [`watchdog`](https://pypi.org/project/watchdog/)         | Monitor file system changes                   |
+| [`Deprecated`](https://pypi.org/project/Deprecated/)     | Deprecated files and functions                |
+| [`context_menu`](https://pypi.org/project/context_menu/) | Install context menus using<br>`mcaddon install` |
 
 ## Features
 
@@ -83,14 +84,17 @@ item.save("item.json")
 ## Command-line interface
 
 ```
-usage: mcaddon [-h] [-V] {show,package} ...
+usage: mcaddon [-h] [-V] {show,logviewer,install,uninstall,package} ...
 
 Description
 
 positional arguments:
-  {show,package}
-    show                Shows a GUI for cli tools
-    package             Package a pack or world
+  {show,logviewer,install,uninstall,package}
+    show                Shows a GUI for cli tools.
+    logviewer           Opens the log viewer.
+    install             Install context menu items.
+    uninstall           Uninstall context menu items.
+    package             Package a pack or world.
 
 options:
   -h, --help            show this help message and exit

@@ -1,7 +1,7 @@
 from .component import BlockComponent
 from mcaddon.core.base import BaseModel, ItemTags
 
-__all__ = ["BlockDestructibleByMiningComponent"]
+__all__ = ["BlockDestructibleByMiningComponent", "ItemSpecificSpeeds"]
 
 class ItemSpecificSpeeds(BaseModel):
     destroy_speed: float

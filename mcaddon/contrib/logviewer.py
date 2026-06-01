@@ -2,7 +2,7 @@
 Log Viewer for Minecraft Bedrock Edition logs using tkinter.
 """
 
-__all__ = ["LogViewer", "LogViewerDefinition"]
+__all__ = ["LogViewer", "LogViewerDefinition", "__version__"]
 
 # TODO:
 # - Type Filter: Json, Texture, Scripting, Recipes, Molang, Block
@@ -11,12 +11,14 @@ __all__ = ["LogViewer", "LogViewerDefinition"]
 
 from typing import Optional, List, Tuple, Set, Callable, cast
 from tkinter import Tk, Text, Button, Entry, Label, Frame, StringVar, Menu
+from tkinter.messagebox import showinfo
 from pydantic import Field
 from watchdog.observers import Observer
 from watchdog.events import FileSystemEventHandler
 from datetime import datetime
 from mclang import tl
-from mcaddon.core.base import BaseModel
+from mcaddon import __version__, BaseModel
+import platform
 import webbrowser
 import time
 import mcpath
@@ -106,9 +108,12 @@ class LogViewer(Tk, FileSystemEventHandler):
             self._start()
 
         # Menu
-        self.menu = Menu(self)
+        self.menu = Menu(self, tearoff=False)
         self.menu.add_command(label=tl("gui.clear"), command=self._clear)
         self.menu.add_command(label=tl("gui.copy"), command=self._copy)
+        self.menu_help = Menu(self.menu, tearoff=False)
+        self.menu_help.add_command(label=tl("gui.about"), command=self.show_about)
+        self.menu.add_cascade(label=tl("gui.help"), menu=self.menu_help)
 
         self.configure(menu=self.menu, bg="#272727")
 
@@ -213,6 +218,13 @@ class LogViewer(Tk, FileSystemEventHandler):
         self.text.tag_remove("current", "1.0", "end")
         self.matches.clear()
         self.match_index = 0
+
+    def show_about(self) -> None:
+        showinfo(
+            tl("menu.mcaddon:log_viewer"),
+            f"Log Viewer\n\nVersion: {__version__}\nPython: {platform.python_version()}\nOS: {platform.system()} {platform.version()}",
+            parent=self,
+        )
 
     def search(self) -> None:
         query = self.FIND.get()

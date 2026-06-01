@@ -1,4 +1,4 @@
-__all__ = ["ClientEntity", "ClientEntityDescription"]
+__all__ = ["ClientEntity", "ClientEntityDescription", "SpawnEgg", "ClientEntityScripts"]
 
 from typing import Dict, List, Optional
 from pydantic import Field, field_validator

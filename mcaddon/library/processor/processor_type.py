@@ -1,4 +1,10 @@
-__all__ = ["BaseProcessor", "Processor"]
+__all__ = [
+    "BaseProcessor",
+    "Processor",
+    "ProcessorRule",
+    "RuleProcessor",
+    "CappedProcessor",
+]
 
 from typing import List, ClassVar, Any, Type, Dict, Optional
 from pydantic import Field

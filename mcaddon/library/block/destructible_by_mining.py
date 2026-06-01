@@ -1,6 +1,4 @@
-__all__ = [
-    "BlockDestructibleByMiningComponent",
-]
+__all__ = ["BlockDestructibleByMiningComponent", "ItemSpecificSpeeds"]
 
 from typing import List, ClassVar
 from pydantic import Field

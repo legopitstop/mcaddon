@@ -1,4 +1,4 @@
-__all__ = ["SpawnRulePermuteType"]
+__all__ = ["SpawnRulePermuteType", "SpawnRulePermuteTypeData"]
 
 from typing import List, Optional, ClassVar
 from pydantic import Field

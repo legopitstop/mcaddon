@@ -1,12 +1,14 @@
 __all__ = [
     "resourcepack",
     "behaviorpack",
+    "skinpack",
     "basepack",
     "BasePack",
     "ResourcePack",
     "BehaviorPack",
     "SkinPack",
     "ResourceOutline",
+    "Definition",
 ]
 
 from typing import Optional, List, Dict, Generator, Any, Type
@@ -18,6 +20,8 @@ import os
 import zipfile
 import commentjson
 import glob
+
+from pydantic import ValidationError
 
 try:
     from typing import Self
@@ -105,7 +109,12 @@ class ResourceOutline:
     @staticmethod
     def from_world(path: str) -> "ResourceOutline":
         img = Image.open(os.path.join(path, "world_icon.jpeg"))
-        level = LevelFile.open(os.path.join(path, "level.dat"))
+        fp = os.path.join(path, "level.dat")
+        try:
+            level = LevelFile.open(fp)
+        except ValidationError as err:
+            print(f"Error while loading {fp}:")
+            raise err
 
         def gm_to_name(gameType: int):
             match (gameType):

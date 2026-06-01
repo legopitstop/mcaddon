@@ -1,9 +1,9 @@
 __all__ = [
     "StructureFormat",
     "StructureFile",
-    "Palette",
-    "BlockPalette",
-    "BlockPositionData",
+    "StructurePalette",
+    "StructureBlockPalette",
+    "StructureBlockPositionData",
 ]
 
 from typing import List, ClassVar, Dict, Any
@@ -14,25 +14,27 @@ from mcaddon.core.base import BaseModel
 from .world import EntityFormat, BlockEntityFormat
 
 
-class BlockPalette(BaseModel):
+class StructureBlockPalette(BaseModel):
     name: str
     version: int
     states: Dict[str, Any] = Field(default_factory=dict)
 
 
-class BlockPositionData(BaseModel):
+class StructureBlockPositionData(BaseModel):
     block_entity_data: BlockEntityFormat
 
 
-class Palette(BaseModel):
-    block_palette: List[BlockPalette] = Field(default_factory=list)
-    block_position_data: Dict[str, BlockPositionData] = Field(default_factory=dict)
+class StructurePalette(BaseModel):
+    block_palette: List[StructureBlockPalette] = Field(default_factory=list)
+    block_position_data: Dict[str, StructureBlockPositionData] = Field(
+        default_factory=dict
+    )
 
 
 class StructureFormat(BaseModel):
     block_indices: List[List[int]] = Field(default_factory=list)
     entities: List[EntityFormat] = Field(default_factory=list)
-    palette: Dict[str, Palette] = Field(default_factory=dict)
+    palette: Dict[str, StructurePalette] = Field(default_factory=dict)
 
 
 # @behavior("structures")

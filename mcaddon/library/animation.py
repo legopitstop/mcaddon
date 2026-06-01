@@ -1,4 +1,12 @@
-__all__ = ["Animations", "Animation", "BoneAnimation", "AnimationEffect"]
+__all__ = [
+    "Animations",
+    "AnimValue",
+    "AnimValue3",
+    "AnimValue2",
+    "Animation",
+    "BoneAnimation",
+    "AnimationEffect",
+]
 
 from typing import Dict, Optional, Tuple, List
 import commentjson

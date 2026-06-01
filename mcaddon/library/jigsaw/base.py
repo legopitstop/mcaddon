@@ -1,9 +1,9 @@
 __all__ = [
     "Jigsaw",
-    "MaxDistanceFromCenter",
-    "StartHeight",
-    "ConstantStartHeight",
-    "ConstantStartHeightValue",
+    "JigsawMaxDistanceFromCenter",
+    "JigsawStartHeight",
+    "JigsawConstantStartHeight",
+    "JigsawConstantStartHeightValue",
 ]
 
 from typing import List, ClassVar, Any
@@ -16,25 +16,25 @@ from mcaddon.library.common import BaseDescription
 from mcaddon.library.pack import behaviorpack
 
 
-class StartHeight(BaseTypedModel):
+class JigsawStartHeight(BaseTypedModel):
     pass
 
 
-class ConstantStartHeightValue(BaseModel):
+class JigsawConstantStartHeightValue(BaseModel):
     absolute: int
 
 
-@StartHeight.register
-class ConstantStartHeight(TypedModel):
+@JigsawStartHeight.register
+class JigsawConstantStartHeight(TypedModel):
     TYPE_ID: ClassVar[str] = "constant"
     type: str = TYPE_ID
 
-    value: ConstantStartHeightValue = Field(
-        default_factory=lambda: ConstantStartHeightValue(absolute=1)
+    value: JigsawConstantStartHeightValue = Field(
+        default_factory=lambda: JigsawConstantStartHeightValue(absolute=1)
     )
 
 
-class MaxDistanceFromCenter(BaseModel):
+class JigsawMaxDistanceFromCenter(BaseModel):
     horizontal: int
     vertical: int
 
@@ -52,8 +52,8 @@ class Jigsaw(ResourceFile):
     start_pool: str = "minecraft:default"
     max_depth: int = 7
     heightmap_projection: str = "world_surface"
-    start_height: TypedModel = Field(default_factory=ConstantStartHeight)
-    max_distance_from_center: MaxDistanceFromCenter = MaxDistanceFromCenter(
+    start_height: TypedModel = Field(default_factory=JigsawConstantStartHeight)
+    max_distance_from_center: JigsawMaxDistanceFromCenter = JigsawMaxDistanceFromCenter(
         horizontal=1, vertical=1
     )
 
@@ -63,8 +63,8 @@ class Jigsaw(ResourceFile):
         """Handle polymorphic deserialization of start_height based on type field."""
         if isinstance(v, dict):
             type_id = v.get("type", "constant")
-            if type_id in StartHeight.__all__:
-                model_class = StartHeight.__all__[type_id]
+            if type_id in JigsawStartHeight.__all__:
+                model_class = JigsawStartHeight.__all__[type_id]
                 return model_class.model_validate(v)
         return handler(v)
 

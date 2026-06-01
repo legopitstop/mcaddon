@@ -11,7 +11,7 @@ from mcaddon.library.pack import behaviorpack
 class BaseRecipe(ResourceFile):
     format_version: str = "1.20.10"
 
-    description: BaseDescription
+    description: BaseDescription = BaseDescription(identifier="minecraft:recipe")
 
     @property
     def id(self) -> str:

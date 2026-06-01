@@ -25,7 +25,7 @@ from mcaddon.library.block.collision_box import BlockCollisionBoxComponent
 from mcaddon.library.block.geometry import BlockGeometryComponent
 from mcaddon.library.block.liquid_detection import (
     BlockLiquidDetectionComponent,
-    DetectionRule,
+    ItemDetectionRule,
 )
 from mcaddon.library.block.selection_box import BlockSelectionBoxComponent
 from mcaddon.library.block.transformation import BlockTransformationComponent
@@ -62,7 +62,7 @@ STAIRS.permutations.append(
     .add(BlockTransformationComponent().rotate((0, -90, 0)))
     .add(
         BlockLiquidDetectionComponent().add(
-            DetectionRule(can_contain_liquid=True).add(DirectionAll.SOUTH)
+            ItemDetectionRule(can_contain_liquid=True).add(DirectionAll.SOUTH)
         )
     )
 )
@@ -75,7 +75,7 @@ STAIRS.permutations.append(
     .add(BlockTransformationComponent().rotate((0, 90, 0)))
     .add(
         BlockLiquidDetectionComponent().add(
-            DetectionRule(can_contain_liquid=True).add(DirectionAll.NORTH)
+            ItemDetectionRule(can_contain_liquid=True).add(DirectionAll.NORTH)
         )
     )
 )
@@ -88,7 +88,7 @@ STAIRS.permutations.append(
     .add(BlockTransformationComponent().rotate((0, 180, 0)))
     .add(
         BlockLiquidDetectionComponent().add(
-            DetectionRule(can_contain_liquid=True).add(DirectionAll.WEST)
+            ItemDetectionRule(can_contain_liquid=True).add(DirectionAll.WEST)
         )
     )
 )
@@ -101,7 +101,7 @@ STAIRS.permutations.append(
     .add(BlockTransformationComponent().rotate((0, 0, 0)))
     .add(
         BlockLiquidDetectionComponent().add(
-            DetectionRule(can_contain_liquid=True).add(DirectionAll.EAST)
+            ItemDetectionRule(can_contain_liquid=True).add(DirectionAll.EAST)
         )
     )
 )
@@ -114,7 +114,7 @@ STAIRS.permutations.append(
     .add(BlockTransformationComponent().rotate((180, -90, 0)))
     .add(
         BlockLiquidDetectionComponent().add(
-            DetectionRule(can_contain_liquid=True).add(DirectionAll.SOUTH)
+            ItemDetectionRule(can_contain_liquid=True).add(DirectionAll.SOUTH)
         )
     )
 )
@@ -127,7 +127,7 @@ STAIRS.permutations.append(
     .add(BlockTransformationComponent().rotate((180, 90, 0)))
     .add(
         BlockLiquidDetectionComponent().add(
-            DetectionRule(can_contain_liquid=True).add(DirectionAll.NORTH)
+            ItemDetectionRule(can_contain_liquid=True).add(DirectionAll.NORTH)
         )
     )
 )
@@ -140,7 +140,7 @@ STAIRS.permutations.append(
     .add(BlockTransformationComponent().rotate((180, 180, 0)))
     .add(
         BlockLiquidDetectionComponent().add(
-            DetectionRule(can_contain_liquid=True).add(DirectionAll.WEST)
+            ItemDetectionRule(can_contain_liquid=True).add(DirectionAll.WEST)
         )
     )
 )
@@ -153,7 +153,7 @@ STAIRS.permutations.append(
     .add(BlockTransformationComponent().rotate((180, 0, 0)))
     .add(
         BlockLiquidDetectionComponent().add(
-            DetectionRule(can_contain_liquid=True).add(DirectionAll.EAST)
+            ItemDetectionRule(can_contain_liquid=True).add(DirectionAll.EAST)
         )
     )
 )
@@ -167,7 +167,7 @@ SLAB.description.add_trait(
     BlockPlacementPositionTrait().add_state(PlacementPositionState.VERTICAL_HALF)
 )
 SLAB.components.add(
-    BlockLiquidDetectionComponent().add(DetectionRule(can_contain_liquid=False))
+    BlockLiquidDetectionComponent().add(ItemDetectionRule(can_contain_liquid=False))
 )
 SLAB.permutations.append(
     BlockPermutation(condition=query.block_state("mcaddon:double"))
@@ -182,7 +182,7 @@ SLAB.permutations.append(
         == "top"
     ).add(
         BlockLiquidDetectionComponent().add(
-            DetectionRule(can_contain_liquid=True).add(DirectionAll.UP)
+            ItemDetectionRule(can_contain_liquid=True).add(DirectionAll.UP)
         )
     )
 )
@@ -196,7 +196,7 @@ SLAB.permutations.append(
     .add(BlockSelectionBoxComponent(origin=(-8, 8, -8), size=(16, 8, 16)))
     .add(
         BlockLiquidDetectionComponent().add(
-            DetectionRule(can_contain_liquid=True).add(DirectionAll.DOWN)
+            ItemDetectionRule(can_contain_liquid=True).add(DirectionAll.DOWN)
         )
     )
 )

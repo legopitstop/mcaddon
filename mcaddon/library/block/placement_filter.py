@@ -1,6 +1,4 @@
-__all__ = [
-    "BlockPlacementFilterComponent",
-]
+__all__ = ["BlockPlacementFilterComponent", "PlacementCondition"]
 
 from typing import List, ClassVar
 from pydantic import Field

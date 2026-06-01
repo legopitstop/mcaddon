@@ -2,7 +2,7 @@ from .component import BlockComponent, BlockFilter
 from mcaddon.core.base import BaseModel
 from mcaddon.library.constants import BlockFace
 
-__all__ = ["BlockPlacementFilterComponent"]
+__all__ = ["BlockPlacementFilterComponent", "PlacementCondition"]
 
 class PlacementCondition(BaseModel):
     allowed_faces: list[BlockFace]

@@ -19,7 +19,9 @@ from tkinter import (
     BooleanVar,
 )
 from tkinter.ttk import Notebook
+from tkinter.messagebox import showinfo
 from mclang import tl
+import platform
 
 from mcaddon import __version__, PackageFormat, VersionBump
 from mcaddon.toolchain import PackagerConfig, Packager
@@ -33,7 +35,7 @@ class TkPackager(Tk):
         self.pconfig = config or PackagerConfig.from_file()
         self.api = Packager()
 
-        self.title(tl("menu.mcaddon:packager", __version__))
+        self.title(tl("menu.mcaddon:packager"))
         # self.geometry('600x500')
 
         self.package_tool()
@@ -42,12 +44,22 @@ class TkPackager(Tk):
         self.menu_config = Menu(self.menu, tearoff=False)
         self.menu_config.add_command(label="Import")
         self.menu_config.add_command(label="Export")
+        self.menu_help = Menu(self.menu, tearoff=False)
+        self.menu_help.add_command(label=tl("gui.about"), command=self.show_about)
         self.menu.add_cascade(label="Config", menu=self.menu_config)
+        self.menu.add_cascade(label=tl("gui.help"), menu=self.menu_help)
         self.configure(menu=self.menu)
 
         self.rp_list: Optional[Listbox] = None
         self.bp_list: Optional[Listbox] = None
         self.sp_list: Optional[Listbox] = None
+
+    def show_about(self) -> None:
+        showinfo(
+            tl("menu.mcaddon:packager"),
+            f"MCADDON Packager\n\nVersion: {__version__}\nPython: {platform.python_version()}\nOS: {platform.system()} {platform.version()}",
+            parent=self,
+        )
 
     def package_tool(self) -> None:
         tabs = Notebook(self)

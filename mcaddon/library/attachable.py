@@ -1,4 +1,4 @@
-__all__ = ["Attachable", "AttachableDescription"]
+__all__ = ["Attachable", "AttachableDescription", "AttachableScripts"]
 
 from typing import Dict, List, Optional
 from pydantic import Field

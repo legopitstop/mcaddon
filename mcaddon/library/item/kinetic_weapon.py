@@ -1,11 +1,11 @@
-__all__ = ["ItemKineticWeaponComponent", "KineticEffectConditions"]
+__all__ = ["ItemKineticWeaponComponent", "ItemKineticEffectConditions"]
 
 from typing import ClassVar
 from mcaddon.core.base import NumberRange, NumberMinMax, BaseModel
 from .component import ItemComponent
 
 
-class KineticEffectConditions(BaseModel):
+class ItemKineticEffectConditions(BaseModel):
     max_duration: int = -1
     min_relative_speed: float = 0
     min_speed: float = 0
@@ -19,9 +19,9 @@ class ItemKineticWeaponComponent(ItemComponent):
 
     COMPONENT_ID: ClassVar[str] = "minecraft:kinetic_weapon"
 
-    damage_conditions: KineticEffectConditions
-    dismount_conditions: KineticEffectConditions
-    knockback_conditions: KineticEffectConditions
+    damage_conditions: ItemKineticEffectConditions
+    dismount_conditions: ItemKineticEffectConditions
+    knockback_conditions: ItemKineticEffectConditions
     damage_modifier: float = 0
     damage_multiplier: float = 1
     delay: int = 0

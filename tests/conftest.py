@@ -75,7 +75,6 @@ def download_minecraft_samples(root: Path, resource: Path, behavior: Path) -> No
 
     # find the top-level folder created by GitHub
     base = get_top_dir(extract_dir)
-    print(base)
 
     # move if present
     bp_count = 0
@@ -84,7 +83,7 @@ def download_minecraft_samples(root: Path, resource: Path, behavior: Path) -> No
     for root_dir, _, files in os.walk(base):
         if "manifest.json" in files:
             manifest_fp = Path(root_dir) / "manifest.json"
-        # for manifest_fp in base.glob("**/manifest.json"):
+            # for manifest_fp in base.glob("**/manifest.json"):
             pack_dir = manifest_fp.parent
 
             # Check pack type from manifest
@@ -98,7 +97,9 @@ def download_minecraft_samples(root: Path, resource: Path, behavior: Path) -> No
             else:
                 bp_count += 1
                 count = bp_count
-            shutil.move(str(pack_dir), str(sel / Path(pack_dir.name + "_" + str(count))))
+            shutil.move(
+                str(pack_dir), str(sel / Path(pack_dir.name + "_" + str(count)))
+            )
 
 
 @pytest.fixture(scope="session")

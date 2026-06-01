@@ -8,6 +8,7 @@ __all__ = [
 
 from typing import ClassVar, List, Optional, Dict, Any, Tuple
 from datetime import datetime
+from uuid import UUID
 from pydantic import Field
 
 from mcaddon.core.base import BaseModel
@@ -98,18 +99,7 @@ class LevelFile(NbtFile):
     commandblocksenabled: bool
     commandsEnabled: bool
     currentTick: int
-    daylightCycle: int
-    dodaylightcycle: bool
-    doentitydrops: bool
-    dofiretick: bool
-    doimmediaterespawn: bool
-    doinsomnia: bool
-    dolimitedcrafting: bool
-    domobloot: bool
-    domobspawning: bool
-    dotiledrops: bool
-    doweathercycle: bool
-    drowningdamage: bool
+
     editorWorldType: int
     eduOffer: int
     educationFeaturesEnabled: bool
@@ -159,6 +149,12 @@ class LevelFile(NbtFile):
     worldStartCount: int
     world_policies: Dict[str, Any] = Field(default_factory=dict)
 
+    # World Template
+
+    UseAllowList: Optional[bool] = None
+    worldTemplateUUID: Optional[UUID] = None
+    worldTemplateVersion: Optional[str] = None
+
     # Game Rules
 
     randomtickspeed: int
@@ -171,3 +167,15 @@ class LevelFile(NbtFile):
     falldamage: bool
     firedamage: bool
     freezedamage: bool
+    daylightCycle: int
+    dodaylightcycle: bool
+    doentitydrops: bool
+    dofiretick: bool
+    doimmediaterespawn: bool
+    doinsomnia: bool
+    dolimitedcrafting: bool
+    domobloot: bool
+    domobspawning: bool
+    dotiledrops: bool
+    doweathercycle: bool
+    drowningdamage: bool

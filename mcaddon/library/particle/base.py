@@ -1,8 +1,4 @@
-__all__ = [
-    "Particle",
-    "ParticleDescription",
-    "BasicRenderParameters",
-]
+__all__ = ["Particle", "ParticleDescription", "BasicRenderParameters", "ParticleCurve"]
 
 from typing import Dict, Any, List
 from pydantic import Field, field_validator
@@ -25,7 +21,7 @@ class ParticleDescription(BaseDescription):
 
 
 # TODO: Curves
-class Curve(BaseModel):
+class ParticleCurve(BaseModel):
     type: CurveType
     input: str
     horizontal_range: str
@@ -50,7 +46,7 @@ class Particle(ResourceFile):
     )
     components: ComponentSet[ParticleComponent] = Field(default_factory=ComponentSet)
     events: Dict[str, Any] = Field(default_factory=dict)
-    curves: Dict[str, Curve] = Field(default_factory=dict)
+    curves: Dict[str, ParticleCurve] = Field(default_factory=dict)
 
     @property
     def id(self) -> str:

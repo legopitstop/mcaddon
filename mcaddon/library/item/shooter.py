@@ -1,6 +1,4 @@
-__all__ = [
-    "ItemShooterComponent",
-]
+__all__ = ["ItemShooterComponent", "ItemAmmunition"]
 
 from typing import List, ClassVar
 
@@ -9,7 +7,7 @@ from mcaddon.core.base import BaseModel
 from .component import ItemComponent
 
 
-class Ammunition(BaseModel):
+class ItemAmmunition(BaseModel):
     item: str
     search_inventory: bool = False
     use_in_creative: bool = False
@@ -27,4 +25,4 @@ class ItemShooterComponent(ItemComponent):
     charge_on_draw: bool = False
     max_draw_duration: float = 0
     scale_power_by_draw_duration: bool = False
-    ammunition: List[Ammunition] = Field(default_factory=list)
+    ammunition: List[ItemAmmunition] = Field(default_factory=list)

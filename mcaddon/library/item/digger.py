@@ -1,6 +1,6 @@
 __all__ = [
     "ItemDiggerComponent",
-    "DestroySpeed",
+    "ItemDestroySpeed",
 ]
 
 from typing import List, ClassVar
@@ -9,7 +9,7 @@ from mcaddon.core.base import BaseModel, BlockLike
 from .component import ItemComponent
 
 
-class DestroySpeed(BaseModel):
+class ItemDestroySpeed(BaseModel):
     block: BlockLike
     speed: int
 
@@ -22,9 +22,9 @@ class ItemDiggerComponent(ItemComponent):
 
     COMPONENT_ID: ClassVar[str] = "minecraft:digger"
 
-    destroy_speeds: List[DestroySpeed] = Field(default_factory=list)
+    destroy_speeds: List[ItemDestroySpeed] = Field(default_factory=list)
     use_efficiency: bool = False
 
-    def add(self, *destroy_speed: DestroySpeed) -> "ItemDiggerComponent":
+    def add(self, *destroy_speed: ItemDestroySpeed) -> "ItemDiggerComponent":
         self.destroy_speeds.extend(destroy_speed)
         return self

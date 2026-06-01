@@ -4,6 +4,7 @@ from typing import List, Optional, Dict
 from mcaddon.core.base import ItemLike, Ingredient
 from .base import BaseRecipe
 
+
 class ShapedRecipe(BaseRecipe):
     result: ItemLike | List[ItemLike] = ...
     pattern: List[str] = ...

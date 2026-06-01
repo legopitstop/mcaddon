@@ -2,6 +2,8 @@ __all__ = [
     "Block",
     "BlockDescription",
     "BlockComponentSet",
+    "BlockProperty",
+    "BlockPermutation",
 ]
 
 from molang.dsl import MolangExpr

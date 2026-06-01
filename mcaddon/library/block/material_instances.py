@@ -1,6 +1,4 @@
-__all__ = [
-    "BlockMaterialInstancesComponent",
-]
+__all__ = ["BlockMaterialInstancesComponent", "BlockMaterialInstance"]
 
 from typing import Dict, Optional, ClassVar
 from pydantic import Field, ConfigDict
@@ -10,7 +8,7 @@ from mcaddon.library.constants import RenderMethod, TintMethod
 from .component import BlockComponent
 
 
-class MaterialInstance(BaseModel):
+class BlockMaterialInstance(BaseModel):
     model_config = ConfigDict(extra="allow")
 
     texture: str
@@ -45,10 +43,10 @@ class BlockMaterialInstancesComponent(BlockComponent):
 
     COMPONENT_ID: ClassVar[str] = "minecraft:material_instances"
 
-    value: Dict[str, MaterialInstance] = Field(default_factory=dict)
+    value: Dict[str, BlockMaterialInstance] = Field(default_factory=dict)
 
     def add(
-        self, texture: MaterialInstance, key: Optional[str] = None
+        self, texture: BlockMaterialInstance, key: Optional[str] = None
     ) -> "BlockMaterialInstancesComponent":
         self.value[key or "*"] = texture
         return self

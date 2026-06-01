@@ -1,6 +1,4 @@
-__all__ = [
-    "BiomeMountainParametersComponent",
-]
+__all__ = ["BiomeMountainParametersComponent", "SteepMaterialAdjustment", "TopSlide"]
 
 from typing import Optional, ClassVar
 from mcaddon.core.base import BlockLike, BaseModel

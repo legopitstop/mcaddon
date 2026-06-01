@@ -1,4 +1,4 @@
-__all__ = ["EnchantBookForTradingFunction"]
+__all__ = ["EnchantBookForTradingFunction", "BookEnchantment"]
 
 from typing import List, Optional
 from pydantic import Field

@@ -1,11 +1,11 @@
-__all__ = ["ClientBiomeAmbientSoundsComponent"]
+__all__ = ["ClientBiomeAmbientSoundsComponent", "ClientBiomeAmbientSound"]
 
 from typing import Optional, ClassVar
 from .component import ClientBiomeComponent
 from mcaddon.core.base import BaseModel
 
 
-class AmbientSound(BaseModel):
+class ClientBiomeAmbientSound(BaseModel):
     asset: str
     chance: float
 
@@ -18,8 +18,8 @@ class ClientBiomeAmbientSoundsComponent(ClientBiomeComponent):
 
     COMPONENT_ID: ClassVar[str] = "minecraft:ambient_sounds"
 
-    addition: Optional[AmbientSound | str] = None
+    addition: Optional[ClientBiomeAmbientSound | str] = None
     loop: Optional[str] = None
     mood: Optional[str] = None
     underwater_loop: Optional[str] = None
-    underwater_addition: Optional[AmbientSound | str] = None
+    underwater_addition: Optional[ClientBiomeAmbientSound | str] = None

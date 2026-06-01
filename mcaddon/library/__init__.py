@@ -18,6 +18,7 @@ from .client_biome import *
 from .item import *
 from .spawn_rule import *
 from .particle import *
+from .loot_entry import *
 
 from .manifest import *
 from .volume import *

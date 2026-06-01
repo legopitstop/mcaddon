@@ -1,4 +1,10 @@
-__all__ = ["TemplatePool"]
+__all__ = [
+    "TemplatePool",
+    "TemplatePoolElement",
+    "SinglePoolElement",
+    "ElementInstance",
+    "TemplatePool",
+]
 
 from typing import List
 from pydantic import Field
@@ -9,11 +15,11 @@ from mcaddon.library.common import BaseDescription
 from mcaddon.library.pack import behaviorpack
 
 
-class Element(BaseTypedModel):
+class TemplatePoolElement(BaseTypedModel):
     pass
 
 
-@Element.register
+@TemplatePoolElement.register
 class SinglePoolElement(TypedModel):
     TYPE_ID = "single_pool_element"
     element_type: str = TYPE_ID
@@ -23,7 +29,7 @@ class SinglePoolElement(TypedModel):
 
 
 class ElementInstance(BaseModel):
-    element: Element
+    element: TemplatePoolElement
     weight: int
 
 

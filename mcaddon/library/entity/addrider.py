@@ -1,4 +1,4 @@
-__all__ = ["AddriderComponent", "Rider"]
+__all__ = ["EntityAddriderComponent", "Rider"]
 
 from typing import Optional, List, ClassVar
 from pydantic import Field
@@ -13,7 +13,7 @@ class Rider(BaseModel):
 
 
 @EntityComponent.register
-class AddriderComponent(EntityComponent):
+class EntityAddriderComponent(EntityComponent):
     """
     [Info](https://learn.microsoft.com/en-us/minecraft/creator/reference/content/entityreference/examples/entitycomponents/minecraftcomponent_addrider)
     """

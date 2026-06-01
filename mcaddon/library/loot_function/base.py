@@ -5,7 +5,6 @@ from typing import ClassVar, Dict, Type, Any
 
 from pydantic_core import core_schema
 from mcaddon.core.base import BaseModel
-from mcaddon.core.utils import namespaced
 
 
 class BaseLootFunction(ABC, BaseModel):
@@ -37,18 +36,9 @@ class LootFunction(ABC, BaseModel):
         choices = {}
 
         for id, c in cls.__all__.items():
-            choices[namespaced(id)] = handler(c)
+            choices[id] = handler(c)
 
-        union = core_schema.tagged_union_schema(
+        return core_schema.tagged_union_schema(
             choices=choices,
             discriminator="function",
-        )
-
-        return core_schema.chain_schema(
-            [
-                core_schema.no_info_plain_validator_function(
-                    lambda e: namespaced(e, "function")
-                ),
-                union,
-            ]
         )

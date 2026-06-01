@@ -1,6 +1,7 @@
 tests/vanilla
 tests/custom
 tests/dist
+out/
 *.sqlite
 debug.bat
 

@@ -1,4 +1,4 @@
-__all__ = ["Trading", "TradeTier", "Trade", "TradeItem", "TradeChoice"]
+__all__ = ["Trading", "TradeTier", "TradeGroup", "Trade", "TradeItem", "TradeChoice"]
 
 from typing import List, Optional
 from pydantic import Field

@@ -3,9 +3,9 @@ from mcaddon.core.base import BaseModel, ValueComponent
 from mcaddon.library.constants import RenderMethod, TintMethod
 from typing import Dict, Optional
 
-__all__ = ["BlockMaterialInstancesComponent"]
+__all__ = ["BlockMaterialInstancesComponent", "BlockMaterialInstance"]
 
-class MaterialInstance(BaseModel):
+class BlockMaterialInstance(BaseModel):
     texture: str
     alpha_masked_tint: bool | None = ...
     ambient_occlusion: bool | None = ...
@@ -20,8 +20,8 @@ class BlockMaterialInstancesComponent(ValueComponent, BlockComponent):
     [Info](https://learn.microsoft.com/en-us/minecraft/creator/reference/content/blockreference/examples/blockcomponents/minecraftblock_material_instances)
     """
 
-    value: Dict[str, MaterialInstance] = ...
+    value: Dict[str, BlockMaterialInstance] = ...
 
     def add(
-        self, texture: MaterialInstance, key: Optional[str] = None
+        self, texture: BlockMaterialInstance, key: Optional[str] = None
     ) -> "BlockMaterialInstancesComponent": ...

@@ -3,11 +3,16 @@ gui.clear=Clear
 gui.cut=Cut
 gui.copy=Copy
 gui.paste=Paste
+gui.help=Help
+gui.about=About
 
 cli.mcaddon=Description
 cli.mcaddon.version=print the mcaddon version number and exit.
-cli.mcaddon.show=Shows a GUI for cli tools
-cli.mcaddon.package=Package a pack or world
+cli.mcaddon.show=Shows a GUI for cli tools.
+cli.mcaddon.install=Install context menu items.
+cli.mcaddon.uninstall=Uninstall context menu items.
+cli.mcaddon.logviewer=Opens the log viewer.
+cli.mcaddon.package=Package a pack or world.
 
 cli.mcaddon.package.output=the resulting file
 cli.mcaddon.package.resourcePacks=add resource pack to output file (repeatable)
@@ -24,6 +29,7 @@ cli.mcaddon.package.bump=Bump manfiest versions
 cli.mcaddon.package.verify=validates all resources
 
 menu.mcaddon:log_viewer=Log Viewer
+menu.mcaddon:log_viewer.about=Log Viewer\n\nSome info
 menu.mcaddon:log_viewer.no_results=No results
 menu.mcaddon:log_viewer.results=%s of %s
 
@@ -32,7 +38,7 @@ menu.mcaddon:pack_chooser.prompt=Select a pack
 menu.mcaddon:world_chooser=Select World
 menu.mcaddon:world_chooser.prompt=Select a world
 
-menu.mcaddon:packager=MCADDON Packager [%s]
+menu.mcaddon:packager=MCADDON Packager
 menu.mcaddon:packager.package=Package
 menu.mcaddon:packager.content=Content
 menu.mcaddon:packager.marketing=Marketing
